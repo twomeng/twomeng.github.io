@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数字三角形 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1 #include &amp;lt;iostream&amp;gt;   2 #include &amp;lt;stdlib.h&amp;gt;   3 using namespace std;   4 #define MAX 100   5 // 数字三角形问题 方法一：递归求解   6 // execution time 13.681s   7 /*   8 解题思路：   9 1. 用二维数组存放数字三角形  10">
+<meta property="og:type" content="website">
+<meta property="og:title" content="数字三角形">
+<meta property="og:url" content="http://yoursite.com/backup/数字三角形.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1 #include &amp;lt;iostream&amp;gt;   2 #include &amp;lt;stdlib.h&amp;gt;   3 using namespace std;   4 #define MAX 100   5 // 数字三角形问题 方法一：递归求解   6 // execution time 13.681s   7 /*   8 解题思路：   9 1. 用二维数组存放数字三角形  10">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:28.785Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数字三角形">
+<meta name="twitter:description" content="1 #include &amp;lt;iostream&amp;gt;   2 #include &amp;lt;stdlib.h&amp;gt;   3 using namespace std;   4 #define MAX 100   5 // 数字三角形问题 方法一：递归求解   6 // execution time 13.681s   7 /*   8 解题思路：   9 1. 用二维数组存放数字三角形  10">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数字三角形
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/backup/数字三角形.html" class="article-date">
+  <time datetime="2018-08-20T17:07:00.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;stdlib.h&gt;
+  3 using namespace std;
+  4 #define MAX 100
+  5 // 数字三角形问题 方法一：递归求解
+  6 // execution time 13.681s
+  7 /*
+  8 解题思路：
+  9 1. 用二维数组存放数字三角形
+ 10 2. d[i][j]:第i行第j个数字
+ 11 3. maxSum(i,j)：从d[i][j]到底边的各条路径中，最佳路径的数字之和
+ 12 4. 对d[i][j]来说有两条可走路径：
+ 13     （1）d[i+1][j]
+ 14     （2）d[i+1][j+1]
+ 15 5. 递归条件
+ 16     （1）如果i==num,maxSum(i,j)=d[i][j]
+ 17     （2）否则，maxSum(i,j)=max{ maxSum(i＋1,j),maxSum(i+1,j+1) } + d[i][j]
+ 18 */
+ 19 int d[MAX][MAX];
+ 20 int num;
+ 21 int maxSum(int i, int j){
+ 22     if(i == num)
+ 23         return d[i][j];
+ 24     int x = maxSum(i+1, j);
+ 25     int y = maxSum(i+1, j+1);
+ 26     return max(x,y) + d[i][j];
+ 27 }
+ 28 
+ 29 int main()
+ 30 {
+ 31     int i,j;
+ 32     cin &gt;&gt; num; //输入数字三角形的行数
+ 33     for(i = 1; i &lt;= num; i ++)
+ 34         for(j = 1; j &lt;= i; j ++)
+ 35             cin &gt;&gt; d[i][j];
+ 36     // 输入三角形矩阵，注意从（1,1）开始
+ 37     cout &lt;&lt; maxSum(1,1) &lt;&lt; endl;
+ 38     // maxSum(i,j)代表从d[i,j]向下的路径中最大的和
+ 39     return 0;
+ 40 }
+ 41 #include &lt;iostream&gt;
+ 42 #include &lt;stdlib.h&gt;
+ 43 #include &lt;string.h&gt;
+ 44 #define MAX 100
+ 45 using namespace std;
+ 46 // 数字三角形问题 方法二：记忆递归动态规划求解
+ 47 // execution time 15.280s
+ 48 int d[MAX][MAX];
+ 49 int D[MAX][MAX]; //记忆矩阵
+ 50 int num;
+ 51 
+ 52 int maxSum(int i, int j){
+ 53     if (D[i][j]!=-1)
+ 54     return D[i][j];
+ 55     if(i == num)
+ 56         D[i][j]=d[i][j];
+ 57     else
+ 58     {
+ 59     int x = maxSum(i+1, j);
+ 60     int y = maxSum(i+1, j+1);
+ 61     D[i][j]=max(x,y)+d[i][j];
+ 62     }
+ 63 
+ 64     return D[i][j];
+ 65 }
+ 66 
+ 67 int main()
+ 68 {
+ 69     int i,j;
+ 70     cin &gt;&gt; num; //输入数字三角形的行数
+ 71     for(i = 1; i &lt;= num; i ++)
+ 72         for(j = 1; j &lt;= i; j ++)
+ 73             cin &gt;&gt; d[i][j];
+ 74     // 输入三角形矩阵，注意从（1,1）开始
+ 75     memset(D,-1,sizeof(D));
+ 76     /*
+ 77     功能：
+ 78     将s所指向的某一块内存中的每个字节的内容全部设置为ch指定的ASCII值，
+ 79     块的大小由第三个参数指定，
+ 80     这个函数通常为新申请的内存做初始化工作。
+ 81     用法：void *memset(void *s, char ch, unsigned n);
+ 82     */
+ 83     cout &lt;&lt; maxSum(1,1) &lt;&lt; endl;
+ 84     // maxSum(i,j)代表从d[i,j]向下的路径中最大的和
+ 85     return 0;
+ 86 }
+ 87 
+ 88 #include &lt;iostream&gt;
+ 89 #include &lt;stdlib.h&gt;
+ 90 #include &lt;string.h&gt;
+ 91 #define MAX 100
+ 92 using namespace std;
+ 93 // 数字三角形问题 方法三：递推型动态规划求解
+ 94 // execution time 18.216s
+ 95 /*
+ 96 解题思路：
+ 97 从底向上递推，出最后一行外，每一行的每个点的最大值等于自身加上下面一行对应左右两个点的最大值。
+ 98 从下往上递推，最顶部的即所求。
+ 99 */
+100 int d[MAX][MAX];
+101 int num;
+102 
+103 int maxSum(int num){
+104     int i, j;
+105     for(i = num - 1; i &gt;= 1; i --)
+106         for(j = 1; j &lt;= i; j ++){
+107             d[i][j] = max(d[i+1][j],d[i+1][j+1]) + d[i][j];
+108         }
+109     return d[1][1];
+110 }
+111 
+112 int main()
+113 {
+114     int i,j;
+115     cin &gt;&gt; num; //输入数字三角形的行数
+116     for(i = 1; i &lt;= num; i ++)
+117         for(j = 1; j &lt;= i; j ++)
+118             cin &gt;&gt; d[i][j];
+119     // 输入三角形矩阵，注意从（1,1）开始
+120     cout &lt;&lt; maxSum(num) &lt;&lt; endl;
+121     return 0;
+122 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

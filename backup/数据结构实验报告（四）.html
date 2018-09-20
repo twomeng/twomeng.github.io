@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数据结构实验报告（四） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="实验报告4 图的有关操作 无向网的创建、求度、深度遍历、广度遍历   1 #include  &amp;lt;iostream&amp;gt;   2 #include &amp;lt;stdlib.h&amp;gt;   3 #include &amp;lt;stdio.h&amp;gt;   4 #include &amp;lt;string&amp;gt;   5 #define MAX_VERTEX_NUM 20   6    7 using name">
+<meta property="og:type" content="website">
+<meta property="og:title" content="数据结构实验报告（四）">
+<meta property="og:url" content="http://yoursite.com/backup/数据结构实验报告（四）.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="实验报告4 图的有关操作 无向网的创建、求度、深度遍历、广度遍历   1 #include  &amp;lt;iostream&amp;gt;   2 #include &amp;lt;stdlib.h&amp;gt;   3 #include &amp;lt;stdio.h&amp;gt;   4 #include &amp;lt;string&amp;gt;   5 #define MAX_VERTEX_NUM 20   6    7 using name">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:29.330Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构实验报告（四）">
+<meta name="twitter:description" content="实验报告4 图的有关操作 无向网的创建、求度、深度遍历、广度遍历   1 #include  &amp;lt;iostream&amp;gt;   2 #include &amp;lt;stdlib.h&amp;gt;   3 #include &amp;lt;stdio.h&amp;gt;   4 #include &amp;lt;string&amp;gt;   5 #define MAX_VERTEX_NUM 20   6    7 using name">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据结构实验报告（四）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/backup/数据结构实验报告（四）.html" class="article-date">
+  <time datetime="2018-08-14T02:47:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>实验报告4 图的有关操作</p>
+<p><strong>无向网的创建、求度、深度遍历、广度遍历</strong></p>
+<pre><code>  1 #include  &lt;iostream&gt;
+  2 #include &lt;stdlib.h&gt;
+  3 #include &lt;stdio.h&gt;
+  4 #include &lt;string&gt;
+  5 #define MAX_VERTEX_NUM 20
+  6 
+  7 using namespace std;
+  8 //1.建立无向网的邻接表
+  9 
+ 10 typedef int  InfoType;//权值
+ 11 typedef  char VertexType ;
+ 12 
+ 13 typedef struct ArcNode
+ 14 {
+ 15     int adjvex;//该弧的弧尾
+ 16     struct ArcNode *nextarc;//指向的下一个弧
+ 17     InfoType *info;
+ 18 }ArcNode;
+ 19 typedef struct VNode
+ 20 {
+ 21     VertexType data;//顶点类型和数据
+ 22     ArcNode *firstarc;//指向的第一条邻接弧
+ 23 }VNode,AdjList[MAX_VERTEX_NUM];//表头
+ 24 typedef struct
+ 25 {
+ 26     AdjList vertices;//
+ 27     int vexnum,arcnum;
+ 28     int kind; //DG 0 DN 1 UDG 2 UDN 3
+ 29 }ALGraph;//adjacency list graph 邻接表
+ 30 
+ 31 int locate(ALGraph &amp;g,char v)
+ 32 {
+ 33     int i=0;
+ 34     for (i;i&lt;g.vexnum;i++)
+ 35     {
+ 36         if (g.vertices[i].data == v)
+ 37             return i;
+ 38     }
+ 39 
+ 40 }
+ 41 void createUDN(ALGraph &amp;g)
+ 42 {
+ 43     cout&lt;&lt;&quot;构造无向网：请输入网的顶点个数和弧的个数&quot;&lt;&lt;endl;
+ 44     cin&gt;&gt;g.vexnum&gt;&gt;g.arcnum;
+ 45     g.kind = 3;
+ 46 
+ 47     //构造顶点向量
+ 48     int i,j,k;
+ 49     //请输入每个顶点的值
+ 50     for (i=0;i&lt;g.vexnum;i++)//初始化
+ 51     {
+ 52        cin&gt;&gt; g.vertices[i].data;
+ 53        g.vertices[i].firstarc  = NULL;//头结点置空
+ 54     }
+ 55 
+ 56     //构造链表们
+ 57     char v1,v2;
+ 58     int w;
+ 59     cout&lt;&lt;&quot;请输入每条弧的弧头 、弧尾、权值&quot;&lt;&lt;endl;
+ 60     for(k=0;k&lt;g.arcnum;k++)
+ 61     {
+ 62         cin&gt;&gt;v1&gt;&gt;v2&gt;&gt;w;
+ 63         i = locate(g,v1);//弧尾
+ 64         j = locate(g,v2);//弧头
+ 65         ArcNode *p ;
+ 66         p = (ArcNode *)malloc(sizeof(ArcNode));//新建一块表结点空间
+ 67         p-&gt;adjvex = j;
+ 68         p-&gt;info = (int *)malloc(sizeof(int));//对于网，用来存放权值
+ 69         p-&gt;info = &amp;w;
+ 70         p-&gt;nextarc = g.vertices[i].firstarc;//置空
+ 71         g.vertices[i].firstarc = p;//头插法建表
+ 72         if (g.kind &gt;= 2) //如果是无向图或者无向网，需要做对称
+ 73     {
+ 74         p = (ArcNode *)malloc(sizeof(ArcNode));
+ 75         p-&gt;adjvex = i;
+ 76         p-&gt;info = (int *)malloc(sizeof(int));
+ 77         p-&gt;info = &amp;w;
+ 78         p-&gt;nextarc = g.vertices[j].firstarc ;
+ 79         g.vertices[j].firstarc = p;
+ 80     }
+ 81 
+ 82     }
+ 83 
+ 84 }
+ 85 
+ 86 //求邻接表的入度和出度
+ 87 int* out(ALGraph &amp;g)
+ 88 {
+ 89     int *p,*q;
+ 90     p = (int *) malloc((g.vexnum)*sizeof(int));//申请一个动态数组，存放的是每一个顶点对应的出度
+ 91     q=p;
+ 92     int i =0;
+ 93     int cou =1;//计数器
+ 94     for (i;i&lt;g.vexnum ; i++)
+ 95     {
+ 96         //对每一个结点进行计算出度，循环一遍
+ 97         ArcNode *q=g.vertices[i].firstarc;//q指向第一个结点
+ 98         while (q-&gt;nextarc)
+ 99         {
+100          cou++;
+101          q=q-&gt;nextarc;
+102         }
+103         *p = cou;
+104         p++;
+105         cou=0;//清空计数器
+106     }
+107     return q;
+108 }
+109 int * in(ALGraph &amp;g)
+110 {
+111     int *p;
+112     p = (int *)malloc((g.vexnum)*sizeof(int));
+113     int i=0;
+114     int j=0;
+115     int cou=0;
+116     ArcNode *q;
+117     for (i;i&lt;g.vexnum;i++)
+118     {//外层循环遍历每个结点，计算入度
+119         for (j;j&lt;g.vexnum;j++)
+120         {
+121             //内层循环遍历全部表元素
+122             q = g.vertices[j].firstarc;
+123             while (q-&gt;nextarc)
+124             {
+125                 if (q-&gt;adjvex == i)
+126                     cou++;
+127             }
+128 
+129         }
+130         *p=cou;
+131         p++;
+132         cou=0;
+133 
+134     }
+135     return p;
+136 }
+137 //深度优先搜索
+138 bool visited[MAX_VERTEX_NUM];
+139 
+140 void DFSTraverse(ALGraph g)
+141 {
+142     void DFS(ALGraph g,int v);
+143     int v;
+144     //visited数组初始化
+145     for (v=0;v&lt;g.vexnum;v++)
+146     visited[v]=false;
+147 
+148     for(v=0;v&lt;g.vexnum;v++)
+149     if (!visited[v])//如果结点未被访问过 ,则深度遍历该结点
+150     DFS(g,v);
+151 }
+152 int FirstAdjVex(ALGraph &amp;g,int v)
+153 {
+154     //对于无向网来说，每个顶点必定有一个邻接点
+155     return g.vertices[v].firstarc-&gt;adjvex;//返回V结点的第一个邻接结点的序号
+156 }
+157 int NextAdjVex(ALGraph &amp;g,int v,int w)
+158 {//必须要讨论有没有除了第一个邻接点之外的第二个邻接点
+159     //注意要找
+160     ArcNode *p=g.vertices[v].firstarc;
+161     while (p-&gt;adjvex!=w)
+162         p=p-&gt;nextarc;
+163     p = p-&gt;nextarc;
+164     if (!p)
+165         return -1;
+166     else
+167         return p-&gt;adjvex;//所以我们的条件为w&gt;=0
+168 }
+169 void DFS(ALGraph g,int v)
+170 {
+171     visited[v]=true;//置标志
+172     cout&lt;&lt;g.vertices[v].data&lt;&lt;&quot; &quot;;
+173     int w;
+174     for (w = FirstAdjVex(g,v);w&gt;=0;w=NextAdjVex(g,v,w))
+175         if (!visited[w])
+176         DFS(g,w);
+177 }
+178 //广度优先搜索
+179 typedef int Elemtype;
+180 //进队出队为序号，输出时打印char数据，这样比较方便
+181 typedef struct
+182 {
+183     Elemtype data[MAX_VERTEX_NUM];
+184     int rear,front;
+185 }SeqQueue;
+186 void InitQueue(SeqQueue &amp;q)
+187 {
+188     q.rear = q.front = -1;
+189 }
+190 void EnQueue(SeqQueue &amp;q,Elemtype e )
+191 {
+192     q.rear = (q.rear+1)%MAX_VERTEX_NUM;
+193     q.data[q.rear] = e;
+194 }
+195 void deQueue(SeqQueue &amp;q,Elemtype &amp;e)
+196 {
+197     if (q.rear == q.front)
+198     {
+199         printf(&quot;empty queue&quot;);
+200     }
+201     q.front = (q.front + 1)% MAX_VERTEX_NUM;
+202     e = q.data[q.front];
+203 
+204 }
+205 int QueueEmpty(SeqQueue &amp;q)
+206 {
+207     return q.rear == q.front;
+208 }
+209 void BFSTraverse(ALGraph &amp;g)
+210 {
+211     int v,u,w;
+212     for (v=0;v&lt;g.vexnum;v++)
+213         visited[v]=false;
+214     SeqQueue q;
+215     InitQueue(q);
+216     for (v=0;v&lt;g.vexnum;v++)
+217     {
+218         if (!visited[v])
+219         {
+220             visited[v]=true;
+221             printf(&quot;%c &quot;,g.vertices[v].data);
+222             EnQueue(q,v);
+223             while (!QueueEmpty(q))
+224             {
+225                 deQueue(q,u);
+226                 for ( w = FirstAdjVex(g,u);w&gt;=0;w=NextAdjVex(g,u,w))
+227                 {
+228                     if (!visited[w])
+229                     {
+230                         visited[w]=true;
+231                         printf(&quot;%c &quot;,g.vertices[w].data);
+232                         EnQueue(q,w);
+233 
+234                     }
+235                 }
+236 
+237 
+238 
+239             }
+240         }
+241     }
+242 
+243 
+244 }
+245 int main()
+246 {
+247     ALGraph g;
+248     createUDN(g);
+249     //1.求无向网的度
+250     cout&lt;&lt;&quot;无向图的度为&quot;&lt;&lt;endl;
+251     int *p;p=out(g);int i=0;
+252     for (p,i;i&lt;g.vexnum;i++,p++)
+253         cout&lt;&lt;*p&lt;&lt;&quot; &quot;;
+254     cout&lt;&lt;endl;
+255     //2.深度优先遍历
+256     cout&lt;&lt;&quot;深度优先遍历无向图&quot;&lt;&lt;endl;
+257     DFSTraverse(g);
+258     //3.广度优先遍历
+259     cout&lt;&lt;&quot;广度优先遍历无向图&quot;&lt;&lt;endl;
+260     BFSTraverse(g);
+261 
+262     return 0;
+263 }
+</code></pre><p>实验报告内容：<br>１．键盘输入数据，建立一个有向图的邻接表。<br>２．输出该邻接表。<br><em>３．建立一个无向图的十字链表。<br>４．在有向图的邻接表的基础上计算各顶点的度，并输出。<br>５．以有向图的邻接表为基础实现输出它的拓扑排序序列。  
+</em>６．采用邻接矩阵存储一个有向图，输出单源点到其它顶点的最短路径。<br>７．采用邻接表存储实现无向图的深度优先非递归遍历。<br>８．采用邻接表存储实现无向图的广度优先遍历。<br><em>９．采用邻接矩阵存储实现无向图的最小生成树的PRIM算法。   
+</em>10．判断无向图任意两个顶点间是否有路径，若有输出路径上的顶点序列。<br>11．在主函数中设计一个简单的菜单，分别调试上述算法。<br>*12．综合训练：为计算机专业设计教学计划：4个学年，每学年2个学期，开设50门课程，每学期所开课程门数尽量均衡，课程的安排必须满足先修关系。</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string&gt;
+#define INFINITY INT_MAX
+#define MAX_VERTEX_NUM 20
+
+using namespace std;
+//1.定义有向网的邻接表结构
+
+typedef int  InfoType;//权值
+typedef  char VertexType ;
+
+typedef struct ArcNode
+{
+    int adjvex;//该弧的弧尾
+    struct ArcNode *nextarc;//指向的下一个弧
+    InfoType info;
+}ArcNode;
+typedef struct VNode
+{
+    VertexType data;//顶点类型和数据
+    ArcNode *firstarc;//指向的第一条邻接弧
+}VNode,AdjList[MAX_VERTEX_NUM];//表头
+typedef struct
+{
+    AdjList vertices;
+    int vexnum,arcnum;
+    int kind; //DG 0 DN 1 UDG 2 UDN 3 kind =1
+}ALGraph;//adjacency list graph 邻接表
+
+//一个桟
+typedef int Elemtype;
+typedef struct
+{
+    VertexType data[MAX_VERTEX_NUM];
+    int top;
+}SeqStack;
+void InitStack(SeqStack &amp;s)
+{
+    s.top=-1;
+}
+int isEmpty(SeqStack &amp;s)
+{
+    return s.top==-1;
+}
+void push(SeqStack &amp;s,Elemtype e)
+{
+    if (s.top == MAX_VERTEX_NUM)
+        printf(&quot;full stack!&quot;);
+    s.top++;
+    s.data[s.top]=e;
+}
+void pop(SeqStack &amp;s,Elemtype &amp;e)
+{
+    if (isEmpty(s))
+        printf(&quot;empty stack !&quot;);
+    e = s.data[s.top--];
+}
+int getTop(SeqStack &amp;s)
+{
+    return s.data[s.top];
+}
+
+
+//2.创建有向网
+//定位函数
+int locate(ALGraph &amp;g,char v)
+{
+    int i=0;
+    for (i;i&lt;g.vexnum;i++)
+    {
+        if (g.vertices[i].data == v)
+            return i;
+    }
+
+}
+void createDN(ALGraph &amp;g)
+{
+    cout&lt;&lt;&quot;构造有向网：请输入网的顶点个数和弧的个数&quot;&lt;&lt;endl;
+    cin&gt;&gt;g.vexnum&gt;&gt;g.arcnum;
+    g.kind = 1;
+
+    //构造顶点向量
+    int i,j,k;
+    cout&lt;&lt;&quot;请输入每个顶点的值&quot;&lt;&lt;endl;
+    for (i=0;i&lt;g.vexnum;i++)//初始化
+    {
+       cin&gt;&gt; g.vertices[i].data;
+       g.vertices[i].firstarc  = NULL;//头结点置空
+    }
+
+    //构造链表们
+    char v1,v2;
+    int w;
+    cout&lt;&lt;&quot;请输入每条弧的弧头 、弧尾、权值&quot;&lt;&lt;endl;
+    for(k=0;k&lt;g.arcnum;k++)
+    {
+        cin&gt;&gt;v1&gt;&gt;v2&gt;&gt;w;
+        i = locate(g,v1);//弧尾
+        j = locate(g,v2);//弧头
+        ArcNode *p ;
+        p = (ArcNode *)malloc(sizeof(ArcNode));//新建一块表结点空间
+        p-&gt;adjvex = j;
+//        InfoType *info;
+//        p-&gt;info = (int *)malloc(sizeof(int));//对于网，用来存放权值
+//        p-&gt;info = &amp;w;
+        p-&gt;info = w;
+        p-&gt;nextarc = g.vertices[i].firstarc;//置空
+        g.vertices[i].firstarc = p;//头插法建表
+
+    }
+
+}
+// 创建无向网
+void createUDN(ALGraph &amp;g)
+{
+    cout&lt;&lt;&quot;构造无向网：请输入网的顶点个数和弧的个数&quot;&lt;&lt;endl;
+    cin&gt;&gt;g.vexnum&gt;&gt;g.arcnum;
+    g.kind = 3;
+
+    //构造顶点向量
+    int i,j,k;
+    //请输入每个顶点的值
+    for (i=0;i&lt;g.vexnum;i++)//初始化
+    {
+       cin&gt;&gt; g.vertices[i].data;
+       g.vertices[i].firstarc  = NULL;//头结点置空
+    }
+
+    //构造链表们
+    char v1,v2;
+    int w;
+    cout&lt;&lt;&quot;请输入每条弧的弧头 、弧尾、权值&quot;&lt;&lt;endl;
+    for(k=0;k&lt;g.arcnum;k++)
+    {
+        cin&gt;&gt;v1&gt;&gt;v2&gt;&gt;w;
+        i = locate(g,v1);//弧尾
+        j = locate(g,v2);//弧头
+        ArcNode *p ;
+        p = (ArcNode *)malloc(sizeof(ArcNode));//新建一块表结点空间
+        p-&gt;adjvex = j;
+        p-&gt;info = w;
+        p-&gt;nextarc = g.vertices[i].firstarc;//置空
+        g.vertices[i].firstarc = p;//头插法建表
+        if (g.kind &gt;= 2) //如果是无向图或者无向网，需要做对称
+    {
+        p = (ArcNode *)malloc(sizeof(ArcNode));
+        p-&gt;adjvex = i;
+        p-&gt;info = w;
+        p-&gt;nextarc = g.vertices[j].firstarc ;
+        g.vertices[j].firstarc = p;
+    }
+
+    }
+
+}
+
+//3.输出邻接表
+void printALGraph(ALGraph &amp;g)
+{
+  int i=0;
+  ArcNode *p;
+
+  for (i;i&lt; g.vexnum ;i++)
+  {
+      printf(&quot;弧头：%c &quot;,g.vertices[i].data);
+      p=g.vertices[i].firstarc;//P指向链表的第一个结点
+      while (p)
+      {
+          printf(&quot;(弧尾：%d,权值：%d) &quot;,p-&gt;adjvex,p-&gt;info);
+          p=p-&gt;nextarc;
+      }
+      cout&lt;&lt;endl;
+  }
+}
+// 4.有向网的十字链表
+typedef struct ArcBox
+{
+    int tailvex,headvex;
+    struct ArcBox *hlink,*tlink;
+    InfoType info;
+}ArcBox;
+
+typedef struct VexNode
+{
+    VertexType data;
+    ArcBox *firstin,*firstout;
+}VexNode;
+
+typedef struct
+{
+    VexNode xlist[MAX_VERTEX_NUM];//表头向量
+    int vexnum,arcnum;
+}OLGraph;
+
+int locate(OLGraph &amp;g,char v)
+{
+    int i=0;
+    for (i;i&lt;g.vexnum;i++)
+    {
+        if (g.xlist[i].data == v)
+        {
+            return i;
+        }
+    }
+}
+
+void createOLDN(OLGraph &amp;g)
+{
+    cout &lt;&lt;&quot;请输入有向网的顶点个数、弧的个数&quot;&lt;&lt;endl;
+    cin&gt;&gt;g.vexnum&gt;&gt;g.arcnum;
+
+    int i,j,k;
+    cout&lt;&lt;&quot;请输入顶点值&quot;&lt;&lt;endl;
+    for (i=0;i&lt;g.vexnum;i++)
+    {
+        cin&gt;&gt;g.xlist[i].data;
+        g.xlist[i].firstin=g.xlist[i].firstout=NULL;
+    }
+    cout&lt;&lt;&quot;请输入每条弧的弧头和弧尾和权值&quot;&lt;&lt;endl;
+    char v1,v2;int w;
+    ArcBox *p;
+    fflush(stdin);
+    for (k=0;k&lt;g.arcnum;k++)
+    {
+        cin&gt;&gt;v1&gt;&gt;v2&gt;&gt;w;
+        i=locate(g,v1);
+        j=locate(g,v2);
+        p=(ArcBox *)malloc(sizeof(ArcBox));
+        //对弧结点赋值
+        p-&gt;headvex = j;//弧的弧头
+        p-&gt;tailvex = i;//弧的弧尾 逆邻接表
+        p-&gt;hlink = g.xlist[j].firstin;//弧头相同的结点 逆邻接表
+        p-&gt;tlink = g.xlist[i].firstout;//弧尾相同的结点
+        p-&gt;info = w;
+        g.xlist[j].firstin = g.xlist[i].firstout = p;
+
+
+    }
+}
+//输出有向网的十字链表，分为邻接表和逆邻接表
+void printOLGraph(OLGraph &amp;g)
+{
+  cout&lt;&lt;&quot;输出邻接表&quot;&lt;&lt;endl;
+  int i=0;
+  ArcBox *p;
+
+  for (i;i&lt; g.vexnum ;i++)
+  {
+      printf(&quot;弧头：%c &quot;,g.xlist[i].data);
+      p=g.xlist[i].firstout;//P指向链表的第一个结点
+      while (p)
+      {
+          printf(&quot;(弧尾：%d,权值：%d) &quot;,p-&gt;headvex,p-&gt;info);
+          p=p-&gt;tlink;
+      }
+      cout&lt;&lt;endl;
+  }
+  cout&lt;&lt;&quot;输出逆邻接表&quot;&lt;&lt;endl;
+  for (i=0;i&lt; g.vexnum ;i++)
+  {
+      printf(&quot;弧头：%c &quot;,g.xlist[i].data);
+      p=g.xlist[i].firstin;//P指向链表的第一个结点
+      while (p)
+      {
+          printf(&quot;(弧尾：%d,权值：%d) &quot;,p-&gt;tailvex,p-&gt;info);
+          p=p-&gt;hlink;
+      }
+      cout&lt;&lt;endl;
+  }
+}
+//5.无向图的十字链表
+void createOLUDG(OLGraph &amp;g)
+{
+    cout &lt;&lt;&quot;请输入有向网的顶点个数、弧的个数&quot;&lt;&lt;endl;
+    cin&gt;&gt;g.vexnum&gt;&gt;g.arcnum;
+
+    int i,j,k;
+    cout&lt;&lt;&quot;请输入顶点值&quot;&lt;&lt;endl;
+    for (i=0;i&lt;g.vexnum;i++)
+    {
+        cin&gt;&gt;g.xlist[i].data;
+        g.xlist[i].firstin=g.xlist[i].firstout=NULL;
+    }
+    cout&lt;&lt;&quot;请输入每条弧的弧头和弧尾&quot;&lt;&lt;endl;
+    char v1,v2;
+    ArcBox *p;
+    fflush(stdin);
+    for (k=0;k&lt;g.arcnum;k++)
+    {
+        cin&gt;&gt;v1&gt;&gt;v2;
+        i=locate(g,v1);
+        j=locate(g,v2);
+        p=(ArcBox *)malloc(sizeof(ArcBox));
+        //对弧结点赋值
+        p-&gt;headvex = j;//弧的弧头
+        p-&gt;tailvex = i;//弧的弧尾 逆邻接表
+        p-&gt;hlink = g.xlist[j].firstin;//弧头相同的结点 逆邻接表
+        p-&gt;tlink = g.xlist[i].firstout;//弧尾相同的结点
+        g.xlist[j].firstin = g.xlist[i].firstout = p;
+        //无向图做对称
+        p=(ArcBox *)malloc(sizeof(ArcBox));
+        //对弧结点赋值
+        p-&gt;headvex = i;//弧的弧头
+        p-&gt;tailvex = j;//弧的弧尾 逆邻接表
+        p-&gt;hlink = g.xlist[i].firstin;//弧头相同的结点 逆邻接表
+        p-&gt;tlink = g.xlist[j].firstout;//弧尾相同的结点
+        g.xlist[i].firstin = g.xlist[j].firstout = p;
+
+
+
+    }
+}
+//输出无向图
+void printOLGraph2(OLGraph &amp;g)
+{
+
+  cout&lt;&lt;&quot;输出邻接表&quot;&lt;&lt;endl;
+  int i=0;
+  ArcBox *p;
+
+  for (i=0;i&lt; g.vexnum ;i++)
+  {
+      printf(&quot;弧头：%c-&gt;&quot;,g.xlist[i].data);
+      p=g.xlist[i].firstout;//P指向链表的第一个结点
+      while (p)
+      {
+          printf(&quot;%d-&gt;&quot;,p-&gt;headvex);
+          p=p-&gt;tlink;
+      }
+      cout&lt;&lt;&quot;NULL&quot;&lt;&lt;endl;
+  }
+  cout&lt;&lt;&quot;输出逆邻接表&quot;&lt;&lt;endl;
+  for (i=0;i&lt; g.vexnum ;i++)
+  {
+      printf(&quot;弧头：%c-&gt;&quot;,g.xlist[i].data);
+      p=g.xlist[i].firstin;//P指向链表的第一个结点
+      while (p)
+      {
+          printf(&quot;%d-&gt;&quot;,p-&gt;tailvex);
+          p=p-&gt;hlink;
+      }
+      cout&lt;&lt;&quot;NULL&quot;&lt;&lt;endl;
+  }
+}
+
+//6.求邻接表的入度和出度
+int* out(ALGraph &amp;g)
+{
+    int *p,*q;
+    p = (int *) malloc((g.vexnum)*sizeof(int));//申请一个动态数组，存放的是每一个顶点对应的出度
+    q=p;
+    int i =0;
+    int cou =0;//计数器
+    for (i=0;i&lt;g.vexnum ; i++)
+    {
+        //对每一个结点进行计算出度，循环一遍
+        ArcNode *q=g.vertices[i].firstarc;//q指向第一个结点
+        while (q)
+        {
+         cou++;
+         q=q-&gt;nextarc;
+        }
+        *p = cou;
+        p++;
+        cou=0;//清空计数器
+    }
+    return q;
+}
+int * in(ALGraph &amp;g)
+{
+    int *p;
+    p = (int *)malloc((g.vexnum)*sizeof(int));
+    int i=0;
+    int j=0;
+    int cou=0;
+    ArcNode *q;
+    for (i=0;i&lt;g.vexnum;i++)
+    {//外层循环遍历每个结点，计算入度
+        for (j=0;j&lt;g.vexnum;j++)
+        {
+            //内层循环遍历全部表元素
+            q = g.vertices[j].firstarc;
+            while (q)
+            {
+                if (q-&gt;adjvex == i)
+                    cou++;
+                q=q-&gt;nextarc;
+            }
+
+        }
+        p[i]=cou;
+        cou=0;
+
+    }
+    return p;
+}
+int *InAndOut(ALGraph &amp;g)
+{
+    int *p=in(g);
+    int *q=out(g);
+    int *k;
+    k=(int *)malloc((g.vexnum)*sizeof(int));
+    for (int i=0;i&lt;g.vexnum;i++)
+    {
+        k[i]=p[i]+q[i];
+    }
+    return k;
+}
+
+//7.深度优先搜索
+bool visited[MAX_VERTEX_NUM];
+
+void DFSTraverse(ALGraph g)
+{
+    void DFS(ALGraph g,int v);
+    int v;
+    //visited数组初始化
+    for (v=0;v&lt;g.vexnum;v++)
+    visited[v]=false;
+
+    for(v=0;v&lt;g.vexnum;v++)
+    if (!visited[v])//如果结点未被访问过 ,则深度遍历该结点
+    DFS(g,v);
+}
+int FirstAdjVex(ALGraph &amp;g,int v)
+{
+    //对于无向网来说，每个顶点必定有一个邻接点
+    return g.vertices[v].firstarc-&gt;adjvex;//返回V结点的第一个邻接结点的序号
+}
+int NextAdjVex(ALGraph &amp;g,int v,int w)
+{//必须要讨论有没有除了第一个邻接点之外的第二个邻接点
+    //注意要找
+    ArcNode *p=g.vertices[v].firstarc;
+    while (p-&gt;adjvex!=w)
+        p=p-&gt;nextarc;
+    p = p-&gt;nextarc;
+    if (!p)
+        return -1;
+    else
+        return p-&gt;adjvex;//所以我们的条件为w&gt;=0
+}
+void DFS(ALGraph g,int v)
+{
+    visited[v]=true;//置标志
+    cout&lt;&lt;g.vertices[v].data&lt;&lt;&quot; &quot;;
+    int w;
+    for (w = FirstAdjVex(g,v);w&gt;=0;w=NextAdjVex(g,v,w))
+        if (!visited[w])
+        DFS(g,w);
+}
+// 非递归
+/*
+1.栈初始化
+2.输出起始顶点；起始顶点改为&quot;已访问&quot;标记；将起始顶点进桟
+3.重复直到桟空
+  3.1 取栈顶元素（不出桟）
+  3.2 栈顶元素顶点存在未被访问过的邻接点W，则
+    3.2.1 输出顶点W
+    3.2.2 将顶点W改为已访问标志
+    3.2.3 将顶点W进桟
+  3.3 否则，当前顶点退桟
+*/
+
+
+int hasNextAdjVex(ALGraph &amp;g,int h)
+{
+    //找到H的未被访问过的邻接点
+    ArcNode *p=g.vertices[h].firstarc;
+    if (!p)
+        return -1;
+    while (visited[p-&gt;adjvex])
+    {
+        p=p-&gt;nextarc;
+    }
+    return p-&gt;adjvex;
+
+}
+void DFS_2(ALGraph &amp;g,int v)
+{
+    SeqStack s;
+    InitStack(s);
+    printf(&quot;%c&quot;,g.vertices[v].data);
+    visited[v]=true;
+    push(s,v);
+    int h,w,e;
+    while (!isEmpty(s))
+    {
+        h=getTop(s);
+        w=hasNextAdjVex(g,h);
+        if (w&gt;=0)
+        {
+          printf(&quot;%c&quot;,g.vertices[w].data);
+          visited[w]=true;
+          push(s,w);
+        }
+        else
+            pop(s,e);
+
+    }
+
+}
+void DFSTraverse_2(ALGraph g)
+{
+    int v;
+    //visited数组初始化
+    for (v=0;v&lt;g.vexnum;v++)
+    visited[v]=false;
+
+    for(v=0;v&lt;g.vexnum;v++)
+    if (!visited[v])//如果结点未被访问过 ,则深度遍历该结点
+    DFS_2(g,v);
+}
+//8.广度优先搜索
+typedef int Elemtype;
+//进队出队为序号，输出时打印char数据，这样比较方便
+typedef struct
+{
+    Elemtype data[MAX_VERTEX_NUM];
+    int rear,front;
+}SeqQueue;
+void InitQueue(SeqQueue &amp;q)
+{
+    q.rear = q.front = -1;
+}
+void EnQueue(SeqQueue &amp;q,Elemtype e )
+{
+    q.rear = (q.rear+1)%MAX_VERTEX_NUM;
+    q.data[q.rear] = e;
+}
+void deQueue(SeqQueue &amp;q,Elemtype &amp;e)
+{
+    if (q.rear == q.front)
+    {
+        printf(&quot;empty queue&quot;);
+    }
+    q.front = (q.front + 1)% MAX_VERTEX_NUM;
+    e = q.data[q.front];
+
+}
+int QueueEmpty(SeqQueue &amp;q)
+{
+    return q.rear == q.front;
+}
+void BFSTraverse(ALGraph &amp;g)
+{
+    int v,u,w;
+    for (v=0;v&lt;g.vexnum;v++)
+        visited[v]=false;
+    SeqQueue q;
+    InitQueue(q);
+    for (v=0;v&lt;g.vexnum;v++)
+    {
+        if (!visited[v])
+        {
+            visited[v]=true;
+            printf(&quot;%c &quot;,g.vertices[v].data);
+            EnQueue(q,v);
+            while (!QueueEmpty(q))
+            {
+                deQueue(q,u);
+                for ( w = FirstAdjVex(g,u);w&gt;=0;w=NextAdjVex(g,u,w))
+                {
+                    if (!visited[w])
+                    {
+                        visited[w]=true;
+                        printf(&quot;%c &quot;,g.vertices[w].data);
+                        EnQueue(q,w);
+
+                    }
+                }
+
+
+
+            }
+        }
+    }
+
+
+}
+//9.拓扑排序
+// 建立辅助数组indegree 存放每个顶点的入度
+void FindInDegree(ALGraph &amp;g,int in[])
+{
+    int i=0,j=0;
+    ArcNode *p;
+    int count=0;
+    for (i;i&lt;g.vexnum;i++)
+    {
+        for (j=0;j&lt;g.vexnum;j++)
+        {
+           p=g.vertices[j].firstarc;
+           while (p)
+           {
+               if (p-&gt;adjvex == i)
+                count++;
+               p=p-&gt;nextarc;
+           }
+        }
+        in[i] = count;
+        cout&lt;&lt;count&lt;&lt;&#39; &#39; ;
+        count = 0;
+    }
+}
+//这里需要一个栈
+
+//拓扑排序算法
+void TopologicalSort(ALGraph g)
+{
+    int indegree[g.vexnum];//定义一个入度的辅助数组
+    int i,k;
+    for (i=0;i&lt;g.vexnum;i++)
+    indegree[i]=0;
+    FindInDegree(g,indegree);
+    SeqStack s;
+    InitStack(s);
+    //如果入度为零则进栈
+   for (i=0;i&lt;g.vexnum;i++)
+   {
+       if (!indegree[i])
+        push(s,i);//序号进栈
+   }
+   int count = 0;//对输出顶点个数进行计数
+   ArcNode *p;
+   while (!isEmpty(s))
+   {
+       pop(s,i);
+       printf(&quot;%d:%c &quot;,i,g.vertices[i].data);
+       count++;
+       for (p=g.vertices[i].firstarc;p;p=p-&gt;nextarc)
+       {
+           k=p-&gt;adjvex;
+           if (!(--indegree[k]))
+            push(s,k);
+       }
+   }
+   if (count &lt; g.vexnum)
+    printf(&quot;该有向图有回路\n&quot;);
+   else
+    printf(&quot;该有向图无回路\n&quot;);
+
+
+}
+
+//10. PRIM 算法
+//prim algorithm
+//邻接矩阵
+typedef int VRType;
+typedef int VertexType2;
+typedef int InfoType;
+typedef struct ArcCell
+{
+    VRType adj;
+    InfoType info;
+}ArcCell,AdjMatrix[MAX_VERTEX_NUM][MAX_VERTEX_NUM];
+
+typedef struct
+{
+    VertexType2 vex[MAX_VERTEX_NUM];//顶点向量
+    AdjMatrix arcs;//邻接矩阵
+    int vexnum,arcnum;
+    int kind;
+}MGraph;
+int locate(MGraph &amp;g,int v)
+{
+    int i;
+    for (i=0;i&lt;g.vexnum;i++)
+    {
+       if (g.vex[i] == v)
+            return i;
+    }
+}
+//邻接数组创建无向图
+void createUDG(MGraph &amp;g)
+{
+    cout&lt;&lt;&quot;请输入无向图的顶点个数和边的个数&quot;&lt;&lt;endl;
+    cin&gt;&gt;g.vexnum&gt;&gt;g.arcnum;
+    int i,j,k;
+    //初始化顶点向量
+    for (i=0;i&lt;g.vexnum;i++)
+        cin&gt;&gt;g.vex[i];
+        //初始化邻接矩阵
+    for (i=0;i&lt;g.vexnum;i++)
+        for (j=0;j&lt;g.vexnum;j++)
+        g.arcs[i][j].adj = INFINITY;
+        cout&lt;&lt;&quot;请输入每条边的顶点和权值&quot;&lt;&lt;endl;
+    for (k=0;k&lt;g.arcnum;k++)
+    {
+        int v1,v2;
+        int w;
+        cin&gt;&gt;v1&gt;&gt;v2&gt;&gt;w;
+        i=locate(g,v1);
+        j=locate(g,v2);
+        g.arcs[i][j].adj=w;
+        g.arcs[j][i].adj=g.arcs[i][j].adj;//无向图为对称的！
+    }
+
+}
+typedef struct node {
+    VertexType2 adjvex;//权最小的顶点
+    VRType lowcost;//最小的权
+    }closedge[MAX_VERTEX_NUM];
+
+int mininum(closedge close,int n)
+{
+    int i=0;
+    int min = 999;
+    int k;
+    for (i=1;i&lt;n;i++)
+    {
+      if (close[i].lowcost &lt; min &amp;&amp; close[i].lowcost !=0)
+      {
+          min = close[i].lowcost;
+          k = i;
+      }
+    }
+    return k;
+    //k记录最小权值顶点的序号
+
+}
+//最小生成树----PRIM算法
+void MinispanTree_PRIM(MGraph g,VertexType2 u)
+{
+
+    closedge close;
+    int k=locate(g,u);
+    int i,j;
+    //辅助数组初始化
+    for (j=0;j&lt;g.vexnum;j++)
+        if (j!=k)
+    {
+      close[j].adjvex=u;
+      close[j].lowcost = g.arcs[k][j].adj;
+    }
+    close[k].lowcost = 0;
+    for (i=1;i&lt;g.vexnum;i++)
+    {
+        k = mininum(close,g.vexnum);
+        cout&lt;&lt;&quot;(&quot;&lt;&lt;close[k].adjvex&lt;&lt;&quot;,&quot;&lt;&lt;g.vex[k]&lt;&lt;&quot;)&quot;;//输出这条边的两个顶点
+        close[k].lowcost = 0;
+        for (j=0;j&lt;g.vexnum;j++)
+        {
+            if (g.arcs[k][j].adj &lt; close[j].lowcost)
+            {
+                close[j].adjvex = g.vex[k];
+                close[j].lowcost = g.arcs[k][j].adj;
+            }
+
+        }
+
+
+    }
+
+}
+int main()
+{
+    cout &lt;&lt; &quot;------------------------------------&quot;&lt;&lt;endl;
+    cout &lt;&lt; &quot;1.createDN():建立一个有向网的邻接表 &quot;&lt;&lt;endl;
+    cout &lt;&lt; &quot;2.printALGraph():输出邻接表&quot;&lt;&lt;endl;
+    cout &lt;&lt; &quot;3.createOLDN():创建有向网十字链表并输出其邻接表和逆邻接表&quot;&lt;&lt;endl;
+    cout &lt;&lt; &quot;4.createOLUDG():创建无向图十字链表并输出其邻接表和逆邻接表&quot;&lt;&lt;endl;
+    cout &lt;&lt; &quot;5.in():求有向图/网的出度&quot;&lt;&lt;endl;
+    cout &lt;&lt; &quot;6.out():求有向图/网的入度&quot;&lt;&lt;endl;
+    cout &lt;&lt; &quot;7.InAndOut():求有向图的度&quot;&lt;&lt;endl;
+    cout &lt;&lt; &quot;8.DFSTraverse():无向图的深度优先遍历&quot;&lt;&lt;endl;
+    cout &lt;&lt; &quot;9.BFSTraverse():无向图的广度优先遍历&quot;&lt;&lt;endl;
+    cout &lt;&lt; &quot;10.TopologicalSort():以有向图的邻接表为基础实现输出它的拓扑排序序列。&quot;&lt;&lt;endl;
+    cout &lt;&lt; &quot;11.MinispanTree_PRIM():采用邻接矩阵存储实现无向图的最小生成树的PRIM算法&quot;&lt;&lt;endl;
+    cout &lt;&lt; &quot;12.DFS_2():非递归实现深度优先搜索&quot;&lt;&lt;endl;
+    cout &lt;&lt; &quot;------------------------------------&quot;&lt;&lt;endl;
+
+LL1:
+
+    cout&lt;&lt; &quot;请输入您要选择的函数序号:)&quot;&lt;&lt;endl;
+    int num,i;cin&gt;&gt;num;int *p;
+    switch(num)
+    {
+    case 1:
+    ALGraph g;
+    createDN(g);
+    cout&lt;&lt;&quot;创建一个有向网的邻接表成功！&quot;&lt;&lt;endl;
+        break;
+    case 2:
+        createDN(g);
+        printALGraph(g);
+        break;
+    case 3:
+        OLGraph g1;
+        createOLDN(g1);
+        printOLGraph(g1);
+        break;
+    case 4:
+        createOLUDG(g1);
+        printOLGraph2(g1);
+        break;
+    case 5:
+        createDN(g);
+        p=in(g);
+        for (i=0;i&lt;g.vexnum;i++,p++)
+            cout&lt;&lt;g.vertices[i].data&lt;&lt;&quot;:&quot;&lt;&lt;*p&lt;&lt;&quot; &quot;;
+        cout&lt;&lt;endl;
+        break;
+    case 6:
+        createDN(g);
+        p=out(g);
+        for (i=0;i&lt;g.vexnum;i++,p++)
+            cout&lt;&lt;g.vertices[i].data&lt;&lt;&quot;:&quot;&lt;&lt;*p&lt;&lt;&quot; &quot;;
+        cout&lt;&lt;endl;
+        break;
+    case 7:
+        createDN(g);
+        p=InAndOut(g);
+        for (i=0;i&lt;g.vexnum;i++)
+            cout&lt;&lt;g.vertices[i].data&lt;&lt;&quot;:&quot;&lt;&lt;(p[i])&lt;&lt;&quot; &quot;;
+        cout&lt;&lt;endl;
+
+        break;
+    case 8:
+        createUDN(g);
+        DFSTraverse(g);
+        break;
+    case 9:
+        createUDN(g);
+        BFSTraverse(g);
+        break;
+    case 10:
+        createDN(g);
+        TopologicalSort(g);
+        break;
+    case 11:
+        MGraph gg;
+        createUDG(gg);
+        MinispanTree_PRIM(gg,0);
+        break;
+    case 12:
+        createUDN(g);
+        DFSTraverse_2(g);
+    }
+    fflush(stdin);
+    char c;
+cout &lt;&lt;&quot;您是否要继续测试函数？y/n&quot;&lt;&lt;endl;
+cin &gt;&gt; c;
+if (c == &#39;y&#39;)
+    goto LL1;
+else
+    return 0;
+}
+</code></pre><p>第6，10题在此单独测试：</p>
+<pre><code>  1 #include &lt;iostream&gt;
+  2 #define MAX_VERTEX_NUM 20
+  3 #define INFINITY INT_MAX
+  4 using namespace std;
+  5 //判断无向图任意两个顶点间是否有路径，若有输出路径上的顶点序列。
+  6 //floid 算法
+  7 //邻接矩阵
+  8 
+  9 typedef char VertexType;
+ 10 typedef int VRType;
+ 11 typedef int InfoType;
+ 12 typedef struct ArcCell
+ 13 {
+ 14     VRType adj;
+ 15     InfoType *info;
+ 16 }ArcCell,ArcMatrix[MAX_VERTEX_NUM][MAX_VERTEX_NUM];
+ 17 
+ 18 typedef struct
+ 19 {
+ 20     int kind ;
+ 21     int vexnum,arcnum;
+ 22     VertexType vexs[MAX_VERTEX_NUM];
+ 23     ArcMatrix arcs;
+ 24 }MGraph;
+ 25 
+ 26 int locate(MGraph &amp;g,VertexType v)
+ 27 {
+ 28     int i;
+ 29     for (i=0;i&lt;g.vexnum;i++)
+ 30     {
+ 31         if (g.vexs[i] == v)
+ 32         return i;
+ 33     }
+ 34 }
+ 35 void createUDN(MGraph &amp;g)
+ 36 {
+ 37     cout &lt;&lt;&quot;请输入顶点个数和弧的条数&quot;&lt;&lt;endl;
+ 38     cin &gt;&gt; g.vexnum&gt;&gt;g.arcnum;
+ 39     int i,j,k;
+ 40     cout &lt;&lt;&quot;请输入顶点集合&quot;&lt;&lt;endl;
+ 41     for (i=0;i&lt;g.vexnum;i++)
+ 42     {
+ 43       cin &gt;&gt;g.vexs[i];
+ 44       for (j=0;j&lt;g.vexnum;j++)
+ 45       {
+ 46           if (i!=j)
+ 47              g.arcs[i][j].adj=INFINITY;
+ 48           else
+ 49              g.arcs[i][j].adj=0;
+ 50       }
+ 51 
+ 52     }
+ 53 
+ 54 
+ 55     cout &lt;&lt;&quot;请输入各条弧的弧头、弧尾以及权值&quot;&lt;&lt;endl;
+ 56     char v1,v2;
+ 57     int w;
+ 58     for (k=0;k&lt;g.arcnum;k++)
+ 59     {
+ 60         cin &gt;&gt;v1&gt;&gt;v2&gt;&gt;w;
+ 61         i=locate(g,v1);
+ 62         j=locate(g,v2);
+ 63         g.arcs[i][j].adj=w;
+ 64         //无向网做对称
+ 65         g.arcs[j][i].adj=w;
+ 66 
+ 67     }
+ 68 }
+ 69 void printAdjMatrix(MGraph &amp;g)
+ 70 {
+ 71     int i,j;
+ 72     for (i=0;i&lt;g.vexnum;i++)
+ 73     {
+ 74     for (j=0;j&lt;g.vexnum;j++)
+ 75     cout &lt;&lt;g.arcs[i][j].adj&lt;&lt;&quot; &quot;;
+ 76     cout &lt;&lt;endl;
+ 77     }
+ 78 
+ 79 }
+ 80 typedef bool PathMatrix[MAX_VERTEX_NUM][MAX_VERTEX_NUM][MAX_VERTEX_NUM];
+ 81 typedef int distanceMatrix[MAX_VERTEX_NUM][MAX_VERTEX_NUM];
+ 82 
+ 83 void ShortestPath_FLOYD(MGraph &amp;g,PathMatrix &amp;p,distanceMatrix &amp;d)
+ 84 {
+ 85     void printD(MGraph g,distanceMatrix &amp;d);
+ 86     int v,w,u,i;
+ 87     for (v=0;v&lt;g.vexnum;v++)
+ 88         for (w=0;w&lt;g.vexnum;w++)
+ 89     {
+ 90         d[v][w]=g.arcs[v][w].adj;
+ 91     for (u=0;u&lt;g.vexnum;u++)
+ 92     {
+ 93         p[v][w][u]=false;
+ 94     }
+ 95     if (d[v][w] &lt; INFINITY )
+ 96     {
+ 97         p[v][w][v]=true;
+ 98         p[v][w][w]=true;
+ 99     }
+100     }
+101 
+102     for (u=0;u&lt;g.vexnum;u++)
+103         for (v=0;v&lt;g.vexnum;v++)
+104         for (w=0;w&lt;g.vexnum;w++)
+105         {
+106             if (d[v][u]!=INFINITY &amp;&amp; d[u][w]!=INFINITY )
+107         if (d[v][u] + d[u][w] &lt; d[v][w])
+108     {
+109         d[v][w] = d[v][u]+d[u][w];
+110         for (i=0;i&lt;g.vexnum ;i++)
+111         p[v][w][i]=p[v][u][i] || p[u][w][i];
+112 
+113     }
+114 
+115         }
+116 
+117 }
+118 void printD(MGraph g,distanceMatrix &amp;d)
+119 {
+120     int i,j;
+121     for(i=0;i&lt;g.vexnum;i++)
+122     {
+123          for (j=0;j&lt;g.vexnum;j++)
+124          {
+125              cout &lt;&lt; d[i][j]&lt;&lt;&quot; &quot;;
+126          }
+127          cout &lt;&lt;endl;
+128     }
+129 
+130 }
+131 
+132 void printShortestPath_FLOIY(MGraph g,PathMatrix &amp;p,distanceMatrix &amp;d)
+133 {
+134     int i,j,k;
+135     for (i=0;i&lt;g.vexnum;i++)
+136     {
+137         for (j=0;j&lt;=i;j++) // 输出一半即可
+138         {
+139             cout &lt;&lt;&quot;顶点对：  &lt;&quot;&lt;&lt;g.vexs[i]&lt;&lt;&quot;,&quot;&lt;&lt;g.vexs[j]&lt;&lt;&quot;&gt;   (&quot;;
+140             for (k=0;k&lt;g.vexnum;k++)
+141             {
+142                 if (p[i][j][k])
+143                     cout &lt;&lt;g.vexs[k]&lt;&lt;&quot; &quot;;
+144             }
+145             cout &lt;&lt;&quot; )&quot;&lt;&lt;&quot;   路径长度：&quot;&lt;&lt;d[i][j]&lt;&lt;endl;
+146         }
+147     }
+148 }
+149 int main()
+150 {
+151     MGraph g;
+152     createUDN(g);
+153     PathMatrix p;
+154     distanceMatrix d;
+155     ShortestPath_FLOYD(g,p,d);
+156     cout &lt;&lt; &quot; 输出每对顶点的最短路径&quot;&lt;&lt;endl;
+157     printShortestPath_FLOIY(g,p,d);
+158 
+159 
+160 
+161     return 0;
+162 }
+163 #include &lt;iostream&gt;
+164 #define MAX_VERTEX_NUM 20
+165 #define INFINITY INT_MAX
+166 using namespace std;
+167 //采用邻接矩阵存储一个有向图，输出单源点到其它顶点的最短路径。
+168 //迪杰特斯拉
+169 
+170 typedef char VertexType;
+171 typedef int VRType;
+172 typedef int InfoType;
+173 typedef struct ArcCell
+174 {
+175     VRType adj;
+176     InfoType *info;
+177 }ArcCell,ArcMatrix[MAX_VERTEX_NUM][MAX_VERTEX_NUM];
+178 
+179 typedef struct
+180 {
+181     int kind ;
+182     int vexnum,arcnum;
+183     VertexType vexs[MAX_VERTEX_NUM];
+184     ArcMatrix arcs;
+185 }MGraph;
+186 
+187 int locate(MGraph &amp;g,VertexType v)
+188 {
+189     int i;
+190     for (i=0;i&lt;g.vexnum;i++)
+191     {
+192         if (g.vexs[i] == v)
+193         return i;
+194     }
+195 }
+196 void createDN(MGraph &amp;g)
+197 {
+198     cout &lt;&lt;&quot;请输入顶点个数和弧的条数&quot;&lt;&lt;endl;
+199     cin &gt;&gt; g.vexnum&gt;&gt;g.arcnum;
+200     int i,j,k;
+201     cout &lt;&lt;&quot;请输入顶点集合&quot;&lt;&lt;endl;
+202     for (i=0;i&lt;g.vexnum;i++)
+203     {
+204       cin &gt;&gt;g.vexs[i];
+205       for (j=0;j&lt;g.vexnum;j++)
+206       g.arcs[i][j].adj=INFINITY;
+207     }
+208 
+209 
+210     cout &lt;&lt;&quot;请输入各条弧的弧头、弧尾以及权值&quot;&lt;&lt;endl;
+211     char v1,v2;
+212     int w;
+213     for (k=0;k&lt;g.arcnum;k++)
+214     {
+215         cin &gt;&gt;v1&gt;&gt;v2&gt;&gt;w;
+216         i=locate(g,v1);
+217         j=locate(g,v2);
+218         g.arcs[i][j].adj=w;
+219 
+220     }
+221 }
+222 
+223 void printAdjMatrix(MGraph &amp;g)
+224 {
+225     int i,j;
+226     for (i=0;i&lt;g.vexnum;i++)
+227     {
+228     for (j=0;j&lt;g.vexnum;j++)
+229     cout &lt;&lt;g.arcs[i][j].adj&lt;&lt;&quot; &quot;;
+230     cout &lt;&lt;endl;
+231     }
+232 
+233 }
+234 
+235 typedef int ShortPathTable[MAX_VERTEX_NUM];
+236 typedef bool PathMatrix[MAX_VERTEX_NUM][MAX_VERTEX_NUM];
+237 
+238 void shortestPath_DIJ(MGraph &amp;g,int v0,PathMatrix &amp;p,ShortPathTable &amp;d)
+239 {
+240 // final d p
+241     bool final[g.vexnum];
+242     int v,w,i,j;
+243     for (v=0;v&lt;g.vexnum;v++)
+244     {
+245         final[v]=false;
+246         d[v]=g.arcs[v0][v].adj;
+247         for (w=0;w&lt;g.vexnum;w++)
+248         p[v][w]=false;
+249 
+250         if (d[v] &lt; INFINITY)
+251         {
+252             p[v][v0]=true;
+253             p[v][v]=true;
+254         }
+255     }
+256 
+257     d[v0]=0;//自己到自己
+258     final[v0]=true;//并到S集合中
+259     int min;
+260     for (i=0;i&lt;g.vexnum;i++)
+261     {
+262         min = INFINITY;
+263         for (w=0;w&lt;g.vexnum;w++)
+264         {
+265             if (!final[w])
+266             if (d[w]&lt;min)
+267             {
+268                 v=w;
+269                 min=d[w];
+270             }
+271         }
+272         final[v]=true;
+273         for (w=0;w&lt;g.vexnum;w++)
+274         {
+275             //对于每个顶点，在介入离V0最近的点之后是否会离v0更近呢？
+276             if (!final[w]&amp;&amp;(min+g.arcs[v][w].adj&lt;d[w]))
+277             {
+278                 d[w]=min+g.arcs[v][w].adj;
+279                 //p[w]=p[v];
+280                 for (j=0;j&lt;g.vexnum;j++)
+281                 p[w][j]=p[v][j];
+282                 p[w][w]=true;
+283             }
+284         }
+285     }
+286 }
+287 void printP(PathMatrix &amp;p)
+288 {
+289     int i,j;
+290     for (i=0;i&lt;6;i++)
+291     {
+292       for (j=0;j&lt;6;j++)
+293     cout &lt;&lt; p[i][j]&lt;&lt;&quot; &quot;;
+294     cout &lt;&lt;endl;
+295     }
+296 
+297 }
+298 void printD(ShortPathTable &amp;d)
+299 {
+300     int i;
+301     for (i=0;i&lt;6;i++)
+302     cout&lt;&lt;d[i]&lt;&lt;&quot; &quot;;
+303     cout&lt;&lt;endl;
+304 }
+305 void printShortestPath(MGraph &amp;g,PathMatrix &amp;p,ShortPathTable &amp;d)
+306 {
+307     int i,j;
+308     for (i=1;i&lt;g.vexnum;i++)
+309     {
+310         cout &lt;&lt;g.vexs[i]&lt;&lt;&quot;:&quot;;
+311         cout &lt;&lt;&quot;    最短路径：(&quot;;
+312         for (j=0;j&lt;g.vexnum;j++)
+313         if (p[i][j])
+314         cout &lt;&lt;g.vexs[j]&lt;&lt;&quot; &quot;;
+315         cout &lt;&lt;&quot;)    路径长度：&quot;&lt;&lt;d[i]&lt;&lt;endl;
+316     }
+317 }
+318 int main()
+319 {
+320     MGraph g;
+321     createDN(g);
+322     printAdjMatrix(g);
+323     PathMatrix p;
+324     ShortPathTable d;
+325     shortestPath_DIJ(g,0,p,d);
+326     // v0 = 0 为单源点
+327     printP(p);
+328     printD(d);
+329     printShortestPath(g,p,d);
+330     return 0;
+331 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

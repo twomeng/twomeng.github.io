@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>coursera 机器学习 linear regression 线性回归的小项目 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Matlab 环境：  1. 一元线性回归 ex1.m %% Machine Learning Online Class - Exercise 1: Linear Regression  %  Instructions %  ------------ % %  This file contains code that helps you get started on the %  linear e">
+<meta property="og:type" content="website">
+<meta property="og:title" content="coursera 机器学习 linear regression 线性回归的小项目">
+<meta property="og:url" content="http://yoursite.com/backup/coursera 机器学习 linear regression 线性回归的小项目.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Matlab 环境：  1. 一元线性回归 ex1.m %% Machine Learning Online Class - Exercise 1: Linear Regression  %  Instructions %  ------------ % %  This file contains code that helps you get started on the %  linear e">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1464741/201808/1464741-20180824174223165-1235656193.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1464741/201808/1464741-20180824175213120-1029827607.png">
+<meta property="og:image" content="https://images2018.cnblogs.com/blog/1464741/201808/1464741-20180824175234755-1542726331.png">
+<meta property="og:updated_time" content="2018-09-20T01:27:26.557Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="coursera 机器学习 linear regression 线性回归的小项目">
+<meta name="twitter:description" content="Matlab 环境：  1. 一元线性回归 ex1.m %% Machine Learning Online Class - Exercise 1: Linear Regression  %  Instructions %  ------------ % %  This file contains code that helps you get started on the %  linear e">
+<meta name="twitter:image" content="https://images2018.cnblogs.com/blog/1464741/201808/1464741-20180824174223165-1235656193.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      coursera 机器学习 linear regression 线性回归的小项目
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/backup/coursera 机器学习 linear regression 线性回归的小项目.html" class="article-date">
+  <time datetime="2018-08-24T01:40:00.000Z" itemprop="datePublished">2018-08-24</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Matlab 环境：</p>
+<p><img src="https://images2018.cnblogs.com/blog/1464741/201808/1464741-20180824174223165-1235656193.png" alt=""></p>
+<p>1. 一元线性回归</p>
+<p>ex1.m</p>
+<pre><code>%% Machine Learning Online Class - Exercise 1: Linear Regression
+
+%  Instructions
+%  ------------
+%
+%  This file contains code that helps you get started on the
+%  linear exercise. You will need to complete the following functions
+%  in this exericse:
+%
+%     warmUpExercise.m
+%     plotData.m  绘制房屋面积和房屋价格的点状图
+%     gradientDescent.m 梯度下降法求theta 
+%     computeCost.m 计算损失函数
+%     gradientDescentMulti.m
+%     computeCostMulti.m
+%     featureNormalize.m 特征缩放
+%     normalEqn.m 正规方程法求theta
+%
+%  For this exercise, you will not need to change any code in this file,
+%  or any other files other than those mentioned above.
+%
+% x refers to the population size in 10,000s
+% y refers to the profit in $10,000s
+%
+
+%% Initialization
+clear ; close all; clc
+
+%% ==================== Part 1: Basic Function ====================
+% Complete warmUpExercise.m
+fprintf(&#39;Running warmUpExercise ... \n&#39;);
+fprintf(&#39;5x5 Identity Matrix: \n&#39;);
+warmUpExercise()
+
+fprintf(&#39;Program paused. Press enter to continue.\n&#39;);
+pause;
+
+
+%% ======================= Part 2: Plotting =======================
+fprintf(&#39;Plotting Data ...\n&#39;)
+data = load(&#39;ex1data1.txt&#39;);
+X = data(:, 1); y = data(:, 2);
+m = length(y); % number of training examples
+
+% Plot Data
+% Note: You have to complete the code in plotData.m
+plotData(X, y);
+
+fprintf(&#39;Program paused. Press enter to continue.\n&#39;);
+pause;
+
+%% =================== Part 3: Cost and Gradient descent ===================
+
+X = [ones(m, 1), data(:,1)]; % Add a column of ones to x
+theta = zeros(2, 1); % initialize fitting parameters
+
+% Some gradient descent settings
+iterations = 1500;
+alpha = 0.01;
+
+fprintf(&#39;\nTesting the cost function ...\n&#39;)
+% compute and display initial cost
+J = computeCost(X, y, theta);
+fprintf(&#39;With theta = [0 ; 0]\nCost computed = %f\n&#39;, J);
+fprintf(&#39;Expected cost value (approx) 32.07\n&#39;);
+
+% further testing of the cost function
+J = computeCost(X, y, [-1 ; 2]);
+fprintf(&#39;\nWith theta = [-1 ; 2]\nCost computed = %f\n&#39;, J);
+fprintf(&#39;Expected cost value (approx) 54.24\n&#39;);
+
+fprintf(&#39;Program paused. Press enter to continue.\n&#39;);
+pause;
+
+fprintf(&#39;\nRunning Gradient Descent ...\n&#39;)
+% run gradient descent
+theta = gradientDescent(X, y, theta, alpha, iterations);
+
+% print theta to screen
+fprintf(&#39;Theta found by gradient descent:\n&#39;);
+fprintf(&#39;%f\n&#39;, theta);
+fprintf(&#39;Expected theta values (approx)\n&#39;);
+fprintf(&#39; -3.6303\n  1.1664\n\n&#39;);
+
+% Plot the linear fit
+hold on; % keep previous plot visible
+plot(X(:,2), X*theta, &#39;-&#39;)
+legend(&#39;Training data&#39;, &#39;Linear regression&#39;)
+hold off % don&#39;t overlay any more plots on this figure
+
+% Predict values for population sizes of 35,000 and 70,000
+predict1 = [1, 3.5] *theta;
+fprintf(&#39;For population = 35,000, we predict a profit of %f\n&#39;,...
+    predict1*10000);
+predict2 = [1, 7] * theta;
+fprintf(&#39;For population = 70,000, we predict a profit of %f\n&#39;,...
+    predict2*10000);
+
+fprintf(&#39;Program paused. Press enter to continue.\n&#39;);
+pause;
+
+%% ============= Part 4: Visualizing J(theta_0, theta_1) =============
+fprintf(&#39;Visualizing J(theta_0, theta_1) ...\n&#39;)
+
+% Grid over which we will calculate J
+theta0_vals = linspace(-10, 10, 100);
+theta1_vals = linspace(-1, 4, 100);
+
+% initialize J_vals to a matrix of 0&#39;s
+J_vals = zeros(length(theta0_vals), length(theta1_vals));
+
+% Fill out J_vals
+for i = 1:length(theta0_vals)
+    for j = 1:length(theta1_vals)
+      t = [theta0_vals(i); theta1_vals(j)];
+      J_vals(i,j) = computeCost(X, y, t);
+    end
+end
+
+
+% Because of the way meshgrids work in the surf command, we need to
+% transpose J_vals before calling surf, or else the axes will be flipped
+J_vals = J_vals&#39;;
+% Surface plot
+figure;
+surf(theta0_vals, theta1_vals, J_vals)
+xlabel(&#39;\theta_0&#39;); ylabel(&#39;\theta_1&#39;);
+
+% Contour plot
+figure;
+% Plot J_vals as 15 contours spaced logarithmically between 0.01 and 100
+contour(theta0_vals, theta1_vals, J_vals, logspace(-2, 3, 20))
+xlabel(&#39;\theta_0&#39;); ylabel(&#39;\theta_1&#39;);
+hold on;
+plot(theta(1), theta(2), &#39;rx&#39;, &#39;MarkerSize&#39;, 10, &#39;LineWidth&#39;, 2);
+
+![](https://images2018.cnblogs.com/blog/1464741/201808/1464741-20180824174727529-1033549378.png)
+
+
+
+
+
+
+computeCost.m   
+
+
+
+
+function J = computeCost(X, y, theta)
+%COMPUTECOST Compute cost for linear regression
+%   J = COMPUTECOST(X, y, theta) computes the cost of using theta as the
+%   parameter for linear regression to fit the data points in X and y
+
+% Initialize some useful values
+m = length(y); % number of training examples
+
+% You need to return the following variables correctly 
+J = 0;
+
+% ====================== YOUR CODE HERE ======================
+% Instructions: Compute the cost of a particular choice of theta
+%               You should set J to the cost.
+
+h = X * theta ; % cal the hypothesis
+J = 1/(2*m) * sum((h-y) .^ 2 ) ;
+
+
+
+% =========================================================================
+
+end  
+
+gradientDescent.m   
+
+
+
+
+
+function [theta, J_history] = gradientDescent(X, y, theta, alpha, num_iters)
+%GRADIENTDESCENT Performs gradient descent to learn theta
+%   theta = GRADIENTDESCENT(X, y, theta, alpha, num_iters) updates theta by 
+%   taking num_iters gradient steps with learning rate alpha
+
+% Initialize some useful values
+m = length(y); % number of training examples
+J_history = zeros(num_iters, 1);
+
+for iter = 1:num_iters
+
+    % ====================== YOUR CODE HERE ======================
+    % Instructions: Perform a single gradient step on the parameter vector
+    %               theta. 
+    %
+    % Hint: While debugging, it can be useful to print out the values
+    %       of the cost function (computeCost) and gradient here.
+    %
+h = X * theta ; 
+h_minus  = h - y;
+h_sum = ( h_minus&#39; * X )&#39;;
+theta = theta - alpha * h_sum ./ m; 
+
+    % ============================================================
+
+    % Save the cost J in every iteration    
+    J_history(iter) = computeCost(X, y, theta);
+
+end
+
+end  
+
+
+![](https://images2018.cnblogs.com/blog/1464741/201808/1464741-20180824174815347-167117428.png)
+</code></pre><p><strong>多元线性回归</strong></p>
+<p><strong>ex1_multi.m  </strong></p>
+<pre><code>  1 %% Machine Learning Online Class
+  2 %  Exercise 1: Linear regression with multiple variables
+  3 %
+  4 %  Instructions
+  5 %  ------------
+  6 % 
+  7 %  This file contains code that helps you get started on the
+  8 %  linear regression exercise. 
+  9 %
+ 10 %  You will need to complete the following functions in this 
+ 11 %  exericse:
+ 12 %
+ 13 %     warmUpExercise.m
+ 14 %     plotData.m
+ 15 %     gradientDescent.m
+ 16 %     computeCost.m
+ 17 %     gradientDescentMulti.m
+ 18 %     computeCostMulti.m
+ 19 %     featureNormalize.m
+ 20 %     normalEqn.m
+ 21 %
+ 22 %  For this part of the exercise, you will need to change some
+ 23 %  parts of the code below for various experiments (e.g., changing
+ 24 %  learning rates).
+ 25 %
+ 26 
+ 27 %% Initialization
+ 28 
+ 29 %% ================ Part 1: Feature Normalization ================
+ 30 
+ 31 %% Clear and Close Figures
+ 32 clear ; close all; clc
+ 33 
+ 34 fprintf(&#39;Loading data ...\n&#39;);
+ 35 
+ 36 %% Load Data
+ 37 data = load(&#39;ex1data2.txt&#39;);
+ 38 X = data(:, 1:2);
+ 39 y = data(:, 3);
+ 40 m = length(y);
+ 41 
+ 42 % Print out some data points
+ 43 fprintf(&#39;First 10 examples from the dataset: \n&#39;);
+ 44 fprintf(&#39; x = [%.0f %.0f], y = %.0f \n&#39;, [X(1:10,:) y(1:10,:)]&#39;);
+ 45 
+ 46 fprintf(&#39;Program paused. Press enter to continue.\n&#39;);
+ 47 pause;
+ 48 
+ 49 % Scale features and set them to zero mean
+ 50 fprintf(&#39;Normalizing Features ...\n&#39;);
+ 51 
+ 52 [X mu sigma] = featureNormalize(X);
+ 53 
+ 54 % Add intercept term to X
+ 55 X = [ones(m, 1) X];
+ 56 
+ 57 
+ 58 %% ================ Part 2: Gradient Descent ================
+ 59 
+ 60 % ====================== YOUR CODE HERE ======================
+ 61 % Instructions: We have provided you with the following starter
+ 62 %               code that runs gradient descent with a particular
+ 63 %               learning rate (alpha). 
+ 64 %
+ 65 %               Your task is to first make sure that your functions - 
+ 66 %               computeCost and gradientDescent already work with 
+ 67 %               this starter code and support multiple variables.
+ 68 %
+ 69 %               After that, try running gradient descent with 
+ 70 %               different values of alpha and see which one gives
+ 71 %               you the best result.
+ 72 %
+ 73 %               Finally, you should complete the code at the end
+ 74 %               to predict the price of a 1650 sq-ft, 3 br house.
+ 75 %
+ 76 % Hint: By using the &#39;hold on&#39; command, you can plot multiple
+ 77 %       graphs on the same figure.
+ 78 %
+ 79 % Hint: At prediction, make sure you do the same feature normalization.
+ 80 %
+ 81 
+ 82 fprintf(&#39;Running gradient descent ...\n&#39;);
+ 83 
+ 84 % Choose some alpha value
+ 85 alpha = 0.01;
+ 86 num_iters = 400;
+ 87 
+ 88 % Init Theta and Run Gradient Descent 
+ 89 theta = zeros(3, 1);
+ 90 [theta, J_history] = gradientDescentMulti(X, y, theta, alpha, num_iters);
+ 91 
+ 92 % Plot the convergence graph
+ 93 figure;
+ 94 plot(1:numel(J_history), J_history, &#39;-b&#39;, &#39;LineWidth&#39;, 2);
+ 95 xlabel(&#39;Number of iterations&#39;);
+ 96 ylabel(&#39;Cost J&#39;);
+ 97 
+ 98 % Display gradient descent&#39;s result
+ 99 fprintf(&#39;Theta computed from gradient descent: \n&#39;);
+100 fprintf(&#39; %f \n&#39;, theta);
+101 fprintf(&#39;\n&#39;);
+102 
+103 % Estimate the price of a 1650 sq-ft, 3 br house
+104 % ====================== YOUR CODE HERE ======================
+105 % Recall that the first column of X is all-ones. Thus, it does
+106 % not need to be normalized.
+107 price = 0; % You should change this
+108 X_1 = [1 1650 3] ; 
+109 price  = X_1 * theta ;
+110 % ============================================================
+111 
+112 fprintf([&#39;Predicted price of a 1650 sq-ft, 3 br house &#39; ...
+113          &#39;(using gradient descent):\n $%f\n&#39;], price);
+114 
+115 fprintf(&#39;Program paused. Press enter to continue.\n&#39;);
+116 pause;
+117 
+118 %% ================ Part 3: Normal Equations ================
+119 
+120 fprintf(&#39;Solving with normal equations...\n&#39;);
+121 
+122 % ====================== YOUR CODE HERE ======================
+123 % Instructions: The following code computes the closed form 
+124 %               solution for linear regression using the normal
+125 %               equations. You should complete the code in 
+126 %               normalEqn.m
+127 %
+128 %               After doing so, you should complete this code 
+129 %               to predict the price of a 1650 sq-ft, 3 br house.
+130 %
+131 
+132 %% Load Data
+133 data = csvread(&#39;ex1data2.txt&#39;);
+134 X = data(:, 1:2);
+135 y = data(:, 3);
+136 m = length(y);
+137 
+138 % Add intercept term to X
+139 X = [ones(m, 1) X];
+140 
+141 % Calculate the parameters from the normal equation
+142 theta = normalEqn(X, y);
+143 
+144 % Display normal equation&#39;s result
+145 fprintf(&#39;Theta computed from the normal equations: \n&#39;);
+146 fprintf(&#39; %f \n&#39;, theta);
+147 fprintf(&#39;\n&#39;);
+148 
+149 
+150 % Estimate the price of a 1650 sq-ft, 3 br house
+151 % ====================== YOUR CODE HERE ======================
+152 price = 0; % You should change this
+153 X_2 = [ 1 1650 3] ; 
+154 price  = X_2 * theta ;
+155 % ============================================================
+156 
+157 fprintf([&#39;Predicted price of a 1650 sq-ft, 3 br house &#39; ...
+158          &#39;(using normal equations):\n $%f\n&#39;], price);
+</code></pre><p>特征缩放</p>
+<pre><code> 1 function [X_norm, mu, sigma] = featureNormalize(X)
+ 2 %FEATURENORMALIZE Normalizes the features in X 
+ 3 %   FEATURENORMALIZE(X) returns a normalized version of X where
+ 4 %   the mean value of each feature is 0 and the standard deviation
+ 5 %   is 1. This is often a good preprocessing step to do when
+ 6 %   working with learning algorithms.
+ 7 
+ 8 % You need to set these values correctly
+ 9 X_norm = X;
+10 mu = zeros(1, size(X, 2));
+11 sigma = zeros(1, size(X, 2));
+12 
+13 % ====================== YOUR CODE HERE ======================
+14 % Instructions: First, for each feature dimension, compute the mean
+15 %               of the feature and subtract it from the dataset,
+16 %               storing the mean value in mu. Next, compute the 
+17 %               standard deviation of each feature and divide
+18 %               each feature by it&#39;s standard deviation, storing
+19 %               the standard deviation in sigma. 
+20 %
+21 %               Note that X is a matrix where each column is a 
+22 %               feature and each row is an example. You need 
+23 %               to perform the normalization separately for 
+24 %               each feature. 
+25 %
+26 % Hint: You might find the &#39;mean&#39; and &#39;std&#39; functions useful.
+27 %       
+28 mu = mean(X); % 1 * ( n + 1 )
+29 sigma = std(X);
+30 for i = 1 : size(X,1)
+31     X_norm(i,:) = ( X_norm(i,:) - mu ) ./ sigma ; % 对每个行向量做减法
+32 end
+33 %  X_norm(1:10,:)
+34 
+35 % ============================================================
+36 
+37 end
+</code></pre><p>computeCostMulti and gradientDescent是没有变的。</p>
+<p>正规方程法</p>
+<pre><code> 1 function [theta] = normalEqn(X, y)
+ 2 %NORMALEQN Computes the closed-form solution to linear regression 
+ 3 %   NORMALEQN(X,y) computes the closed-form solution to linear 
+ 4 %   regression using the normal equations.
+ 5 
+ 6 theta = zeros(size(X, 2), 1);
+ 7 
+ 8 % ====================== YOUR CODE HERE ======================
+ 9 % Instructions: Complete the code to compute the closed form solution
+10 %               to linear regression and put the result in theta.
+11 %
+12 
+13 % ---------------------- Sample Solution ----------------------
+14 
+15 theta = pinv(X&#39;*X)*X&#39;*y; 
+16 
+17 
+18 % -------------------------------------------------------------
+19 
+20 
+21 % ============================================================
+22 
+23 end
+</code></pre><p><img src="https://images2018.cnblogs.com/blog/1464741/201808/1464741-20180824175213120-1029827607.png" alt=""></p>
+<p><img src="https://images2018.cnblogs.com/blog/1464741/201808/1464741-20180824175234755-1542726331.png" alt=""></p>
+<p>源码：</p>
+<p> <a href="https://github.com/twomeng/linear-regression-" target="_blank" rel="noopener">https://github.com/twomeng/linear-regression-</a></p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

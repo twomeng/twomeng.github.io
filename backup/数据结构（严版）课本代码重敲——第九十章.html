@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数据结构（严版）课本代码重敲——第九十章 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="编程笔记 数据结构 第九十章二叉搜索树  1 #include &amp;lt;iostream&amp;gt;   2 #include &amp;lt;string.h&amp;gt;   3 #include &amp;lt;stdio.h&amp;gt;   4 #include &amp;lt;stdlib.h&amp;gt;   5 #include &amp;lt;stack&amp;gt;   6 using namespace std;   7 /*   8">
+<meta property="og:type" content="website">
+<meta property="og:title" content="数据结构（严版）课本代码重敲——第九十章">
+<meta property="og:url" content="http://yoursite.com/backup/数据结构（严版）课本代码重敲——第九十章.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="编程笔记 数据结构 第九十章二叉搜索树  1 #include &amp;lt;iostream&amp;gt;   2 #include &amp;lt;string.h&amp;gt;   3 #include &amp;lt;stdio.h&amp;gt;   4 #include &amp;lt;stdlib.h&amp;gt;   5 #include &amp;lt;stack&amp;gt;   6 using namespace std;   7 /*   8">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:28.419Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构（严版）课本代码重敲——第九十章">
+<meta name="twitter:description" content="编程笔记 数据结构 第九十章二叉搜索树  1 #include &amp;lt;iostream&amp;gt;   2 #include &amp;lt;string.h&amp;gt;   3 #include &amp;lt;stdio.h&amp;gt;   4 #include &amp;lt;stdlib.h&amp;gt;   5 #include &amp;lt;stack&amp;gt;   6 using namespace std;   7 /*   8">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据结构（严版）课本代码重敲——第九十章
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/backup/数据结构（严版）课本代码重敲——第九十章.html" class="article-date">
+  <time datetime="2018-08-20T17:31:00.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="编程笔记-数据结构-第九十章"><a href="#编程笔记-数据结构-第九十章" class="headerlink" title="编程笔记 数据结构 第九十章"></a>编程笔记 数据结构 第九十章</h3><h4 id="二叉搜索树"><a href="#二叉搜索树" class="headerlink" title="二叉搜索树"></a>二叉搜索树</h4><pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;string.h&gt;
+  3 #include &lt;stdio.h&gt;
+  4 #include &lt;stdlib.h&gt;
+  5 #include &lt;stack&gt;
+  6 using namespace std;
+  7 /*
+  8     日期：2018/4/17
+  9     题目：二叉搜索树
+ 10 */
+ 11 typedef int Elemtype;
+ 12 typedef struct BSTNode
+ 13 {
+ 14     int key;
+ 15     Elemtype data;
+ 16     struct BSTNode *lchild,*rchild;
+ 17 }BSTNode,*BSTree;
+ 18 
+ 19 // 1 创建时插入建立二叉搜索树
+ 20 void insertBSTree(BSTree &amp;t,BSTree &amp;p)
+ 21 {
+ 22 
+ 23     if (t == NULL)
+ 24     {
+ 25         t = p; // 根节点为空
+ 26     }
+ 27     else {
+ 28         if (p-&gt;data &gt;= t-&gt;data)
+ 29             insertBSTree(t-&gt;rchild,p);
+ 30         else
+ 31             insertBSTree(t-&gt;lchild,p);
+ 32     }
+ 33 
+ 34 
+ 35 }
+ 36 void createBSTree(BSTree &amp;t)
+ 37 {
+ 38     Elemtype x;
+ 39     BSTree p;
+ 40     int n ;
+ 41     cout&lt;&lt; &quot;请输入N和待排序的数据&quot;&lt;&lt; endl;
+ 42     cin &gt;&gt; n;
+ 43     for (int i = 0;i&lt;n;i++)
+ 44     {
+ 45         cin &gt;&gt; x;
+ 46         p = (BSTree)malloc(sizeof(BSTNode));
+ 47         p-&gt;data = x;
+ 48         p-&gt;key = i+1;
+ 49         p-&gt;lchild = NULL;
+ 50         p-&gt;rchild = NULL;
+ 51         insertBSTree(t,p);
+ 52     }
+ 53 
+ 54 }
+ 55 // 中序遍历
+ 56 void inOrder(BSTree t)
+ 57 {
+ 58     if (t)
+ 59     {
+ 60        inOrder(t-&gt;lchild);
+ 61        cout &lt;&lt; t-&gt;data &lt;&lt; &quot; &quot;;
+ 62        inOrder(t-&gt;rchild);
+ 63     }
+ 64 }
+ 65 
+ 66 // 查找
+ 67 int searchBSTree(BSTree &amp;t,Elemtype data)
+ 68 {
+ 69     if (t)
+ 70     {
+ 71         if (data == t-&gt;data)
+ 72             return t-&gt;key;
+ 73         else if (data &gt; t-&gt;data)
+ 74             searchBSTree(t-&gt;rchild,data);
+ 75         else
+ 76             searchBSTree(t-&gt;lchild,data);
+ 77     }else
+ 78     return 0;
+ 79 }
+ 80 // 动态树表：树结构不是一次生成的，而是在查找过程中，当树中不存在关键字等于
+ 81 // 给定值得结点时再进行插入，新插入的结点一定是叶子结点。
+ 82 
+ 83 int searchBSTree_dynamic(BSTree t,Elemtype data,BSTree &amp;p,BSTree &amp;f)
+ 84 {
+ 85     if (t)
+ 86     {
+ 87         if (t-&gt;data == data)
+ 88         {
+ 89             p = t;
+ 90             return 1;
+ 91         }
+ 92         else
+ 93         {
+ 94             if (t-&gt;data &gt; data)
+ 95                 searchBSTree_dynamic(t-&gt;lchild,data,p,t);
+ 96             else
+ 97                 searchBSTree_dynamic(t-&gt;rchild,data,p,t);
+ 98         }
+ 99 
+100     }
+101     else
+102     {
+103         p = f;
+104         return 0;
+105     }
+106 
+107 }
+108 void insertBSTree_dynamic(BSTree &amp;t,Elemtype data)
+109 {
+110     BSTree p=NULL,f = NULL; // p指向查找到的结点，f为未找到是时的父节点
+111     BSTree s;
+112     if (!searchBSTree_dynamic(t,data,p,f))
+113     {
+114         s = (BSTree)malloc(sizeof(BSTNode));
+115         s-&gt;data = data;
+116         s-&gt;lchild = NULL;
+117         s-&gt;rchild = NULL;
+118         // 在树中没找到时即要插入结点
+119         if (p == NULL)
+120         {
+121             t = s; // t为空二叉树，插入的叶子结点即为根节点的特殊情况
+122         }
+123         else
+124         {
+125             if (data &gt; p-&gt;data )
+126                 p-&gt;rchild = s;
+127             else
+128                 p-&gt;lchild = s; // 插入新的叶子结点
+129         }
+130 
+131     }
+132 }
+133 
+134 /*
+135 删除节点分为三种情况：
+136 1 p的左右子树均空，直接修改父节点指针
+137 2 p有一个子树，让该子树成为父节点的左子树
+138 3 p的两个子树均不为空
+139 递归找到该结点，然后删除
+140 
+141 */
+142 
+143 void deleteBST(BSTree &amp;t,Elemtype data)
+144 {
+145     void deleteB(BSTree&amp;);
+146     if (t)
+147     {
+148         if (t-&gt;data == data)
+149         {
+150             deleteB(t);
+151         }
+152         else if (t-&gt;data &gt; data)
+153             deleteBST(t-&gt;lchild,data);
+154         else
+155             deleteBST(t-&gt;rchild,data);
+156     }
+157 }
+158 int deleteB(BSTree &amp;p)
+159 {
+160     BSTree q,s;
+161     if (p-&gt;lchild == NULL &amp;&amp;p-&gt;rchild == NULL)
+162     {
+163         q = p;
+164         p = NULL;
+165         free(q);
+166     }
+167     else
+168         if (p-&gt;lchild == NULL)
+169         { // 只有左子树空
+170             q = p;
+171             p = p-&gt;rchild;
+172             free(q);
+173         }
+174         else  // 只有右子树空
+175         if (p-&gt;rchild == NULL)
+176         {
+177             q = p;
+178             p = p-&gt;lchild;
+179             free(q);
+180         }
+181         else // 均不空
+182         {
+183            s = p-&gt;lchild;
+184            while (s-&gt;rchild!=NULL)
+185                 s = s-&gt;rchild;
+186            s -&gt;rchild = p-&gt;rchild;
+187            q = p;
+188            p = p-&gt;lchild;
+189            free(q);
+190         }
+191 }
+192 // delete 和 free 的的区别？
+193 int main()
+194 {
+195     BSTree t = NULL;
+196     //createBSTree(t);
+197     int n;
+198     Elemtype x;
+199     cout &lt;&lt; &quot;n&quot; &lt;&lt; endl;
+200     cin &gt;&gt; n ;
+201     for (int i=0;i&lt;n;i++)
+202     {
+203         cin &gt;&gt; x;
+204         insertBSTree_dynamic(t,x);
+205     }
+206     inOrder(t);
+207     cout &lt;&lt; &quot;请输入要删除的数据&quot; &lt;&lt;endl;
+208     cin &gt;&gt; x;
+209     deleteBST(t,x);
+210     inOrder(t);
+211 
+212 
+213     return 0;
+214 }
+</code></pre><h4 id="二叉搜索树的复习"><a href="#二叉搜索树的复习" class="headerlink" title="二叉搜索树的复习"></a>二叉搜索树的复习</h4><pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;string.h&gt;
+  3 #include &lt;stdio.h&gt;
+  4 #include &lt;stdlib.h&gt;
+  5 #include &lt;stack&gt;
+  6 using namespace std;
+  7 /* 二叉搜索树 复习
+  8 1. 创建+插入
+  9 2. 搜索
+ 10 3. 删除
+ 11 4. 遍历
+ 12 */
+ 13 
+ 14 typedef struct BSTNode
+ 15 {
+ 16     int key;
+ 17     struct BSTNode *lchild,*rchild;
+ 18 }BSTNode,*BSTree;
+ 19 
+ 20 int insertBSTree(BSTree &amp;t,BSTree &amp;p)
+ 21 {
+ 22     // 如果找到则返回指向关键字的指针，否则插入到树中
+ 23     if (t== NULL)
+ 24     {
+ 25         t = p;
+ 26         return 1;
+ 27     }else
+ 28     {
+ 29         if (t-&gt;key == p-&gt;key)
+ 30         {
+ 31             return 1;
+ 32         }else if (t-&gt;key &gt; p-&gt;key)
+ 33             insertBSTree(t-&gt;lchild,p);
+ 34         else
+ 35             insertBSTree(t-&gt;rchild,p);
+ 36     }
+ 37 }
+ 38 void createBSTree(BSTree &amp;t)
+ 39 {
+ 40     t = NULL;
+ 41     int n;
+ 42     cout &lt;&lt; &quot;请输入N：&quot; &lt;&lt;endl;
+ 43     cin &gt;&gt; n;
+ 44     cout &lt;&lt; &quot;请输入N个数&quot; &lt;&lt; endl;
+ 45     int key;
+ 46     for (int i=0;i&lt;n;i++)
+ 47     {
+ 48         cin &gt;&gt; key;
+ 49         BSTree p = (BSTree)malloc(sizeof(BSTNode));
+ 50         p-&gt;key = key;
+ 51         p-&gt;lchild = NULL;
+ 52         p-&gt;rchild  = NULL;
+ 53         insertBSTree(t,p);
+ 54     }
+ 55 }
+ 56 
+ 57 void preOrder(BSTree T)
+ 58 {
+ 59     if (T)
+ 60     {
+ 61         preOrder(T-&gt;lchild);
+ 62         cout &lt;&lt; T-&gt;key &lt;&lt; &quot; &quot;;
+ 63         preOrder(T-&gt;rchild);
+ 64     }
+ 65 }
+ 66 
+ 67 void deleteT(BSTree &amp;p)
+ 68 {
+ 69     BSTree q;
+ 70     // 删除P指向的结点
+ 71     if (p-&gt;lchild == NULL &amp;&amp; p-&gt;rchild == NULL )
+ 72     {
+ 73         q = p;
+ 74         p = NULL;
+ 75         free(q);
+ 76         return ;
+ 77     }
+ 78     if (p-&gt;lchild == NULL)
+ 79     {
+ 80         q = p;
+ 81         p = p-&gt;rchild;
+ 82         free(q); // free 和 delete 的区别
+ 83         // malloc - free C new - delete C++
+ 84     }
+ 85     else if (p-&gt;rchild == NULL)
+ 86     {
+ 87         q = p;
+ 88         p = p -&gt;lchild;
+ 89         free(q);
+ 90     }
+ 91     else
+ 92     {
+ 93         // 左右子树均不为空时，P左子树的最右侧的结点+P的右子树
+ 94         BSTree s = p-&gt;lchild;
+ 95         while (s-&gt;rchild != NULL)
+ 96             s = s-&gt;rchild;
+ 97         s-&gt;rchild = p-&gt;rchild;
+ 98         q = p;
+ 99         p = p-&gt;lchild;
+100         free(q);
+101 
+102     }
+103 }
+104 void deleteBSTNode(BSTree &amp;t,int key)
+105 {
+106     if (t)
+107     {
+108         // t为空时则为未找到
+109         if (t-&gt;key == key)
+110             deleteT(t);
+111         else if (t-&gt;key &gt; key)
+112             deleteBSTNode(t-&gt;lchild,key);
+113         else
+114             deleteBSTNode(t-&gt;rchild,key);
+115     }
+116 
+117 }
+118 int main()
+119 {
+120     BSTree t;
+121     createBSTree(t);
+122     preOrder(t);
+123     cout &lt;&lt; &quot;key:&quot; &lt;&lt; endl;
+124     int key;
+125     cin &gt;&gt; key;
+126     deleteBSTNode(t,key);
+127     preOrder(t);
+128 
+129 
+130     return 0;
+131 }
+</code></pre><h4 id="哈希表的实现"><a href="#哈希表的实现" class="headerlink" title="哈希表的实现"></a>哈希表的实现</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;string.h&gt;
+ 3 #include &lt;stdio.h&gt;
+ 4 #include &lt;stdlib.h&gt;
+ 5 #include &lt;stack&gt;
+ 6 #define SUCCESS 1
+ 7 #define UNSUCCESS -1
+ 8 #define NULLkey -65519
+ 9 
+10 
+11 using namespace std;
+12 /*
+13 哈希表
+14 */
+15 const int HashLength = 20;
+16 typedef int Elemtype;
+17 typedef struct
+18 {
+19     Elemtype *elem;
+20     int count; // 当前元素个数
+21 }HashTable;
+22 
+23 void initHashTable(HashTable &amp;h)
+24 {
+25     h.elem = (Elemtype *)malloc(sizeof(Elemtype)*HashLength);
+26     h.count = 0;
+27     for (int i = 0;i&lt;HashLength;i++)
+28         h.elem[i] = NULLkey;
+29 }
+30 
+31 int hash_f(int key)
+32 {
+33     return key%HashLength;
+34 }
+35 void insertHashTable(HashTable &amp;h,int key)
+36 {
+37     int addr = hash_f(key);
+38     while (h.elem[addr]!= NULLkey)
+39     {
+40         addr = (addr+1)%HashLength;
+41     }
+42     h.elem[addr] = key;
+43     h.count++;
+44 }
+45 int searchHashTable(HashTable h,int key)
+46 {
+47     // 查找成功返回存储位置否则返回UNSUCCESS
+48     int addr = hash_f(key);
+49     while (h.elem[addr]!=key)
+50     {
+51         addr = (addr+1)%HashLength;
+52         if (h.elem[addr] == NULLkey || addr == hash_f(key))
+53             return UNSUCCESS;
+54         // 如果线性探测再散列到NULLKEY或者转了一圈重新回到起点则没找到
+55     }
+56 
+57     return addr;
+58 }
+59 int main()
+60 {
+61     int a[] = {14,1,68,27,55,19,20,84,79,23,11,10};
+62     HashTable h;
+63     initHashTable(h);
+64     for (int i = 0;i&lt;12;i++ )
+65         insertHashTable(h,a[i]);
+66     for (int i=0;i&lt;12;i++)
+67     {
+68         int addr = searchHashTable(h,a[i]);
+69         cout &lt;&lt; a[i] &lt;&lt; &quot; : &quot; &lt;&lt; addr &lt;&lt; endl;
+70     }
+71 
+72 
+73     return 0;
+74 }
+</code></pre><h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><p>分类：<br>1 插入类<br>- 直接插入<br>- 折半插入<br>- 希尔排序<br>2 交换类<br>- 冒泡排序<br>- 快速排序<br>3 选择排序<br>- 简单选择排序<br>- 堆排序<br>4 归并类<br>- 归并排序<br>5 基数排序</p>
+<pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;string.h&gt;
+  3 #include &lt;stdio.h&gt;
+  4 #include &lt;stdlib.h&gt;
+  5 #include &lt;stack&gt;
+  6 #define SUCCESS 1
+  7 #define UNSUCCESS -1
+  8 #define NULLkey = -65519
+  9 
+ 10 
+ 11 using namespace std;
+ 12 /*
+ 13 排序
+ 14 */
+ 15 // 直接插入排序:每次都是在一个有序的序列中插入一个新的关键字
+ 16 void insertSort(int r[],int n) // 待排序关键字存储在1-n的位置
+ 17 {
+ 18     /*
+ 19     时间复杂度：
+ 20     1 最好情况：仅有外层循环 O(n)
+ 21     2 最坏情况：n*(n-1)/2 O(n^2)
+ 22     空间复杂度：
+ 23     辅助存储空间仅有temp，故为O(1)
+ 24     */
+ 25     int temp;
+ 26     for (int i=1;i&lt;=n;i++)
+ 27     {
+ 28         temp = r[i];// 存放待插入关键字
+ 29         int j = i-1;
+ 30         while (r[j] &gt; temp &amp;&amp; j &gt; 0)
+ 31         {
+ 32             r[j+1] = r[j];
+ 33             j--;
+ 34         }
+ 35         r[j+1] = temp;
+ 36 
+ 37     }
+ 38 }
+ 39 
+ 40 void binsertSort(int r[],int n)
+ 41 {
+ 42     /*
+ 43     和直接插入排序的区别是：查找插入位置所花的时间大大减小
+ 44     */
+ 45     for (int i=1;i&lt;=n;i++) // i = 1 时已经为有序数列
+ 46     {
+ 47         r[0] = r[i] ; // r[0] 空余空间中存放当前待插入关键字
+ 48         int low = 1,high = i-1; // 当前的有序序列为1-i-1;
+ 49         while (low &lt;= high)
+ 50         {
+ 51             int mid = (low + high)/2;
+ 52             if (r[mid] &gt;= r[0])
+ 53             {
+ 54                 high = mid-1;
+ 55             }
+ 56             else
+ 57                 low = mid+1;
+ 58         }
+ 59         // 之所以让low = high时再进入循环：比较当前关键字和high/low指向关键字的大小
+ 60         // 离开循环时low = high+1，low指向位置即为待移动的位置
+ 61         for (int j=i-1;j&gt;=low;j--)
+ 62             r[j+1] = r[j];
+ 63         r[low] = r[0];
+ 64 
+ 65     }
+ 66 }
+ 67 // 希尔排序
+ 68 void shellInsert(int r[],int n,int dlta)
+ 69 {
+ 70     int j;
+ 71     for (int i = 1+dlta; i&lt;=n ; i++)
+ 72     { // 循环 n - 1 - dlta 次 = 子序列的个数
+ 73         if (r[i] &lt; r[i-dlta])
+ 74         {
+ 75             r[0] = r[i];
+ 76             for (j = i-dlta ; j&gt;0 &amp;&amp; r[j] &gt; r[0] ; j = j-dlta )
+ 77                 r[j+dlta] = r[j];
+ 78             r[j+dlta] = r[0];
+ 79         }
+ 80     }
+ 81 }
+ 82 void shellSort(int r[],int dlta[],int n,int t )
+ 83 {
+ 84     /*
+ 85     缩小增量排序：对r[n]进行增量为dlta[t]的排序过程
+ 86     思想：直接插入排序适合基本有序的序列，希尔排序的每趟排序都会使整个序列变得更加有序，
+ 87     等整个序列基本有序后，最后进行一趟直接插入排序，效率会更高。
+ 88     注意：1.希尔排序是不稳定的。
+ 89     2.增量序列的最后一个值一定取1，增量序列中的值尽量没有除1之外的公因子
+ 90     */
+ 91     for (int i = 0;i&lt;t;i++)
+ 92     {
+ 93         shellInsert(r,n,dlta[i]);
+ 94     }
+ 95 }
+ 96 void bubbleSort(int r[],int n)
+ 97 {
+ 98     /*
+ 99     外层比较n-1次，内层比较n-i次
+100     时间复杂度：O(N^2)
+101     空间复杂度：O(1)
+102     */
+103     int flag;
+104     for (int i = 1;i&lt;n;i++)
+105     {
+106         flag = true;
+107         for (int j = 1;j&lt;=n-i;j++)
+108         {
+109             if (r[j] &gt; r[j+1])
+110             {
+111                 int temp = r[j];
+112                 r[j] = r[j+1];
+113                 r[j+1] = temp;
+114                 flag = false;
+115             }
+116         }
+117         if (flag) // 没发生交换说明有序
+118             break;
+119     }
+120 }
+121 // 快速排序之合并版
+122 /*
+123 通常，快速排序是同量级O(nlogn)的排序方法中，平均性能最好。
+124 但若初始记录序列按关键字有序或基本有序时，快速排序将退化为起泡排序。
+125 空间复杂度：栈
+126 */
+127 void quickSort(int r[],int low,int high)
+128 {
+129     int i = low,j = high;
+130     if (low &lt; high)
+131     {
+132         while (i&lt;j)
+133         {
+134             r[0] = r[low];//枢纽
+135             while (r[j]&gt;r[0] &amp;&amp; i &lt; j)
+136                 j -- ;
+137             if (i &lt; j)
+138             {
+139                 // 此时r[j] &lt; r[0] 交换
+140                 r[i] = r[j];
+141                 i++;
+142             }
+143             while (i &lt; j &amp;&amp; r[i] &lt; r[0] )
+144                 i++;
+145             if (i&lt;j)
+146             {
+147                 r[j] = r[i];
+148                 j--;
+149             }
+150         }
+151         r[i] = r[0];// 将枢纽定在最终位置
+152         quickSort(r,low,i-1);
+153         quickSort(r,j+1,high);
+154     }
+155 }
+156 
+157 // 快速排序之分离版
+158 int Partition(int r[],int low,int high)
+159 {
+160     while (low&lt;high)
+161     {
+162         r[0] = r[low];
+163         while (low &lt; high &amp;&amp; r[high] &gt; r[0]  )
+164             high -- ;
+165         if (low &lt; high)
+166         {
+167             r[low] = r[high];
+168             low++;
+169         }
+170         while (low&lt;high &amp;&amp; r[low] &lt; r[0])
+171             low++;
+172         if (low &lt;high)
+173         {
+174             r[high] = r[low];
+175             high--;
+176         }
+177     }
+178     r[low] = r[0];
+179     return r[0];
+180 }
+181 void qsort(int r[],int low,int high)
+182 {
+183     if (low &lt; high)
+184     {
+185         int flag = Partition(r,low,high); // 一分为二并得到枢纽
+186         qsort(r,low,flag -1);
+187         qsort(r,flag+1,high);
+188     }
+189 }
+190 void print(int r[],int n)
+191 {
+192     for (int i=1;i&lt;=n;i++)
+193         cout &lt;&lt; r[i] &lt;&lt;&#39; &#39;;
+194     cout &lt;&lt; endl;
+195 }
+196 // 简单选择排序
+197 void selectSort(int r[],int n)
+198 {
+199     int i,j,k;
+200     for (i=1;i&lt;=n-1;i++)
+201     {
+202         k = i;
+203         for (j=i;j&lt;=n;j++)
+204         {
+205             if (r[j]&lt;r[k])
+206             {
+207                 k = j;
+208             }
+209         }
+210         if (k!=i)
+211         {
+212             r[0] = r[i];
+213             r[i] = r[k];
+214             r[k] = r[0];
+215         }
+216     }
+217 }
+218 /*
+219 堆排序：定义：非叶子结点的值都不大于（或不小于）其左右孩子结点的值。
+220 将无序序列调整为完全二叉树形式的堆，根节点为最大值或最小值。
+221 通过堆找到最大最小值后放在队列的尾部，将无序队列调整为有序队列。
+222 
+223 执行过程：
+224 1 层次遍历法建立初始堆，找到第一个非叶子结点，按照从右往左，从下往上的顺序，
+225 依次判断是否满足堆定义（假设为大顶堆，即孩子结点的数值是否都小于根节点）。
+226 如不满足则选择孩子中较大的结点和根节点交换，同时判断下移的根节点的值是否满足定义。
+227 2 将当前无序序列的第一个值和最后一个值交换，有序序列中增加一个值。判断和根节点交换的
+228 新节点是否满足堆定义并进行调整。
+229 
+230 时间复杂度：
+231 */
+232 void shift(int r[],int low,int high)
+233 {
+234     int temp = r[low];
+235     int i = low,j = 2*i;
+236     while (j&lt;=high)
+237     {
+238         if (j&lt;high &amp;&amp; r[j] &lt; r[j+1])
+239         {
+240             j = j+1; // 选择I节点的孩子中较大的一个
+241         }
+242         if (temp &lt; r[j])
+243         {
+244             r[i] = r[j];
+245             i = j;
+246             j = j*2;
+247         }
+248         else
+249             break;
+250     }
+251     r[i] = temp;
+252 }
+253 void heapSort(int r[],int n)
+254 {
+255     // 1. 找到最后一个非终端节点，从右向左，从下向上进行调整,建立初始堆
+256     int i;
+257     for (i = n/2; i &gt;=1 ;i--)
+258     {
+259         shift(r,i,n);
+260     }
+261     // 2. 将一次调整后的最大值和无序序列的最后一个值交换
+262     for (i = n;i&gt;=2;i--) // 进行n-1次排序
+263     {
+264         r[0] = r[1];
+265         r[1] = r[i];// r[i]为最后一个
+266         r[i] = r[0];
+267         shift(r,1,i-1);//在减小了一个关键字的无序序列中进行调整
+268     }
+269 
+270 }
+271 int main()
+272 {
+273     int n ;
+274     cin &gt;&gt; n;
+275     int r[n];
+276     for (int i=1;i&lt;=n;i++)
+277         cin &gt;&gt;r[i];
+278     //insertSort(r,n);
+279     //binsertSort(r,n);
+280 //    bubbleSort(r,n);
+281     //quickSort(r,1,n);
+282 //    selectSort(r,n);
+283 heapSort(r,n);
+284     print(r,n);
+285 
+286 
+287 
+288 
+289     return 0;
+290 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

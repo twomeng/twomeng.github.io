@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>计算机考研机试指南（八）——图论（畅通工程、还是畅通工程、最短路、more is better、Freckles、legal or not、确定比赛名次、产生冠军、最短路径问题） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="机试指南 cha 5 图论并查集畅通工程 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;stdio.h&amp;gt;  3 #include &amp;lt;stdlib.h&amp;gt;  4 #include &amp;lt;math.h&amp;gt;  5 #include &amp;lt;string.h&amp;gt;  6   7 using namespace std;  8 /*  9 并">
+<meta property="og:type" content="website">
+<meta property="og:title" content="计算机考研机试指南（八）——图论（畅通工程、还是畅通工程、最短路、more is better、Freckles、legal or not、确定比赛名次、产生冠军、最短路径问题）">
+<meta property="og:url" content="http://yoursite.com/backup/计算机考研机试指南（八）——图论（畅通工程、还是畅通工程、最短路、more is better、Freckles、legal or not、确定比赛名次、产生冠军、最短路径问题）.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="机试指南 cha 5 图论并查集畅通工程 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;stdio.h&amp;gt;  3 #include &amp;lt;stdlib.h&amp;gt;  4 #include &amp;lt;math.h&amp;gt;  5 #include &amp;lt;string.h&amp;gt;  6   7 using namespace std;  8 /*  9 并">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:27.613Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算机考研机试指南（八）——图论（畅通工程、还是畅通工程、最短路、more is better、Freckles、legal or not、确定比赛名次、产生冠军、最短路径问题）">
+<meta name="twitter:description" content="机试指南 cha 5 图论并查集畅通工程 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;stdio.h&amp;gt;  3 #include &amp;lt;stdlib.h&amp;gt;  4 #include &amp;lt;math.h&amp;gt;  5 #include &amp;lt;string.h&amp;gt;  6   7 using namespace std;  8 /*  9 并">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      计算机考研机试指南（八）——图论（畅通工程、还是畅通工程、最短路、more is better、Freckles、legal or not、确定比赛名次、产生冠军、最短路径问题）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/backup/计算机考研机试指南（八）——图论（畅通工程、还是畅通工程、最短路、more is better、Freckles、legal or not、确定比赛名次、产生冠军、最短路径问题）.html" class="article-date">
+  <time datetime="2018-08-20T17:52:00.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="机试指南-cha-5-图论"><a href="#机试指南-cha-5-图论" class="headerlink" title="机试指南 cha 5 图论"></a>机试指南 cha 5 图论</h3><h4 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h4><h4 id="畅通工程"><a href="#畅通工程" class="headerlink" title="畅通工程"></a>畅通工程</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;math.h&gt;
+ 5 #include &lt;string.h&gt;
+ 6 
+ 7 using namespace std;
+ 8 /*
+ 9 并查集
+10 畅通工程：所有顶点之间均可连通
+11 time : 20+20+20
+12 */
+13 
+14 int findroot(int v[],int a)
+15 {
+16     // 寻找根节点的过程中，如果不是根节点的直接孩子，则修改为其直接孩子
+17     if (v[a] == -1)
+18         return a;
+19     else
+20     {
+21         int tmp = findroot(v,v[a]);
+22         v[a] = tmp;
+23         return tmp;
+24     }
+25 }
+26 int main()
+27 {
+28     int m,n,x1,x2;
+29     int i,l,r;
+30     int v[1001] = {0}; // v[i] 代表第i个顶点对应的双亲节点
+31     while (cin &gt;&gt; n &gt;&gt; m)
+32     {
+33         if (n == 0)
+34             break;
+35         for (int i = 1;i&lt;=n;i++)
+36             v[i] = -1;
+37         for (i = 0 ;i &lt; m;i++)
+38         {
+39             cin &gt;&gt; x1 &gt;&gt; x2;
+40             // 根节点不同，即不在一个集合，则连通
+41             l = findroot(v,x1);
+42             r = findroot(v,x2);
+43             if (l!=r)
+44                 v[r] = l;
+45 
+46 
+47         }
+48         // 输入完了以后，相连的结点会在同一个集合中,计算有几个并查集，并查集-1即为新增路径条数
+49         int count = 0 ;
+50         for (i = 1;i&lt;=n;i++)
+51         {
+52             if (v[i] == -1)
+53                 count ++;
+54         }
+55         cout &lt;&lt; count -1 &lt;&lt; endl;
+56 
+57     }
+58     return 0;
+59 }
+</code></pre><h4 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h4><h4 id="还是畅通工程"><a href="#还是畅通工程" class="headerlink" title="还是畅通工程"></a>还是畅通工程</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;math.h&gt;
+ 5 #include &lt;string.h&gt;
+ 6 #include &lt;algorithm&gt;
+ 7 
+ 8 using namespace std;
+ 9 /*
+10 最小生成树
+11 time :
+12 */
+13 int v[1010];
+14 int findroot(int a)
+15 {
+16     if (v[a] == -1)
+17         return a;
+18     else
+19     {
+20         int tmp = findroot(v[a]);
+21         // 非根节点a直接和根相连
+22         v[a] = tmp;
+23         return tmp;
+24     }
+25 }
+26 struct node
+27 {
+28   int a;
+29   int b;
+30   int w;
+31 };
+32 bool cmp(const node &amp;a,const node &amp;b)
+33 {
+34     return a.w &lt; b.w; // 从小到大
+35 }
+36 int main()
+37 {
+38     int n,a,b,w;
+39     int i,l,r;
+40     node node[5000],tmp;
+41     int ans = 0;
+42     while (cin &gt;&gt;n &amp;&amp; n!=0)
+43     {
+44         ans = 0;
+45         for (int i = 1;i&lt;=n;i++)
+46             v[i] = -1;
+47         // 初始化node数组
+48         for (i = 0;i&lt; n*(n-1)/2 ;i++)
+49         {
+50             cin &gt;&gt; a &gt;&gt;b &gt;&gt; w;
+51             node[i].a =a;
+52             node[i].b =b;
+53             node[i].w =w;
+54         }
+55         sort(node,node+n*(n-1)/2,cmp); // 不是n条边！
+56         for (i = 0;i&lt;n*(n-1)/2;i++)
+57         {
+58             tmp = node[i];
+59             l = findroot(tmp.a);
+60             r = findroot(tmp.b);
+61             if (l!=r)
+62             {
+63                 v[r] = l; // 两个根节点集合合并
+64                 ans += tmp.w;
+65             }
+66         }
+67         cout &lt;&lt; ans &lt;&lt; endl;
+68 
+69     }
+70 
+71     return 0;
+72 }
+</code></pre><h4 id="最短路径"><a href="#最短路径" class="headerlink" title="最短路径"></a>最短路径</h4><h4 id="最短路"><a href="#最短路" class="headerlink" title="最短路"></a>最短路</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;math.h&gt;
+ 5 #include &lt;string.h&gt;
+ 6 #include &lt;algorithm&gt;
+ 7 
+ 8 #define INFINITY 65515
+ 9 using namespace std;
+10 /*
+11 最短路径
+12 time :
+13 */
+14 
+15 int main()
+16 {
+17     int i,j,n,m;
+18     int p[101][101];
+19     while (cin &gt;&gt; n &gt;&gt; m &amp;&amp; (n!=0 &amp;&amp; m != 0))
+20     {
+21         for (i = 1;i&lt;=n;i++)
+22             for (j=1;j&lt;=n;j++)
+23         {
+24             if (i == j)
+25                 p[i][i] = 0;
+26             else
+27                 p[i][j] = INFINITY;
+28         }
+29         for (i = 0 ;i &lt; m;i++)
+30         {
+31             int a,b,c;
+32             cin &gt;&gt;  a&gt;&gt; b &gt;&gt; c;
+33             p[a][b] = c;
+34             p[b][a] = c;
+35         }
+36         for (int k = 1 ; k &lt;= n; k++)
+37         {
+38             for ( i = 1;i&lt;=n ; i++)
+39                 for (j = 1 ;j&lt;=n ; j++)
+40                     if ( i!=k &amp;&amp; j!= k &amp;&amp; (p[i][k] + p[k][j] &lt; p[i][j]))
+41                     {
+42                        p[i][j] = p[i][k] + p[k][j];
+43                     }
+44         }
+45         cout &lt;&lt; p[1][n] &lt;&lt;endl;
+46     }
+47 
+48     return 0;
+49 }
+</code></pre><h4 id="more-is-better"><a href="#more-is-better" class="headerlink" title="more is better"></a>more is better</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;math.h&gt;
+ 5 #include &lt;string.h&gt;
+ 6 #include &lt;algorithm&gt;
+ 7 
+ 8 using namespace std;
+ 9 // 求并查集的过程中在每个集合根节点中记录该集合的人数
+10 
+11 const int num = 100001;
+12 int v[num]; // v[i] 为第i个节点的双亲节点
+13 int sum[num];// sum[i]当且仅当v[i] == -1 时有效，数字代表该集合的人数
+14 
+15 int findroot(int a)
+16 {
+17     if (v[a] == -1)
+18         return a;
+19     else
+20     {
+21         int tmp = findroot(v[a]); // 递归得到根节点
+22         v[a] = tmp;
+23         return tmp;
+24     }
+25 }
+26 int main()
+27 {
+28 
+29     int n;
+30     int a,b,i,r,l;
+31     while ( cin&gt;&gt;n )
+32     {
+33         for (i = 1;i&lt;= num ; i++) // 这个地方不能设为2*n,因为如果n很大时，2*n可能会超过num
+34         {
+35             v[i] = -1; // 只知道N对好朋友，但不知道男孩的数目，最多为一对儿两个不同的男孩
+36             sum[i] = 1;
+37         }
+38         for (i = 1 ;i &lt;= n ;i++)
+39         {
+40             cin &gt;&gt; a &gt;&gt; b;
+41             l = findroot(a);
+42             r = findroot(b);
+43             if (l!=r)
+44             {
+45               v[l] = r;
+46               sum[r] += sum[l] ;// 注意！合并集合时要把两个集合的sum值合并
+47             }
+48 
+49         }
+50         int max = 1;
+51         for (i = 1;i&lt;=num;i++)
+52         {
+53             if (v[i] == -1 &amp;&amp; sum[i] &gt; max)
+54             {
+55                 max = sum[i];
+56             }
+57         }
+58         cout &lt;&lt; max &lt;&lt;endl;
+59     }
+60 
+61 
+62     return 0;
+63 }
+</code></pre><h4 id="Freckles"><a href="#Freckles" class="headerlink" title="Freckles"></a>Freckles</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;math.h&gt;
+ 5 #include &lt;string.h&gt;
+ 6 #include &lt;algorithm&gt;
+ 7 
+ 8 using namespace std;
+ 9 const int num = 101;
+10 int v[num]; // 点集合
+11 struct edge
+12 {
+13     int v1,v2; // 每条边的两个端点均在v[num]中
+14     float w;
+15 }e[num*(num-1)/2]; // 边集合
+16 
+17 int findroot(int a)
+18 {
+19     if (v[a] == -1)
+20         return a;
+21     else
+22     {
+23         int tmp = findroot(v[a]); // 递归得到根节点
+24         v[a] = tmp;
+25         return tmp;
+26     }
+27 }
+28 bool cmp(const edge &amp;a,const edge &amp;b)
+29 {
+30     return a.w &lt; b.w;
+31 }
+32 int main()
+33 {
+34     int n,i,j,l,r;
+35     float dot[num][2],a,b;
+36     float ans;
+37     while (cin&gt;&gt;n)
+38     {
+39         for (i=1;i&lt;=n;i++)
+40         {
+41             v[i] = -1;
+42             cin &gt;&gt; dot[i][0] &gt;&gt; dot[i][1] ;
+43         }
+44         // 初始化边edge数组,n个点有n(n-1)/2条边，进行二层循环
+45         float ans;
+46         int size = 1;
+47         for (i = 1 ;i &lt;= n ;i++)
+48         {
+49             for (j = i+1 ; j &lt;= n ; j++)
+50             {
+51                 a = dot[i][0] - dot[j][0];
+52                 b = dot[i][1] - dot[j][1];
+53                 ans = sqrt(a*a + b*b);
+54                 e[size].v1 = i;
+55                 e[size].v2 = j;
+56                 e[size++].w = ans;
+57 
+58             }
+59         }
+60         // sort(edge),合并并查集
+61         sort(e+1,e+size,cmp);
+62 //        for (i = 1 ;i&lt;4;i++)
+63 //            cout &lt;&lt; e[i].w &lt;&lt; endl;
+64         ans = 0;
+65         // 从小权值边开始选择，每次要判断这条边的两个端点是否在同一个集合中
+66         for (i = 1;i&lt;size;i++)
+67         {
+68             l = findroot(e[i].v1);
+69             r = findroot(e[i].v2);
+70             if (l!=r)
+71             {
+72                 v[l] = r;
+73                ans += e[i].w;
+74             }
+75         }
+76         printf(&quot;%.2f&quot;,ans);
+77 
+78     }
+79     return 0;
+80 }
+</code></pre><h4 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h4><h4 id="legal-or-not"><a href="#legal-or-not" class="headerlink" title="legal or not"></a>legal or not</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;queue&gt;
+ 6 using namespace std;
+ 7 struct edge
+ 8 {
+ 9     int nextnode;
+10 };
+11 queue&lt;int&gt; q;
+12 vector&lt;edge&gt; vex[100];
+13 int visited[100];
+14 
+15 void findrudu(int n)
+16 {
+17     // 找到入度为0的点（未在邻接表右侧链中出现的点），放到队列中
+18     int i,a;
+19     bool rudu[100];
+20     for (i = 0;i&lt;100;i++)
+21         rudu[i] = true;
+22         // 一个再细微不过的知识点，都有可能成为决定成败的事情！
+23     for (i = 0;i&lt;n;i++)
+24     {
+25         for (vector&lt;edge&gt;::iterator it = vex[i].begin() ; it != vex[i].end() ; it++)
+26         {
+27             a = (*it).nextnode;
+28             rudu[a] = false;
+29         }
+30     }
+31 
+32     for (i = 0;i&lt;n;i++)
+33     {
+34       //  cout &lt;&lt; rudu[i] &lt;&lt;&#39; &#39; &lt;&lt; visited[i] &lt;&lt; endl;
+35         if (rudu[i]&amp;&amp;visited[i]){
+36             q.push(i);
+37         }
+38     }
+39 }
+40 int main()
+41 {
+42     int n,m,i,a,b;
+43     edge e;
+44     vector&lt;edge&gt;::iterator it;
+45     // i 为顶点 ， vex[i][0]为与该顶点相邻接的第一条弧的弧头顶点，vex[i] 为一个向量,记录与该顶点邻接的所有弧的弧头顶点
+46     while (cin &gt;&gt; n &gt;&gt; m)
+47     {
+48         if (m==0&amp;&amp;n==0)
+49             break;
+50         // 初始化vector
+51         for (i = 0;i&lt;n;i++)
+52         {
+53             vex[i].clear();
+54             visited[i] = true;
+55         }
+56         // 初始化队列
+57         while (!q.empty())
+58             q.pop();
+59 
+60         for (i = 0;i&lt;m;i++)
+61         {
+62             cin &gt;&gt; a &gt;&gt; b; // a-&gt;b为一条弧
+63             e.nextnode = b;
+64             vex[a].push_back(e);
+65         }
+66         findrudu(n);
+67         while (!q.empty())
+68         {
+69             a = q.front();// 从队列中取出一个入度为0的结点
+70             q.pop();
+71             vex[a].erase(vex[a].begin(),vex[a].end());// 删除所有的弧
+72             visited[a] = false;
+73             findrudu(n);
+74         }
+75         // 如果队列为空时仍旧有顶点为true，则存在环
+76         bool flag = true;
+77         for (i = 0;i&lt;n;i++ )
+78             if (visited[i])
+79             {
+80                 flag = false;
+81             }
+82         if (flag)
+83             cout &lt;&lt; &quot;YES&quot; &lt;&lt; endl;
+84         else
+85             cout &lt;&lt; &quot;NO&quot; &lt;&lt; endl;
+86 
+87 
+88 
+89     }
+90     return 0 ;
+91 }
+</code></pre><blockquote>
+<p>太蠢的做法！结果超时了，完全可以第一次统计每个结点的入度，然后每次删除节点时对该入度数组进行- 操作，用bool真的太蠢了！而且这道题墨迹了一整个下午！<br>以后半小时内做不出来就研究答案！一道题目不要超过1个半小时！</p>
+</blockquote>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;queue&gt;
+ 6 using namespace std;
+ 7 
+ 8 queue&lt;int&gt; q;
+ 9 vector&lt;int&gt; vex[100];
+10 
+11 
+12 int main()
+13 {
+14     int n,m,i,a,b;
+15     vector&lt;int&gt;::iterator it;
+16     int degree[100];
+17     // i 为顶点 ， vex[i][0]为与该顶点相邻接的第一条弧的弧头顶点，vex[i] 为一个向量,记录与该顶点邻接的所有弧的弧头顶点
+18     while (cin &gt;&gt; n &gt;&gt; m)
+19     {
+20         if (m==0&amp;&amp;n==0)
+21             break;
+22         // 初始化vector和degree数组
+23         for (i = 0;i&lt;n;i++)
+24         {
+25             vex[i].clear();
+26             degree[i] = 0;
+27         }
+28         // 初始化队列
+29         while (!q.empty())
+30             q.pop();
+31         for (i = 0;i&lt;m;i++)
+32         {
+33             cin &gt;&gt; a &gt;&gt; b; // a-&gt;b为一条弧
+34             vex[a].push_back(b);
+35             // 增加b的入度
+36             degree[b] ++;
+37         }
+38         for (i = 0;i&lt;n;i++)
+39         {
+40             if (degree[i] == 0)
+41                 q.push(i);
+42         }
+43         int c = 0; // 计数器，用来确定已经被删除的结点的个数，或者用bool数组，但bool数组还得遍历
+44         while (!q.empty())
+45         {
+46             a = q.front();// 从队列中取出队首
+47             q.pop(); // 删除队首
+48             c ++;
+49             for (it = vex[a].begin();it != vex[a].end() ; it++)
+50             {
+51                 // 将待删除节点的邻接点的入度--，如果该邻接点成为入度为0的点，入队
+52                 degree[*it] -- ;
+53                 if (degree[*it] == 0)
+54                     q.push(*it);
+55             }
+56             vex[a].erase(vex[a].begin(),vex[a].end());// 删除所有的邻接顶点
+57 
+58         }
+59 
+60         if (c == n)
+61             cout &lt;&lt; &quot;YES&quot; &lt;&lt; endl;
+62         else
+63             cout &lt;&lt; &quot;NO&quot; &lt;&lt; endl;
+64 
+65 
+66 
+67     }
+68     return 0 ;
+69 }
+</code></pre><ul>
+<li>另一种遍历vector的方法</li>
+<li>for (int i = 0;i</li>
+</ul>
+<h4 id="确定比赛名次-30min"><a href="#确定比赛名次-30min" class="headerlink" title="确定比赛名次 30min"></a>确定比赛名次 30min</h4><blockquote>
+<p>和上面那道题比起来，只需要每次pop（）之前或之后输出结点数据。而且并不需要erase掉被选中结点的链表，因为我们看的是被push进queue的结点。</p>
+</blockquote>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;queue&gt;
+ 6 using namespace std;
+ 7 
+ 8 vector&lt;int&gt; vex[501];
+ 9 struct cmp{
+10     bool operator() (const int &amp;a, const int&amp; b ){
+11         return a &gt; b;
+12     }
+13 };
+14 priority_queue&lt;int, vector&lt;int&gt;, cmp &gt; q;
+15 int degree[501];
+16 // 如何保证号小的先被选中？优先队列！
+17 int main()
+18 {
+19   int n,m,i,a,b;
+20   while (cin&gt;&gt;n&gt;&gt;m)
+21   {
+22       // 初始化
+23       for (i=1;i&lt;=n;i++)
+24       {
+25           vex[i].clear();
+26           degree[i] = 0;
+27       }
+28       // queue 没有 clear()方法，故需要循环pop()数据
+29       while (!q.empty())
+30         q.pop();
+31 
+32       for (i = 0;i&lt;m;i++)
+33       {
+34           cin &gt;&gt; a &gt;&gt; b;
+35           vex[a].push_back(b);
+36           degree[b]++;
+37       }
+38       for (i=1;i&lt;=n;i++)
+39         if (degree[i] == 0)
+40           q.push(i);
+41       bool flag = true;
+42       while (!q.empty())
+43       {
+44           a = q.top();// 选取队尾元素
+45           q.pop();
+46           if (flag)
+47           {
+48               flag = false;
+49               cout &lt;&lt; a;
+50           }else
+51           cout &lt;&lt; &#39; &#39; &lt;&lt; a;
+52           for (i=0;i&lt;vex[a].size();i++)
+53           {
+54               b = vex[a][i];
+55               if ((--degree[b])==0)
+56                 q.push(b);
+57           }
+58       }
+59       cout &lt;&lt; endl;
+60   }
+61     return 0 ;
+62 }
+</code></pre><h4 id="产生冠军"><a href="#产生冠军" class="headerlink" title="产生冠军"></a>产生冠军</h4><blockquote>
+<p>没调过，已经调了一个小时了，附带上正确答案</p>
+</blockquote>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;queue&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;string&gt;
+ 8 using namespace std;
+ 9 
+10 vector&lt;int&gt; vex[10000];
+11 int degree[10000];
+12 queue&lt;int&gt; q;
+13 int main()
+14 {
+15     int i,n,count,a;
+16     string s1,s2;
+17     map&lt;string,int&gt; m; // 映射
+18     map&lt;string,int&gt;::iterator it;
+19     while (cin&gt;&gt;n &amp;&amp; n!=0)
+20     {
+21         count =0;
+22         for (i=0;i&lt;1000;i++)
+23         {
+24             vex[i].clear();
+25             degree[i] = 0;
+26         }
+27         for (i=0;i&lt;n;i++)
+28         {
+29             // 难点：把名字和数组的i进行映射，不知道具体的队员个数
+30             cin &gt;&gt;s1&gt;&gt;s2;
+31             if (m.find(s1) == m.end())
+32                 m.insert(pair&lt;string,int&gt;(s1,count++));
+33             if (m.count(s2)==0)
+34                 m.insert(pair&lt;string,int&gt;(s2,count++));
+35             vex[m[s1]].push_back(m[s2]);
+36             degree[m[s2]]++;
+37             // 如果插入的字符串已经出现过了则不会执行该条语句的啦！名字和索引的映射成功！
+38 //            for (it = m.begin() ; it!=m.end();it++)
+39 //                cout &lt;&lt; (*it).first &lt;&lt; &quot; : &quot; &lt;&lt; (*it).second &lt;&lt; endl;
+40         }
+41         // !!!!!!
+42         m.clear();
+43         while (!q.empty())
+44             q.pop();
+45 
+46         for (i=0;i&lt;m.size();i++)
+47             if (degree[i] == 0)
+48                 q.push(i);
+49         int cnt = 0;
+50         while (!q.empty())
+51         {
+52             a = q.front();
+53             q.pop();
+54             cnt ++;
+55             for (i=0;i&lt;vex[a].size();i++)
+56             {
+57                 if ((--degree[vex[a][i]])==0)
+58                     q.push(vex[a][i]);
+59             }
+60         }
+61         if (cnt == 1)
+62             cout &lt;&lt; &quot;Yes&quot; &lt;&lt; endl;
+63         else
+64             cout &lt;&lt; &quot;No&quot; &lt;&lt; endl;
+65     }
+66     return 0 ;
+67 }
+</code></pre><blockquote>
+<p>正确答案：</p>
+</blockquote>
+<pre><code> 1 #include &lt;stdio.h&gt;
+ 2 #include &lt;string.h&gt;
+ 3 #include &lt;string&gt;
+ 4 #include &lt;algorithm&gt;
+ 5 #include &lt;vector&gt;
+ 6 #include &lt;queue&gt;
+ 7 #include &lt;iostream&gt;
+ 8 #include &lt;map&gt;
+ 9 using namespace std;
+10 map&lt;string,int&gt; name;
+11 vector&lt;int&gt; edge[10000];
+12 queue&lt;int&gt; Q;
+13 int indegree[10000];
+14 int main(){
+15     int n,i,j;
+16     while(~scanf(&quot;%d&quot;,&amp;n)&amp;&amp;n){
+17         for(i=0;i&lt;10000;i++) { edge[i].clear();indegree[i]=0;}
+18         while(!Q.empty()) Q.pop();
+19         i=0;
+20         name.clear();
+21         for(j=0;j&lt;n;j++){
+22             string a,b;
+23             cin&gt;&gt;a&gt;&gt;b;
+24             if(name.find(a)==name.end()) { name[a]=i++;}
+25             if(name.find(b)==name.end())  { name[b]=i++;}
+26             edge[name[a]].push_back(name[b]);
+27             indegree[name[b]]++;
+28         }
+29         int num=i;
+30         int cnt=0;
+31         for(i=0;i&lt;num;i++)
+32             if(indegree[i]==0)    cnt++;
+33         /*
+34         int num=i;
+35         for(i=0;i&lt;n;i++){
+36             if(indegree[i]==0) Q.push(i);
+37         }
+38         int cnt=0;
+39         while(!Q.empty()){
+40             int nowp=Q.front();
+41             Q.pop();
+42             cnt++;
+43             for(i=0;i&lt;edge[nowp].size();i++){
+44                 indegree[edge[nowp][i]]--;
+45                 if(indegree[edge[nowp][i]]==0) Q.push(edge[nowp][i]);
+46             }
+47         }
+48         */
+49         if(cnt==1) puts(&quot;Yes&quot;);
+50         else puts(&quot;No&quot;);
+51     }
+52     return 0;
+53 }
+</code></pre><h4 id="最短路径问题"><a href="#最短路径问题" class="headerlink" title="最短路径问题"></a>最短路径问题</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;queue&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;string&gt;
+ 8 #define INFINITY 65535
+ 9 using namespace std;
+10 
+11 struct edge
+12 {
+13     int nextnode;
+14     int d;//距离
+15     int p;//花费
+16 };
+17 vector&lt;edge&gt; vex[1001]; // 邻接链表,vex[i]为一个向量，记录与vex[i]邻接的所有边的信息（邻接点以及权值）
+18 bool S[1001]; // s集合为已经找到最短路径的顶点集合
+19 int dis[1001]; // 距离向量
+20 int cost[1001];//花费向量
+21 int main()
+22 {
+23     int n,m,d,p,s,t,i,j,k,min,a,b;
+24     edge e;
+25     while (cin &gt;&gt; n &gt;&gt; m &amp;&amp; n!=0 &amp;&amp; m!=0)
+26     {
+27         // 1. 初始化邻接链表、距离向量和集合S，现在未知初始顶点和结束顶点是什么
+28         for (i=1;i&lt;=n;i++)
+29         {
+30             vex[i].clear();
+31             S[i] = false;
+32             dis[i] = INFINITY; // -1代表不可达
+33             cost[i] = 0;
+34         }
+35         // 2.输入数据
+36         for (i=0;i&lt;m;i++)
+37         {
+38             cin &gt;&gt; a&gt;&gt;b&gt;&gt;d&gt;&gt;p;
+39             e.d = d;e.p = p;
+40             e.nextnode = b;
+41             vex[a].push_back(e);
+42             e.nextnode = a;
+43             vex[b].push_back(e);
+44             // 无向图，加入两条边
+45         }
+46         cin &gt;&gt; s &gt;&gt;t ;
+47         // 确定初始顶点后，初始化集合S和dis
+48         S[s] = true;dis[s] = 0; // 初始顶点自己到自己为0
+49         for (i=0;i&lt;vex[s].size();i++)
+50         {
+51             int num = vex[s][i].nextnode;
+52             dis[num] = vex[s][i].d;
+53             cost[num] = vex[s][i].p;
+54         }
+55         // 循环找到最短路径
+56         for (i=2;i&lt;=n;i++)
+57         {
+58             // 找到当前最短路径和顶点
+59             min = INFINITY;
+60             for (j=1;j&lt;=n;j++)
+61             {
+62                 if (!S[j] &amp;&amp; min &gt; dis[j] )
+63                 {
+64                     k = j;
+65                     min = dis[j];
+66                 }
+67             }
+68             S[k] = true;
+69 
+70             for (j = 0;j&lt;vex[k].size();j++)
+71             {
+72                 int node = vex[k][j].nextnode;
+73                 if (S[node])
+74                     continue;
+75 
+76                 if (min+vex[k][j].d&lt;dis[node] || min+vex[k][j].d == dis[node] &amp;&amp; cost[node] &gt; cost[k]+vex[k][j].p)
+77                 {
+78                     dis[node] = min + vex[k][j].d;
+79                     cost[node] = cost[k]+vex[k][j].p;
+80                 }
+81             }
+82 
+83         }
+84         cout &lt;&lt; dis[t]&lt;&lt;&quot; &quot;&lt;&lt; cost[t]&lt;&lt; endl;
+85 
+86     }
+87 
+88     return 0 ;
+89 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

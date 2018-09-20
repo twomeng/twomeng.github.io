@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>蟠桃记 -数字序列-Fibonacci Again | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="题目源地址 Description喜欢西游记的同学肯定都知道悟空偷吃蟠桃的故事，你们一定都觉得这猴子太闹腾了，其实你们是有所不知：悟空是在研究一个数学问题！ 什么问题？他研究的问题是蟠桃一共有多少个！ 不过，到最后，他还是没能解决这个难题，呵呵^-^ 当时的情况是这样的： 第一天悟空吃掉桃子总数一半多一个，第二天又将剩下的桃子吃掉一半多一个，以后每天吃掉前一天剩下的一半多一个，到第n天准备吃的时候">
+<meta property="og:type" content="website">
+<meta property="og:title" content="蟠桃记 -数字序列-Fibonacci Again">
+<meta property="og:url" content="http://yoursite.com/backup/蟠桃记 -数字序列-Fibonacci Again.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题目源地址 Description喜欢西游记的同学肯定都知道悟空偷吃蟠桃的故事，你们一定都觉得这猴子太闹腾了，其实你们是有所不知：悟空是在研究一个数学问题！ 什么问题？他研究的问题是蟠桃一共有多少个！ 不过，到最后，他还是没能解决这个难题，呵呵^-^ 当时的情况是这样的： 第一天悟空吃掉桃子总数一半多一个，第二天又将剩下的桃子吃掉一半多一个，以后每天吃掉前一天剩下的一半多一个，到第n天准备吃的时候">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:30.543Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="蟠桃记 -数字序列-Fibonacci Again">
+<meta name="twitter:description" content="题目源地址 Description喜欢西游记的同学肯定都知道悟空偷吃蟠桃的故事，你们一定都觉得这猴子太闹腾了，其实你们是有所不知：悟空是在研究一个数学问题！ 什么问题？他研究的问题是蟠桃一共有多少个！ 不过，到最后，他还是没能解决这个难题，呵呵^-^ 当时的情况是这样的： 第一天悟空吃掉桃子总数一半多一个，第二天又将剩下的桃子吃掉一半多一个，以后每天吃掉前一天剩下的一半多一个，到第n天准备吃的时候">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      蟠桃记 -数字序列-Fibonacci Again
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/backup/蟠桃记 -数字序列-Fibonacci Again.html" class="article-date">
+  <time datetime="2018-08-14T01:29:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://acm.nefu.edu.cn/JudgeOnline/problemShow.php?problem_id=422" target="_blank" rel="noopener">题目源地址</a></p>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><pre><code>喜欢西游记的同学肯定都知道悟空偷吃蟠桃的故事，你们一定都觉得这猴子太闹腾了，其实你们是有所不知：悟空是在研究一个数学问题！
+什么问题？他研究的问题是蟠桃一共有多少个！
+不过，到最后，他还是没能解决这个难题，呵呵^-^
+当时的情况是这样的：
+第一天悟空吃掉桃子总数一半多一个，第二天又将剩下的桃子吃掉一半多一个，以后每天吃掉前一天剩下的一半多一个，到第n天准备吃的时候只剩下一个桃子。聪明的你，请帮悟空算一下，他第一天开始吃的时候桃子一共有多少个呢？
+</code></pre><h3 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h3><pre><code>输入数据有多组，每组占一行，包含一个正整数n（1 &lt; n &lt; 30），表示只剩下一个桃子的时候是在第n天发生的。
+</code></pre><h3 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h3><pre><code>输入数据有多组，每组占一行，包含一个正整数n（ 1 &lt; n &lt; 30），表示只剩下一个桃子的时候是在第n天发生的。
+</code></pre><h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input"></a>Sample Input</h3><pre><code>2
+4
+</code></pre><h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output"></a>Sample Output</h3><pre><code>4
+22
+
+
+ 1 #include &lt;iostream&gt;
+ 2 #include &lt;algorithm&gt;
+ 3 #include &lt;stdio.h&gt;
+ 4 #include &lt;string.h&gt;
+ 5 using namespace std;
+ 6 long long f(int n)
+ 7 {
+ 8 
+ 9     if (n==1) return 1;
+10 
+11     return 2*(f(n-1)+1);
+12 }
+13 
+14 int main()
+15 {
+16     int n;
+17     while (cin&gt;&gt;n)
+18     {
+19         cout&lt;&lt;f(n)&lt;&lt;endl;
+20     }
+21 
+22 
+23       return 0;
+24 
+25 }
+</code></pre><p><a href="http://acm.nefu.edu.cn/JudgeOnline/problemShow.php?problem_id=67" target="_blank" rel="noopener">题目源地址</a></p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;algorithm&gt;
+ 3 #include &lt;stdio.h&gt;
+ 4 #include &lt;string.h&gt;
+ 5 using namespace std;
+ 6 
+ 7 
+ 8 int main()
+ 9 {
+10 int a,b,n,data[101],i;
+11 data[1]=data[2]=1;
+12 while (scanf (&quot;%d %d %d&quot;,&amp;a,&amp;b,&amp;n)!=-1)
+13 {
+14     if (a==0&amp;&amp;b==0&amp;&amp;n==0)
+15         break;
+16     if (n&lt;3)
+17         cout&lt;&lt;&quot;1&quot;&lt;&lt;endl;
+18     else
+19     {
+20 
+21     for(i=3;i&lt;50;i++)//循环节多大怎么估算
+22     {
+23         data[i]=(a*data[i-1]+b*data[i-2])%7;
+24         if (data[i]==1&amp;&amp;data[i-1]==1)
+25             break;
+26     }
+27 n=n%(i-2);
+28     if (n==0)
+29         cout&lt;&lt;data[i-2]&lt;&lt;endl;
+30     else
+31         cout&lt;&lt;data[n]&lt;&lt;endl;
+32     }
+33 
+34 
+35 
+36 }
+37 
+38       return 0;
+39 
+40 }
+</code></pre><p>大致思路：</p>
+<p>1.输入a,b,n</p>
+<p>2. 开数组，大致估算循环节的长度，把循环节输入直到一个循环节的结束。</p>
+<p>3. 但是1 1 0 4 5 1 1,所以用n%（i-2),有两种情况0或者1 2 3 4 5分别对待。</p>
+<p>4. i-2&gt;0,所以i&gt;3,再讨论</p>
+<p>自动找出循环节：  </p>
+<pre><code>for(i=3;i&lt;=49;i++)   
+{   
+data[i]=(a*data[i-1]+b*data[i-2])%7;   
+
+if (data[i]==1&amp;&amp;data[i-1]==1) break;  
+}
+</code></pre><p><a href="http://acm.nefu.edu.cn/JudgeOnline/problemShow.php?problem_id=70" target="_blank" rel="noopener">题目源地址</a></p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;algorithm&gt;
+ 3 #include &lt;stdio.h&gt;
+ 4 #include &lt;string.h&gt;
+ 5 using namespace std;
+ 6 int ha(int n)
+ 7 {
+ 8     if (n==0) return 1;
+ 9     if (n==1) return 2;
+10     return (ha(n-1)+ha(n-2))%3;
+11 }
+12 
+13 int main()
+14 {
+15     int n;
+16     while (cin&gt;&gt;n)
+17     {
+18         n=n%8;
+19         if (ha(n)==0)
+20             cout&lt;&lt;&quot;yes&quot;&lt;&lt;endl;
+21         else
+22             cout&lt;&lt;&quot;no&quot;&lt;&lt;endl;
+23     }
+24 
+25 
+26       return 0;
+27 
+28 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>计算机考研机试指南（四）——排版题 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="编程日记 cha2-04 排版题输出梯形（oj无） 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;algorithm&amp;gt;  3 #include &amp;lt;string.h&amp;gt;  4 #include &amp;lt;stdio.h&amp;gt;  5 #include &amp;lt;iomanip&amp;gt;  6 using namespace std;  7 /*">
+<meta property="og:type" content="website">
+<meta property="og:title" content="计算机考研机试指南（四）——排版题">
+<meta property="og:url" content="http://yoursite.com/backup/计算机考研机试指南（四）——排版题.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="编程日记 cha2-04 排版题输出梯形（oj无） 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;algorithm&amp;gt;  3 #include &amp;lt;string.h&amp;gt;  4 #include &amp;lt;stdio.h&amp;gt;  5 #include &amp;lt;iomanip&amp;gt;  6 using namespace std;  7 /*">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:28.647Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算机考研机试指南（四）——排版题">
+<meta name="twitter:description" content="编程日记 cha2-04 排版题输出梯形（oj无） 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;algorithm&amp;gt;  3 #include &amp;lt;string.h&amp;gt;  4 #include &amp;lt;stdio.h&amp;gt;  5 #include &amp;lt;iomanip&amp;gt;  6 using namespace std;  7 /*">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      计算机考研机试指南（四）——排版题
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/backup/计算机考研机试指南（四）——排版题.html" class="article-date">
+  <time datetime="2018-08-20T17:20:00.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="编程日记-cha2-04-排版题"><a href="#编程日记-cha2-04-排版题" class="headerlink" title="编程日记 cha2-04 排版题"></a>编程日记 cha2-04 排版题</h4><h4 id="输出梯形（oj无）"><a href="#输出梯形（oj无）" class="headerlink" title="输出梯形（oj无）"></a>输出梯形（oj无）</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;algorithm&gt;
+ 3 #include &lt;string.h&gt;
+ 4 #include &lt;stdio.h&gt;
+ 5 #include &lt;iomanip&gt;
+ 6 using namespace std;
+ 7 /*
+ 8     题目：输出梯形
+ 9     用时：tomato *
+10     思路：输出时设置宽度setw默认为左对齐，只能人工添加空格
+11 
+12 
+13 */
+14 
+15 int main()
+16 {
+17     int h;
+18     while (cin&gt;&gt;h)
+19     {
+20         int width = h + 2*(h-1);
+21         for (int i=0;i&lt;h;i++)
+22         {
+23         // cout&lt;&lt;setw(width)&lt;&lt;&quot; &quot;; // ★头4文件 iomanip
+24             for (int j = 1;j&lt;=2*(h-i-1);j++)
+25                 cout&lt;&lt;&#39; &#39;;
+26             for (int j = 1;j&lt;=(h+2*i);j++)
+27                 cout&lt;&lt;&#39;*&#39;;
+28             cout&lt;&lt;endl;
+29         }
+30     }
+31 
+32 
+33 
+34     return 0;
+35 }
+</code></pre><h4 id="叠筐"><a href="#叠筐" class="headerlink" title="叠筐"></a>叠筐</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;algorithm&gt;
+ 3 #include &lt;string.h&gt;
+ 4 #include &lt;stdio.h&gt;
+ 5 #include &lt;iomanip&gt;
+ 6 using namespace std;
+ 7 /*
+ 8     题目：叠筐
+ 9     用时：tomato *
+10     思路：先排版再输出，n*n的二维数组，由内向外扩张圈
+11     填充完之后填充四个角，最后打印输出矩阵
+12 
+13 
+14 */
+15 
+16 int main()
+17 {
+18    int n;
+19    char center,out;
+20    char buffer[80][80];
+21    int i,j,k;
+22    char nc;
+23    bool flag = true;
+24    while (scanf(&quot;%d %c %c&quot;,&amp;n,&amp;center,&amp;out)!=EOF)
+25    {
+26        // 因为格式问题：第一个筐不输出空行，非第一个筐输出空行再输出筐
+27        if (flag)
+28        {
+29             flag = false;
+30        }
+31        else 
+32         cout&lt;&lt;endl;
+33        for (i=0,j=0;i&lt;(n+1)/2;i++,j++)
+34        {
+35            if (((n+1)/2)%2 == 0 )
+36                 nc = i%2==0?out: center;
+37             else
+38                 nc = i%2==0?center:out;
+39 
+40            //选择当前圈字符，现在的问题便转化为如何塑造一个空心的筐，循环缩小
+41            int width = n-2*i;//筐的宽度、高度：循环次数,起点为(i,j)
+42 
+43            for (k = 0 ; k &lt; width ; k++)
+44             {
+45                 buffer[i][j+k] = nc; // 筐上
+46                 buffer[n-1-i][j+k] = nc; // 下
+47                 buffer[i+k][j] = nc; // 左
+48                 buffer[i+k][n-1-j] = nc; // 右
+49             }
+50 
+51        }
+52        if (n!=1)  //当N=1时没有角可以去！★★★ 如果不判断会导致不能所有用例都通过测试
+53        {
+54                   // 去掉四个角
+55             buffer[0][0] = &#39; &#39;;
+56             buffer[0][n-1]=&#39; &#39;;
+57             buffer[n-1][0]=&#39; &#39;;
+58             buffer[n-1][n-1]=&#39; &#39;;
+59        }
+60 
+61        for (i=0;i&lt;n;i++)
+62        {
+63            for (j=0;j&lt;n;j++)
+64            {
+65                cout&lt;&lt;buffer[i][j];
+66            }
+67            cout&lt;&lt;endl;
+68        }
+69    }
+70 
+71 
+72 
+73     return 0;
+74 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

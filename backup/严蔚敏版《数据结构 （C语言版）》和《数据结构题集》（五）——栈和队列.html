@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（五）——栈和队列 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="栈的顺序表实现  1 #include  &amp;lt;iostream&amp;gt;  2 #include &amp;lt;stdlib.h&amp;gt;  3 #include &amp;lt;stdio.h&amp;gt;  4 #define MAXSIZE 1024  5 using namespace std;  6 typedef int Elemtype;  7 typedef struct {  8 Elemtype">
+<meta property="og:type" content="website">
+<meta property="og:title" content="严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（五）——栈和队列">
+<meta property="og:url" content="http://yoursite.com/backup/严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（五）——栈和队列.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="栈的顺序表实现  1 #include  &amp;lt;iostream&amp;gt;  2 #include &amp;lt;stdlib.h&amp;gt;  3 #include &amp;lt;stdio.h&amp;gt;  4 #define MAXSIZE 1024  5 using namespace std;  6 typedef int Elemtype;  7 typedef struct {  8 Elemtype">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20170409142409255?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-09-20T01:27:29.665Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（五）——栈和队列">
+<meta name="twitter:description" content="栈的顺序表实现  1 #include  &amp;lt;iostream&amp;gt;  2 #include &amp;lt;stdlib.h&amp;gt;  3 #include &amp;lt;stdio.h&amp;gt;  4 #define MAXSIZE 1024  5 using namespace std;  6 typedef int Elemtype;  7 typedef struct {  8 Elemtype">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170409142409255?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（五）——栈和队列
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/backup/严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（五）——栈和队列.html" class="article-date">
+  <time datetime="2018-08-14T02:38:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>栈的顺序表实现</strong></p>
+<pre><code> 1 #include  &lt;iostream&gt;
+ 2 #include &lt;stdlib.h&gt;
+ 3 #include &lt;stdio.h&gt;
+ 4 #define MAXSIZE 1024
+ 5 using namespace std;
+ 6 typedef int Elemtype;
+ 7 typedef struct {
+ 8 Elemtype data[MAXSIZE];
+ 9 int top;
+10 }Seqstack;
+11 void initSeqstack(Seqstack &amp;s){
+12 s.top=-1;
+13 }
+14 int stackEmpty(Seqstack &amp;s){
+15 return s.top==-1;
+16 }
+17 int SeqstackPush(Seqstack &amp;s,Elemtype e){
+18 if (s.top&gt;=MAXSIZE-1)
+19 return 0;
+20 else {
+21 s.top++;
+22 s.data[s.top]=e;
+23 return 1;
+24 }
+25 }
+26 int SeqstackPop(Seqstack &amp;s,Elemtype &amp;e){
+27 if (s.top==-1)
+28 return 0;
+29 else {
+30 e=s.data[s.top];
+31 s.top--;
+32 return 1;
+33 }
+34 }
+35 void getTop(Seqstack &amp;s,Elemtype &amp;e){
+36 e=s.data[s.top];
+37 }
+38 void displaySeqstack(Seqstack &amp;s){
+39 for (int i=0;i&lt;=s.top;i++)
+40 printf(&quot;%d &quot;,s.data[i]);
+41 printf (&quot;\n&quot;);
+42 }
+43 int main()
+44 {
+45     Seqstack s;Elemtype e;
+46     initSeqstack(s);
+47     for (int i=1;i&lt;6;i++)
+48     SeqstackPush(s,i);
+49     displaySeqstack(s);
+50     getTop(s,e);
+51     printf (&quot;%d\n&quot;,e);
+52     SeqstackPop(s,e);
+53     displaySeqstack(s);
+54 
+55 
+56     return 0;
+57 }
+</code></pre><p><strong>严蔚敏版 栈的实现</strong></p>
+<pre><code> 1 #include  &lt;iostream&gt;
+ 2 #include &lt;stdlib.h&gt;
+ 3 #include &lt;stdio.h&gt;
+ 4 #define STACK_INIT_SIZE 100
+ 5 #define STACKINCREMENT 10
+ 6 #define OVERFLOW -2
+ 7 using namespace std;
+ 8 
+ 9 typedef int Elemtype;
+10 typedef struct {
+11 Elemtype *base;
+12 Elemtype *top;
+13 int stacksize;
+14 }Seqstack;
+15 int initStack(Seqstack &amp;s){
+16 s.base=(Elemtype *)malloc(sizeof(Elemtype)*STACK_INIT_SIZE);
+17 if (!s.base ) exit(OVERFLOW);//存储分配失败
+18 s.top=s.base;
+19 s.stacksize=STACK_INIT_SIZE;
+20 return 1;
+21 }
+22 int stackEmpty(Seqstack &amp;s){
+23 return s.top==s.base;
+24 }
+25 int stackLength(Seqstack &amp;s){
+26 return s.top-s.base;
+27 }
+28 int SeqstackPush(Seqstack &amp;s,Elemtype e){
+29 if (s.top-s.base &gt;=s.stacksize){
+30 s.base=(Elemtype *)realloc(s.base,(s.stacksize+STACKINCREMENT)*sizeof(Elemtype));
+31 if (!s.base) exit(OVERFLOW);
+32 s.top=s.base+s.stacksize;
+33 s.stacksize+=STACKINCREMENT;
+34 //上溢后：
+35 //1.分配存储空间给base指针 2、判断是否分配成功 3、top/stacksize重新修改正确
+36 }
+37 *s.top=e;
+38 s.top++;//或者可以合成*s.top++=e,先赋值再++
+39 return 1;
+40 }
+41 int SeqstackPop(Seqstack &amp;s,Elemtype &amp;e){
+42 if(s.top==s.base){
+43 printf (&quot;null&quot;);
+44 return 0;
+45 }
+46 s.top--;
+47 e=*s.top;
+48 return 1;
+49 }
+50 void getTop(Seqstack &amp;s,Elemtype &amp;e){
+51 if (s.base!=s.top){
+52 e=*--s.top;
+53 }
+54 }
+55 void displaySeqstack(Seqstack &amp;s){
+56 for (int i=0;i&lt;=s.top-s.base;i++)
+57 printf(&quot;%d &quot;,s.base[i]);
+58 printf (&quot;\n&quot;);
+59 }
+60 
+61 int main()
+62 {
+63     Seqstack s;
+64     initStack(s);
+65     for (int i=1;i&lt;6;i++)
+66     SeqstackPush(s,i);
+67     displaySeqstack(s);
+68     Elemtype e;
+69     getTop(s,e);
+70     printf (&quot;%d\n&quot;,e);
+71     SeqstackPop(s,e);
+72     displaySeqstack(s);
+73 
+74 
+75     return 0;
+76 }
+</code></pre><p><strong>建立链栈</strong></p>
+<pre><code> 1 #include  &lt;iostream&gt;
+ 2 #include &lt;stdlib.h&gt;
+ 3 #include &lt;stdio.h&gt;
+ 4 #define OVERFLOW -2
+ 5 using namespace std;
+ 6 typedef int Elemtype;
+ 7 typedef struct node {
+ 8 Elemtype data;
+ 9 struct node *next;
+10 }node,*linkstack;
+11 void initLinkstack(linkstack &amp;top){
+12 top=NULL;//无头节点的链栈
+13 }
+14 int linkstackEmpty(linkstack &amp;top){
+15 return top==NULL;
+16 }
+17 int linkstackPush(linkstack &amp;top,Elemtype e){
+18 linkstack p=(linkstack )malloc (sizeof(node));
+19 if (!p) exit(OVERFLOW);
+20 p-&gt;data=e;
+21 p-&gt;next=top;
+22 top=p;
+23 return 1;
+24 }
+25 int linkstackPop(linkstack &amp;top,Elemtype &amp;e){
+26 e=top-&gt;data;
+27 linkstack p=top;
+28 top=top-&gt;next;
+29 free(p);
+30 return 1;
+31 }
+32 void getTop(linkstack &amp;top,Elemtype &amp;E){
+33 E=top-&gt;data;
+34 }
+35 void displaylinkstack(linkstack &amp;top){
+36 linkstack p=top;
+37 while (p){
+38 printf (&quot;%d &quot;,p-&gt;data);
+39 p=p-&gt;next;
+40 }
+41 printf (&quot;\n&quot;);
+42 }
+43 int main()
+44 {
+45     linkstack top;
+46     initLinkstack(top);
+47     for (int i=1;i&lt;6;i++)
+48     linkstackPush(top,i);
+49     displaylinkstack(top);
+50     Elemtype e;
+51     getTop(top,e);
+52     printf (&quot;%d\n&quot;,e);
+53     linkstackPop(top,e);
+54     displaylinkstack(top);
+55 
+56 
+57     return 0;
+58 }
+</code></pre><p><strong>栈的应用</strong><br>1.数制转换：对于输入的非负十进制整数，打印输出与之等值的八进制数。</p>
+<pre><code> 1 //算法3.1
+ 2 void conversion(){
+ 3 Seqstack s;
+ 4 initSeqstack(s);
+ 5 int n;
+ 6 cout&lt;&lt;&quot;请输入一个十进制数字&quot;&lt;&lt;endl;
+ 7 cin&gt;&gt;n;
+ 8 while (n){
+ 9 int r=n%8;
+10 SeqstackPush(s,r);
+11 n=n/8;
+12 }
+13 displaySeqstack(s);
+14 }
+</code></pre><p>2.括号匹配检验<br>只有【】（）两种括号，检查括号是否是匹配的。<br>输入一个字符：<br>1、左括号：压栈<br>2、右括号：如果栈为空，则右括号多了，输出不匹配信息；如果栈不为空，取出栈顶元素进行配对，如果配对成功弹栈，如果不成功则输出括号不匹配信息。<br>字符输入结束：<br>如果栈不为空，左括号多了，输出不匹配信息；否则输出终于匹配信息！</p>
+<pre><code> 1 int match(){
+ 2 Seqstack s;
+ 3 initSeqstack(s);
+ 4 char c;Elemtype e;
+ 5 scanf (&quot;%c&quot;,&amp;c);
+ 6 while (c!=&#39;#&#39;){
+ 7     if (c==&#39;[&#39;||c==&#39;(&#39;)
+ 8         SeqstackPush(s,c);
+ 9         else if (c==&#39;]&#39;||c==&#39;)&#39;){
+10         if (!stackEmpty(s)){
+11         e=getTop(s);
+12         if (e==&#39;[&#39;&amp;&amp;c==&#39;]&#39;||e==&#39;(&#39;&amp;&amp;c==&#39;)&#39;){
+13         SeqstackPop(s,e);
+14         }
+15         }else
+16         printf (&quot;右括号太多了！\n&quot;);
+17         }else
+18         printf (&quot;输入符号有误！\n&quot;);
+19 
+20 scanf (&quot;%c&quot;,&amp;c);
+21 }
+22 if (!stackEmpty(s))
+23 printf (&quot;左括号太多！\n&quot;);
+24 else
+25 printf (&quot;成功匹配&quot;);
+26 }
+</code></pre><p>3.行编辑程序</p>
+<pre><code> 1 void lineEdit(){
+ 2 Seqstack s;
+ 3 initSeqstack(s);
+ 4 char c;
+ 5 cout&lt;&lt;&quot;输入字符吧！\n&quot;&lt;&lt;endl;
+ 6 cin&gt;&gt;c;
+ 7 while (c!=&#39;\n&#39;){
+ 8 switch (c){
+ 9 case &#39;#&#39;:SeqstackPop(s);break;
+10 case &#39;@&#39;:clearstack(s);break;
+11 default:SeqstackPush(s,c);
+12 }
+13 c=getchar();
+14 }
+15 displaySeqstack(s);
+16 
+17 }
+</code></pre><p><strong>顺序队列的基本实现</strong></p>
+<pre><code> 1 #include  &lt;iostream&gt;
+ 2 #include &lt;stdlib.h&gt;
+ 3 #include &lt;stdio.h&gt;
+ 4 #define MAXSIZE 1024
+ 5 using namespace std;
+ 6 typedef int Elemtype;
+ 7 typedef struct{
+ 8 Elemtype data[MAXSIZE];
+ 9 int rear,front;
+10 }Seqqueue;
+11 void initSeqqueue(Seqqueue &amp;q){
+12 q.rear=q.front=-1;
+13 }
+14 int emptySeqqueue(Seqqueue &amp;q){
+15 return q.rear==q.front;
+16 }
+17 int enSeqqueue(Seqqueue &amp;q,Elemtype e){
+18     //先判断是否栈满
+19     if (q.rear-q.front&gt;=MAXSIZE){
+20     printf (&quot;full!\n&quot;);
+21     return 0;
+22     }
+23     q.rear++;
+24     q.data[q.rear]=e;
+25     return 1;
+26 }
+27 int deSeqqueue(Seqqueue &amp;q,Elemtype &amp;e){
+28 if (emptySeqqueue(q)){
+29 printf (&quot;null!\n&quot;);
+30 return 0;
+31 }
+32 q.front++;
+33 e=q.data[q.front];
+34 return 1;
+35 }
+36 Elemtype getFront(Seqqueue &amp;q){
+37 if (emptySeqqueue(q)){
+38 printf (&quot;null!\n&quot;);
+39 }
+40 else {
+41 Elemtype e;
+42 e=q.data[q.front++];
+43 return e;
+44 }
+45 }
+46 void display(Seqqueue &amp;q){
+47 if (emptySeqqueue(q)){
+48 printf (&quot;null!\n&quot;);
+49 }
+50 else {
+51 int i=1+q.front;
+52 while (i&lt;=q.rear){
+53 printf (&quot;%d &quot;,q.data[i]);
+54 i++;
+55 }
+56 printf (&quot;\n&quot;);
+57 }
+58 }
+59 int main()
+60 {
+61     Seqqueue q;
+62     initSeqqueue(q);
+63     for (int i=1;i&lt;6;i++)
+64     enSeqqueue(q,i);
+65     display(q);
+66     Elemtype e;
+67     deSeqqueue(q,e);
+68     printf (&quot;%d\n&quot;,e);
+69     e=getFront(q);
+70         printf (&quot;%d\n&quot;,e);
+71 
+72 
+73     return 0;
+74 }
+</code></pre><p>//1.用两个栈，一个s1,一个s2,来模拟一个队列。队列是先进先出，栈是先进后出，用两个栈模拟一个队列</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdlib.h&gt;
+ 3 #include &lt;stdio.h&gt;
+ 4 #define MAXSIZE 1024
+ 5 using namespace std;
+ 6 //1.用两个栈，一个s1,一个s2,来模拟一个队列。队列是先进先出，栈是先进后出，用两个栈模拟一个队列
+ 7 //2.一带头结点的循环链表表示队列，设计出队入队的算法。
+ 8 //3.用一个数组建两个栈。建两个以上的栈最好用链栈，每一个都是一个栈。
+ 9 //因为用数组建两个栈可以，不能建多个栈
+10 //4.队列的题目已经上传。
+11 
+12 typedef int Elemtype;
+13 typedef struct {
+14 Elemtype data[MAXSIZE];
+15 int top;
+16 }Seqstack;
+17 void initSeqstack(Seqstack &amp;s){
+18 s.top=-1;
+19 }
+20 int isempty(Seqstack &amp;s){
+21 return s.top==-1;
+22 }
+23 int push(Seqstack &amp;s,Elemtype e){
+24 if (s.top&gt;=MAXSIZE-1){
+25 printf (&quot;full\n&quot;);
+26 return 0;
+27 }
+28 s.top++;
+29 s.data[s.top]=e;
+30 return 1;
+31 }
+32 int pop(Seqstack &amp;s,Elemtype &amp;e){
+33 if (s.top==-1){
+34 printf (&quot;null\n&quot;);
+35 return 0;
+36 }
+37 e=s.data[s.top];
+38 s.top--;
+39 return 1;
+40 }
+41 Elemtype gettop(Seqstack &amp;s){
+42 return s.data[s.top];
+43 }
+44 //入队，直接进1号栈；出队，先判断2号栈是否有元素，有元素就直接弹出栈顶即队首，如果2号栈没有元素，则将1号栈的元素顺序弹出并进2号栈。
+45 typedef struct {
+46 Seqstack s1;//数据输入栈
+47 Seqstack s2;//数据缓存栈，便于先存放进去的元素先出来
+48 }dulstack;
+49 void initDulstack(dulstack &amp;d){
+50 initSeqstack(d.s1);
+51 initSeqstack(d.s2);
+52 }
+53 int enterQueue(dulstack &amp;d,Elemtype x){
+54     Elemtype e;
+55 if (isempty(d.s1)){
+56 //如果S1栈为空，应当把S2栈中的元素全部弹出压入该栈
+57 while (!isempty(d.s2)){
+58 pop(d.s2,e);
+59 push(d.s1,e);
+60 }
+61 }
+62 push(d.s1,x);
+63 return 1;
+64 }
+65 int deQueue(dulstack &amp;d,Elemtype &amp;x){
+66     Elemtype e;
+67     if (!isempty(d.s2)){
+68     x=gettop(s2);
+69     return 1;
+70     }
+71 while (!isempty(d.s1)){
+72 pop(d.s1,e);
+73 push(d.s2,e);
+74 }
+75 pop(d.s2,x);
+76 return 1;
+77 }
+78 int isemptydulQueue(dulstack d){
+79 return isempty(d.s1)&amp;&amp;isempty(d.s2);
+80 }
+81 
+82 
+83 int main()
+84 {
+85 dulstack d;
+86 initDulstack(d);
+87 Elemtype x;
+88 scanf (&quot;%d&quot;,&amp;x);
+89 while (x!=-999){
+90 enterQueue(d,x);
+91 scanf (&quot;%d&quot;,&amp;x);
+92 }
+93 while (!isemptydulQueue(d)){
+94 deQueue(d,x);
+95 printf (&quot;%d &quot;,x);
+96 }
+97 cout&lt;&lt;endl;
+98     return 0;
+99 }
+</code></pre><p>//2.一带头结点的循环链表表示队列，设计出队入队的算法。</p>
+<pre><code> 1 typedef int Elemtype;
+ 2 typedef struct node {
+ 3 Elemtype data;
+ 4 struct node *next;
+ 5 }node,*Queueptr;
+ 6 typedef struct {
+ 7 Queueptr front ;
+ 8 Queueptr rear;
+ 9 }linkQueue;
+10 int  initQueue(linkQueue &amp;q){
+11 Queueptr lq=(Queueptr)malloc(sizeof(node));
+12 if (!lq) exit(OVERFLOW);
+13 lq-&gt;next=NULL;
+14 q.front=q.rear=lq;
+15 }
+16 int isempty(linkQueue q){
+17 return q.front==q.rear;
+18 }
+19 int enterQueue(linkQueue &amp;q,Elemtype e){
+20 Queueptr p=(Queueptr)malloc(sizeof(node));
+21 if (!p) exit(OVERFLOW);
+22 p-&gt;data=e;
+23 p-&gt;next=q.rear-&gt;next;
+24 q.rear-&gt;next=p;
+25 q.rear=p;
+26 return 1;
+27 }
+28 int deQueue(linkQueue &amp;q,Elemtype &amp;e){
+29     //出队依旧要判空，入队不需要判满了
+30     if (q.rear==q.front){
+31     printf(&quot;null\n&quot;);
+32     return 0;
+33     }
+34 Queueptr p=q.front-&gt;next;
+35 e=p-&gt;data;
+36 q.front-&gt;next=p-&gt;next;
+37 //这里要特别注意如果链表中唯一的元素要出队，尾指针必须要重新指向头结点，不然丢失该指针了
+38 if (q.front-&gt;next==NULL){//或者q.rear==p;
+39 q.rear=q.front;
+40 }
+41 free(p);
+42 return 1;
+43 }
+44 
+45 int main()
+46 {
+47 linkQueue q;
+48 initQueue(q);
+49 Elemtype e;
+50 scanf (&quot;%d&quot;,&amp;e);
+51 while (e!=-999){
+52 enterQueue(q,e);
+53 scanf (&quot;%d&quot;,&amp;e);
+54 }
+55 while (!isempty(q)){
+56 deQueue(q,e);
+57 printf (&quot;%d &quot;,e);
+58 }
+59 cout&lt;&lt;endl;
+60     return 0;
+61 }
+</code></pre><p><strong>用两个队列建立一个栈</strong><br>/ _两个队列模拟一个堆栈_ /<br>/<em>队列A、B<br>入栈：将元素依次压入到非空的队列，第一个元素压倒对列A<br>出栈：把队列A的前n-1个元素倒到队列B，把第n个元素去掉。此时数据在B中，下次操作，则对B操作。<br>栈顶：把队列A的前n-1个元素倒到队列B，把第n个元素作为栈顶</em>/</p>
+<pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;stdlib.h&gt;
+  3 #include &lt;stdio.h&gt;
+  4 #define MAXSIZE 1024
+  5 #define OVERFLOW -2
+  6 using namespace std;
+  7 
+  8 typedef int Elemtype;
+  9 typedef struct node {
+ 10 Elemtype data;
+ 11 struct node *next;
+ 12 }node,*Queueptr;
+ 13 typedef struct {
+ 14 Queueptr front ;
+ 15 Queueptr rear;
+ 16 }linkQueue;
+ 17 int  initQueue(linkQueue &amp;q){
+ 18 Queueptr lq=(Queueptr)malloc(sizeof(node));
+ 19 if (!lq) exit(OVERFLOW);
+ 20 lq-&gt;next=NULL;
+ 21 q.front=q.rear=lq;
+ 22 }
+ 23 int isempty(linkQueue q){
+ 24 return q.front==q.rear;
+ 25 }
+ 26 int enterQueue(linkQueue &amp;q,Elemtype e){
+ 27 Queueptr p=(Queueptr)malloc(sizeof(node));
+ 28 if (!p) exit(OVERFLOW);
+ 29 p-&gt;data=e;
+ 30 p-&gt;next=q.rear-&gt;next;
+ 31 q.rear-&gt;next=p;
+ 32 q.rear=p;
+ 33 return 1;
+ 34 }
+ 35 int deQueue(linkQueue &amp;q,Elemtype &amp;e){
+ 36     //出队依旧要判空，入队不需要判满了
+ 37     if (q.rear==q.front){
+ 38     printf(&quot;null\n&quot;);
+ 39     return 0;
+ 40     }
+ 41 Queueptr p=q.front-&gt;next;
+ 42 e=p-&gt;data;
+ 43 q.front-&gt;next=p-&gt;next;
+ 44 //这里要特别注意如果链表中唯一的元素要出队，尾指针必须要重新指向头结点，不然丢失该指针了
+ 45 if (q.front-&gt;next==NULL){//或者q.rear==p;
+ 46 q.rear=q.front;
+ 47 }
+ 48 free(p);
+ 49 return 1;
+ 50 }
+ 51 int getlength(linkQueue &amp;lq){
+ 52 Queueptr p=lq.front-&gt;next;
+ 53 int count=0;
+ 54 while (p!=NULL){
+ 55 count++;
+ 56 p=p-&gt;next;
+ 57 }
+ 58 return count;
+ 59 }
+ 60 typedef struct {
+ 61 linkQueue q1;
+ 62 linkQueue q2;
+ 63 }dulQueue;
+ 64 void initDulQueue(dulQueue &amp;dq){
+ 65 initQueue(dq.q1);
+ 66 initQueue(dq.q2);
+ 67 }
+ 68 int isemptyDul(dulQueue dq){
+ 69 return isempty(dq.q1)&amp;&amp;isempty(dq.q2);
+ 70 }
+ 71 int pushDul(dulQueue &amp;dp,Elemtype e){
+ 72 if (isempty(dp.q2)){
+ 73 enterQueue(dp.q1,e);
+ 74 }
+ 75 if (isempty(dp.q1)){
+ 76 enterQueue(dp.q2,e);
+ 77 }
+ 78 return 1;
+ 79 }
+ 80 int popDul(dulQueue &amp;dp,Elemtype &amp;x){
+ 81     Elemtype e;
+ 82 if (isempty(dp.q2)){
+ 83 int count=getlength(dp.q1);
+ 84 for (int i=0;i&lt;count-1;i++){
+ 85 deQueue(dp.q1,e);
+ 86 enterQueue(dp.q2,e);
+ 87 }
+ 88 if (isempty(dp.q1)){
+ 89 //如果这时Q1弹出了最后一个元素
+ 90 deQueue(dp.q2,x);
+ 91 }else
+ 92 deQueue(dp.q1,x);
+ 93 return 1;
+ 94 }
+ 95 if (isempty(dp.q1)){
+ 96     int count=getlength(dp.q2);
+ 97 for (int i=0;i&lt;count-1;i++){
+ 98 deQueue(dp.q2,e);
+ 99 enterQueue(dp.q1,e);
+100 }
+101 deQueue(dp.q2,x);
+102 return 1;
+103 }
+104 }
+105 int main()
+106 {
+107 dulQueue dq;
+108 initDulQueue(dq);
+109 Elemtype e;
+110 scanf (&quot;%d&quot;,&amp;e);
+111 while (e!=-999){
+112 pushDul(dq,e);
+113 scanf (&quot;%d&quot;,&amp;e);
+114 }
+115 while (!isemptyDul(dq)){
+116 popDul(dq,e);
+117 printf (&quot;%d &quot;,e);
+118 }
+119 cout&lt;&lt;endl;
+120     return 0;
+121 }
+</code></pre><p><strong>用一个数组建立两个栈</strong></p>
+<pre><code> 1 #include  &lt;iostream&gt;
+ 2 #include &lt;stdlib.h&gt;
+ 3 #include &lt;stdio.h&gt;
+ 4 #define MAXSIZE 20
+ 5 #define OVERFLOW -2
+ 6 using namespace std;
+ 7 
+ 8 typedef int Elemtype;
+ 9 typedef struct {
+10 Elemtype data[MAXSIZE];
+11 int top[2];
+12 }Seqstack;
+13 void initSeqstack(Seqstack &amp;s){
+14 s.top[0]=-1;
+15 s.top[1]=MAXSIZE;
+16 }
+17 int isempty(Seqstack s,int i){
+18 if (i==0)
+19 return s.top[i]==-1;
+20 else
+21 return s.top[i]==MAXSIZE;
+22 }
+23 int isfull(Seqstack s){
+24 return s.top[0]+1==s.top[1];
+25 }
+26 int push(Seqstack &amp;s,Elemtype e,int i){
+27 //用int i来判断用户想要push进0栈还是1栈
+28 if (isfull(s)){
+29 printf(&quot;full!\n&quot;);
+30 return 0;
+31 }
+32 if (i==0)
+33 s.top[i]++;
+34 else
+35 s.top[i]--;
+36 s.data[s.top[i]]=e;
+37 return 1;
+38 }
+39 int pop(Seqstack &amp;s,Elemtype &amp;e,int i){
+40 if (isempty(s,i)){
+41 printf (&quot;null\n&quot;);
+42 return 0;
+43 }
+44 e=s.data[s.top[i]];
+45 if (i==0)
+46 s.top[i]--;
+47 else
+48 s.top[i]++;
+49 return 1;
+50 }
+51 int main()
+52 {
+53     Seqstack s;
+54     initSeqstack(s);
+55     int x,i;
+56     scanf (&quot;%d %d&quot;,&amp;x,&amp;i);
+57     while (x!=-999){
+58     push(s,x,i);
+59     scanf (&quot;%d %d&quot;,&amp;x,&amp;i);
+60     }
+61     for (i=0;i&lt;2;i++){
+62     while (!isempty(s,i)){
+63     pop(s,x,i);
+64     printf (&quot;%d &quot;,x);
+65     }
+66     cout&lt;&lt;endl;
+67 
+68     }
+69 
+70 
+71 
+72     return 0;
+73 }
+</code></pre><p><strong>顺序循环队列</strong></p>
+<pre><code> 1 #include  &lt;iostream&gt;
+ 2 #include &lt;stdlib.h&gt;
+ 3 #include &lt;stdio.h&gt;
+ 4 #define MAXSIZE 8
+ 5 #define OVERFLOW -2
+ 6 using namespace std;
+ 7 
+ 8 typedef int Elemtype;
+ 9 typedef struct{
+10 Elemtype data[MAXSIZE];
+11 int rear,front;
+12 }Seqqueue;
+13 void initSeqqueue(Seqqueue &amp;q){
+14 q.rear=q.front=-1;
+15 }
+16 int emptySeqqueue(Seqqueue &amp;q){
+17 return q.rear==q.front;
+18 }
+19 int enSeqqueue(Seqqueue &amp;q,Elemtype e){
+20     //先判断是否队满
+21     if ((q.rear+1)%MAXSIZE==q.front){
+22     printf (&quot;full!\n&quot;);
+23     return 0;
+24     }
+25     q.rear=(q.rear+1)%MAXSIZE;
+26     q.data[q.rear]=e;
+27     return 1;
+28 }
+29 int deSeqqueue(Seqqueue &amp;q,Elemtype &amp;e){
+30 if (emptySeqqueue(q)){
+31 printf (&quot;null!\n&quot;);
+32 return 0;
+33 }
+34 q.front=(q.front+1)%MAXSIZE;
+35 e=q.data[q.front];
+36 return 1;
+37 }
+38 Elemtype getFront(Seqqueue &amp;q){
+39 if (emptySeqqueue(q)){
+40 printf (&quot;null!\n&quot;);
+41 }
+42 else {
+43 Elemtype e;
+44 q.front=(q.front+1)%MAXSIZE;
+45 e=q.data[q.front];
+46 return e;
+47 }
+48 }
+49 void display(Seqqueue &amp;q){
+50 if (emptySeqqueue(q)){
+51 printf (&quot;null!\n&quot;);
+52 }
+53 else {
+54 int i=(1+q.front)%MAXSIZE;
+55 while (i&lt;=q.rear){
+56 printf (&quot;%d &quot;,q.data[i]);
+57 i=(i+1)%MAXSIZE;
+58 }
+59 printf (&quot;\n&quot;);
+60 }
+61 }
+62 int getlength(Seqqueue &amp;q){
+63 return (q.rear-q.front+MAXSIZE)%MAXSIZE;
+64 }
+65 int main()
+66 {
+67     Seqqueue s;
+68     initSeqqueue(s);
+69     int x;
+70     scanf (&quot;%d&quot;,&amp;x);
+71     while (x!=-999){
+72     enSeqqueue(s,x);
+73     scanf (&quot;%d&quot;,&amp;x);
+74     }
+75 
+76     deSeqqueue(s,x);
+77     printf (&quot;%d &quot;,x);
+78     deSeqqueue(s,x);
+79     printf (&quot;%d &quot;,x);
+80     scanf (&quot;%d&quot;,&amp;x);
+81     enSeqqueue(s,x);
+82     deSeqqueue(s,x);
+83     printf (&quot;%d &quot;,x);
+84     cout&lt;&lt;endl;
+85     return 0;
+86 }
+</code></pre><p><strong>表达式求值</strong></p>
+<pre><code>  1 #include  &lt;iostream&gt;
+  2 #include &lt;stdio.h&gt;
+  3 #include &lt;stdlib.h&gt;
+  4 #define MAXSIZE 100
+  5 using namespace std;
+  6 typedef char Elemtype;
+  7 typedef struct {
+  8 Elemtype elem[MAXSIZE];
+  9 int top;
+ 10 }SqStack;
+ 11 void initSqstack(SqStack &amp;s){
+ 12 s.top=-1;
+ 13 }
+ 14 int isempty(SqStack &amp;s){
+ 15 
+ 16 return s.top==-1;
+ 17 }
+ 18 int push(SqStack &amp;s,Elemtype e){
+ 19 if (s.top&gt;=MAXSIZE-1)
+ 20 return 0;
+ 21 else {
+ 22 s.top++;
+ 23 s.elem[s.top]=e;
+ 24 return 1;
+ 25 }
+ 26 }
+ 27 int pop(SqStack &amp;s,Elemtype &amp;e){
+ 28 if (s.top==-1)
+ 29 return 0;
+ 30 else {
+ 31 e=s.elem[s.top];
+ 32 s.top--;
+ 33 return 1;
+ 34 }
+ 35 }
+ 36 Elemtype gettop(SqStack &amp;s){
+ 37 Elemtype e;
+ 38 e=s.elem[s.top];
+ 39 return e;
+ 40 }
+ 41 int in(Elemtype &amp;c){
+ 42 if (c==&#39;+&#39;||c==&#39;-&#39;||c==&#39;*&#39;||c==&#39;/&#39;||c==&#39;(&#39;||c==&#39;)&#39;||c==&#39;#&#39;||c==&#39;\n&#39;)
+ 43     return 1;
+ 44 else return 0;
+ 45 }
+ 46 char precede(Elemtype a,Elemtype b){
+ 47 //比较两个运算符的优先级
+ 48 if((a==&#39;+&#39;&amp;&amp;(b==&#39;+&#39;||b==&#39;-&#39;||b==&#39;)&#39;||b==&#39;#&#39;))||(a==&#39;-&#39;&amp;&amp;(b==&#39;+&#39;||b==&#39;-&#39;||b==&#39;)&#39;||b==&#39;#&#39;))
+ 49 ||(a==&#39;*&#39;&amp;&amp;(b==&#39;+&#39;||b==&#39;-&#39;||b==&#39;*&#39;||b==&#39;/&#39;||b==&#39;)&#39;||b==&#39;#&#39;))||(a==&#39;/&#39;&amp;&amp;(b==&#39;+&#39;||b==&#39;-&#39;
+ 50 ||b==&#39;*&#39;||b==&#39;/&#39;||b==&#39;)&#39;||b==&#39;#&#39;))||(a==&#39;)&#39;&amp;&amp;(b==&#39;+&#39;||b==&#39;-&#39;
+ 51 ||b==&#39;*&#39;||b==&#39;/&#39;||b==&#39;)&#39;||b==&#39;#&#39;)))
+ 52     return &#39;&gt;&#39;;
+ 53 if ((a==&#39;+&#39;&amp;&amp;(b==&#39;*&#39;||b==&#39;/&#39;||b==&#39;(&#39;))||(a==&#39;-&#39;&amp;&amp;(b==&#39;*&#39;||b==&#39;/&#39;||b==&#39;(&#39;))
+ 54 ||(a==&#39;*&#39;&amp;&amp;b==&#39;(&#39;)||(a==&#39;/&#39;&amp;&amp;b==&#39;(&#39;)||(a==&#39;(&#39;&amp;&amp;(b==&#39;+&#39;||b==&#39;-&#39;
+ 55 ||b==&#39;*&#39;||b==&#39;/&#39;||b==&#39;(&#39;))||(a==&#39;#&#39;&amp;&amp;(b==&#39;+&#39;||b==&#39;-&#39;
+ 56 ||b==&#39;*&#39;||b==&#39;/&#39;||b==&#39;(&#39;)))
+ 57 return &#39;&lt;&#39;;
+ 58 if((a==&#39;(&#39;&amp;&amp;b==&#39;)&#39;)||(a==&#39;#&#39;&amp;&amp;b==&#39;#&#39;))
+ 59 return &#39;=&#39;;
+ 60 }
+ 61 Elemtype operate(Elemtype &amp;a,Elemtype &amp;th,Elemtype &amp;b){
+ 62 int aa=a-&#39;0&#39;;
+ 63 int bb=b-&#39;0&#39;;
+ 64 char c;
+ 65 switch (th){
+ 66 case &#39;+&#39;:c=char(aa+bb+&#39;0&#39;);
+ 67     break;
+ 68 case &#39;-&#39;:c=char(bb-aa+&#39;0&#39;);
+ 69     break;
+ 70 case &#39;*&#39;:c=char(aa*bb+&#39;0&#39;);
+ 71     break;
+ 72 case &#39;/&#39;:c=char(aa/bb+&#39;0&#39;);
+ 73     break;
+ 74 }
+ 75 return c;
+ 76 }
+ 77 Elemtype evaluateExpression(){
+ 78 SqStack optr,opnd;
+ 79 initSqstack(optr);initSqstack(opnd);
+ 80 push(optr,&#39;#&#39;);
+ 81 char c=getchar(),x,theta,a,b;
+ 82 while (c!=&#39;#&#39;||gettop(optr)!=&#39;#&#39;)
+ 83 {
+ 84     //输入#时表达式结束，操作符栈的栈顶元素为#时说明全部弹出并进行运算
+ 85     //如果C是运算符则1, 比较栈顶元素的优先级大小，选择弹栈或者压栈
+ 86     //如果C是数字，这里假定全部为十位数以内，则压栈。
+ 87     //为什么这里是\\，我们想要设置为：两者都为#时循环结束，取非即为a!=#||b!#
+ 88 if (!in(c))
+ 89 {
+ 90     push(opnd,c);c=getchar();
+ 91 }else {
+ 92 switch (precede(gettop(optr),c)){
+ 93 case &#39;&gt;&#39;:
+ 94 pop(optr,theta);
+ 95 pop(opnd,a);
+ 96 pop(opnd,b);
+ 97 push(opnd,operate(a,theta,b));
+ 98 //这里不用c=getchar()因为c此时仍然为优先级较小的运算符，应当将循环继续，与gettop的运算
+ 99 //符相比，如果还是比top的运算符小，c还是不能进栈，直到满足＜的条件时才能进栈。
+100     break;
+101 case &#39;=&#39;:pop(optr,x);c=getchar();
+102     break;
+103 case &#39;&lt;&#39;:push(optr,c);c=getchar();
+104     break;
+105 }
+106 }
+107 }
+108 return gettop(opnd);
+109 }
+110 int main()
+111 {
+112     Elemtype c=evaluateExpression();
+113     cout&lt;&lt;c;
+114 
+115     return 0;
+116 }
+</code></pre><p>这种做法的弊端是：只能运算十以内的数字，而且在运算过程中也不能产生大于等于十的结果。<br><img src="http://img.blog.csdn.net/20170409142409255?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

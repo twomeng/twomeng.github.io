@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>计算机考研机试指南（三）——hash | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="编程日记 cha2-3 Hash的应用统计同成绩学生人数 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;algorithm&amp;gt;  3 #include &amp;lt;string.h&amp;gt;  4 #include &amp;lt;stdio.h&amp;gt;  5 using namespace std;  6 /*  7     题目：统计同成绩学生人数  8">
+<meta property="og:type" content="website">
+<meta property="og:title" content="计算机考研机试指南（三）——hash">
+<meta property="og:url" content="http://yoursite.com/backup/计算机考研机试指南（三）——hash.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="编程日记 cha2-3 Hash的应用统计同成绩学生人数 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;algorithm&amp;gt;  3 #include &amp;lt;string.h&amp;gt;  4 #include &amp;lt;stdio.h&amp;gt;  5 using namespace std;  6 /*  7     题目：统计同成绩学生人数  8">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:28.664Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算机考研机试指南（三）——hash">
+<meta name="twitter:description" content="编程日记 cha2-3 Hash的应用统计同成绩学生人数 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;algorithm&amp;gt;  3 #include &amp;lt;string.h&amp;gt;  4 #include &amp;lt;stdio.h&amp;gt;  5 using namespace std;  6 /*  7     题目：统计同成绩学生人数  8">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      计算机考研机试指南（三）——hash
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/backup/计算机考研机试指南（三）——hash.html" class="article-date">
+  <time datetime="2018-08-20T17:18:00.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="编程日记-cha2-3-Hash的应用"><a href="#编程日记-cha2-3-Hash的应用" class="headerlink" title="编程日记 cha2-3 Hash的应用"></a>编程日记 cha2-3 Hash的应用</h3><h4 id="统计同成绩学生人数"><a href="#统计同成绩学生人数" class="headerlink" title="统计同成绩学生人数"></a>统计同成绩学生人数</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;algorithm&gt;
+ 3 #include &lt;string.h&gt;
+ 4 #include &lt;stdio.h&gt;
+ 5 using namespace std;
+ 6 /*
+ 7     题目：统计同成绩学生人数
+ 8     用时：
+ 9     思路：hash数组统计
+10 
+11 */
+12 
+13 
+14 int main()
+15 {
+16     int n;
+17     int hs[101]={0};
+18     int grade ;
+19     int x;
+20     while (scanf(&quot;%d&quot;,&amp;n)!=EOF &amp;&amp; n!=0)
+21     {
+22         for (int i=0;i&lt;n;i++)
+23         {
+24             cin &gt;&gt; grade ;
+25             hs[grade]++;
+26         }
+27         cin &gt;&gt; x;
+28         cout&lt;&lt;hs[x]&lt;&lt;endl;
+29     }
+30 
+31     return 0;
+32 }
+</code></pre><h4 id="Sort（牛客没有）"><a href="#Sort（牛客没有）" class="headerlink" title="Sort（牛客没有）"></a>Sort（牛客没有）</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;algorithm&gt;
+ 3 #include &lt;string.h&gt;
+ 4 #include &lt;stdio.h&gt;
+ 5 using namespace std;
+ 6 /*
+ 7     题目：Sort
+ 8     用时：* tomato
+ 9     思路：hash数组统计
+10     1.排序：N属于[0,1000000],O(nlogn)的快排也会使时间复杂度达到千万级以上
+11     2.输入的数字属于[-500000,500000]的区间，创建数组a,把数字对应序号存进去，
+12     时间复杂度则为遍历一边整个100万级的数组而已
+13 
+14 */
+15 int a[1000001]={0};
+16 
+17 int main()
+18 {
+19     int n,m;
+20     int num;
+21     while (scanf(&quot;%d %d&quot;,&amp;n,&amp;m)!=EOF)
+22     {
+23         for (int i=0;i&lt;n;i++)
+24         {
+25             cin&gt;&gt;num;
+26             a[num+500000] ++;
+27         }
+28         int i = 1000000;
+29         while (i-- &amp;&amp; m&gt;0)
+30         {
+31             if (a[i])
+32             {
+33                 m--;
+34                 cout&lt;&lt;i-500000&lt;&lt;&#39; &#39;;
+35             }
+36         }
+37     }
+38     return 0;
+39 }
+</code></pre><h4 id="谁是你的潜在朋友"><a href="#谁是你的潜在朋友" class="headerlink" title="谁是你的潜在朋友"></a>谁是你的潜在朋友</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;algorithm&gt;
+ 3 #include &lt;string.h&gt;
+ 4 #include &lt;stdio.h&gt;
+ 5 using namespace std;
+ 6 /*
+ 7     题目：谁是你的潜在朋友
+ 8     用时：* tomato
+ 9     思路：hash数组统计 书的编号是1-200
+10     但是需要根据学生的编号和书号决定他的潜在朋友个数，
+11     通过一个数组stu解决此问题，
+12     因为N是动态输入，我们可以用malloc动态分配
+13 
+14 
+15 */
+16 
+17 
+18 int main()
+19 {
+20     int n,m,num;
+21     int book[201]={0};
+22     int *stu ;
+23     while (scanf(&quot;%d %d&quot;,&amp;n,&amp;m)!=EOF)
+24     {
+25         stu = (int *)malloc(n*sizeof(int));
+26         for (int i=0;i&lt;n;i++)
+27         {
+28             cin &gt;&gt; num ;
+29             book[num] ++ ;
+30             stu[i]=num;
+31         }
+32         for (int i=0;i&lt;n;i++)
+33         {
+34             if (book[stu[i]]&gt;1)
+35                 cout &lt;&lt;book[stu[i]]-1&lt;&lt;endl;
+36             else
+37                 cout&lt;&lt;&quot;BeiJu&quot;&lt;&lt;endl;
+38         }
+39 
+40 
+41     }
+42 
+43     return 0;
+44 }
+</code></pre><h4 id="剩下的树"><a href="#剩下的树" class="headerlink" title="剩下的树"></a>剩下的树</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;algorithm&gt;
+ 3 #include &lt;string.h&gt;
+ 4 #include &lt;stdio.h&gt;
+ 5 using namespace std;
+ 6 /*
+ 7     题目：剩下的树
+ 8     用时：* tomato
+ 9     思路：hash数组统计
+10 
+11 
+12 */
+13 
+14 int road[10001]={0};
+15 int main()
+16 {
+17 
+18     int l;// 1&lt;= l &lt;=10000
+19     int m ;//1 &lt;= m &lt;= 100
+20     int i,j;
+21     int left,right;
+22     int c=0;
+23     for (i=0;i&lt;10001;i++)
+24         road[i]=1;
+25     while (scanf(&quot;%d %d&quot;,&amp;l,&amp;m)!=EOF)
+26     {
+27         for (i=0;i&lt;m;i++)
+28         {
+29             cin &gt;&gt;left &gt;&gt; right;
+30             for (j=left;j&lt;right+1;j++)
+31             {
+32                 if (road[j]&gt;0)
+33                     road[j]--; // 有树才需要砍树
+34             }
+35 
+36         }
+37         for (i=0;i&lt;=l;i++)
+38             if (road[i]&gt;0)
+39                 c++;
+40         cout &lt;&lt; c &lt;&lt;endl;
+41 
+42     }
+43     return 0;
+44 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

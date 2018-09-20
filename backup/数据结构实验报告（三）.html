@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数据结构实验报告（三） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="实验报告3 树1）顺序二叉树 #include &amp;lt;iostream&amp;gt; #include &amp;lt;stdlib.h&amp;gt; #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;string&amp;gt; #include &amp;lt;string.h&amp;gt; #include &amp;lt;math.h&amp;gt; #define MAXSIZE 20 //顺序二叉树 using n">
+<meta property="og:type" content="website">
+<meta property="og:title" content="数据结构实验报告（三）">
+<meta property="og:url" content="http://yoursite.com/backup/数据结构实验报告（三）.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="实验报告3 树1）顺序二叉树 #include &amp;lt;iostream&amp;gt; #include &amp;lt;stdlib.h&amp;gt; #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;string&amp;gt; #include &amp;lt;string.h&amp;gt; #include &amp;lt;math.h&amp;gt; #define MAXSIZE 20 //顺序二叉树 using n">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:29.433Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构实验报告（三）">
+<meta name="twitter:description" content="实验报告3 树1）顺序二叉树 #include &amp;lt;iostream&amp;gt; #include &amp;lt;stdlib.h&amp;gt; #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;string&amp;gt; #include &amp;lt;string.h&amp;gt; #include &amp;lt;math.h&amp;gt; #define MAXSIZE 20 //顺序二叉树 using n">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据结构实验报告（三）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/backup/数据结构实验报告（三）.html" class="article-date">
+  <time datetime="2018-08-14T02:45:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>实验报告3 树</strong><br>1）顺序二叉树</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string&gt;
+#include &lt;string.h&gt;
+#include &lt;math.h&gt;
+#define MAXSIZE 20
+//顺序二叉树
+using namespace std;
+typedef int Elemtype;
+typedef struct SqBinode
+{
+    Elemtype data[MAXSIZE];
+} SqBinode,SqBiTree;
+typedef struct
+{
+    int level;//第几层
+    int order;//本层序号，(level,order)类似于（i，j）
+} position;
+void initBiTree(SqBiTree &amp;bt)
+{
+    for (int i=0; i&lt;MAXSIZE; i++)
+    {
+        bt.data[i]=NULL;
+    }
+}
+int createBiTree(SqBiTree &amp;bt)
+{
+    cout&lt;&lt;&quot;无节点处请输入0,输入完毕请输入-999&quot;&lt;&lt;endl;
+    int i=0,n;
+    cin&gt;&gt;n;
+    while (n!=-999&amp;&amp;i&lt;=MAXSIZE)
+    {
+        bt.data[i]=n;
+        i++;
+        if (i!=0&amp;&amp;bt.data[(i+1)/2-1]==NULL&amp;&amp;bt.data[i]!=NULL)
+        {
+            cout&lt;&lt;&quot;存在双亲为空且自身为空且不为根节点的点！&quot;&lt;&lt;endl;
+            return 0;
+        }
+        cin&gt;&gt;n;
+
+    }
+
+    if (i&gt;MAXSIZE)
+        return 0;
+    return 1;
+}
+int BiTreeEmpty(SqBiTree bt)
+{
+    if (bt.data[0]==NULL)
+        return 1;
+    else
+        return 0;
+}
+int BiTreeDepth(SqBiTree bt)
+{
+    int n=0,i=0;//N为节点个数
+   for (i=0;i&lt;MAXSIZE-1;i++)
+    {
+        if (bt.data[i]!=NULL)
+            n++;
+
+    }
+    int k=0;
+    do
+    {
+        k++;
+    }
+    while (pow(2,k-1)&lt;=n);
+    return k-1;
+}
+
+Elemtype Root(SqBiTree bt)
+{
+    if (bt.data[0])
+        return bt.data[0];
+    else
+        return 0;
+}
+void initPosition(position &amp;p,int a,int b)
+{
+    p.level=a;
+    p.order=b;
+}
+void Value(SqBiTree bt,Elemtype &amp;e,position p)
+{
+    //根据E的位置P找到它
+    int n=pow(2,p.level-1)+p.order-2;
+    e=bt.data[n];
+}
+
+void Assign(SqBiTree &amp;bt,position &amp;p,Elemtype e)
+{
+    int x=pow(2,p.level-1)+p.order-2;
+    bt.data[x]=e;
+}
+
+void print(SqBiTree bt)
+{
+    int i,j,k=0;
+    for (i=1;i&lt;=BiTreeDepth(bt); i++)
+    {
+        cout&lt;&lt;&quot;第&quot;&lt;&lt;i&lt;&lt;&quot;层&quot;;
+        for (j=1; j&lt;=pow(2,i-1); j++)
+        {
+            if (bt.data[k]!=NULL)
+                cout&lt;&lt;&quot;(&quot;&lt;&lt;j&lt;&lt;&quot;,&quot;&lt;&lt;bt.data[k]&lt;&lt;&quot;) &quot;;
+            k++;
+        }
+        cout&lt;&lt;endl;
+    }
+}
+void valueP(int i,int j,position &amp;p)
+{
+    p.level=i;
+    p.order=j;
+}
+
+int Parent(SqBiTree &amp;bt,Elemtype e)
+{
+    if (bt.data[0]==e)
+        return NULL;
+    int i=1;
+    while (bt.data[i]!=e &amp;&amp; i&lt;=MAXSIZE-1) i++;
+    return bt.data[(i+1)/2-1];
+}
+int LeftChild(SqBiTree &amp;bt,Elemtype e)
+{
+//1.叶子结点无左孩子 2.非叶子结点的左孩子是2*i
+    int i=0;
+    while (bt.data[i]!=e &amp;&amp; i&lt;=MAXSIZE-1) i++;
+//循环停止时应当是找到了值为E的结点，但不知道是叶子节点还是非叶子
+    if (bt.data[2*i+1]!=NULL)
+        return bt.data[2*i+1];
+    else
+        return NULL;
+}
+int RightChild(SqBiTree &amp;bt,Elemtype e)
+{
+//1.叶子结点无左孩子 2.非叶子结点的左孩子是2*i
+    int i=0;
+    while (bt.data[i]!=e &amp;&amp; i&lt;=MAXSIZE-1) i++;
+//循环停止时应当是找到了值为E的结点，但不知道是叶子节点还是非叶子
+    if (bt.data[2*i+2]!=NULL)
+        return bt.data[2*i+2];
+    else
+        return NULL;
+}
+
+int LeftSibling(SqBiTree &amp;bt,Elemtype e)
+{
+    int i=0;
+    if (!bt.data[0]) return NULL;//空树不用查找
+    if (bt.data[0]==e) return NULL;//根节点没有左兄弟
+    while (bt.data[i]!=e &amp;&amp; i&lt;=MAXSIZE-1) i++;
+//1.左兄弟为-1 2. 为最左侧的一列，没有左兄弟
+    if (i%2==0) return bt.data[i-1];//序号为偶节点才有左兄弟
+    else return NULL;
+}
+int RightSibling(SqBiTree &amp;bt,Elemtype e)
+{
+    int i=0;
+    if (!bt.data[0]) return NULL;//空树不用查找
+    if (bt.data[0]==e) return NULL;//根节点没有左兄弟
+    while (bt.data[i]!=e &amp;&amp; i&lt;=MAXSIZE-1) i++;
+//1.左兄弟为-1 2. 为最左侧的一列，没有左兄弟
+    if (i%2!=0) return bt.data[i+1];//序号为偶节点才有左兄弟
+    else return NULL;
+}
+
+void Move(SqBiTree &amp;bt,int k,SqBiTree &amp;q,int g)
+{
+    if (bt.data[2*k+1]!=NULL) //左孩子不空
+        Move(bt,2*k+1,q,2*g+1);
+    if (bt.data[2*k+2]!=NULL)//右孩子不空
+        Move(bt,2*k+2,q,2*g+2);
+    q.data[g]=bt.data[k];
+    bt.data[k]=NULL;
+}
+
+int InsertChild(SqBiTree &amp;bt,Elemtype e,int LR,SqBiTree &amp;c)
+{
+//1.找到E所在结点的序号
+    int i =0;
+    while (bt.data[i]!=e &amp;&amp;i&lt;=MAXSIZE-1 ) i++;
+    int k=2*i+LR+1;//得到E结点的LR孩子的序号
+    if (bt.data[k])//如果LR结点存在，需要转移到C的右子树,也就是K结点的右子树
+        Move(bt,k,bt,2*k+2);
+    Move(c,0,bt,k);
+    return 1;
+}
+void del(SqBiTree &amp;bt ,int k)
+{
+    //删除bt的k结点作为根结点的非空树
+    if (!bt.data[2*k+1])//左子树非空
+        del(bt,2*k+1);
+    if (!bt.data[2*k+2])
+        del(bt,2*k+2);
+    bt.data[k]=NULL;
+
+}
+int DeleteChild(SqBiTree &amp;bt,Elemtype e,int lr)
+{
+    //删除e元素对应的左或右子树
+    //1 find the number of e
+    int i=0;
+    while (bt.data[i]!=e &amp;&amp;i&lt;=MAXSIZE-1) i++;
+    //2 找到要删除的左或右子树
+    int k =2*i+1+lr;
+    if (bt.data[k]!=NULL) //非空则删除
+    del(bt,k);
+    else
+    {
+        cout&lt;&lt;&quot;不存在左或右子树，无法删除&quot;&lt;&lt;endl;
+        return 0;
+    }
+}
+void PreOrder(SqBiTree &amp;bt ,int i)
+{
+    cout&lt;&lt;bt.data[i]&lt;&lt;&quot; &quot;;
+    if (bt.data[2*i+1])//左子树非空
+    PreOrder(bt,2*i+1);
+    if (bt.data[2*i+2])//右子树非空
+    PreOrder(bt,2*i+2);
+
+}
+int PreOrderTraverse(SqBiTree &amp;bt)
+{
+    int i=0;
+    if (bt.data[i])
+    PreOrder(bt,i);//遍历左子树
+    else
+    {
+        cout&lt;&lt;&quot;此树为空，不能遍历&quot;&lt;&lt;endl;
+        return 0;
+    }
+    return 1;
+}
+void InOrder(SqBiTree &amp;bt ,int i)
+{
+
+    if (bt.data[2*i+1])//左子树非空
+    PreOrder(bt,2*i+1);
+    cout&lt;&lt;bt.data[i]&lt;&lt;&quot; &quot;;
+    if (bt.data[2*i+2])//右子树非空
+    PreOrder(bt,2*i+2);
+
+}
+int InOrderTraverse(SqBiTree &amp;bt)
+{
+    int i=0;
+    if (bt.data[i])
+    InOrder(bt,i);//遍历左子树
+    else
+    {
+        cout&lt;&lt;&quot;此树为空，不能遍历&quot;&lt;&lt;endl;
+        return 0;
+    }
+    return 1;
+}
+void PostOrder(SqBiTree &amp;bt ,int i)
+{
+
+    if (bt.data[2*i+1])//左子树非空
+    PostOrder(bt,2*i+1);
+    if (bt.data[2*i+2])//右子树非空
+    PostOrder(bt,2*i+2);
+     cout&lt;&lt;bt.data[i]&lt;&lt;&quot; &quot;;
+
+}
+int PostOrderTraverse(SqBiTree &amp;bt)
+{
+    int i=0;
+    if (bt.data[i])
+    PostOrder(bt,i);//遍历左子树
+    else
+    {
+        cout&lt;&lt;&quot;此树为空，不能遍历&quot;&lt;&lt;endl;
+        return 0;
+    }
+    return 1;
+}
+int main()
+{
+    cout&lt;&lt;&quot;---顺序二叉树的基本操作实现 twomeng---&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;--------------------------------------&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;1 InsertChild()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;2 DeleteChild()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;3 PreOrderTraverse()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;4 InOrderTraverse()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;5 PostOrderTraverse()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;6 Parent()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;7 LeftChild()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;8 RightChild()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;9 leftSibling()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;10 RightSibling()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;11 Root()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;12 Value()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;13 Assign()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;--------------------------------------&quot;&lt;&lt;endl;
+ll1:cout&lt;&lt;&quot;请输入您选择的函数序号:)&quot;&lt;&lt;endl;
+    int number;
+    cin&gt;&gt;number;
+    SqBiTree bt;
+    initBiTree(bt);
+    createBiTree(bt);//创建一个可以公用的二叉树bt
+    Elemtype e;position p;
+    switch(number){
+case 1:
+    SqBiTree c;
+    initBiTree(c);
+    createBiTree(c);
+    InsertChild(bt,3,1,c);
+    print(bt);
+    break;
+case 2:
+    DeleteChild(bt,3,1);
+    print(bt);
+    break;
+case 3:
+    PreOrderTraverse(bt);
+    break;
+case 4:
+    InOrderTraverse(bt);
+    break;
+case 5:
+    PostOrderTraverse(bt);
+    break;
+case 6:
+    cout&lt;&lt;&quot;输入E的值&quot;&lt;&lt;endl;
+    cin&gt;&gt;e;
+    cout&lt;&lt;Parent(bt,e);
+    break;
+case 7:
+    cout&lt;&lt;&quot;输入E的值&quot;&lt;&lt;endl;
+    cin&gt;&gt;e;
+    cout&lt;&lt;LeftChild(bt,e);
+    break;
+case 8:
+    cout&lt;&lt;&quot;输入E的值&quot;&lt;&lt;endl;
+    cin&gt;&gt;e;
+    cout&lt;&lt;RightChild(bt,e);
+    break;
+case 9:
+    cout&lt;&lt;&quot;输入E的值&quot;&lt;&lt;endl;
+    cin&gt;&gt;e;
+    cout&lt;&lt;LeftSibling(bt,e);
+    break;
+case 10:
+    cout&lt;&lt;&quot;输入E的值&quot;&lt;&lt;endl;
+    cin&gt;&gt;e;
+    cout&lt;&lt;RightSibling(bt,e);
+    break;
+case 11:
+    cout&lt;&lt;Root(bt);
+    break;
+case 12:
+    cout&lt;&lt;&quot;请输入P的位置(level,order)&quot;&lt;&lt;endl;
+    int a,b;
+    cin&gt;&gt;a&gt;&gt;b;
+    initPosition(p,a,b);
+    Value(bt,e,p);
+    cout&lt;&lt;e&lt;&lt;endl;
+    break;
+case 13:
+    cout&lt;&lt;&quot;请输入P的位置(level,order)和E的值&quot;&lt;&lt;endl;
+    cin&gt;&gt;a&gt;&gt;b&gt;&gt;e;
+    initPosition(p,a,b);
+    Assign(bt,p,e);
+    print(bt);
+    break;
+    }
+
+    cout&lt;&lt;&quot;您是否想要继续调用函数？yes/no&quot;&lt;&lt;endl;
+    string s;cin&gt;&gt;s;
+    if (!s.compare(&quot;yes&quot;))
+    goto ll1;
+    else
+    return 0;
+}
+</code></pre><p><strong>链式二叉树</strong><br>1.实验内容<br>1．输入字符序列，建立二叉链表。 1<br>2．中序遍历二叉树:递归算法。3<br>3．中序遍历二叉树:非递归算法。（最好也能实现先序，后序非递归算法）4<br>4．求二叉树的高度 。1<br>5．求二叉树的叶子个数。1<br><em>6．将二叉链表视为森林的孩子兄弟链表，计算森林中叶子个数。1   
+</em>7．建立中序线索二叉树，并实现中序遍历。1<br>8．借助队列实现二叉树的层次遍历。1<br>9．在主函数中设计一个简单的菜单，分别调试上述算法。1<br>*10．综合训练：为N个权值设计哈夫曼编码。</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string&gt;
+#include &lt;string.h&gt;
+#include &lt;math.h&gt;
+#define MAXSIZE 10
+//链式二叉树
+using namespace std;
+typedef char Elemtype;
+typedef struct BiTNode{
+Elemtype data;
+struct BiTNode *left,*right;
+}BiTNode,*BiTree;
+
+void InitBiTree(BiTree &amp;bt)
+{
+    bt=NULL;//构造空的二叉树
+}
+void CreateBiTree(BiTree &amp;bt)
+{
+    Elemtype e;
+    scanf(&quot;%c&quot;,&amp;e);
+    if (e==&#39; &#39;)
+    {
+        bt=NULL;//如果输入空格则将该结点置空
+    }
+    else
+    {
+        bt=(BiTree)malloc(sizeof(BiTNode));
+        bt-&gt;data=e;
+        CreateBiTree(bt-&gt;left);
+        CreateBiTree(bt-&gt;right);
+    }
+}
+void PreOrderTraverse(BiTree &amp;bt)
+{
+    if (bt!=NULL)
+    {
+    printf(&quot;%c&quot;,bt-&gt;data);
+    PreOrderTraverse(bt-&gt;left);
+    PreOrderTraverse(bt-&gt;right);
+    }
+
+}
+
+void InOrderTraverse(BiTree &amp;bt)
+{
+    if (bt)//如果是空则不用遍历左右子树，如果不空则遍历
+    {
+        InOrderTraverse(bt-&gt;left);
+        printf(&quot;%c&quot;,bt-&gt;data);
+        InOrderTraverse(bt-&gt;right);
+    }
+}
+void PostOrderTraverse(BiTree &amp;bt )
+{
+    if (bt)
+    {
+        PostOrderTraverse(bt-&gt;left);
+        PostOrderTraverse(bt-&gt;right);
+        printf(&quot;%c&quot;,bt-&gt;data);
+    }
+}
+void LevelOrderTraverse(BiTree &amp;bt)
+{
+    BiTree q[MAXSIZE];//指针数组
+    int front,rear;
+    //初始化队列
+    front=rear=-1;
+    if (bt)
+    {
+        rear=(rear+1)%MAXSIZE;
+        q[rear]=bt;//安置根节点
+        //不断循环，直到队空为止
+        while (front!=rear)
+        {
+            //如果队不空，队头出队
+            front=(front+1)%MAXSIZE;
+            printf(&quot;%c&quot;,q[front]-&gt;data);
+            //左右孩子不空则入队
+            if (q[front]-&gt;left)
+            {
+                rear=(rear+1)%MAXSIZE;
+                q[rear]=q[front]-&gt;left;//安置根节点
+            }
+             if (q[front]-&gt;right)
+            {
+                rear=(rear+1)%MAXSIZE;
+                q[rear]=q[front]-&gt;right;//安置根节点
+            }
+        }
+
+
+    }
+}
+int BiTreeEmpty(BiTree &amp;bt)
+{
+    if (!bt)
+    return 1;
+}
+
+int BiTreeDepth(BiTree &amp;bt)
+{
+    int depth=0;
+    int depthL,depthR;
+    if (!bt)
+    depth=0;
+    else
+    {
+        depthL=BiTreeDepth(bt-&gt;left);
+        depthR=BiTreeDepth(bt-&gt;right);
+        depth=1+(depthL&gt;depthR?depthL:depthR);
+
+    }
+    return depth;
+}
+Elemtype Root (BiTree &amp;bt)
+{
+    if (bt)
+    {
+        return bt-&gt;data;
+    }
+    else
+    return 0;
+}
+Elemtype Value(BiTree &amp;p)
+{
+    //P是二叉树中某个节点
+    return p-&gt;data;
+}
+void Assign(BiTree &amp;bt,Elemtype e)
+{
+    bt-&gt;data=e;
+}
+Elemtype Parent(BiTree &amp;bt,Elemtype e)
+{
+    //e为二叉树bt中的某个节点，输出他的双亲
+    BiTree q[MAXSIZE],p;
+    int rear,front;
+    rear=front =-1 ;
+
+    if (bt)
+    {
+        rear=(rear+1)%MAXSIZE;
+        q[rear]=bt;//根节点入队
+
+        while (rear!=front)
+        {
+            //如果队不空则队头出队
+            front=(front+1)%MAXSIZE;
+            p=q[front];
+            if (p &amp;&amp; p-&gt;left-&gt;data ==e || p &amp;&amp; p-&gt;right-&gt;data == e )
+            {
+                //如果P本身不空并且有一个孩子等于E,则返回该双亲节点的值
+                return p-&gt;data;
+            }
+            //说明这次没有找到和E相等的节点，则把左孩子和右孩子送入队列
+            if (p-&gt;left)
+            {
+              rear=(rear+1)%MAXSIZE;
+              q[rear]=p-&gt;left;
+            }
+            if (p-&gt;right)
+            {
+              rear=(rear+1)%MAXSIZE;
+              q[rear]=p-&gt;right;
+            }
+        }
+    }
+}
+BiTree findE(BiTree &amp;bt,Elemtype e)
+{
+    BiTree q[MAXSIZE],p;
+    int rear,front;
+    rear=front=-1;
+    if (bt)
+    {
+        rear=(rear+1)%MAXSIZE;
+        q[rear]=bt;//根入队
+
+        while (front!=rear)
+        {
+            front=(front+1)%MAXSIZE;
+            p=q[front];//取出队头元素
+            if (p-&gt;data == e)
+            {
+                return p;
+            }
+            if (p-&gt;left)
+            {
+               rear=(rear+1)%MAXSIZE;
+               q[rear]=p-&gt;left;//left child enqueue
+            }
+            if (p-&gt;right)
+            {
+               rear=(rear+1)%MAXSIZE;
+               q[rear]=p-&gt;right;//left child enqueue
+            }
+        }
+    }
+}
+Elemtype LeftChild( BiTree &amp;bt,Elemtype e)
+{
+    //找到指向E的指针
+    BiTree p=findE(bt,e);
+    if (p &amp;&amp;p-&gt;left )
+    {//P不为空并且左孩子不为空
+        return p-&gt;left-&gt;data;
+    }
+    else
+    return 0;
+
+}
+Elemtype RightChild( BiTree &amp;bt,Elemtype e)
+{
+    //找到指向E的指针
+    BiTree p=findE(bt,e);
+    if (p &amp;&amp;p-&gt;right )
+    {//P不为空并且左孩子不为空
+        return p-&gt;right-&gt;data;
+    }
+    else
+    return 0;
+
+}
+BiTree findP(BiTree &amp;bt,Elemtype e)
+{
+    //e为二叉树bt中的某个节点，输出他的双亲
+    BiTree q[MAXSIZE],p;
+    int rear,front;
+    rear=front =-1 ;
+
+    if (bt)
+    {
+        rear=(rear+1)%MAXSIZE;
+        q[rear]=bt;//根节点入队
+
+        while (rear!=front)
+        {
+            //如果队不空则队头出队
+            front=(front+1)%MAXSIZE;
+            p=q[front];
+            if (p &amp;&amp; p-&gt;left-&gt;data ==e || p &amp;&amp; p-&gt;right-&gt;data == e )
+            {
+                //如果P本身不空并且有一个孩子等于E,则返回该双亲节点的值
+                return p;
+            }
+            //说明这次没有找到和E相等的节点，则把左孩子和右孩子送入队列
+            if (p-&gt;left)
+            {
+              rear=(rear+1)%MAXSIZE;
+              q[rear]=p-&gt;left;
+            }
+            if (p-&gt;right)
+            {
+              rear=(rear+1)%MAXSIZE;
+              q[rear]=p-&gt;right;
+            }
+        }
+    }
+}
+Elemtype LeftSibling(BiTree &amp;bt,Elemtype e)
+{
+    BiTree parent = findP(bt,e);//找到E元素的双亲指针
+
+    if (parent-&gt;left)
+    {
+        return parent-&gt;left-&gt;data;
+    }
+}
+
+Elemtype RightSibling(BiTree &amp;bt,Elemtype e)
+{
+    BiTree parent = findP(bt,e);//找到E元素的双亲指针
+    if (parent-&gt;right)
+    {
+        return parent-&gt;right-&gt;data;
+    }
+}
+int  InsertChild(BiTree &amp;p ,int lr,BiTree &amp;c)
+{//插入更简单了！！
+    if (p)
+    {
+        if (lr==0)//把C移到P的左子树上
+        {
+            c-&gt;right=p-&gt;left;
+            p-&gt;left=c;
+        }else
+        {
+          c-&gt;right=p-&gt;right;
+          p-&gt;right=c;
+        }
+        return 1;
+    }
+    else
+    return 0;//P为空
+}
+void clearBiTree(BiTree &amp;bt)
+{
+    //同样用递归！
+    if (bt)
+    {
+        if (bt-&gt;left)
+            clearBiTree(bt-&gt;left);
+        if (bt-&gt;right)
+            clearBiTree(bt-&gt;right);
+        free(bt);
+        bt=NULL;
+    }
+}
+void  DeleteChild(BiTree &amp;p,int LR)
+{
+    // 初始条件: 二叉树T存在,p指向T中某个结点,LR为0或1
+   // 操作结果: 根据LR为0或1,删除T中p所指结点的左或右子树
+   if (p)
+   {
+     if (LR == 1)
+   {
+       clearBiTree(p-&gt;left);
+   }else
+   {
+       clearBiTree(p-&gt;right);
+   }
+   }
+
+}
+
+//非递归实现pre/in/post 遍历二叉树
+//使用栈实现中序遍历
+
+
+typedef BiTree Elemtype1;
+typedef struct {
+Elemtype1 elem[MAXSIZE];
+int top;
+}SeqStack;
+void initSeqStack(SeqStack &amp;s){
+s.top=-1;
+}
+int stackEmpty(SeqStack &amp;s){
+if (s.top==-1)
+return 1;
+return 0;//或者返回 表达式的真值return s.top==-1;
+}
+int push(SeqStack &amp;s,Elemtype1 e){
+if (s.top&gt;=MAXSIZE-1)
+return 0;
+else {
+s.top++;
+s.elem[s.top]=e;
+return 1;
+}
+}
+int pop(SeqStack &amp;s,Elemtype1 &amp;e){
+if (s.top==-1)
+return 0;
+else {
+e=s.elem[s.top];
+s.top--;
+return 1;
+}
+}
+int gettop(SeqStack &amp;s,Elemtype1 &amp;e){
+if (s.top==-1)
+return 0;
+else {
+e=s.elem[s.top];
+return 1;
+}
+}
+//中序遍历非递归算法
+void InOrderTraverse2(BiTree &amp;bt)
+{
+    //精髓是把每个结点的地址存入栈中，通过push &amp; pop实现过程
+    SeqStack s;
+    initSeqStack(s);
+    BiTree p=bt;
+    while (p!=NULL || !stackEmpty(s))
+    {
+        //当且仅当两者都空时结束循环
+        if (p)
+        {
+            push(s,p);
+            p=p-&gt;left;
+        }
+        else
+        {
+            pop(s,p);//弹回根节点
+            printf(&quot;%c &quot;,p-&gt;data);//第二次回到根节点时才打印输出
+            p=p-&gt;right;
+
+        }
+    }
+
+}
+
+//先序遍历非递归算法
+void PreOrderTraverse2(BiTree p)
+{
+    //这里不加&amp;即为形参，便不用定义新的变量作为移动的指针了
+    SeqStack s;
+    initSeqStack(s);
+    do
+    {
+        if (p)
+        {
+          printf(&quot;%c &quot;,p-&gt;data);
+          push(s,p);
+          p=p-&gt;left;
+        }
+        else
+        {
+        pop(s,p);
+        p=p-&gt;right;
+        }
+
+    }while (p || !stackEmpty(s));
+
+}
+
+//后序遍历非递归算法
+void PostOrderTraverse2(BiTree p)
+{
+    struct
+    {
+        BiTree pp;//pointer
+        int tag;//标记位
+    }s[MAXSIZE];//定义一个结构体数组,即为一个栈s
+//这里struct之前不能加typedef ,因为s[]是结构体数组而不是别名
+
+    int top=0;//栈顶指针
+
+    while ( p || top&gt;0)
+    {
+        while (p)//一直走到最左边
+        {
+            top++;
+            s[top].pp=p;
+            s[top].tag=0;
+            p=p-&gt;left;
+        }
+        if (top&gt;0)
+        {
+            if (s[top].tag == 0)
+            {
+                //如果栈顶元素标志位为0，即为第二次遇到该结点元素
+                s[top].tag=1;
+                p=s[top].pp;
+                p=p-&gt;right;//继续向右孩子深入
+            }
+            else
+            {
+                p=s[top].pp;
+                printf(&quot;%c &quot;,p-&gt;data);//如果是第二次遇到该节点则输出
+                top--;
+                p=NULL;//不用往深处走了，直接退栈继续循环
+            }
+        }
+    }
+}
+//找到叶子结点个数，左右孩子都空
+int findleaf(BiTree p,int &amp;count1)
+{
+
+    if (p)
+    {
+        if ( !p-&gt;left &amp;&amp;!p-&gt;right)
+            count1++;
+        findleaf(p-&gt;left,count1);
+        findleaf(p-&gt;right,count1);
+    }
+}
+int findrightleaf(BiTree p,int &amp;count1)
+{
+
+    if (p)
+    {
+        if (!p-&gt;right)
+            count1++;
+        findleaf(p-&gt;left,count1);
+        findleaf(p-&gt;right,count1);
+    }
+}
+void PreOrderfindall(BiTree &amp;bt,int &amp;count2)
+{
+    if (bt!=NULL)
+    {
+    count2++;
+    PreOrderfindall(bt-&gt;left,count2);
+    PreOrderfindall(bt-&gt;right,count2);
+    }
+
+}
+
+int findleafinforest(BiTree &amp;bt)
+{
+    //假设bt代表一个森林，求森林中叶子的个数
+    //利用理论：假设森林中有N个非终端结点，则二叉树中右指针域为空的结点个数为N+1
+    if (bt)
+    {
+        int count1 = 0;
+        findrightleaf(bt,count1);
+        //count即为二叉树中右指针域为空的结点的个数
+        int count2=0;
+        PreOrderfindall(bt,count2);
+        //count2即为二叉树中所有节点的个数，也就是森林总结点个数
+        return (count2-count1+1);
+    }
+    else
+        return 0;
+}
+//建立中序线索二叉树并遍历
+typedef enum PointerTag {link=0,thread=1};//link=0 指针，thread=1 线索
+typedef struct BithrNode{
+Elemtype data;
+struct BithrNode *left,*right;
+PointerTag ltag,rtag;
+}BithrNode,*BithrTree;
+
+int InOrderThreading(BithrTree &amp;thrt,BithrTree bt)
+{
+    void Inthreading(BithrTree &amp;p,BithrTree &amp;pre);
+    //将普通二叉树线索化成thrt
+    //1.建立头结点
+    thrt = (BithrTree)malloc(sizeof(BithrNode));
+    BithrTree pre;
+    thrt-&gt;right=thrt;
+    thrt-&gt;ltag=link;
+    thrt-&gt;rtag=thread;
+    if (!bt)
+        thrt-&gt;left=thrt;
+    else
+    {
+        thrt-&gt;left = bt;
+        pre=thrt;//前驱指针指向头结点
+        Inthreading(bt,pre);
+        //线索化二叉树
+        pre-&gt;right=thrt;
+        pre-&gt;rtag=thread;
+        thrt-&gt;right=pre;
+        //线索化最后pre指向树中最后一个结点，进行最后的处理：连接树中最后一个结点与头结点，形成循环的线索树
+
+    }
+}
+void Inthreading(BithrTree &amp;p,BithrTree &amp;pre)
+{
+    if (p)
+    {
+        Inthreading(p-&gt;left,pre);
+        if (!p-&gt;left)//P的左孩子为空
+        {
+            p-&gt;ltag=thread;
+            p-&gt;left=pre;
+        }
+        if (!pre-&gt;right)//Pre的右孩子为空
+        {
+           pre-&gt;rtag=thread;
+           pre-&gt;right=p;
+        }
+        pre=p;
+        Inthreading(p-&gt;right,pre);
+    }
+}
+//遍历线索二叉树
+int InOrderTraverseThrtree(BithrTree &amp;thrt)
+{
+    BithrTree p=thrt-&gt;left;
+    while (p != thrt)
+    {
+        //线索树不为空时
+        while(p &amp;&amp; p-&gt;ltag !=thread)
+        {
+            p=p-&gt;left;
+        }
+        printf(&quot;%c&quot;,p-&gt;data);
+        while(p-&gt;rtag == thread &amp;&amp; p-&gt;right != thrt)
+        {
+            //如果p-&gt;right==T,则不用继续往右走
+            p=p-&gt;right;
+            printf(&quot;%c&quot;,p-&gt;data);
+        }
+        p=p-&gt;right;//没有右线索，只有右孩子
+
+    }
+}
+void CreateBithrTree(BithrTree &amp;bt)
+{
+    Elemtype e;
+    scanf(&quot;%c&quot;,&amp;e);
+    if (e==&#39; &#39;)
+    {
+        bt=NULL;//如果输入空格则将该结点置空
+    }
+    else
+    {
+        bt=(BithrTree)malloc(sizeof(BithrNode));
+        bt-&gt;data=e;
+        CreateBithrTree(bt-&gt;left);
+        CreateBithrTree(bt-&gt;right);
+    }
+}
+int main()
+{
+
+    cout&lt;&lt;&quot;---二叉树的基本操作实现 twomeng---&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;--------------------------------------&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;1 InsertChild()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;2 DeleteChild()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;3 PreOrderTraverse()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;4 InOrderTraverse()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;5 PostOrderTraverse()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;6 Parent()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;7 LeftChild()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;8 RightChild()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;9 leftSibling()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;10 RightSibling()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;11 Root()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;12 Value()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;13 Assign()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;14 LevelOrderTraverse()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;15 BiTreeDepth()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;16 findleaf()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;17 PreOrderTraverse2()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;18 InOrderTraverse2()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;19 PostOrderTraverse2()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;20 findleafinforest()&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;21 线索化二叉树并中序遍历输出&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;--------------------------------------&quot;&lt;&lt;endl;
+
+ll1:cout&lt;&lt;&quot;请输入您选择的函数序号:)&quot;&lt;&lt;endl;
+    int number;
+    cin&gt;&gt;number;
+
+
+    BiTree bt,p;
+    InitBiTree(bt);
+    Elemtype e;int count3 = 0;
+    cout&lt;&lt;&quot;请按照先序顺序输入一棵树！没有结点的地方请输入空格&quot;&lt;&lt;endl;
+    fflush(stdin);
+    CreateBiTree(bt);//创建一个可以公用的二叉树bt;
+    switch(number)
+{
+case 1:
+    PreOrderTraverse(bt);
+    BiTree c;
+    InitBiTree(c);
+    cout&lt;&lt;&quot;请按照先序顺序输入一棵Insert树！没有结点的地方请输入空格&quot;&lt;&lt;endl;
+    fflush(stdin);
+    CreateBiTree(c);
+    LevelOrderTraverse(c);
+    cout&lt;&lt;&quot;输入完毕！&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;如果您想插入到左子树，输入0；如果您想插入到右子树，输入1 &quot;&lt;&lt;endl;
+    int x;cin&gt;&gt;x;
+    InsertChild(bt,x,c);
+    PreOrderTraverse(bt);
+    break;
+case 2:
+    PreOrderTraverse(bt);
+    cout&lt;&lt;endl;
+    cout&lt;&lt;&quot;删除左子树，请输入1；删除右子树，请输入0&quot;&lt;&lt;endl;
+    cin&gt;&gt;x;
+    DeleteChild(bt,x);
+    PreOrderTraverse(bt);
+    break;
+case 3:
+    PreOrderTraverse(bt);
+    break;
+case 4:
+    InOrderTraverse(bt);
+    break;
+case 5:
+    PostOrderTraverse(bt);
+    break;
+case 6:
+    char ch;
+    cout&lt;&lt;&quot;请输入您要寻找的节点数值&quot;&lt;&lt;endl;
+    cin&gt;&gt;ch;
+    cout&lt;&lt;Parent(bt,ch);
+    break;
+case 7:
+    cout&lt;&lt;&quot;输入E的值&quot;&lt;&lt;endl;
+    cin&gt;&gt;e;
+    cout&lt;&lt;LeftChild(bt,e);
+    break;
+case 8:
+    cout&lt;&lt;&quot;输入E的值&quot;&lt;&lt;endl;
+    cin&gt;&gt;e;
+    cout&lt;&lt;RightChild(bt,e);
+    break;
+case 9:
+    cout&lt;&lt;&quot;输入E的值&quot;&lt;&lt;endl;
+    cin&gt;&gt;e;
+    cout&lt;&lt;LeftSibling(bt,e);
+    break;
+case 10:
+    cout&lt;&lt;&quot;输入E的值&quot;&lt;&lt;endl;
+    cin&gt;&gt;e;
+    cout&lt;&lt;RightSibling(bt,e);
+    break;
+case 11:
+    cout&lt;&lt;Root(bt);
+    break;
+case 12:
+    p=bt-&gt;left;
+    cout&lt;&lt;Value(p)&lt;&lt;endl;
+    break;
+case 13:
+    p=bt-&gt;left;
+    cout&lt;&lt;&quot;请输入您要赋的值&quot;&lt;&lt;endl;
+    cin&gt;&gt;e;
+    Assign(p,e);
+    cout&lt;&lt;&quot;assign函数调用成功！其中的值现在为：&quot;&lt;&lt;endl;
+    cout&lt;&lt;p-&gt;data&lt;&lt;endl;
+    break;
+
+case 14:
+    LevelOrderTraverse(bt);
+    break;
+case 15:
+    cout&lt;&lt;BiTreeDepth(bt)&lt;&lt;endl;
+    break;
+case 16:
+
+    findleaf(bt,count3);
+    cout&lt;&lt;count3&lt;&lt;endl;
+    break;
+case 17:
+    PreOrderTraverse2(bt);
+    break;
+case 18:
+    InOrderTraverse2(bt);
+    break;
+case 19:
+    PostOrderTraverse2(bt);
+    break;
+case 20:
+    cout&lt;&lt;findleafinforest(bt)&lt;&lt;endl;
+    break;
+case 21:
+    BithrTree bt;
+    CreateBithrTree(bt);
+    BithrTree thrt;
+    cout&lt;&lt;&quot;线索化二叉树成功！&quot;&lt;&lt;endl;
+    InOrderThreading(thrt,bt);
+    InOrderTraverseThrtree(thrt);
+    cout&lt;&lt;&quot;遍历线索二叉树成功！&quot;&lt;&lt;endl;
+   break;
+}
+
+
+   cout&lt;&lt;&quot;您是否想要继续调用函数？yes/no&quot;&lt;&lt;endl;
+    string s;cin&gt;&gt;s;
+    if (!s.compare(&quot;yes&quot;))
+    goto ll1;
+    else
+
+
+
+    return 0;
+}
+</code></pre><p>我这个哈夫曼树貌似有点问题，结果不太对啊。。有空再调一调</p>
+<pre><code>哈夫曼测试数据：
+8
+5 29 7 8 14 23 3 11
+
+未调试出来的哈夫曼：
+
+
+
+#include &lt;iostream&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string&gt;
+#include &lt;string.h&gt;
+#include &lt;math.h&gt;
+#define MAXSIZE 20
+
+using namespace std;
+//哈夫曼编码
+typedef struct {
+unsigned int weight;
+unsigned int parent,lchild,rchild;
+}HTNode,*HuffmanTree;
+
+typedef char* *Huffmancode;//定义一个指针数组存放编码
+
+int min(HuffmanTree t,int i)
+ { // 函数void select()调用
+   int j,flag;
+   unsigned int k=UINT_MAX; // 取k为不小于可能的值
+   for(j=1;j&lt;=i;j++)
+     if(t[j].weight&lt;k&amp;&amp;t[j].parent==0)
+       k=t[j].weight,flag=j;
+   t[flag].parent=1;
+   return flag;
+ }
+
+ void select(HuffmanTree t,int i,int &amp;s1,int &amp;s2)
+ { // s1为最小的两个值中序号小的那个
+   int j;
+   s1=min(t,i);
+   s2=min(t,i);
+   if(s1&gt;s2)
+   {
+     j=s1;
+     s1=s2;
+     s2=j;
+   }
+ }
+
+void HuffmanCoding(HuffmanTree &amp;ht,Huffmancode &amp;hc,int *w,int n)
+{
+    int i;
+    if (n&lt;=1)
+        return;//判断N(字符个数)的输入是否合法
+    int m;//哈夫曼树结点个数
+    m = 2*n-1;
+    //哈夫曼树是一个数组，我们要先定义出来， 再初始化数组
+    ht = (HuffmanTree )malloc((m+1)*sizeof(HTNode));//0 单元未用
+    //给初始字符赋权值
+    HuffmanTree p;
+    p=ht;
+    p++;
+    int *t;t=w;
+
+    for (i=1,t++;i&lt;=n;i++,p++,t++)
+    {
+        (*p).weight=*t;
+        (*p).lchild=0;
+        (*p).rchild=0;
+        (*p).parent=0;
+    }
+    //给还没计算的结点赋值0
+    for (p=&amp;ht[n+1],i=n+1;i&lt;=m;i++,p++)
+    {
+        (*p).weight=0;
+        (*p).lchild=0;
+        (*p).rchild=0;
+        (*p).parent=0;
+    }
+
+    //建立哈夫曼树
+    for(int i=n+1;i&lt;=m;i++)
+    {
+        int s1,s2;
+        select(ht,i-1,s1,s2);//最小的两个结点序号为s1,s2
+
+        ht[s1].parent=i;
+        ht[s2].parent=i;
+        ht[i].lchild=s1;
+        ht[i].rchild=s2;
+        ht[i].weight=ht[s1].weight+ht[s2].weight;
+    }
+    //show()
+//    for (i=1 ; i&lt;=m ; i++)
+//    {
+//        cout&lt;&lt; ht[i].weight &lt;&lt;&quot; &quot; &lt;&lt;ht[i].parent &lt;&lt;&quot; &quot;&lt;&lt;ht[i].lchild &lt;&lt;&quot; &quot;&lt;&lt;ht[i].rchild&lt;&lt;endl;
+//    }
+    //进行哈夫曼编码
+    int c,f;
+    hc=(Huffmancode)malloc(sizeof(char *)*(n+1));//头指针向量
+    char *cd = (char *)malloc(sizeof(char)*n);//一个字符编码的数组指针
+    cd[n-1]=&#39;\0&#39;;
+    for (int i=1;i&lt;=n;i++)//循环N个字符
+    {
+        int start = n-1;//从叶节点开始往上编
+        for (c=i,f=ht[i].parent;f!=0;c=f,f=ht[f].parent)
+        {
+            //定义C是为了不动I，顺次往上找双亲，判断自己是双亲的左子树还是右子树
+            if (ht[f].lchild == c)
+                cd[--start]=&#39;0&#39;;
+            else
+                cd[--start]=&#39;1&#39;;
+
+        }
+
+        for (int x = n-start;x&lt;n;x++)
+            cout&lt;&lt;cd[x];
+        hc[i]=(char *)malloc((n-start)*sizeof(char));
+        strcpy(hc[i],cd);
+        //cout&lt;&lt;hc[i]&lt;&lt;endl;
+    }
+
+}
+
+int main()
+{
+  int *w,*ww;
+
+  int n;
+  cout&lt;&lt;&quot;请输入字符数N&quot;&lt;&lt;endl;
+  cin&gt;&gt;n;
+  w=(int *)malloc(sizeof(int)*(n+1));//0号单元未用
+  ww=w;
+  int i;
+  cout&lt;&lt;&quot;请依次输入字符的权值&quot;&lt;&lt;endl;
+  for (ww++,i=1;i&lt;=n;i++,ww++)
+  {
+     cin&gt;&gt; *ww;
+  }
+
+    HuffmanTree ht;
+    Huffmancode hc;
+    HuffmanCoding(ht,hc,w,n);
+    Huffmancode q=hc;
+
+    for (int k=1;k&lt;=n;k++)
+    puts(hc[k]);
+
+
+
+
+
+    return 0;
+}
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

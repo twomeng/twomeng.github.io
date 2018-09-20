@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>计算机考研机试指南（六） ——栈 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="机试指南 cha 3 栈的应用括号匹配问题 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;stdio.h&amp;gt;  3 #include &amp;lt;algorithm&amp;gt;  4 #include &amp;lt;queue&amp;gt;  5 #include &amp;lt;stack&amp;gt;  6 #include &amp;lt;math.h&amp;gt;  7 #include &amp;">
+<meta property="og:type" content="website">
+<meta property="og:title" content="计算机考研机试指南（六） ——栈">
+<meta property="og:url" content="http://yoursite.com/backup/计算机考研机试指南（六） ——栈.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="机试指南 cha 3 栈的应用括号匹配问题 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;stdio.h&amp;gt;  3 #include &amp;lt;algorithm&amp;gt;  4 #include &amp;lt;queue&amp;gt;  5 #include &amp;lt;stack&amp;gt;  6 #include &amp;lt;math.h&amp;gt;  7 #include &amp;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:27.894Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算机考研机试指南（六） ——栈">
+<meta name="twitter:description" content="机试指南 cha 3 栈的应用括号匹配问题 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;stdio.h&amp;gt;  3 #include &amp;lt;algorithm&amp;gt;  4 #include &amp;lt;queue&amp;gt;  5 #include &amp;lt;stack&amp;gt;  6 #include &amp;lt;math.h&amp;gt;  7 #include &amp;">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      计算机考研机试指南（六） ——栈
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/backup/计算机考研机试指南（六） ——栈.html" class="article-date">
+  <time datetime="2018-08-20T17:40:00.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="机试指南-cha-3-栈的应用"><a href="#机试指南-cha-3-栈的应用" class="headerlink" title="机试指南 cha 3 栈的应用"></a>机试指南 cha 3 栈的应用</h3><h4 id="括号匹配问题"><a href="#括号匹配问题" class="headerlink" title="括号匹配问题"></a>括号匹配问题</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;algorithm&gt;
+ 4 #include &lt;queue&gt;
+ 5 #include &lt;stack&gt;
+ 6 #include &lt;math.h&gt;
+ 7 #include &lt;string&gt;
+ 8 #include &lt;string.h&gt;
+ 9 #include &lt;stdlib.h&gt;
+10 #include &lt;stack&gt;
+11 using namespace std;
+12 
+13 /*
+14   问题：cha 3 栈的应用 括号匹配问题
+15   思路：如果直接在压栈的时候输出，则连续出现多个((((的$不能及时输出，
+16   必须要等到输入串遍历结束后，站内剩余(((才能将其对应输出串位置修改为$
+17 
+18   2 压栈的内容是字符还是字符在字符串中的索引位置？如果是字符则无法找到并修改ans中的字符
+19 */
+20 
+21 char ans[101];
+22 void match(char c[101])
+23 {
+24     stack&lt;int&gt; s;
+25     int i = 0;
+26     while (c[i] !=&#39;\0&#39;)
+27     {
+28         // 如果为）且为栈底则输出？，如果为（且为栈底则输出$,如果为其他字符则不压栈输出空格
+29         // 如果为左括号则压栈，右括号则判断栈顶，如果为（则弹栈
+30         if (c[i] == &#39;)&#39;&amp;&amp; s.empty())
+31             ans[i] = &#39;?&#39;;
+32         else if (c[i] == &#39;(&#39;)
+33           {
+34               s.push(i);
+35               ans[i] =  &#39; &#39;;
+36           }
+37           else if (c[i] == &#39;)&#39; &amp;&amp; c[s.top()] == &#39;(&#39;)
+38           {
+39               s.pop();
+40               ans[i] = &#39; &#39;;
+41           }
+42           else
+43             ans[i] =&#39; &#39;;
+44     i++;
+45     }
+46     while (!s.empty())
+47     {
+48         ans[s.top()] = &#39;$&#39;;
+49         s.pop();
+50     }
+51     ans[i] = &#39;\0&#39;;
+52 }
+53 int main()
+54 {
+55     char c[101];
+56     cin &gt;&gt; c;
+57     cout &lt;&lt; c &lt;&lt; endl;
+58     match(c); // 输出匹配的符号
+59     cout &lt;&lt; ans &lt;&lt; endl;
+60 
+61     return 0;
+62 }
+</code></pre><h4 id="表达式求值（课本）"><a href="#表达式求值（课本）" class="headerlink" title="表达式求值（课本）"></a>表达式求值（课本）</h4><pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;stdio.h&gt;
+  3 #include &lt;algorithm&gt;
+  4 #include &lt;queue&gt;
+  5 #include &lt;stack&gt;
+  6 #include &lt;math.h&gt;
+  7 #include &lt;string&gt;
+  8 #include &lt;string.h&gt;
+  9 #include &lt;stdlib.h&gt;
+ 10 #include &lt;stack&gt;
+ 11 using namespace std;
+ 12 
+ 13 /*
+ 14 问题 ： 简单计算器（表达式求值）
+ 15 
+ 16 */
+ 17 
+ 18 bool isNum(char c)
+ 19 {
+ 20     int num = c-&#39;0&#39;;
+ 21     if (num &gt;= 0 &amp;&amp; num &lt;= 9)
+ 22         return true;
+ 23     else
+ 24         return false;
+ 25 }
+ 26 
+ 27 char op[8][8] =
+ 28 {
+ 29     &#39;0&#39;,&#39;+&#39;,&#39;-&#39;,&#39;*&#39;,&#39;/&#39;,&#39;(&#39;,&#39;)&#39;,&#39;#&#39;,
+ 30     &#39;+&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,
+ 31     &#39;-&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,
+ 32     &#39;*&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&lt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,
+ 33     &#39;/&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&lt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,
+ 34     &#39;(&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;=&#39;,&#39;&gt;&#39;,
+ 35     &#39;)&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;0&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,
+ 36     &#39;#&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;0&#39;,&#39;=&#39;,
+ 37 };
+ 38 char compare(char a,char b)
+ 39 {
+ 40     int x,y;
+ 41     for (int i = 1;i &lt; 8;i++)
+ 42         if (op[i][0] == a)
+ 43         x = i;
+ 44     for (int i = 1;i &lt; 8;i++)
+ 45         if (op[0][i] == b)
+ 46         y = i;
+ 47     return op[x][y];
+ 48 }
+ 49 int cal(int a,char op,int b)
+ 50 {
+ 51     switch (op)
+ 52     {
+ 53         case &#39;+&#39;:return a+b;break;
+ 54         case &#39;-&#39;:return b-a;break;
+ 55         case &#39;*&#39;:return a*b;break;
+ 56         case &#39;/&#39;:return b/a;
+ 57     }
+ 58 }
+ 59 int main()
+ 60 {
+ 61     char c[201];
+ 62     stack&lt;char&gt; oper;
+ 63     stack&lt;int&gt; number;
+ 64     oper.push(&#39;#&#39;);
+ 65     while (cin&gt;&gt;c)
+ 66     {
+ 67         if (c[0] ==&#39;0&#39;)
+ 68             break;
+ 69         int i = 0;
+ 70         while (c[i] != &#39;#&#39; || oper.top()!= &#39;#&#39;)
+ 71         {
+ 72             if (isNum(c[i]))
+ 73             {
+ 74                 number.push(c[i]-&#39;0&#39;);
+ 75                 i = i+1;
+ 76                 continue;
+ 77             }
+ 78             switch(compare(oper.top(),c[i]))
+ 79             {
+ 80             case &#39;&lt;&#39;:
+ 81                 // 继续压栈
+ 82                 oper.push(c[i]);
+ 83                 i = i+1;
+ 84                 break;
+ 85             case &#39;=&#39;:
+ 86                 // 弹栈
+ 87                 oper.pop();
+ 88                 i = i+1;
+ 89                 break;
+ 90             case &#39;&gt;&#39;:
+ 91                 // 栈顶为优先级高的运算符，进行计算后压栈
+ 92                 char oper1 = oper.top();
+ 93                 oper.pop();
+ 94                 int num1 = number.top();
+ 95                 number.pop();
+ 96                 int num2 = number.top();
+ 97                 number.pop();
+ 98                 int ans = cal(num1,oper1,num2);
+ 99                 number.push(ans);
+100                 // 此时c[i]符号并没有压入栈中，所以不用i+2
+101 
+102             }
+103         }
+104         cout &lt;&lt; number.top()&lt;&lt;endl;
+105     }
+106 
+107     return 0;
+108 }
+</code></pre><p>局限性：输入的表达式中数字不能是大于9的整数</p>
+<h4 id="改进的表达式求值（计算大于9的整数）"><a href="#改进的表达式求值（计算大于9的整数）" class="headerlink" title="改进的表达式求值（计算大于9的整数）"></a>改进的表达式求值（计算大于9的整数）</h4><pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;stdio.h&gt;
+  3 #include &lt;algorithm&gt;
+  4 #include &lt;queue&gt;
+  5 #include &lt;stack&gt;
+  6 #include &lt;math.h&gt;
+  7 #include &lt;string&gt;
+  8 #include &lt;string.h&gt;
+  9 #include &lt;stdlib.h&gt;
+ 10 #include &lt;stack&gt;
+ 11 using namespace std;
+ 12 
+ 13 /*
+ 14 问题 ： 简单计算器（表达式求值）
+ 15 
+ 16 */
+ 17 
+ 18 bool isNum(char c[])
+ 19 {
+ 20     int num = c[0]-&#39;0&#39;;
+ 21     if (num &gt;= 0 &amp;&amp; num &lt;= 9)
+ 22         return true;
+ 23     else
+ 24         return false;
+ 25 }
+ 26 int Num(char c[])
+ 27 {
+ 28     // 计算数字的值
+ 29     int sum=0;
+ 30     int i=0;
+ 31     while (c[i]!=&#39;\0&#39;)
+ 32     {
+ 33         int a = c[i]-&#39;0&#39;;
+ 34        // cout &lt;&lt; c[i];
+ 35         sum = sum*10+a;
+ 36         i++;
+ 37     }
+ 38     return sum;
+ 39 }
+ 40 char op[8][8] =
+ 41 {
+ 42     &#39;0&#39;,&#39;+&#39;,&#39;-&#39;,&#39;*&#39;,&#39;/&#39;,&#39;(&#39;,&#39;)&#39;,&#39;#&#39;,
+ 43     &#39;+&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,
+ 44     &#39;-&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,
+ 45     &#39;*&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&lt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,
+ 46     &#39;/&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&lt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,
+ 47     &#39;(&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;=&#39;,&#39;&gt;&#39;,
+ 48     &#39;)&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;0&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,
+ 49     &#39;#&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;0&#39;,&#39;=&#39;,
+ 50 };
+ 51 char compare(char a,char b)
+ 52 {
+ 53     int x,y;
+ 54     for (int i = 1;i &lt; 8;i++)
+ 55         if (op[i][0] == a)
+ 56         x = i;
+ 57     for (int i = 1;i &lt; 8;i++)
+ 58         if (op[0][i] == b)
+ 59         y = i;
+ 60     return op[x][y];
+ 61 }
+ 62 int cal(int a,char op,int b)
+ 63 {
+ 64     switch (op)
+ 65     {
+ 66         case &#39;+&#39;:return a+b;break;
+ 67         case &#39;-&#39;:return b-a;break;
+ 68         case &#39;*&#39;:return a*b;break;
+ 69         case &#39;/&#39;:return b/a;
+ 70     }
+ 71 }
+ 72 int main()
+ 73 {
+ 74     char c[10];
+ 75     stack&lt;char&gt; oper;
+ 76     stack&lt;int&gt; number;
+ 77     oper.push(&#39;#&#39;);
+ 78 
+ 79     while (cin&gt;&gt;c){// 每次仅输入一个单词，如果是运算符则c[0],数字则需要计算一下
+ 80     int i = 0;
+ 81     if (c[0] == &#39;0&#39;)
+ 82         break;
+ 83     while (c[i] != &#39;#&#39; || oper.top()!= &#39;#&#39;)
+ 84     {
+ 85         if (isNum(c))
+ 86         {
+ 87             number.push(Num(c));
+ 88            // cout &lt;&lt; Num(c) &lt;&lt; endl;
+ 89             cin &gt;&gt; c;
+ 90             continue;
+ 91         }
+ 92         switch(compare(oper.top(),c[i]))
+ 93         {
+ 94         case &#39;&lt;&#39;:
+ 95             // 继续压栈
+ 96             oper.push(c[i]);
+ 97             cin &gt;&gt; c;
+ 98             break;
+ 99         case &#39;=&#39;:
+100             // 弹栈
+101             oper.pop();
+102             cin &gt;&gt; c;
+103             break;
+104         case &#39;&gt;&#39;:
+105             // 栈顶为优先级高的运算符，进行计算后压栈
+106             char oper1 = oper.top();
+107             oper.pop();
+108             int num1 = number.top();
+109             number.pop();
+110             int num2 = number.top();
+111             number.pop();
+112             int ans = cal(num1,oper1,num2);
+113             number.push(ans);
+114             // 此时c[i]符号并没有压入栈中，所以不用i+2
+115 
+116         }
+117     }
+118     cout &lt;&lt; number.top()&lt;&lt;endl;
+119     }
+120 
+121     return 0;
+122 }
+</code></pre><p>测试用例：<br>10 + 2 * 3 - 8 / ( 3 + 1 ) #<br>0</p>
+<h4 id="简单计算器-2006年浙江大学计算机及软件工程研究生机试真题"><a href="#简单计算器-2006年浙江大学计算机及软件工程研究生机试真题" class="headerlink" title="简单计算器 2006年浙江大学计算机及软件工程研究生机试真题"></a>简单计算器 2006年浙江大学计算机及软件工程研究生机试真题</h4><p>这个题第一天重新写了一下课本上的实现方法，第二天改进成可以计算大于9的的算术表达式，第三天修改成符合这道机试题格式要求的题目。</p>
+<p>自己还差的很远。</p>
+<pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;stdio.h&gt;
+  3 #include &lt;algorithm&gt;
+  4 #include &lt;queue&gt;
+  5 #include &lt;stack&gt;
+  6 #include &lt;math.h&gt;
+  7 #include &lt;string&gt;
+  8 #include &lt;string.h&gt;
+  9 #include &lt;stdlib.h&gt;
+ 10 #include &lt;stack&gt;
+ 11 using namespace std;
+ 12 
+ 13 /*
+ 14 问题 ： 简单计算器（表达式求值）
+ 15 改进版3：输入串末尾没有#如何控制，用字符后面有没有空格来控制
+ 16 
+ 17 */
+ 18 
+ 19 bool isNum(char c[],int i)
+ 20 {
+ 21     int num = c[i]-&#39;0&#39;;
+ 22     if (num &gt;= 0 &amp;&amp; num &lt;= 9)
+ 23         return true;
+ 24     else
+ 25         return false;
+ 26 }
+ 27 int Num(char c[],int &amp;i)
+ 28 {
+ 29     // 计算数字的值
+ 30     int sum=0;
+ 31     while (c[i]!=&#39; &#39; &amp;&amp; c[i]!=&#39;\0&#39;)
+ 32     {
+ 33         int a = c[i]-&#39;0&#39;;
+ 34        // cout &lt;&lt; c[i];
+ 35         sum = sum*10+a;
+ 36         i++;
+ 37     }
+ 38     return sum;
+ 39 }
+ 40 char op[8][8] =
+ 41 {
+ 42     &#39;0&#39;,&#39;+&#39;,&#39;-&#39;,&#39;*&#39;,&#39;/&#39;,&#39;(&#39;,&#39;)&#39;,&#39;\0&#39;,
+ 43     &#39;+&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,
+ 44     &#39;-&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,
+ 45     &#39;*&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&lt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,
+ 46     &#39;/&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&lt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,
+ 47     &#39;(&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;=&#39;,&#39;&gt;&#39;,
+ 48     &#39;)&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,&#39;0&#39;,&#39;&gt;&#39;,&#39;&gt;&#39;,
+ 49     &#39;\0&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;&lt;&#39;,&#39;0&#39;,&#39;=&#39;,
+ 50 };
+ 51 char compare(char a,char b)
+ 52 {
+ 53     int x,y;
+ 54     for (int i = 1;i &lt; 8;i++)
+ 55         if (op[i][0] == a)
+ 56         x = i;
+ 57     for (int i = 1;i &lt; 8;i++)
+ 58         if (op[0][i] == b)
+ 59         y = i;
+ 60     return op[x][y];
+ 61 }
+ 62 float cal(float a,char op,float b)
+ 63 {
+ 64     switch (op)
+ 65     {
+ 66         case &#39;+&#39;:return a+b;break;
+ 67         case &#39;-&#39;:return b-a;break;
+ 68         case &#39;*&#39;:return a*b;break;
+ 69         case &#39;/&#39;:return b/a;
+ 70     }
+ 71     return 0;
+ 72 }
+ 73 int main()
+ 74 {
+ 75     char c[50];
+ 76     stack&lt;char&gt; oper;
+ 77     stack&lt;float&gt; number;
+ 78     oper.push(&#39;\0&#39;);
+ 79 
+ 80     while (cin.getline(c,1000)){// 输入一行字符
+ 81     int i = 0;
+ 82     if (c[0] == &#39;0&#39;)
+ 83         break;
+ 84     while (c[i] != &#39;\0&#39; || oper.top()!= &#39;\0&#39;)
+ 85     {
+ 86         if (isNum(c,i))
+ 87         {
+ 88             float sum = Num(c,i);
+ 89             number.push(sum);
+ 90         //    cout &lt;&lt; sum &lt;&lt; endl;
+ 91             if (c[i]!=&#39;\0&#39;)
+ 92                 i++; // i自增前指向空格或者字符串终止符
+ 93             continue;
+ 94         }
+ 95         switch(compare(oper.top(),c[i]))
+ 96         {
+ 97         case &#39;&lt;&#39;:
+ 98             // 继续压栈
+ 99             oper.push(c[i]);
+100             i = i+1;
+101             if (c[i]!=&#39;\0&#39;) i++;
+102             break;
+103         case &#39;=&#39;:
+104             // 弹栈
+105             oper.pop();
+106             i = i+1;
+107             if (c[i]!=&#39;\0&#39;) i++;
+108             break;
+109         case &#39;&gt;&#39;:
+110             // 栈顶为优先级高的运算符，进行计算后压栈
+111             char oper1 = oper.top();
+112             oper.pop();
+113             float num1 = number.top();
+114             number.pop();
+115             float num2 = number.top();
+116             number.pop();
+117             float ans = cal(num1,oper1,num2);
+118             number.push(ans);
+119             // 此时c[i]符号并没有压入栈中，所以不用i+2
+120 
+121         }
+122     }
+123     printf(&quot;%.2f\n&quot;,number.top());
+124     }
+125 
+126     return 0;
+127 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数据结构题集(C语言版 清华大学出版社) | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="数据结构 第六章 树 清华大学出版社数据结构习题集 第六章 树 整理    输入数据 13 1 2 3 0 0 1 0 0 0 0 0 0 1 6   1 // 35 顺序存储结构  2 const int MAXSIZE = 20;  3 typedef struct  4 {  5     Elemtype data[MAXSIZE+1]; // data[0]不存储元素，因为顺序存储结构二叉">
+<meta property="og:type" content="website">
+<meta property="og:title" content="数据结构题集(C语言版 清华大学出版社)">
+<meta property="og:url" content="http://yoursite.com/backup/数据结构题集(C语言版 清华大学出版社).html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="数据结构 第六章 树 清华大学出版社数据结构习题集 第六章 树 整理    输入数据 13 1 2 3 0 0 1 0 0 0 0 0 0 1 6   1 // 35 顺序存储结构  2 const int MAXSIZE = 20;  3 typedef struct  4 {  5     Elemtype data[MAXSIZE+1]; // data[0]不存储元素，因为顺序存储结构二叉">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://img-
+blog.csdn.net/20180329205953437?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMzODQ2MDU0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-
+blog.csdn.net/20180329211146926?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMzODQ2MDU0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-
+blog.csdn.net/20180330122922857?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMzODQ2MDU0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-
+blog.csdn.net/20180330174103391?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMzODQ2MDU0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-
+blog.csdn.net/20180330190728785?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMzODQ2MDU0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-
+blog.csdn.net/20180330200735646?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMzODQ2MDU0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://img-
+blog.csdn.net/20180331114415955?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMzODQ2MDU0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:updated_time" content="2018-09-20T01:27:28.484Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构题集(C语言版 清华大学出版社)">
+<meta name="twitter:description" content="数据结构 第六章 树 清华大学出版社数据结构习题集 第六章 树 整理    输入数据 13 1 2 3 0 0 1 0 0 0 0 0 0 1 6   1 // 35 顺序存储结构  2 const int MAXSIZE = 20;  3 typedef struct  4 {  5     Elemtype data[MAXSIZE+1]; // data[0]不存储元素，因为顺序存储结构二叉">
+<meta name="twitter:image" content="https://img-
+blog.csdn.net/20180329205953437?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMzODQ2MDU0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据结构题集(C语言版 清华大学出版社)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/backup/数据结构题集(C语言版 清华大学出版社).html" class="article-date">
+  <time datetime="2018-08-20T17:29:00.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="数据结构-第六章-树"><a href="#数据结构-第六章-树" class="headerlink" title="数据结构 第六章 树"></a>数据结构 第六章 树</h3><blockquote>
+<p>清华大学出版社数据结构习题集 第六章 树 整理</p>
+</blockquote>
+<p><img src="https://img-
+blog.csdn.net/20180329205953437?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMzODQ2MDU0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<blockquote>
+<p>输入数据<br> 13<br> 1 2 3 0 0 1 0 0 0 0 0 0 1<br> 6</p>
+</blockquote>
+<pre><code> 1 // 35 顺序存储结构
+ 2 const int MAXSIZE = 20;
+ 3 typedef struct
+ 4 {
+ 5     Elemtype data[MAXSIZE+1]; // data[0]不存储元素，因为顺序存储结构二叉树的根节点从1开始层次遍历+1
+ 6     int length;
+ 7 }SqBiTree;
+ 8 void createSqBiTree(SqBiTree &amp;st)
+ 9 {
+10     Elemtype x;
+11     int n;
+12     cout &lt;&lt; &quot;n:&quot;;
+13     cin &gt;&gt; n;
+14     for  (int i = 0;i&lt;n;i++)
+15     {
+16         cin&gt;&gt;x;
+17         st.data[i+1] = x;
+18     }
+19     st.length = n;
+20 }
+21 void print(SqBiTree &amp;st)
+22 {
+23     for (int i=1;i&lt;=st.length;i++)
+24         cout &lt;&lt; st.data[i]&lt;&lt;&#39; &#39;;
+25 }
+26 // 求出下标志为I的结点对应的十进制整数
+27 // 思路：parent = i/2,如果为偶数则为0，奇数则为1
+28 int thirty_five(SqBiTree &amp;st,int i)
+29 {
+30     int sum  =0;
+31     int j = 0;
+32     while (i)
+33     {
+34         if (i%2!=0)
+35         {
+36             sum += pow(2,j);
+37         }
+38         j++;
+39         i = i/2;
+40     }
+41     return sum;
+42 }
+43 int main()
+44 {
+45     SqBiTree st ;
+46     createSqBiTree(st);
+47     cout &lt;&lt; &quot;i:&quot;;
+48     int i;cin&gt;&gt;i;
+49     cout &lt;&lt; &quot;十进制整数：&quot;&lt;&lt;thirty_five(st,i)&lt;&lt;endl;
+50     return 0;
+51 }
+</code></pre><p><img src="https://img-
+blog.csdn.net/20180329211146926?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMzODQ2MDU0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<pre><code> 1 // 36 判定两棵二叉树是否相似
+ 2 int similar(BiTree &amp;t1,BiTree &amp;t2)
+ 3 {
+ 4     if (t1==NULL &amp;&amp; t2==NULL)
+ 5         return 1;
+ 6     if (t1!=NULL &amp;&amp; t2!=NULL)
+ 7     {
+ 8         int l = similar(t1-&gt;lchild,t2-&gt;lchild);
+ 9         int r = similar(t1-&gt;rchild,t2-&gt;rchild);
+10         return l&amp;r;
+11     }else
+12     return 0;
+13 }
+14 int main()
+15 {
+16     BiTree t1,t2;
+17     createBiTree(t1);
+18     createBiTree(t2);
+19     if (similar(t1,t2))
+20         cout &lt;&lt;&quot;similar!&quot;&lt;&lt;endl;
+21     else
+22         cout &lt;&lt;&quot;not similar!&quot;&lt;&lt;endl;
+23     return 0;
+24 }
+</code></pre><p><img src="https://img-
+blog.csdn.net/20180330122922857?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMzODQ2MDU0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<pre><code> 1 // 39 增设双亲域和标志域时不用栈进行后序遍历的递推形式
+ 2 typedef struct NBiNode
+ 3 {
+ 4     Elemtype data;
+ 5     struct NBiNode *lchild,*rchild,*parent;
+ 6     int mark;// 0 1 2
+ 7 }NBiNode,*NBiTree;
+ 8 void createNBiTree(NBiTree &amp;nt,NBiTree &amp;parent)
+ 9 {
+10     Elemtype x;
+11     cin &gt;&gt; x;
+12     if (x!=&#39;#&#39;)
+13     {
+14         nt = (NBiTree)malloc(sizeof(NBiTree));
+15         nt-&gt;data = x;
+16         nt-&gt;mark = 0;
+17         nt-&gt;parent = parent;
+18         createNBiTree(nt-&gt;lchild,nt);
+19         createNBiTree(nt-&gt;rchild,nt);
+20     }
+21     else
+22     {
+23         nt = NULL;
+24     }
+25 }
+26 /*
+27 思路：
+28 1. 从parent走到当前子树根节点，Mark为0，转为1
+29 2. Mark为1时：转到左子树，设Mark为2
+30 3. Mark为2时转到右子树，设Mark为0哦，访问结点
+31 */
+32 void postOrderUnWithPM(NBiTree &amp;t)
+33 {
+34     NBiTree p = t;
+35     while (p){
+36        switch(p-&gt;mark)
+37     {
+38     case 0:
+39         // 第一次访问P结点
+40         p-&gt;mark  =1;
+41         if (p-&gt;lchild)
+42             p = p-&gt;lchild;
+43         break;
+44     case 1:
+45         // 第二次访问P结点
+46         p-&gt;mark = 2;
+47         if (p-&gt;rchild)
+48             p = p-&gt;rchild;
+49         break;
+50     case 2:
+51         // 访问右结点结束后需要打印根节点
+52         cout &lt;&lt; p-&gt;data &lt;&lt; &#39; &#39;;
+53         p-&gt;mark = 0;
+54         p = p-&gt; parent;
+55         break;
+56     }
+57     }
+58 
+59 }
+60 int main()
+61 {
+62     NBiTree nt;
+63     NBiTree p;
+64     p =NULL;
+65     createNBiTree(nt,p);
+66     postOrderUnWithPM(nt);
+67 
+68     return 0;
+69 }
+</code></pre><p><img src="https://img-
+blog.csdn.net/20180330174103391?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMzODQ2MDU0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<pre><code> 1 // 40 只设双亲域不用栈如何中序遍历
+ 2 typedef struct NBiNode
+ 3 {
+ 4     Elemtype data;
+ 5     struct NBiNode *lchild,*rchild,*parent;
+ 6 }NBiNode,*NBiTree;
+ 7 void createNBiTree(NBiTree &amp;nt,NBiTree &amp;parent)
+ 8 {
+ 9     Elemtype x;
+10     cin &gt;&gt; x;
+11     if (x!=&#39;#&#39;)
+12     {
+13         nt = (NBiTree)malloc(sizeof(NBiTree));
+14         nt-&gt;data = x;
+15         nt-&gt;parent = parent;
+16         createNBiTree(nt-&gt;lchild,nt);
+17         createNBiTree(nt-&gt;rchild,nt);
+18     }
+19     else
+20     {
+21         nt = NULL;
+22     }
+23 }
+24 
+25 
+26 void midOrder(NBiTree &amp;nt)
+27 {
+28     NBiTree p = nt;
+29     while (p)
+30     {
+31         if (p-&gt;lchild)
+32         {
+33             p = p-&gt;lchild;
+34         }
+35         else
+36         {
+37             cout &lt;&lt; p-&gt;data &lt;&lt;&#39; &#39;; // 从左子树回到根节点，打印根节点；此时根据右子树是否为空进行判断
+38             while (!p-&gt;rchild)
+39             {//右子树为空，两种情况，1. 双亲的左子树：往上走，打印结点；2 双亲的右子树，不必打印
+40                  while (p-&gt;parent &amp;&amp; p-&gt;parent-&gt;rchild == p)
+41                  {
+42                      p = p-&gt;parent;
+43                  }
+44                  if (p-&gt;parent)
+45                  {
+46                      if (p-&gt;parent-&gt;lchild == p)
+47                      {
+48                          p = p-&gt;parent;
+49                          cout &lt;&lt; p-&gt;data &lt;&lt; &#39; &#39;; // 走到根节点又要判断右子树是否为空
+50                      }
+51                  }else
+52                  {
+53                      return ;// 右子树的双亲为空，那就是中序遍历完啦！
+54                  }
+55             }
+56             // 右子树不为空，往右走
+57             p = p-&gt;rchild;
+58 
+59         }
+60     }
+61 }
+62 
+63 int main()
+64 {
+65     NBiTree nt;
+66     NBiTree p;
+67     p =NULL;
+68     createNBiTree(nt,p);
+69     midOrder(nt);
+70     return 0;
+71 }
+</code></pre><p><img src="https://img-
+blog.csdn.net/20180330190728785?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMzODQ2MDU0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<pre><code> 1 // 45 
+ 2 // 递归，对于二叉树中的每一个元素值为X的结点，删去以他为根的子树，并释放相应空间
+ 3 // 递归清空子树
+ 4 void delete2(BiTree &amp;t)
+ 5 {
+ 6     if (!t) return ;
+ 7     if (t-&gt;lchild)
+ 8         delete2(t-&gt;lchild);
+ 9     if (t-&gt;rchild)
+10         delete2(t-&gt;rchild);
+11     delete t;
+12     t = NULL; // 
+13 }
+14 void deleteBiTree(BiTree &amp;t,Elemtype x)
+15 {
+16     if (t)
+17     {
+18         if (t-&gt;data == x ) // string.h 和 string 这真的是两个头文件！
+19             delete2(t);
+20         else { // 如果删除了左右孩子就都没有了！★
+21         deleteBiTree(t-&gt;lchild,x);
+22         deleteBiTree(t-&gt;rchild,x);
+23         }
+24     }
+25 }
+26 
+27 int main()
+28 {
+29     BiTree t;
+30     createBiTree(t);
+31     Elemtype x;
+32     cout &lt;&lt; &quot;x:&quot;;
+33     cin &gt;&gt; x;
+34     deleteBiTree(t,x);
+35     preOrder(t);
+36     return 0;
+37 }
+</code></pre><p><img src="https://img-
+blog.csdn.net/20180330200735646?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMzODQ2MDU0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<pre><code> 1 // 48 求两节点的共同祖先
+ 2 // 找到root到P的路径存到数组中
+ 3 // 思路：比较根节点和P指针是否相同，若相同返回1已找到；否则压入根节点，判断左右子树能否找到该结点并返回1
+ 4 // 如果左右子树均没有找到也就意味着该路径上没有P结点（走错路啦！）弹栈出根节点
+ 5 int findPath(BiTree &amp;root,Elemtype &amp;p,BiTree a[],int &amp;top)
+ 6 {
+ 7     if (root-&gt;data == p )
+ 8         return 1; // 先比较根节点：相等则返回1，说明找到p,但此时路径数组为空，说明没有祖先
+ 9     a[++top] = root; // 根节点入栈
+10     int has = 0;
+11     if (root-&gt;lchild)
+12         has = findPath(root-&gt;lchild,p,a,top);
+13     if (has == 0 &amp;&amp; root-&gt;rchild)
+14         has = findPath(root-&gt;rchild,p,a,top);
+15     if (has == 0)
+16     {
+17         top -- ;
+18     }
+19     return has;
+20 }
+21 
+22 BiTree findGrandpa(BiTree &amp;root,Elemtype p,Elemtype q)
+23 {
+24     int top1 = -1,top2 = -1; // TOP 指向a,b的顶层
+25     // 存储两节点的路径到数组中，寻找相同的最靠右的部分
+26     BiTree a[20]={};
+27     BiTree b[20]={};
+28     if (findPath(root,p,a,top1)!=0 &amp;&amp; findPath(root,q,b,top2)!=0)
+29     {
+30         for (int i = top1;i&gt;-1;i--)
+31             for (int j = top2;j&gt;-1;j--)
+32             if (a[i]== b[j])
+33                 return a[i];
+34     }
+35 }
+36 int main()
+37 {
+38     BiTree t;
+39     createBiTree(t);
+40     Elemtype p,q;
+41     cout &lt;&lt;&quot;p,q:&quot;;
+42     cin &gt;&gt; p &gt;&gt; q;
+43     BiTree grand = findGrandpa(t,p,q);
+44     cout &lt;&lt; &quot;grandpa : &quot; &lt;&lt; grand-&gt;data &lt;&lt;endl;
+45     return 0;
+46 }
+</code></pre><h4 id="判断一棵二叉树是否是完全二叉树"><a href="#判断一棵二叉树是否是完全二叉树" class="headerlink" title="判断一棵二叉树是否是完全二叉树"></a>判断一棵二叉树是否是完全二叉树</h4><p>我们要如何判断一棵二叉树是否是完全二叉树？？？<br>1）如果一个结点有右孩子而没有左孩子，那么这棵树一定不是完全二叉树。<br>2）如果一个结点有左孩子，而没有右孩子，那么按照层序遍历的结果，这个结点之后的所有结点都是叶子结点这棵树才是完全二叉树。<br>3）如果一个结点是叶子结点，那么按照层序遍历的结果，这个结点之后的所有结点都必须是叶子结点这棵树才是完全二叉树。<br>求一棵二叉树的层序遍历，我们借助的是数据结构—-<br>队列。如果一个结点不是叶子结点，我们将当前结点出队，将其孩子入队；如果一个结点是叶子结点，我们直接将其出队即可。这是之前求一棵树层序遍历的结果的思路，我们可以借助这个思路，来完成此题。<br>根据上边分析的2）和3），我们知道，如果一个结点没有左右孩子或者仅有左孩子，它之后的结点必须全部是叶子结点，这棵树才可能是完全二叉树。所以，我们必须定义一个bool变量，来记录是否到了满足2）或者3）的结点，如果满足，我们只需要判断它之后的结点是否是叶子结点即可。</p>
+<pre><code> 1 // 49 编写算法判定给定二叉树是否为完全二叉树
+ 2 /*
+ 3 1. 层次搜索
+ 4 2. 设一个布尔数组记录访问过的结点，检查数组中是否有false
+ 5 3. 递归算法：给出完全二叉树与原定义等价的递归定义，设计一个判别给定的二叉树是满二叉树、不满二叉树还是非完全二叉树的递归函数
+ 6 
+ 7 */
+ 8 const int Maxsize = 20;
+ 9 // 2. 检查数据中是否有false
+10 bool isFull(BiTree &amp;t)
+11 {
+12     BiTree  que[Maxsize];
+13     int front = 0,rear = 0;
+14     BiTree p;
+15     Elemtype data[Maxsize] = {};
+16     int i = 0;
+17     if (t)
+18     {
+19         rear = (rear + 1)%Maxsize;
+20         que[rear] = t;
+21         data[i] = t-&gt;data;
+22         while (front != rear)
+23         {
+24             front = (front+1)%Maxsize;
+25             p = que[front];
+26             if (p-&gt;lchild)
+27             {
+28                 rear = (rear+1)%Maxsize;
+29                 que[rear]=p-&gt;lchild;
+30                 data[++i] = p-&gt;lchild-&gt;data;
+31             } // 有左子树则放入数据否则放入零
+32             else
+33                 data[++i] = 0;
+34             if (p-&gt;rchild)
+35             {
+36                 rear = (rear+1)%Maxsize;
+37                 que[rear]=p-&gt;rchild;
+38                 data[++i] = p-&gt;rchild-&gt;data;
+39             }
+40             else
+41                 data[++i] = 0;
+42 
+43         }
+44         for (int j = 1;j&lt;i;j++)
+45     { // 检查是否有字母夹着单个0的情况，因为最后也都是0
+46         if (data[j-1]!=0 &amp;&amp; data[j+1]!=0 &amp;&amp; data[j] == 0)
+47             return false;
+48     }
+49     }
+50     return true;
+51 }
+52 
+53 // 用一个数组记录遍历过得结点序号，看是否连续
+54 bool isFull2(BiTree &amp;t)
+55 {
+56     int i=0,j=0;
+57     BiTree que[Maxsize] = {}; // front
+58     int order[Maxsize] = {}; // j i
+59     BiTree p;
+60     int front = 0,rear = 0;
+61     if (t)
+62     {
+63         que[++rear] = t;
+64         order[++i] = ++j; // order[1] = 1 根节点序号
+65         while (front != rear)
+66         {
+67             p = que[++front];
+68             if (order[i]!= order[i-1]+1) // 结点序号不连续
+69                 return false;
+70             if (p-&gt;lchild)
+71             {
+72                 que[++rear] = p-&gt;lchild;
+73                 order[++i] = 2*p-&gt;data;
+74             }
+75             if (p-&gt;rchild)
+76             {
+77                 que[++rear] = p-&gt;rchild;
+78                 order[++i] = 2*p-&gt;data+1;
+79             }
+80         }
+81         return 1 ;
+82     }
+83 }
+84 int main()
+85 {
+86     BiTree t;
+87     createBiTree(t);
+88     cout &lt;&lt; isFull2(t)&lt;&lt; endl;
+89     return 0;
+90 }
+</code></pre><p><img src="https://img-
+blog.csdn.net/20180331114415955?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMzODQ2MDU0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<pre><code>  1 // 50
+  2 /*
+  3 1. 三元组序列 (F, C, L/R)
+  4 2. ^代表根节点的双亲
+  5 3. ^^代表输入终点
+  6 4. 层次表示输入
+  7 */
+  8 BiTree three()
+  9 {
+ 10     Elemtype thr[3];
+ 11     BiTree que[Maxsize];
+ 12     int front = 0,rear =0;
+ 13     BiTree t,p,q;
+ 14     cin &gt;&gt; thr[0] &gt;&gt;thr[1] &gt;&gt; thr[2];
+ 15     while (thr[0]!=&#39;^&#39; || thr[1]!=&#39;^&#39;)
+ 16     {
+ 17         if (thr[0] == &#39;^&#39; )
+ 18         {
+ 19             t = (BiTree )malloc(sizeof(BiTree));
+ 20             t-&gt;data = thr[1];
+ 21             t-&gt;lchild = NULL;
+ 22             t-&gt;rchild = NULL;
+ 23             que[++rear] = t; // 根节点入队
+ 24             p = t;
+ 25             front = 1;
+ 26         }
+ 27         else
+ 28         {
+ 29             if (thr[2] == &#39;L&#39;)
+ 30             {
+ 31                 p-&gt;lchild = q;
+ 32             }
+ 33             if (thr[2]==&#39;R&#39;)
+ 34             {
+ 35                 p-&gt;rchild = q;
+ 36             }
+ 37         }
+ 38 
+ 39         cin &gt;&gt; thr[0] &gt;&gt; thr[1] &gt;&gt; thr[2];
+ 40         q = (BiTree)malloc(sizeof(BiTree));
+ 41         q-&gt;data = thr[1];
+ 42         q-&gt;lchild  = NULL;
+ 43         q-&gt;rchild = NULL;
+ 44         que[++rear] = q;
+ 45         // 每输入一组，便把数据入队
+ 46         if (thr[0] != p-&gt;data)
+ 47         {
+ 48             // 出队
+ 49             p = que[++front];
+ 50         }
+ 51 
+ 52     }
+ 53     return t;
+ 54 }
+ 55 int main()
+ 56 {
+ 57     BiTree t;
+ 58     t = three();
+ 59     preOrder(t);
+ 60 
+ 61     return 0;
+ 62 }
+ 63 //51 输出以二叉树表示的算数表达式，如果右括号在输出时应添上
+ 64 bool isOperator(Elemtype c)
+ 65 {
+ 66     if (c==&#39;+&#39; || c==&#39;-&#39; || c==&#39;*&#39; || c==&#39;/&#39;)
+ 67         return true;
+ 68     else
+ 69         return false;
+ 70 }
+ 71 bool lowPrior(Elemtype a,Elemtype b)
+ 72 {
+ 73     if ((a == &#39;+&#39; || a == &#39;-&#39;)&amp;&amp;(b==&#39;*&#39; || b == &#39;/&#39;))
+ 74         return true;
+ 75     else
+ 76         return false;
+ 77 }
+ 78 void biao(BiTree &amp;t)
+ 79 {
+ 80     if (t)
+ 81     {
+ 82         if (t-&gt;lchild)
+ 83         {
+ 84             if (isOperator(t-&gt;lchild-&gt;data) &amp;&amp; lowPrior(t-&gt;lchild-&gt;data,t-&gt;data))
+ 85             {
+ 86                 // 如果左孩子是操作符并且优先级低于根节点
+ 87                 cout &lt;&lt; &#39;(&#39; &lt;&lt; &#39; &#39;;
+ 88                 biao(t-&gt;lchild);
+ 89                 cout &lt;&lt;&#39;)&#39; &lt;&lt; &#39; &#39;;
+ 90             }
+ 91             else
+ 92                 biao(t-&gt;lchild);
+ 93         }
+ 94 
+ 95         cout &lt;&lt; t-&gt;data &lt;&lt; &#39; &#39;;
+ 96 
+ 97         if (t-&gt;rchild)
+ 98         {
+ 99             if (isOperator(t-&gt;rchild-&gt;data) &amp;&amp; lowPrior(t-&gt;rchild-&gt;data,t-&gt;data))
+100             {
+101                 // 如果左孩子是操作符并且优先级低于根节点
+102                 cout &lt;&lt; &#39;(&#39; &lt;&lt; &#39; &#39;;
+103                 biao(t-&gt;rchild);
+104                 cout &lt;&lt;&#39;)&#39; &lt;&lt; &#39; &#39;;
+105             }
+106             else
+107                 biao(t-&gt;rchild);
+108         }
+109     }
+110 }
+111 
+112 int main()
+113 {
+114     BiTree t;
+115     createBiTree(t);
+116     preOrder(t);
+117     // biao(t);
+118 
+119     return 0;
+120 }
+121 // 52 一棵二叉树的繁茂度定义为各层节点数的最大值与树的高度的乘积
+122 
+123 int fanmao(BiTree &amp;t)
+124 {
+125     int level,v,i,j;
+126     float f;
+127     int maxrow,maxcol ; // 最大行和最大列
+128     BiTree que[Maxsize] =  {}; // 队列
+129     int order[Maxsize] = {};// 存放各节点序号
+130     int count[Maxsize] ={};//下标代表层，数组内容为各层结点个数
+131     v = 0;i = 0;j = 0;maxcol = 0;maxrow = 0;
+132     if (t)
+133     {
+134         que[j] = t;
+135         order[j] = 1;
+136         j ++ ;
+137         while (i&lt;j)
+138         {
+139             f = log(order[i])/log(2) ;
+140         // 将 x 的自然对数值除以 n 的自然对数值，就可以对任意底 n 来计算数值 x 的对数值：Logn(x) = Log(x) / Log(n)
+141             level = (int)f +1 ;// 当前i节点的层数
+142             if (maxrow &lt; level)
+143                 maxrow = level;
+144             count[level] ++;
+145             // 求出每个节点当前层数，使当前层数的数据++
+146             if (maxcol &lt;count[level])
+147                 maxcol = count[level];
+148 
+149             if (que[i]-&gt;lchild)
+150             {
+151                 que[j] = que[i]-&gt;lchild;
+152                 order[j] = 2*order[i] ;// i是双亲节点，j是子节点
+153                 j++;
+154             }
+155             if (que[i]-&gt;rchild)
+156             {
+157                 que[j] = que[i]-&gt;rchild;
+158                 order[j] = 2*order[i]+1;
+159                 j++;
+160             }
+161             i++;
+162         }
+163     }
+164     v = maxcol * maxrow;
+165     return v;
+166 }
+167 int main()
+168 {
+169     BiTree t;
+170     createBiTree(t);
+171     cout &lt;&lt; fanmao(t);
+172 
+173 
+174     return 0;
+175 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

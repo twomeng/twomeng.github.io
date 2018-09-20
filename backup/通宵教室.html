@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>通宵教室 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="题目源地址 Description高校扩招，教室一度变得很紧张。学生白天上自习的地方较少，晚上教室又闲置着，怎样才能充分利用教学资源，扩大学生自习时空呢？通宵教室解决学生自习空间有限和教学资源不充分利用的问题。开放通宵教室促进了学生学习观念的转变，以前课堂内外基本上是听老师安排，现在是学生自觉在学习。晚上学习效率高、生理调节能力强的学生已经尝到了甜头。好学、考研、辅修、创作的学生又有了一片新的学习">
+<meta property="og:type" content="website">
+<meta property="og:title" content="通宵教室">
+<meta property="og:url" content="http://yoursite.com/backup/通宵教室.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题目源地址 Description高校扩招，教室一度变得很紧张。学生白天上自习的地方较少，晚上教室又闲置着，怎样才能充分利用教学资源，扩大学生自习时空呢？通宵教室解决学生自习空间有限和教学资源不充分利用的问题。开放通宵教室促进了学生学习观念的转变，以前课堂内外基本上是听老师安排，现在是学生自觉在学习。晚上学习效率高、生理调节能力强的学生已经尝到了甜头。好学、考研、辅修、创作的学生又有了一片新的学习">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:30.607Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="通宵教室">
+<meta name="twitter:description" content="题目源地址 Description高校扩招，教室一度变得很紧张。学生白天上自习的地方较少，晚上教室又闲置着，怎样才能充分利用教学资源，扩大学生自习时空呢？通宵教室解决学生自习空间有限和教学资源不充分利用的问题。开放通宵教室促进了学生学习观念的转变，以前课堂内外基本上是听老师安排，现在是学生自觉在学习。晚上学习效率高、生理调节能力强的学生已经尝到了甜头。好学、考研、辅修、创作的学生又有了一片新的学习">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      通宵教室
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/backup/通宵教室.html" class="article-date">
+  <time datetime="2018-08-13T22:11:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://acm.nefu.edu.cn/JudgeOnline/problemShow.php?problem_id=6" target="_blank" rel="noopener">题目源地址</a></p>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><pre><code>高校扩招，教室一度变得很紧张。学生白天上自习的地方较少，晚上教室又闲置着，怎样才能充分利用教学资源，扩大学生自习时空呢？通宵教室解决学生自习空间有限和教学资源不充分利用的问题。开放通宵教室促进了学生学习观念的转变，以前课堂内外基本上是听老师安排，现在是学生自觉在学习。晚上学习效率高、生理调节能力强的学生已经尝到了甜头。好学、考研、辅修、创作的学生又有了一片新的学习时空。
+但是通宵教室对传统的学生管理工作带来了一系列的问题。如果通宵教室的利用率不高的话，将教室的所有灯都打开，还会极大地浪费能源。
+现在学校对通宵教室灯光使用做一个新的尝试。假设有N个人使用通宵教室，教室里有N盏灯，每个人和每盏灯都有一个编号。开始所有的灯都没打开，第一个人进教室将所有的灯都打开，第二个人将所有的偶数号的灯都关掉，第三个人对所有3的倍数的灯进行如下操作：如果灯开着，就将它关掉，如果灯关着，就将它打开，……，第i个人对所有i的倍数的灯进行如下操作：如果灯开着，就将它关掉，如果灯关着，就将它打开，重复这样的过程，一直到第N个人完成这样的操作。
+现在，教室管理员向你求助，他希望知道，完成这样的过程后，教室里开着的灯还有多少盏？
+</code></pre><h3 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h3><pre><code>有多组测试数据。第一行是一个正整数T（1&lt;=T&lt;=10000），表示有多少组测试数据。
+以下有T行，每行一个测试数据，包含唯一的一个正整数N(1 &lt;= n &lt; 2^32,)。
+</code></pre><h3 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h3><pre><code>对于每个测试数据，输出一行包含唯一的一个整数:表示完成这样的过程后，教室里开着的灯的盏数。
+</code></pre><h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input"></a>Sample Input</h3><pre><code>2
+1
+2
+</code></pre><h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output"></a>Sample Output</h3><pre><code>1
+1  
+
+思路一
+
+
+ 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;math.h&gt;
+ 4 #include &lt;string.h&gt;
+ 5 #define max 100000000  
+ 6 using namespace std;
+ 7 
+ 8 int main()
+ 9 {
+10     int n,i,j,a[max],count,t;
+11     cin&gt;&gt;t;
+12     while (t--)
+13     {count=0;
+14         cin&gt;&gt;n;
+15         memset(a,0,sizeof(a));
+16         for (i=1;i&lt;=n;i++)                         
+17             for (j=1;j&lt;=n;j++)
+18         {
+19             if (j%i==0)
+20             {
+21                 a[j]=!a[j];
+22             }
+23         }
+24         for (i=1;i&lt;=n;i++)
+25             if (a[i]==1)
+26             count++;
+27         cout &lt;&lt; count &lt;&lt; endl;
+28     }
+29 
+30     return 0;
+31 }
+</code></pre><p>缺点：容易超时，所以转换思路：一开始灯为灭，若有偶数个因子则仍为灭的，所以要想灯亮，灯的序号必须有奇数个因子。</p>
+<p>思路二</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 
+ 3 using namespace std;
+ 4 
+ 5 int main()
+ 6 {
+ 7     int i,j,t,a,n;
+ 8     long long count;
+ 9     cin&gt;&gt;t;
+10     while (t--)
+11     {a=0;count=0;
+12         cin&gt;&gt;n;
+13         for (i=1;i&lt;=n;i++)
+14     for (j=1;j&lt;=i;j++)
+15     if (i%j==0)
+16         a++;
+17         if (a%2!=0)
+18         count++;
+19     cout &lt;&lt; count&lt;&lt; endl;
+20     }
+21 
+22     return 0;
+23 }
+</code></pre><p>仍然超时，思考：如果一个数是完全平方数,那么它的因子的个数一定是奇数?<br>答：X2的因子至少有（1,x,x2，若X2还有因子的话一定是两个不同的数相乘。设还有2n个因子3+2n (n&gt;=0)，所以为奇数。<br>假设有25盏灯，灯的序号从1到25，25开根号为5，也就是1-5的平方，所以25以内共有5个完全平方数。</p>
+<p>正确答案：</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;math.h&gt;
+ 3 using namespace std;
+ 4 
+ 5 int main()
+ 6 {
+ 7     long long t,n;
+ 8 
+ 9     cin&gt;&gt;t;
+10     while (t--)
+11     {
+12         cin&gt;&gt;n;
+13 
+14     cout &lt;&lt; (long long)sqrt(n)&lt;&lt; endl;
+15     }
+16 
+17     return 0;
+18 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

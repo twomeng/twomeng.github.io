@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>最大公约数和最小公倍数 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="求a,b的最大公约数，再通过最大公约数求出最小公倍数是一种问题！  最小公倍数公式：a*b/m(m为最大公约数) 推导：a=mi,b=mj,最小公倍数=mij 更相损减法：《九章算術*方田》作分數約簡時，提到求最大公因數方法：反覆把兩數的較大者減去較小者，直至兩數相等，這數就是最大公因數。這方法除了把除法換作減法外，與輾轉相除法完全相同。例如書中求91和49的最大公因數：91 &amp;gt; 49, 9">
+<meta property="og:type" content="website">
+<meta property="og:title" content="最大公约数和最小公倍数">
+<meta property="og:url" content="http://yoursite.com/backup/最大公约数和最小公倍数.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="求a,b的最大公约数，再通过最大公约数求出最小公倍数是一种问题！  最小公倍数公式：a*b/m(m为最大公约数) 推导：a=mi,b=mj,最小公倍数=mij 更相损减法：《九章算術*方田》作分數約簡時，提到求最大公因數方法：反覆把兩數的較大者減去較小者，直至兩數相等，這數就是最大公因數。這方法除了把除法換作減法外，與輾轉相除法完全相同。例如書中求91和49的最大公因數：91 &amp;gt; 49, 9">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:30.499Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="最大公约数和最小公倍数">
+<meta name="twitter:description" content="求a,b的最大公约数，再通过最大公约数求出最小公倍数是一种问题！  最小公倍数公式：a*b/m(m为最大公约数) 推导：a=mi,b=mj,最小公倍数=mij 更相损减法：《九章算術*方田》作分數約簡時，提到求最大公因數方法：反覆把兩數的較大者減去較小者，直至兩數相等，這數就是最大公因數。這方法除了把除法換作減法外，與輾轉相除法完全相同。例如書中求91和49的最大公因數：91 &amp;gt; 49, 9">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      最大公约数和最小公倍数
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/backup/最大公约数和最小公倍数.html" class="article-date">
+  <time datetime="2018-08-14T01:39:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>求a,b的最大公约数，再通过最大公约数求出最小公倍数是一种问题！</p>
+<p> 最小公倍数公式：a*b/m(m为最大公约数)</p>
+<p>推导：a=m<em>i,b=m</em>j,最小公倍数=m<em>i</em>j</p>
+<p>更相损减法：<br>《九章算術*方田》作分數約簡時，提到求最大公因數方法：反覆把兩數的較大者減去較小者，直至兩數相等，這數就是最大公因數。這方法除了把除法換作減法外，與輾轉相除法完全相同。例如書中求91和49的最大公因數：<br>91 &gt; 49, 91 - 49 = 42 49 &gt; 42, 49 - 42 = 7 42 &gt; 7, 42 - 7 = 35 35 &gt; 7, 35 - 7<br>= 28 28 &gt; 7, 28 - 7 = 21 21 &gt; 7, 21 - 7 = 14 14 &gt; 7, 14 - 7 = 7 7 = 7,<br>因此91和49的最大公因數是7 辗转相除法： 輾轉相除法是利用以下性質來確定兩個正整數 a 和 b 的最大公因數的： 若 r 是 a ÷ b 的餘數, 則<br>gcd(a,b) = gcd(b,r) a 和其倍數之最大公因數為 a。 另一種寫法是： a ÷ b，令r為所得餘數（0≤r＜b） 若 r =<br>0，演算法結束；b 即為答案。 互換：置 a&lt;-b，b&lt;-r，並返回第一步。</p>
+<p>这个算法可以用递归写成如下:</p>
+<pre><code>function gcd(a, b)
+
+{ 　　
+
+if a mod b&lt;&gt;0 　　
+
+return gcd(b, a mod b); 　　
+
+else 　　
+
+return a; 　　
+
+}
+</code></pre><p>C语言：</p>
+<pre><code> 1 int gcd(int a,int b)//最大公约数
+ 2 
+ 3 {
+ 4 
+ 5 if (a&lt;b) return gcd(b,a);
+ 6 
+ 7 else if (b==0) return a;
+ 8 
+ 9 else return gcd(b,a%b);
+10 
+11 }
+12 
+13 
+14 
+15 int lcm(int a,int b)
+16 
+17 {
+18 
+19 return a*b/gcd(a,b);
+20 
+21 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

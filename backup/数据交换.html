@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数据交换 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="题目源地址 Description给你2个长度相同的字符串数组，请交换2个数组的内容。 本题要求必须使用函数传参来实现! Input输入数据有多组，每组第1行为n( 2&amp;lt;=n&amp;lt;=10),接下来输入2行，每行都为n个字符串（串的长度小于20）; Output请输出交换后的2组串。 Sample Input3  crise tear tire  base bind dipaloma Sam">
+<meta property="og:type" content="website">
+<meta property="og:title" content="数据交换">
+<meta property="og:url" content="http://yoursite.com/backup/数据交换.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题目源地址 Description给你2个长度相同的字符串数组，请交换2个数组的内容。 本题要求必须使用函数传参来实现! Input输入数据有多组，每组第1行为n( 2&amp;lt;=n&amp;lt;=10),接下来输入2行，每行都为n个字符串（串的长度小于20）; Output请输出交换后的2组串。 Sample Input3  crise tear tire  base bind dipaloma Sam">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:30.523Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据交换">
+<meta name="twitter:description" content="题目源地址 Description给你2个长度相同的字符串数组，请交换2个数组的内容。 本题要求必须使用函数传参来实现! Input输入数据有多组，每组第1行为n( 2&amp;lt;=n&amp;lt;=10),接下来输入2行，每行都为n个字符串（串的长度小于20）; Output请输出交换后的2组串。 Sample Input3  crise tear tire  base bind dipaloma Sam">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据交换
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/backup/数据交换.html" class="article-date">
+  <time datetime="2018-08-14T01:32:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://acm.nefu.edu.cn/JudgeOnline/problemShow.php?problem_id=967" target="_blank" rel="noopener">题目源地址</a></p>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><pre><code>给你2个长度相同的字符串数组，请交换2个数组的内容。
+本题要求必须使用函数传参来实现!
+</code></pre><h3 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h3><pre><code>输入数据有多组，每组第1行为n( 2&lt;=n&lt;=10),接下来输入2行，每行都为n个字符串（串的长度小于20）;
+</code></pre><h3 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h3><pre><code>请输出交换后的2组串。
+</code></pre><h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input"></a>Sample Input</h3><pre><code>3 
+crise tear tire 
+base bind dipaloma
+</code></pre><h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output"></a>Sample Output</h3><pre><code>base bind dipaloma
+crise tear tire
+
+
+ 1 #include &lt;iostream&gt;
+ 2 #include &lt;algorithm&gt;
+ 3 #include &lt;stdio.h&gt;
+ 4 #include &lt;string.h&gt;
+ 5 using namespace std;
+ 6 //形式参数和实际参数名称可以相同，因为C++支持方法的重载。
+ 7 void shuru(char a[][20],char b[][20],int n)
+ 8 {
+ 9     int i;
+10     for (i=0;i&lt;n;i++)
+11         scanf (&quot;%s&quot;,a[i]);
+12         for (i=0;i&lt;n;i++)
+13         scanf (&quot;%s&quot;,b[i]);
+14 }
+15 //不用加什么吗？每碰到一个空格，数组就进入下一行了
+16 void shuchu(char a[][20],char b[][20],int n)
+17 {
+18     int i;
+19     for (i=0;i&lt;n;i++)
+20         printf(&quot;%s &quot;,a[i]);
+21  printf (&quot;\n&quot;);
+22         for (i=0;i&lt;n;i++)
+23         printf(&quot;%s &quot;,b[i]);
+24 }
+25 void haha(**char a[][20],**char b[][20],int n)
+26 {
+27     char  temp[20];
+28     for (int i=0;i&lt;n;i++)
+29     {
+30         strcpy(temp,a[i]);
+31          strcpy(a[i],b[i]);
+32           strcpy(b[i],temp);
+33     }
+34 
+35 }
+36 
+37 int main()
+38 {
+39     char a[10][20],b[10][20];
+40     int n;
+41     while (cin&gt;&gt;n)
+42     {
+43         shuru(a,b,n);
+44         haha(a,b,n);
+45         shuchu(a,b,n);
+46 
+47     }
+48 
+49       return 0;
+50 
+51 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

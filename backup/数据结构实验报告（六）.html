@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数据结构实验报告（六） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="实验6 排序  1 #include &amp;lt;iostream&amp;gt;   2 #include &amp;lt;stdio.h&amp;gt;   3 #include &amp;lt;stdlib.h&amp;gt;   4 #define INFINITY INT_MAX   5 #define MAXSIZE 100   6    7 using namespace std;   8 typedef struct lis">
+<meta property="og:type" content="website">
+<meta property="og:title" content="数据结构实验报告（六）">
+<meta property="og:url" content="http://yoursite.com/backup/数据结构实验报告（六）.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="实验6 排序  1 #include &amp;lt;iostream&amp;gt;   2 #include &amp;lt;stdio.h&amp;gt;   3 #include &amp;lt;stdlib.h&amp;gt;   4 #define INFINITY INT_MAX   5 #define MAXSIZE 100   6    7 using namespace std;   8 typedef struct lis">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:29.111Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构实验报告（六）">
+<meta name="twitter:description" content="实验6 排序  1 #include &amp;lt;iostream&amp;gt;   2 #include &amp;lt;stdio.h&amp;gt;   3 #include &amp;lt;stdlib.h&amp;gt;   4 #define INFINITY INT_MAX   5 #define MAXSIZE 100   6    7 using namespace std;   8 typedef struct lis">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据结构实验报告（六）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/backup/数据结构实验报告（六）.html" class="article-date">
+  <time datetime="2018-08-14T02:49:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="实验6-排序"><a href="#实验6-排序" class="headerlink" title="实验6 排序"></a>实验6 排序</h2><pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;stdio.h&gt;
+  3 #include &lt;stdlib.h&gt;
+  4 #define INFINITY INT_MAX
+  5 #define MAXSIZE 100
+  6 
+  7 using namespace std;
+  8 typedef struct list
+  9 {int key;
+ 10 }ElemType;
+ 11 typedef struct {
+ 12 ElemType data[MAXSIZE+1];
+ 13 int length; /*参加排序元素的实际个数*/
+ 14 }SeqList;
+ 15 //创建顺序表
+ 16 void creatList(SeqList &amp;l)
+ 17 {
+ 18     cout&lt;&lt;&quot;请输入数据个数&quot;&lt;&lt;endl;
+ 19     cin&gt;&gt;l.length;
+ 20     cout&lt;&lt;&quot;请顺次输入一组无序数据&quot;&lt;&lt;endl;
+ 21     for (int i=1;i&lt;=l.length;i++)
+ 22     {
+ 23         cin&gt;&gt;l.data[i].key;
+ 24     }
+ 25 }
+ 26 // 直接插入排序
+ 27 void InsertSort(SeqList &amp;l)
+ 28 {
+ 29     int i,j;
+ 30     for (i=2;i&lt;=l.length;i++)
+ 31     {
+ 32         if (l.data[i].key &lt; l.data[i-1].key )
+ 33         {
+ 34             l.data[0].key=l.data[i].key;
+ 35             l.data[i].key=l.data[i-1].key;
+ 36             for (j=i-2;l.data[0].key &lt; l.data[j].key ;j--)
+ 37                 l.data[j+1].key=l.data[j].key;
+ 38             l.data[j+1].key=l.data[0].key;
+ 39         }
+ 40     }
+ 41 }
+ 42 //输出顺序表元素
+ 43 void print(SeqList l)
+ 44 {
+ 45     int i;
+ 46     for (i=1;i&lt;=l.length;i++)
+ 47         cout&lt;&lt;l.data[i].key&lt;&lt;&quot; &quot;;
+ 48     cout&lt;&lt;endl;
+ 49 }
+ 50 //冒泡排序
+ 51 void BubbleSort(SeqList &amp;l)
+ 52 {
+ 53     int i,j;
+ 54     for (i=1;i&lt;=l.length-1;i++)
+ 55         for (j=1;j&lt;=l.length-i;j++)
+ 56     {
+ 57         if (l.data[j].key &gt; l.data[j+1].key)
+ 58         {
+ 59            l.data[0]=l.data[j];
+ 60            l.data[j]=l.data[j+1];
+ 61            l.data[j+1]=l.data[0];
+ 62         }
+ 63     }
+ 64 }
+ 65 // 直接选择排序
+ 66 void SelectSort(SeqList &amp;l)
+ 67 {
+ 68     int i,j,k;
+ 69     for (i=1;i&lt;=l.length-1;i++)
+ 70     {
+ 71         k=i;
+ 72         for (j=i;j&lt;=l.length;j++)
+ 73         {
+ 74           if (l.data[j].key&lt;l.data[k].key)
+ 75           {
+ 76               k=j;
+ 77           }
+ 78         }
+ 79         if (k!=i)
+ 80         {
+ 81             l.data[0]=l.data[k];
+ 82             l.data[k]=l.data[i];
+ 83             l.data[i]=l.data[0];
+ 84         }
+ 85     }
+ 86 }
+ 87 //希尔插入
+ 88 void ShellInsert(SeqList &amp;l,int dk)
+ 89 {
+ 90     //dk是位置增量
+ 91     int i,j;
+ 92     for (i=dk+1;i&lt;=l.length;i++)
+ 93     {
+ 94         if (l.data[i].key &lt; l.data[i-dk].key)
+ 95         {
+ 96             l.data[0]=l.data[i];
+ 97             for (j=i-dk;j&gt;0&amp;&amp;l.data[0].key&lt;l.data[j].key;j=j-dk)
+ 98             {
+ 99                 l.data[j+dk]=l.data[j];
+100             }
+101             l.data[j+dk]=l.data[0];
+102         }
+103     }
+104 }
+105 //希尔排序
+106 void ShellSort(SeqList &amp;l,int dlta[],int t)
+107 {
+108     //dlta[]是增量数组，每一次循环以dlta[k]为增量，dlta[0---t-1]
+109     int k;
+110     for (k=0;k&lt;t;k++)
+111         ShellInsert(l,dlta[k]);
+112 }
+113 //快排
+114 int Partition(SeqList &amp;l,int low,int high)
+115 {
+116     l.data[0]=l.data[low];
+117     int p;
+118     p=l.data[low].key;
+119     while (low&lt;high)
+120     {
+121         while (low&lt;high&amp;&amp;l.data[high].key&gt;=p) high--;
+122         l.data[low]=l.data[high];
+123         while (low&lt;high&amp;&amp;l.data[low].key&lt;=p) low++;
+124         l.data[high]=l.data[low];
+125     }
+126     l.data[low]=l.data[0];
+127     return low;
+128 }
+129 void QSort(SeqList &amp;l,int low,int high)
+130 {
+131     int p;
+132     if (low&lt;high)
+133     {
+134        p=Partition(l,low,high);
+135        QSort(l,low,p-1);
+136        QSort(l,p+1,high);
+137     }
+138 }
+139 
+140 //堆调整
+141 void HeapAdjust(SeqList &amp;l,int s,int m)
+142 {
+143     ElemType rc=l.data[s];
+144     int j;
+145     for (j=2*s;j&lt;=m;j*=2)
+146     {
+147         if (j&lt;m &amp;&amp; l.data[j].key &lt; l.data[j+1].key)
+148             j++;
+149         if (!(rc.key &lt; l.data[j].key))
+150             break;
+151         l.data[s]=l.data[j];s=j;
+152     }
+153     l.data[s]=rc;
+154 }
+155 //堆排序
+156 void HeapSort(SeqList &amp;l)
+157 {
+158     int i;
+159     for (i=l.length/2;i&gt;0;i--)
+160         HeapAdjust(l,i,l.length);
+161     for (i=l.length;i&gt;1;i--)
+162     {
+163         l.data[0]=l.data[1];
+164         l.data[1]=l.data[i];//data[1]即为最大的数
+165         l.data[i]=l.data[0];
+166         HeapAdjust(l,1,i-1);
+167     }
+168 
+169 
+170 }
+171 
+172 //折半插入排序
+173 void BinInsertSort(SeqList &amp;l)
+174 {
+175     int i,j,low,high,mid;
+176     for (i=2;i&lt;=l.length;i++)
+177     {
+178         l.data[0]=l.data[i];
+179         low=1;high=i-1;
+180         while (low&lt;=high)
+181         {
+182             mid=(low+high)/2;
+183             if (l.data[0].key &lt; l.data[mid].key ) high=mid-1;
+184             else low=mid+1;
+185         }
+186         for (j=i-1;j&gt;=high+1;j--)
+187             l.data[j+1]=l.data[j];
+188         l.data[high+1]=l.data[0];
+189     }
+190 }
+191 // 链式存储实现简单选择排序
+192 typedef struct LNode
+193 {
+194     ElemType data;
+195     struct LNode *next;
+196 }LNode,*linklist;
+197 //创建单链表l
+198 void createLinkList(linklist &amp;l)
+199 {
+200     linklist p,q;
+201     l=(linklist)malloc(sizeof(LNode));
+202     p=l;
+203     cout&lt;&lt;&quot;请输入数据个数&quot;&lt;&lt;endl;
+204     int n;cin&gt;&gt;n;
+205     cout&lt;&lt;&quot;请输入一组数据&quot;&lt;&lt;endl;
+206     ElemType e;
+207 
+208     for (int i=0;i&lt;n;i++)
+209     {
+210         cin&gt;&gt;e.key;
+211         q=(linklist)malloc(sizeof(LNode));
+212         q-&gt;data.key=e.key;
+213         q-&gt;next=NULL;
+214         p-&gt;next=q;
+215         p=q;
+216     }
+217 
+218 }
+219 // 简单选择排序
+220 void SelectSort_linklist(linklist &amp;l)
+221 {
+222     ElemType tmp;
+223     linklist p,q,k;//P为工作指针，Q为指向最小元素的指针,k为前面指向第一个为排序元素的指针
+224     p=l-&gt;next;q=p;k=p;
+225     while (k)
+226     {
+227 
+228     while (p)
+229     {
+230         if (p-&gt;data.key &lt; q-&gt;data.key )
+231         {
+232             q=p;
+233         }
+234         p=p-&gt;next;
+235     }
+236     if (k!=q)
+237     {
+238         tmp=k-&gt;data;
+239         k-&gt;data=q-&gt;data;
+240         q-&gt;data=tmp;
+241     }
+242     k=k-&gt;next;
+243     p=k;
+244     q=k;
+245     }
+246 }
+247 //打印链表
+248 void print_linklist(linklist l)
+249 {
+250     linklist p=l-&gt;next;
+251     while (p)
+252     {
+253         cout&lt;&lt;p-&gt;data.key&lt;&lt;&quot; &quot;;
+254         p=p-&gt;next;
+255     }
+256     cout&lt;&lt;endl;
+257 }
+258 // 链式直接插入排序
+259 void InsertSort_linklist(linklist &amp;l)
+260 {
+261     linklist p,q,t;
+262     p=l-&gt;next-&gt;next;//把P插入到链表L中
+263     l-&gt;next-&gt;next=NULL;
+264     q=l;
+265     while (p)
+266     {
+267         while (q-&gt;next &amp;&amp; p-&gt;data.key &gt;q-&gt;next-&gt;data.key)
+268             q=q-&gt;next;
+269         if (!q)
+270         {
+271             q-&gt;next = p;
+272             p=p-&gt;next;
+273             p-&gt;next=NULL;
+274         }
+275         else
+276         {
+277             t=p;p=p-&gt;next;
+278             t-&gt;next=q-&gt;next;
+279             q-&gt;next=t;
+280         }
+281         q=l;
+282     }
+283 }
+284 // 链式冒泡排序
+285 void BubbleSort_linklist(linklist &amp;l)
+286 {
+287     linklist p=l-&gt;next,q,c;
+288     q=p-&gt;next;
+289     ElemType e;
+290     c=p;
+291     while (c)
+292     {
+293        while (q)
+294     {
+295 
+296         if (p-&gt;data.key &gt; q-&gt;data.key )
+297         {
+298             e=p-&gt;data;
+299             p-&gt;data=q-&gt;data;
+300             q-&gt;data=e;
+301         }
+302         p=p-&gt;next;q=q-&gt;next;
+303     }
+304     p=l-&gt;next,q=p-&gt;next;
+305     c=c-&gt;next;
+306     }
+307 
+308 
+309 }
+310 int main()
+311 {   cout&lt;&lt;&quot;--------------------------------------------------------&quot;&lt;&lt;endl;
+312     cout&lt;&lt;&quot;1.InsertSort():直接插入排序&quot;&lt;&lt;endl;
+313     cout&lt;&lt;&quot;2.Bl.data[1]ubbleSort():冒泡排序&quot;&lt;&lt;endl;
+314     cout&lt;&lt;&quot;3.SelectSort():直接选择排序&quot;&lt;&lt;endl;
+315     cout&lt;&lt;&quot;4.ShellSort():希尔排序&quot;&lt;&lt;endl;
+316     cout&lt;&lt;&quot;5.QSort():快速排序&quot;&lt;&lt;endl;
+317     cout&lt;&lt;&quot;6.HeapSort():堆排序&quot;&lt;&lt;endl;
+318     cout&lt;&lt;&quot;7.BinInsertSort():折半插入排序&quot;&lt;&lt;endl;
+319     cout&lt;&lt;&quot;9.SelectSort_linklist():链式简单选择排序&quot;&lt;&lt;endl;
+320     cout&lt;&lt;&quot;10.InsertSort_linklist():链式直接插入排序&quot;&lt;&lt;endl;
+321     cout&lt;&lt;&quot;11.BubbleSort_linklist():链式冒泡排序&quot;&lt;&lt;endl;
+322     cout&lt;&lt;&quot;--------------------------------------------------------&quot;&lt;&lt;endl;
+323 ll1:cout&lt;&lt;&quot;请输入您选择的函数序号&quot;&lt;&lt;endl;
+324     int x;cin&gt;&gt;x;
+325     SeqList l;
+326     linklist l1;
+327     switch(x)
+328     {
+329     case 1:
+330     {
+331     creatList(l);
+332     cout&lt;&lt;&quot;直接插入排序前的结果&quot;&lt;&lt;endl;
+333     print(l);
+334     InsertSort(l);
+335     cout&lt;&lt;&quot;直接插入排序后的结果&quot;&lt;&lt;endl;
+336     print(l);
+337     break;
+338     }
+339 
+340     case 2:
+341     {
+342     creatList(l);
+343     cout&lt;&lt;&quot;冒泡排序前的结果&quot;&lt;&lt;endl;
+344     print(l);
+345     BubbleSort(l);
+346     cout&lt;&lt;&quot;冒泡排序后的结果&quot;&lt;&lt;endl;
+347     print(l);
+348        break;
+349     }
+350 
+351     case 3:
+352         {
+353     creatList(l);
+354     cout&lt;&lt;&quot;直接选择排序前的结果&quot;&lt;&lt;endl;
+355     print(l);
+356     SelectSort(l);
+357     cout&lt;&lt;&quot;直接选择排序后的结果&quot;&lt;&lt;endl;
+358     print(l);
+359             break;
+360         }
+361     case 4:
+362     creatList(l);
+363     cout&lt;&lt;&quot;希尔排序前的结果&quot;&lt;&lt;endl;
+364     print(l);
+365     int dlta[3];dlta[0]=5;dlta[1]=3;dlta[2]=1;
+366     ShellSort(l,dlta,3);
+367     cout&lt;&lt;&quot;希尔排序后的结果&quot;&lt;&lt;endl;
+368     print(l);
+369         break;
+370 
+371     case 5:
+372     creatList(l);
+373     cout&lt;&lt;&quot;快速排序前的结果&quot;&lt;&lt;endl;
+374     print(l);
+375     QSort(l,1,8);
+376     cout&lt;&lt;&quot;快速排序后的结果&quot;&lt;&lt;endl;
+377     print(l);
+378         break;
+379 
+380     case 6:
+381         {
+382     creatList(l);
+383     cout&lt;&lt;&quot;堆排序前的结果&quot;&lt;&lt;endl;
+384     print(l);
+385     HeapSort(l);
+386     cout&lt;&lt;&quot;堆排序后的结果&quot;&lt;&lt;endl;
+387     print(l);
+388       break;
+389         }
+390 
+391     case 7:
+392         {
+393     creatList(l);
+394     cout&lt;&lt;&quot;折半插入排序前的结果&quot;&lt;&lt;endl;
+395     print(l);
+396     BinInsertSort(l);
+397     cout&lt;&lt;&quot;折半插入排序后的结果&quot;&lt;&lt;endl;
+398     print(l);
+399       break;
+400         }
+401     case 9:
+402         {
+403             createLinkList(l1);
+404             cout&lt;&lt;&quot;链式简单选择排序之前：&quot;&lt;&lt;endl;
+405             print_linklist(l1);
+406             SelectSort_linklist(l1);
+407             cout&lt;&lt;&quot;链式简单选择排序之后：&quot;&lt;&lt;endl;
+408             print_linklist(l1);
+409             break;
+410         }
+411     case 10:
+412         {
+413             createLinkList(l1);
+414             cout&lt;&lt;&quot;链式直接插入排序之前：&quot;&lt;&lt;endl;
+415             print_linklist(l1);
+416             InsertSort_linklist(l1);
+417             cout&lt;&lt;&quot;链式直接插入排序之后：&quot;&lt;&lt;endl;
+418             InsertSort_linklist(l1);
+419             break;
+420         }
+421 
+422     case 11:
+423         {
+424             createLinkList(l1);
+425             cout&lt;&lt;&quot;链式冒泡排序之前：&quot;&lt;&lt;endl;
+426             print_linklist(l1);
+427             BubbleSort_linklist(l1);
+428             cout&lt;&lt;&quot;链式冒泡排序之后：&quot;&lt;&lt;endl;
+429             print_linklist(l1);
+430             break;
+431         }
+432 
+433 
+434 
+435 
+436     }
+437     cout&lt;&lt;&quot;您是否还要继续测试其他函数？y/n&quot;&lt;&lt;endl;
+438     fflush(stdin);
+439     char z;
+440     cin&gt;&gt;z;
+441     if (z==&#39;y&#39;)
+442         goto ll1;
+443     else
+444     return 0;
+445 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>计算机考研机试指南（二）——日期类问题 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="编程笔记 cha2-2 日期类问题日期差值 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;algorithm&amp;gt;  3 #include &amp;lt;string.h&amp;gt;  4 #include &amp;lt;stdio.h&amp;gt;  5 #define isRein(x) ((x%100!=0)&amp;amp;&amp;amp;(x%4==0)) || (x%400 =">
+<meta property="og:type" content="website">
+<meta property="og:title" content="计算机考研机试指南（二）——日期类问题">
+<meta property="og:url" content="http://yoursite.com/backup/计算机考研机试指南（二）——日期类问题.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="编程笔记 cha2-2 日期类问题日期差值 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;algorithm&amp;gt;  3 #include &amp;lt;string.h&amp;gt;  4 #include &amp;lt;stdio.h&amp;gt;  5 #define isRein(x) ((x%100!=0)&amp;amp;&amp;amp;(x%4==0)) || (x%400 =">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:28.699Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算机考研机试指南（二）——日期类问题">
+<meta name="twitter:description" content="编程笔记 cha2-2 日期类问题日期差值 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;algorithm&amp;gt;  3 #include &amp;lt;string.h&amp;gt;  4 #include &amp;lt;stdio.h&amp;gt;  5 #define isRein(x) ((x%100!=0)&amp;amp;&amp;amp;(x%4==0)) || (x%400 =">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      计算机考研机试指南（二）——日期类问题
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/backup/计算机考研机试指南（二）——日期类问题.html" class="article-date">
+  <time datetime="2018-08-20T17:17:00.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="编程笔记-cha2-2-日期类问题"><a href="#编程笔记-cha2-2-日期类问题" class="headerlink" title="编程笔记 cha2-2 日期类问题"></a>编程笔记 cha2-2 日期类问题</h3><h4 id="日期差值"><a href="#日期差值" class="headerlink" title="日期差值"></a>日期差值</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;algorithm&gt;
+ 3 #include &lt;string.h&gt;
+ 4 #include &lt;stdio.h&gt;
+ 5 #define isRein(x) ((x%100!=0)&amp;&amp;(x%4==0)) || (x%400 ==0)?1:0
+ 6 using namespace std;
+ 7 /*
+ 8     题目：日期差值
+ 9 
+10 */
+11 int dayOfMonth[13][2] =
+12 {
+13   0,0,// 便于直接从1月开始访问
+14   31,31,
+15   28,29,
+16   31,31,
+17   30,30,
+18   31,31,
+19   30,30,
+20   31,31,
+21   31,31,
+22   30,30,
+23   31,31,
+24   30,30,
+25   31,31
+26 };
+27 
+28 struct Date
+29 {
+30     int Year;
+31     int Month;
+32     int Day;
+33     void nextDay()
+34     {
+35         if (++Day &gt; dayOfMonth[Month][isRein(Year)])
+36         {
+37             Day = 1;
+38             Month ++ ;
+39         }
+40         if (Month&gt;12)
+41         {
+42             Month = 1;
+43             Year ++;
+44         }
+45 
+46 
+47     }
+48 };
+49 int buffer[5000][12][31];
+50 void preProcess()
+51 {
+52     Date tmp ;
+53     tmp.Day = 1;
+54     tmp.Month = 1;
+55     tmp.Year = 0;
+56     int c = 1;
+57     while (tmp.Year &lt; 5000)
+58     {
+59         buffer[tmp.Year][tmp.Month][tmp.Day] = c;
+60         c++;
+61         tmp.nextDay();
+62     }
+63 }
+64 int main()
+65 {
+66     preProcess();
+67     int y1,y2,m1,m2,d1,d2;
+68     while ( scanf(&quot;%4d%2d%2d&quot;,&amp;y1,&amp;m1,&amp;d1)!=EOF )
+69     {
+70         scanf(&quot;%4d%2d%2d&quot;,&amp;y2,&amp;m2,&amp;d2);
+71         int ans = abs(buffer[y1][m1][d1]-buffer[y2][m2][d2]);
+72         printf(&quot;%d\n&quot;,ans+1);
+73     }
+74     return 0;
+75 }
+</code></pre><h4 id="今年的第几天"><a href="#今年的第几天" class="headerlink" title="今年的第几天"></a>今年的第几天</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;algorithm&gt;
+ 3 #include &lt;string.h&gt;
+ 4 #include &lt;stdio.h&gt;
+ 5 #define isRein(x) ((x%100!=0)&amp;&amp;(x%4==0)) || (x%400 ==0)?1:0
+ 6 using namespace std;
+ 7 /*
+ 8     题目：今年的第几天
+ 9     思路：减去本年的元旦那一天
+10 
+11 */
+12 int dayOfMonth[13][2] =
+13 {
+14   0,0,// 便于直接从1月开始访问
+15   31,31,
+16   28,29,
+17   31,31,
+18   30,30,
+19   31,31,
+20   30,30,
+21   31,31,
+22   31,31,
+23   30,30,
+24   31,31,
+25   30,30,
+26   31,31
+27 };
+28 
+29 struct Date
+30 {
+31     int Year;
+32     int Month;
+33     int Day;
+34     void nextDay()
+35     {
+36         if (++Day &gt; dayOfMonth[Month][isRein(Year)])
+37         {
+38             Day = 1;
+39             Month ++ ;
+40         }
+41         if (Month&gt;12)
+42         {
+43             Month = 1;
+44             Year ++;
+45         }
+46 
+47 
+48     }
+49 };
+50 int buffer[5000][12][31];
+51 void preProcess()
+52 {
+53     Date tmp ;
+54     tmp.Day = 1;
+55     tmp.Month = 1;
+56     tmp.Year = 0;
+57     int c = 1;
+58     while (tmp.Year &lt; 5000)
+59     {
+60         buffer[tmp.Year][tmp.Month][tmp.Day] = c;
+61         c++;
+62         tmp.nextDay();
+63     }
+64 }
+65 int main()
+66 {
+67     preProcess();
+68     int y1,d1,m1;
+69     while ( scanf(&quot;%4d %2d %2d&quot;,&amp;y1,&amp;m1,&amp;d1)!=EOF )
+70     {
+71         int ans = abs(buffer[y1][m1][d1]-buffer[y1][1][1]);
+72         printf(&quot;%d\n&quot;,ans+1);
+73     }
+74     return 0;
+75 }
+</code></pre><h4 id="打印日期"><a href="#打印日期" class="headerlink" title="打印日期"></a>打印日期</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;algorithm&gt;
+ 3 #include &lt;string.h&gt;
+ 4 #include &lt;stdio.h&gt;
+ 5 #define isRein(x) ((x%100!=0)&amp;&amp;(x%4==0)) || (x%400 ==0)?1:0
+ 6 using namespace std;
+ 7 /*
+ 8     题目：日期差值
+ 9 
+10 */
+11 int dayOfMonth[13][2] =
+12 {
+13   0,0,// 便于直接从1月开始访问
+14   31,31,
+15   28,29,
+16   31,31,
+17   30,30,
+18   31,31,
+19   30,30,
+20   31,31,
+21   31,31,
+22   30,30,
+23   31,31,
+24   30,30,
+25   31,31
+26 };
+27 
+28 struct Date
+29 {
+30     int Year;
+31     int Month;
+32     int Day;
+33     void nextDay()
+34     {
+35         if (++Day &gt; dayOfMonth[Month][isRein(Year)])
+36         {
+37             Day = 1;
+38             Month ++ ;
+39         }
+40         if (Month&gt;12)
+41         {
+42             Month = 1;
+43             Year ++;
+44         }
+45 
+46 
+47     }
+48 };
+49 int buffer[5000][12][31];
+50 void preProcess()
+51 {
+52     Date tmp ;
+53     tmp.Day = 1;
+54     tmp.Month = 1;
+55     tmp.Year = 0;
+56     int c = 1;
+57     while (tmp.Year &lt; 5000)
+58     {
+59         buffer[tmp.Year][tmp.Month][tmp.Day] = c;
+60         c++;
+61         tmp.nextDay();
+62     }
+63 }
+64 int main()
+65 {
+66     preProcess();
+67     int y1,num;
+68     while ( scanf(&quot;%4d %d&quot;,&amp;y1,&amp;num)!=EOF )
+69     {
+70         int yuandan = buffer[y1][1][1];
+71         int today = yuandan + num -1 ;
+72         for (int i = 1 ; i &lt; 13 ;i++)
+73             for (int j = 1;j &lt; 32 ; j++)
+74         {
+75             if (today == buffer[y1][i][j])
+76                 printf(&quot;%d-%02d-%02d\n&quot;,y1,i,j); // 控制输出格式，填充0
+77         }
+78 
+79 
+80     }
+81     return 0;
+82 }
+</code></pre><h4 id="Day-ofWeek"><a href="#Day-ofWeek" class="headerlink" title="Day ofWeek"></a>Day ofWeek</h4><pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;algorithm&gt;
+  3 #include &lt;string.h&gt;
+  4 #include &lt;stdio.h&gt;
+  5 #define isLeap(x) (x%100 != 0 &amp;&amp; x%4 == 0)||(x % 400 == 0)?1:0
+  6 using namespace std;
+  7 /*
+  8     题目：Day ofweek
+  9     用时：
+ 10     思路：1. 月份和星期日的转换器:利用字符串数组的索引对应字符串
+ 11         2. 已知：今天是星期四 2018 3/8
+ 12         3. 求：今天和求取的那天差了几天，以7位倍数循环
+ 13         4. 这两天谁在前，谁在后，如何通过7来求星期几
+ 14 
+ 15 */
+ 16 
+ 17     char tm[13][10] = {
+ 18     &quot;&quot;,
+ 19     &quot;January&quot;,
+ 20     &quot;February&quot;,
+ 21     &quot;March&quot;,
+ 22     &quot;April&quot;,
+ 23     &quot;May&quot;,
+ 24     &quot;June&quot;,
+ 25     &quot;July&quot;,
+ 26     &quot;August&quot;,
+ 27     &quot;September&quot;,
+ 28     &quot;October&quot;,
+ 29     &quot;November&quot;,
+ 30     &quot;December&quot;
+ 31     };
+ 32 
+ 33     char tw[7][10] = {
+ 34     &quot;Sunday&quot;, // 0 注意这里Sunday是0
+ 35     &quot;Monday&quot;, // 1
+ 36     &quot;Tuesday&quot;,
+ 37     &quot;Wednesday&quot;,
+ 38     &quot;Thursday&quot;,
+ 39     &quot;Friday&quot;,
+ 40     &quot;Saturday&quot;
+ 41     };
+ 42 
+ 43 int dayOfMonth[13][2]
+ 44 {
+ 45     0,0,
+ 46     31,31,
+ 47     28,29,
+ 48     31,31,
+ 49     30,30,
+ 50     31,31,
+ 51     30,30,
+ 52     31,31,
+ 53     31,31,
+ 54     30,30,
+ 55     31,31,
+ 56     30,30,
+ 57     31,31
+ 58 };
+ 59 struct Date
+ 60 {
+ 61     int year;
+ 62     int month;
+ 63     int day;
+ 64     void nextDay()
+ 65     {
+ 66         if (++day &gt; dayOfMonth[month][isLeap(year)])
+ 67         {
+ 68             day = 1;
+ 69             month++;
+ 70         }
+ 71         if (month &gt; 12 )
+ 72         {
+ 73             month = 1;
+ 74             year ++;
+ 75         }
+ 76     }
+ 77 };
+ 78 
+ 79 int buffer[3001][13][31];
+ 80 void preProcessing()
+ 81 {
+ 82     int c = 1;
+ 83     Date date;
+ 84     date.year = 0 ;
+ 85     date.month = 1;
+ 86     date.day = 1;
+ 87     while ( date.year &lt; 3001)
+ 88     {
+ 89         buffer[date.year][date.month][date.day] = c;
+ 90         c++;
+ 91         date.nextDay();
+ 92     }
+ 93 }
+ 94 int numberMonth (char month[])
+ 95 {
+ 96     for (int i=1 ;i&lt;13;i++)
+ 97     {
+ 98         if (strcmp(tm[i],month)==0)
+ 99         {
+100             return i;
+101         }
+102     }
+103     return 0;
+104 }
+105 
+106 int main()
+107 {
+108     preProcessing();
+109     int day,year;
+110     char Month[10];
+111     int today = buffer[2012][7][16];
+112     int month,thatDay;
+113     while (scanf(&quot;%d %s %d&quot;,&amp;day,Month,&amp;year)!=EOF)
+114     {
+115         month = numberMonth(Month);
+116         thatDay = buffer[year][month][day];
+117         // 如何根据差值计算星期几thatDayw?
+118         int days = thatDay - today +1;
+119         printf(&quot;%s\n&quot;,tw[(days%7+7)%7]);
+120 
+121 
+122 
+123     }
+124     return 0;
+125 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

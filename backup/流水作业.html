@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>流水作业 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="王晓东的《计算机算法设计与分析》上这一节我看的云里雾里，数学公式让我眼花缭乱。但是读懂数学公式的推导过程并不是最重要的事情。重要的是解题的思路！  我读懂了”流水作业”的题目要求，以及最优子结构性质动态规划——流水作业调度问题  这里有流水作业的具体实例，很好地展示了自底向上的动规过程，C++代码0018算法笔记——【动态规划】流水作业调度问题与Johnson法则  Java 代码，注释写的很详细">
+<meta property="og:type" content="website">
+<meta property="og:title" content="流水作业">
+<meta property="og:url" content="http://yoursite.com/backup/流水作业.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="王晓东的《计算机算法设计与分析》上这一节我看的云里雾里，数学公式让我眼花缭乱。但是读懂数学公式的推导过程并不是最重要的事情。重要的是解题的思路！  我读懂了”流水作业”的题目要求，以及最优子结构性质动态规划——流水作业调度问题  这里有流水作业的具体实例，很好地展示了自底向上的动规过程，C++代码0018算法笔记——【动态规划】流水作业调度问题与Johnson法则  Java 代码，注释写的很详细">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:28.768Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="流水作业">
+<meta name="twitter:description" content="王晓东的《计算机算法设计与分析》上这一节我看的云里雾里，数学公式让我眼花缭乱。但是读懂数学公式的推导过程并不是最重要的事情。重要的是解题的思路！  我读懂了”流水作业”的题目要求，以及最优子结构性质动态规划——流水作业调度问题  这里有流水作业的具体实例，很好地展示了自底向上的动规过程，C++代码0018算法笔记——【动态规划】流水作业调度问题与Johnson法则  Java 代码，注释写的很详细">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      流水作业
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/backup/流水作业.html" class="article-date">
+  <time datetime="2018-08-20T17:08:00.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>王晓东的《计算机算法设计与分析》上这一节我看的云里雾里，数学公式让我眼花缭乱。但是读懂数学公式的推导过程并不是最重要的事情。重要的是解题的思路！</p>
+<ul>
+<li><p>我读懂了”流水作业”的题目要求，以及最优子结构性质<br><a href="http://www.cnblogs.com/f91og/p/6024706.html" target="_blank" rel="noopener">动态规划——流水作业调度问题</a></p>
+</li>
+<li><p>这里有流水作业的具体实例，很好地展示了自底向上的动规过程，C++代码<br><a href="http://lib.csdn.net/article/datastructure/9332" target="_blank" rel="noopener">0018算法笔记——【动态规划】流水作业调度问题与Johnson法则</a></p>
+</li>
+<li><p>Java 代码，注释写的很详细<br><a href="http://blog.csdn.net/qq_33054511/article/details/53813047?locationNum=12&amp;fps=1" target="_blank" rel="noopener">动态规划之流水作业调度Johnson法则</a></p>
+</li>
+</ul>
+<pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;stdlib.h&gt;
+  3 using namespace std;
+  4 // 动态规划 流水作业调度问题
+  5 
+  6 class Jobtype
+  7 {
+  8     public:
+  9         int operator &lt;=(Jobtype a) const
+ 10         {
+ 11             return(key&lt;=a.key);
+ 12         }
+ 13         int key,index;
+ 14         bool job;
+ 15 };
+ 16 
+ 17 /*
+ 18 定义作业Jobtype类：
+ 19 key : 关键字
+ 20 index ：索引值
+ 21 bool job : a[i]&lt;=b[i]的归入N1类，job值为1 ； 否则为0
+ 22 重新定义运算符 &lt;=
+ 23 */
+ 24 
+ 25 int FlowShop(int n,int a[],int b[],int c[]);
+ 26 void BubbleSort(Jobtype *d,int n);
+ 27 
+ 28 int FlowShop(int n,int a[],int b[],int c[])
+ 29 {
+ 30     Jobtype *d = new Jobtype[n];
+ 31     for(int i=0; i&lt;n; i++)
+ 32     {
+ 33         d[i].key = a[i]&gt;b[i]?b[i]:a[i];//按Johnson法则分别取对应的b[i]或a[i]值作为关键字
+ 34         d[i].job = a[i]&lt;=b[i];//给符合条件a[i]&lt;b[i]的放入到N1子集标记为true
+ 35         d[i].index = i;
+ 36     }
+ 37 
+ 38     BubbleSort(d,n);//对数组d按关键字升序进行排序
+ 39 
+ 40     int j = 0,k = n-1;
+ 41 
+ 42     for(int i=0; i&lt;n; i++)
+ 43     {
+ 44         if(d[i].job)
+ 45         {
+ 46             c[j++] = d[i].index;//将排过序的数组d，取其中作业序号属于N1的从前面进入
+ 47         }
+ 48         else
+ 49         {
+ 50             c[k--] = d[i].index;//属于N2的从后面进入，从而实现N1的非减序排序，N2的非增序排序
+ 51         }
+ 52     }
+ 53 
+ 54     j = a[c[0]];
+ 55     k = j+b[c[0]];
+ 56     for(int i=1; i&lt;n; i++)
+ 57     {
+ 58         j += a[c[i]];//M1在执行c[i]作业的同时，M2在执行c[i-1]号作业，最短执行时间取决于M1与M2谁后执行完
+ 59         k = j&lt;k?k+b[c[i]]:j+b[c[i]];//计算最优加工时间
+ 60     }
+ 61 
+ 62     delete d;
+ 63     return k;
+ 64 }
+ 65 
+ 66 //冒泡排序
+ 67 void BubbleSort(Jobtype *d,int n)
+ 68 {
+ 69     int i,j,flag;
+ 70     Jobtype temp;
+ 71 
+ 72     for(i=0;i&lt;n;i++){
+ 73         flag = 0;
+ 74         for(j=n-1;j&gt;i;j--){
+ 75             //如果前一个数大于后一个数，则交换
+ 76             if(d[j]&lt;=d[j-1]){
+ 77                 temp = d[j];
+ 78                 d[j] = d[j-1];
+ 79                 d[j-1] = temp;
+ 80                 flag = 1;
+ 81             }
+ 82         }
+ 83         //如果本次排序没有进行一次交换，则break，减少了执行之间。
+ 84         if(flag == 0){
+ 85             break;
+ 86         }
+ 87     }
+ 88 }
+ 89 int main()
+ 90 {
+ 91     int N; // 作业个数
+ 92     cout&lt;&lt;&quot;请输入作业总个数n：&quot;&lt;&lt;endl;
+ 93     cin&gt;&gt;N;
+ 94     int a[N],b[N],c[N];
+ 95     cout&lt;&lt;&quot;请输入machine1的作业运行时间：&quot;&lt;&lt;endl;
+ 96     for (int i=0 ; i&lt;N ;i++)
+ 97     {
+ 98         cin &gt;&gt; a[i];
+ 99     }
+100     cout&lt;&lt;&quot;请输入machine2的作业运行时间：&quot;&lt;&lt;endl;
+101     for (int i=0 ; i&lt;N ;i++)
+102     {
+103         cin &gt;&gt; b[i];
+104     }
+105     int minTime=FlowShop(N,a,b,c);
+106     /*
+107     a[N]:machine1的作业运行时间序列
+108     b[N]:machine2的作业运行时间序列
+109     c[N]:N个作业的调度顺序（编号从0开始）
+110     */
+111     cout&lt;&lt;&quot;初始作业在机器1上的运行时间序列为：&quot;&lt;&lt;endl;
+112     for(int i=0; i&lt;N; i++)
+113     {
+114         cout&lt;&lt;a[i]&lt;&lt;&quot; &quot;;
+115     }
+116     cout&lt;&lt;endl;
+117 
+118     cout&lt;&lt;&quot;初始作业在机器2上的运行时间序列为：&quot;&lt;&lt;endl;
+119     for(int i=0; i&lt;N; i++)
+120     {
+121         cout&lt;&lt;b[i]&lt;&lt;&quot; &quot;;
+122     }
+123     cout&lt;&lt;endl;
+124 
+125     cout&lt;&lt;&quot;完成作业的最短时间为：&quot;&lt;&lt;minTime&lt;&lt;endl;
+126     cout&lt;&lt;&quot;编号从0开始，作业调度的顺序为：&quot;&lt;&lt;endl;
+127     for(int i=0; i&lt;N; i++)
+128     {
+129         cout&lt;&lt;c[i]&lt;&lt;&quot; &quot;;
+130     }
+131     cout&lt;&lt;endl;
+132     return 0;
+133 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

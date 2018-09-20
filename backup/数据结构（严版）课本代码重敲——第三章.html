@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数据结构（严版）课本代码重敲——第三章 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="复习笔记 数据结构 第三章 栈和队列  1 #include &amp;lt;iostream&amp;gt;   2 #include &amp;lt;string.h&amp;gt;   3 #include &amp;lt;stdio.h&amp;gt;   4 #include &amp;lt;stdlib.h&amp;gt;   5 #define maxSize 20   6 #define ERROR -1   7 using namespace">
+<meta property="og:type" content="website">
+<meta property="og:title" content="数据结构（严版）课本代码重敲——第三章">
+<meta property="og:url" content="http://yoursite.com/backup/数据结构（严版）课本代码重敲——第三章.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="复习笔记 数据结构 第三章 栈和队列  1 #include &amp;lt;iostream&amp;gt;   2 #include &amp;lt;string.h&amp;gt;   3 #include &amp;lt;stdio.h&amp;gt;   4 #include &amp;lt;stdlib.h&amp;gt;   5 #define maxSize 20   6 #define ERROR -1   7 using namespace">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:27.938Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构（严版）课本代码重敲——第三章">
+<meta name="twitter:description" content="复习笔记 数据结构 第三章 栈和队列  1 #include &amp;lt;iostream&amp;gt;   2 #include &amp;lt;string.h&amp;gt;   3 #include &amp;lt;stdio.h&amp;gt;   4 #include &amp;lt;stdlib.h&amp;gt;   5 #define maxSize 20   6 #define ERROR -1   7 using namespace">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据结构（严版）课本代码重敲——第三章
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/backup/数据结构（严版）课本代码重敲——第三章.html" class="article-date">
+  <time datetime="2018-08-20T17:37:00.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="复习笔记-数据结构-第三章-栈和队列"><a href="#复习笔记-数据结构-第三章-栈和队列" class="headerlink" title="复习笔记 数据结构 第三章 栈和队列"></a>复习笔记 数据结构 第三章 栈和队列</h3><pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;string.h&gt;
+  3 #include &lt;stdio.h&gt;
+  4 #include &lt;stdlib.h&gt;
+  5 #define maxSize 20
+  6 #define ERROR -1
+  7 using namespace std;
+  8 /*
+  9     题目：数据结构 cha3  栈和队列
+ 10     内容：1. 顺序栈、链栈、顺序队列、链队列
+ 11     日期：2018/3/10
+ 12     时间：tomato * 
+ 13 
+ 14 */
+ 15 typedef struct 
+ 16 {
+ 17     Elemtype data[maxSize];
+ 18     int top;
+ 19 }Sqstack;
+ 20 void initStack(Sqstack *&amp;sq)
+ 21 {
+ 22     sq.top = -1;
+ 23 }
+ 24 int push_Sqstack(Sqstack *&amp;sq,Elemtype x)
+ 25 {
+ 26    if (sq.top == maxSize-1)
+ 27         return ERROR;
+ 28    sq.top++;
+ 29    sq.data[sq.top] = x;
+ 30    return 1;
+ 31 } 
+ 32 int pop_Sqstack(Sqstack *&amp;sq,Elemtype &amp;x)
+ 33 {
+ 34     if (sq.top == -1)
+ 35         return ERROR;
+ 36     x = sq.data[sq.top];
+ 37     sq.top--;
+ 38     return 1;
+ 39 }
+ 40 
+ 41 typedef struct LNode
+ 42 {
+ 43     Elemtype data;
+ 44     struct LNode *next;
+ 45 }LNode;
+ 46 // 链栈为空的标志是ls-&gt;next == NULL 
+ 47 // 头插法建立链栈
+ 48 int init_LNode(LNode *&amp;lst)
+ 49 {
+ 50     (LNode *)malloc(sizeof(LNode));
+ 51 }
+ 52 int push_LNode(LNode *&amp;lst,Elemtype x)
+ 53 {
+ 54     LNode *p = (LNode *)malloc(sizeof(LNode));
+ 55     p-&gt;data = x;
+ 56     p-&gt;next = lst-&gt;next;
+ 57     lst-&gt;next = p;
+ 58 }
+ 59 
+ 60 int pop_LNode(LNode *&amp;lst,Elemtype &amp;x)
+ 61 {
+ 62     // 头摘 出栈首先要判断是否栈空
+ 63     if (lst-&gt;next == NULL)
+ 64         return -1;
+ 65     x = lst-&gt;next-&gt;data;
+ 66     LNode *p = lst-&gt;next;
+ 67     lst-&gt;next = p-&gt;next;
+ 68     free(p);
+ 69     return 1;
+ 70 }
+ 71 typedef struct 
+ 72 {
+ 73     Elemtype data[maxSize];
+ 74     int rear;
+ 75     int front;
+ 76 }Squeue;
+ 77 void init_Squeue(Squeue *&amp;sq)
+ 78 {
+ 79     sq-&gt;rear = sq-&gt;front = 0; // front = rear时为空队列
+ 80 }
+ 81 int enqueue (Squeue *&amp;sq,Elemtype x)
+ 82 {
+ 83     if (sq-&gt;front == (sq-&gt;rear+1)%maxSize)
+ 84         return -1;
+ 85     sq-&gt;data[++sq-&gt;rear%maxSize] = x;
+ 86     return 1;
+ 87 }
+ 88 int dequeue(Squeue *&amp;sq,Elemtype &amp;x)
+ 89 {
+ 90     if (sq-&gt;front == sq-&gt;rear)
+ 91         return -1;
+ 92     x = sq-&gt;data[++sq-&gt;front%maxSize];
+ 93     return 1;
+ 94 }
+ 95 // 链队列比较特殊，头结点中有两个指针，指向普通的数据节点
+ 96 typedef struct 
+ 97 {
+ 98     struct QLNode *rear;
+ 99     struct QLNode *front;
+100 }Liqueue;
+101 typedef struct QLNode
+102 {
+103     Elemtype data;
+104     struct QLNode *next;
+105 }QLNode;
+106 int init_Liqueue(Liqueue *&amp;lq)
+107 {
+108     lq = (Liqueue *)malloc(sizeof(Liqueue));
+109     lq-&gt;front = lq-&gt; rear = NULL;
+110     return 1;
+111 }
+112 void enQueue(Liqueue *&amp;lq,Elemtype x)
+113 {
+114     QLNode *p = (QLNode *)malloc(sizeof(QLNode));
+115     p-&gt;data = x;
+116     // 从rear后插入结点元素
+117     if (lq-&gt;front == NULL)
+118     {
+119         // 第一个元素，既是队尾也是队头
+120         lq-&gt;front = lq-&gt;rear = p;
+121     }
+122     else 
+123     {
+124         lq-&gt;rear-&gt;next = p;
+125         lq-&gt;rear = p;
+126     }
+127     free(p);
+128 
+129 }
+130 int  deQueue(Liqueue *&amp;lq,Elemtype &amp;x)
+131 {
+132     // 判断队列是否为空
+133     if (lq-&gt;front == NULL || lq-&gt;rear == NULL)
+134         return -1;
+135     // 判断是否是只有一个结点的特殊情况
+136     p = lq-&gt;front;
+137     if (lq-&gt;front == lq-&gt;rear)
+138     {
+139         lq-&gt;front = lq-&gt;rear = NULL;
+140     }
+141     else 
+142     {
+143         lq-&gt;front = lq-&gt;front-&gt;next;
+144     }
+145     x = p-&gt;data;
+146     free(p);    
+147     return 1;
+148 }
+149 
+150 // 括号匹配问题
+151 
+152 int match(char exp[],int n)
+153 {
+154     Sqstack *sq;
+155     initStack(sq);
+156     char c;
+157     for (int i = 0;i &lt; strlen(exp) ; i++)
+158     {
+159         // 遍历该字符数组，如果是左括号则push进去
+160         // 如果是右括号：栈空则不匹配，否则弹栈
+161         if (exp[i] == &#39;(&#39;)
+162         {
+163             push_Sqstack(sq,exp[i]);
+164         }
+165         else
+166         {
+167             if (exp[i] == &#39;)&#39;)
+168             {
+169                 if (sq-&gt;top == -1)
+170                     return -1;
+171                 else
+172                     pop_Sqstack(sq,c;
+173             }
+174         }
+175     }
+176     return 1;
+177 }
+178 // 后缀式求值
+179 int op(int a,char op,int b)
+180 {
+181     // 完成a op b 的运算
+182     switch (op)
+183     {
+184     case &#39;+&#39;:return a+b;
+185     case &#39;-&#39;:return a-b;
+186     case &#39;*&#39;:return a*b;
+187     case &#39;\&#39;:return a/b; // 需要判断被除数b是否为0
+188     default:return 0;
+189     }
+190 }
+191 int com(char exp[])
+192 {
+193     // exp 数组中存放后缀表达式，最后一个字符为\0 
+194     // 栈用来起到一个存储暂时不用的数据的作用
+195     Sqstack *sq;
+196     initStack(sq);
+197 
+198     int i=0;
+199     while (exp[i]!=&#39;\0&#39;)
+200     {
+201         if (exp[i]&gt;&#39;0&#39; &amp;&amp; exp[i]&lt;=9)
+202         {
+203          // 如果是数字则push，如果是操作符则弹栈两次运算
+204          push(sq,exp[i]-&#39;0&#39;);
+205         }
+206         else 
+207         {
+208             int a,b;
+209             pop_Sqstack(sq,a);
+210             pop_Sqstack(sq,b);
+211             int result = match(a,exp[i],b);
+212             push_Sqstack(sq,result);
+213         }
+214 
+215     }
+216     return sq-&gt;data[sq-&gt;top]; // 最终栈中只保留一个结果
+217 }
+218 int main()
+219 {
+220 
+221     return 0;
+222 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

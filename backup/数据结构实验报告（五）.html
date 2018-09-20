@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数据结构实验报告（五） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="实验报告五 查找的相关操作   1 #include &amp;lt;iostream&amp;gt;   2 #include &amp;lt;stdio.h&amp;gt;   3 #include &amp;lt;stdlib.h&amp;gt;   4 #define INFINITY INT_MAX   5 #define MAXSIZE 20   6    7 using namespace std;   8 //1.折半查找">
+<meta property="og:type" content="website">
+<meta property="og:title" content="数据结构实验报告（五）">
+<meta property="og:url" content="http://yoursite.com/backup/数据结构实验报告（五）.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="实验报告五 查找的相关操作   1 #include &amp;lt;iostream&amp;gt;   2 #include &amp;lt;stdio.h&amp;gt;   3 #include &amp;lt;stdlib.h&amp;gt;   4 #define INFINITY INT_MAX   5 #define MAXSIZE 20   6    7 using namespace std;   8 //1.折半查找">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:29.179Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构实验报告（五）">
+<meta name="twitter:description" content="实验报告五 查找的相关操作   1 #include &amp;lt;iostream&amp;gt;   2 #include &amp;lt;stdio.h&amp;gt;   3 #include &amp;lt;stdlib.h&amp;gt;   4 #define INFINITY INT_MAX   5 #define MAXSIZE 20   6    7 using namespace std;   8 //1.折半查找">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据结构实验报告（五）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/backup/数据结构实验报告（五）.html" class="article-date">
+  <time datetime="2018-08-14T02:48:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>实验报告五 查找的相关操作</p>
+<pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;stdio.h&gt;
+  3 #include &lt;stdlib.h&gt;
+  4 #define INFINITY INT_MAX
+  5 #define MAXSIZE 20
+  6 
+  7 using namespace std;
+  8 //1.折半查找
+  9 typedef int KeyType;
+ 10 typedef struct
+ 11 {
+ 12     KeyType key;
+ 13     char data1;
+ 14 }ElemType;
+ 15 typedef struct
+ 16 {
+ 17     ElemType data[MAXSIZE];
+ 18     int length;
+ 19 
+ 20 }SeqList;
+ 21 
+ 22 void createSeqList(SeqList &amp;l)
+ 23 {
+ 24     cout&lt;&lt;&quot;请输入关键字个数&quot;&lt;&lt;endl;
+ 25     cin&gt;&gt;l.length;
+ 26     cout&lt;&lt;&quot;请顺序输入一组有序的数据及其关键字（key,data1）&quot;&lt;&lt;endl;
+ 27     for (int i=1;i&lt;=l.length;i++)
+ 28     {
+ 29         scanf(&quot;%d%c&quot;,&amp;l.data[i].key,&amp;l.data[i].data1);
+ 30     }
+ 31 }
+ 32 
+ 33 int Search_Bin(SeqList &amp;l,KeyType key)
+ 34 {
+ 35    int low=1,high=l.length;
+ 36    int mid;
+ 37    while (low&lt;=high)
+ 38    {
+ 39        mid=(low+high)/2;
+ 40        if (key == l.data[mid].key)
+ 41         return mid;
+ 42        else if (key &lt; l.data[mid].key )
+ 43         high=mid-1;
+ 44        else
+ 45         low=mid+1;
+ 46    }
+ 47    return 0;
+ 48 }
+ 49 //2.二叉排序树
+ 50 typedef struct BiTNode
+ 51 {
+ 52     ElemType data;
+ 53     struct BiTNode *left,*right;
+ 54 }BiTNode,*BiTree;
+ 55 
+ 56 // 查找二叉排序树
+ 57 int SearchBST(BiTree t,KeyType key,BiTree f,BiTree &amp;p)
+ 58 {
+ 59     if (!t) {p=f;return 0;}
+ 60     else if (key==t-&gt;data.key){p=t;return 1;}
+ 61     else if (key &lt;t-&gt;data.key)
+ 62         return SearchBST(t-&gt;left,key,t,p);
+ 63     else return SearchBST(t-&gt;right,key,t,p);
+ 64 }
+ 65 // 插入一个数据到二叉排序树
+ 66 int InsertBST(BiTree &amp;t,ElemType e)
+ 67 {
+ 68     BiTree p,s;
+ 69     if (!SearchBST(t,e.key,NULL,p))
+ 70     {
+ 71         s=(BiTree)malloc(sizeof(BiTNode));
+ 72         s-&gt;data.key=e.key;
+ 73         s-&gt;data.data1=e.data1;
+ 74         s-&gt;left=s-&gt;right=NULL;
+ 75         if (!p)
+ 76             t=s;
+ 77         else if (e.key &lt; p-&gt;data.key )
+ 78             p-&gt;left=s;
+ 79         else
+ 80             p-&gt;right=s;
+ 81         return 1;
+ 82     }
+ 83     else
+ 84         return 0;
+ 85 }
+ 86 // 循环插入一组数据，建立二叉排序树
+ 87 void InsertBST_for()
+ 88 {
+ 89     void InOrderTraverse(BiTree &amp;t);
+ 90     void DeleteBST(BiTree &amp;t,KeyType key);
+ 91     BiTree t;
+ 92     t=NULL;
+ 93     ElemType e;
+ 94     int n;
+ 95     cout&lt;&lt;&quot;请输入您要输入的数据个数&quot;&lt;&lt;endl;
+ 96     cin&gt;&gt;n;
+ 97     cout&lt;&lt;&quot;请依次输入您要插入的数据及其关键字（key,data1）&quot;&lt;&lt;endl;
+ 98     for (int i=0;i&lt;n;i++)
+ 99     {
+100       cin&gt;&gt;e.key&gt;&gt;e.data1;
+101       InsertBST(t,e);
+102     }
+103      cout&lt;&lt;&quot;中序遍历输出的结果为：&quot;&lt;&lt;endl;
+104      InOrderTraverse(t);
+105      cout&lt;&lt;&quot;请输入您要删除的某一元素的关键字&quot;&lt;&lt;endl;
+106      KeyType key;
+107      cin&gt;&gt;key;
+108      DeleteBST(t,key);
+109      cout&lt;&lt;&quot;删除指定元素后的中序遍历结果为：&quot;&lt;&lt;endl;
+110      InOrderTraverse(t);
+111 
+112 
+113 
+114 
+115 }
+116 // 中序遍历二叉排序树
+117 void InOrderTraverse(BiTree &amp;t)
+118 {
+119     if (t)
+120     {
+121         InOrderTraverse(t-&gt;left);
+122         cout&lt;&lt;t-&gt;data.key&lt;&lt;&quot; &quot;;
+123         InOrderTraverse(t-&gt;right);
+124     }
+125 }
+126 // 二叉排序树删除:删除某一指定结点
+127 int Delete(BiTree &amp;p)
+128 {
+129     BiTree q,s;
+130     if (!p-&gt;right)
+131     {
+132         q=p;
+133         p=p-&gt;left;
+134         free(q);
+135     }
+136     else if (!p-&gt;right)
+137     {
+138         q=p;
+139         p=p-&gt;right;
+140         free(q);
+141     }
+142     else
+143     {
+144         q=p;
+145         s=p-&gt;left;
+146         while (s-&gt;right)
+147         {
+148             q=s;
+149             s=s-&gt;right;
+150         }
+151         p-&gt;data.key=s-&gt;data.key;
+152         p-&gt;data.data1=s-&gt;data.data1;
+153 
+154         if (q!=p)
+155             q-&gt;right=s-&gt;left;
+156         else
+157             q-&gt;left=s-&gt;left;
+158         delete(s);
+159 
+160     }
+161     return 1;
+162 }
+163 // 删除某关键字
+164 int DeleteBST(BiTree &amp;t,KeyType key)
+165 {
+166     if (!t)
+167         return 0;
+168     else
+169     {
+170         if (key == t-&gt;data.key )
+171             return Delete(t);
+172         else if (key &lt; t-&gt;data.key)
+173         return DeleteBST(t-&gt;left,key);
+174         else
+175             return DeleteBST(t-&gt;right,key);
+176     }
+177     return 1;
+178 }
+179 // AVL
+180 typedef struct BSTNode
+181 {
+182     ElemType data;
+183     int bf;
+184     struct BSTNode *left,*right;
+185 }BSTNode,*BSTree;
+186 
+187 // 右旋
+188 void R_Rotate(BSTree &amp;p)
+189 {
+190     BSTree lc;
+191     lc=p-&gt;left;
+192     p-&gt;left=lc-&gt;right;
+193     lc-&gt;right=p;
+194     p=lc;
+195 
+196 }
+197 //左旋
+198 void L_Rotate(BSTree &amp;p)
+199 {
+200     BSTree lc;
+201     lc=p-&gt;right;
+202     p-&gt;right=lc-&gt;left;
+203     lc-&gt;left=p;
+204     p=lc;
+205 }
+206 //左平衡
+207 void LeftBalance(BSTree &amp;t)
+208 {
+209     BSTree lc,rd;
+210     lc=t-&gt;left;
+211     switch(lc-&gt;bf)
+212     {
+213     case 1:
+214         t-&gt;bf=lc-&gt;bf=0;
+215         R_Rotate(t);
+216         break;
+217     case -1:
+218         rd=lc-&gt;right;
+219         switch(rd-&gt;bf)
+220         {
+221         case 1:
+222             t-&gt;bf=-1;
+223             lc-&gt;bf=0;
+224             break;
+225         case 0:
+226             t-&gt;bf=lc-&gt;bf=0;
+227             break;
+228         case -1:
+229             t-&gt;bf=0;
+230             lc-&gt;bf=1;
+231             break;
+232         }
+233         rd-&gt;bf=0;
+234         L_Rotate(t-&gt;left);
+235         R_Rotate(t);
+236     }
+237 
+238 }
+239 //右平衡
+240 void RightBalance(BSTree &amp;t)
+241 {
+242     BSTree lc,rd;
+243     lc=t-&gt;right;
+244     switch(lc-&gt;bf)
+245     {
+246     case 1:
+247         rd=lc-&gt;left;
+248         switch(rd-&gt;bf)
+249         {
+250         case 1:
+251             t-&gt;bf=0;
+252             lc-&gt;bf=-1;
+253             break;
+254         case 0:
+255             t-&gt;bf=lc-&gt;bf=0;
+256             break;
+257         case -1:
+258             t-&gt;bf=1;
+259             lc-&gt;bf=0;
+260             break;
+261         }
+262         rd-&gt;bf=0;
+263         R_Rotate(t-&gt;right);
+264         L_Rotate(t);
+265         break;
+266     case -1:
+267         t-&gt;bf=lc-&gt;bf=0;
+268         L_Rotate(t);
+269     }
+270 
+271 }
+272 //插入建立平衡二叉排序树
+273 int InsertAVL(BSTree &amp;t,ElemType e,bool taller)
+274 {
+275     if (!t)
+276     {
+277         t=(BSTree )malloc(sizeof(BSTNode));
+278         t-&gt;bf=0;
+279         t-&gt;left=t-&gt;right=NULL;
+280         t-&gt;data.data1=e.data1;
+281         t-&gt;data.key=e.key;
+282         taller=true;//树长高则为正
+283     }
+284     else
+285     {
+286         if (e.key==t-&gt;data.key)
+287         {
+288             taller=false;
+289             return 0;
+290         }
+291         if (e.key &lt; t-&gt;data.key)
+292         {
+293             if (!InsertAVL(t-&gt;left,e,taller))
+294                 return 0;
+295                 if (taller)
+296                 {
+297                     switch(t-&gt;bf)
+298                     {
+299                         case 1:
+300                             LeftBalance(t);
+301                             taller=false;
+302                             break;
+303                         case 0:
+304                             t-&gt;bf=1;
+305                             taller=true;
+306                             break;
+307                         case -1:
+308                             t-&gt;bf=0;
+309                             taller=false;
+310                             break;
+311                     }
+312                 }
+313         }
+314         else
+315         {
+316             if (!InsertAVL(t-&gt;right,e,taller))
+317                 return 0;
+318                 if (taller)
+319                 {
+320                     switch(t-&gt;bf)
+321                     {
+322                         case 1:
+323                             t-&gt;bf=0;
+324                             taller=false;
+325                             break;
+326                         case 0:
+327                             t-&gt;bf=-1;
+328                             taller=true;
+329                             break;
+330                         case -1:
+331                             RightBalance(t);
+332                             taller=false;
+333                             break;
+334                     }
+335                 }
+336         }
+337     }
+338     return 1;
+339 }
+340 // 中序遍历平衡二叉排序树
+341 void InOrderTraverse_BST(BSTree &amp;t)
+342 {
+343     if (t)
+344     {
+345         InOrderTraverse_BST(t-&gt;left);
+346         cout&lt;&lt;t-&gt;data.key&lt;&lt;&quot; &quot;;
+347         InOrderTraverse_BST(t-&gt;right);
+348     }
+349 }
+350 // 线性探测法建立散列表
+351 typedef struct
+352 {
+353     ElemType data[MAXSIZE];
+354     int count;
+355 }HashTable;
+356 // 哈希函数
+357 int Hash(KeyType k)
+358 {
+359     int p=13;
+360     return k%13;
+361 }
+362 //发生冲突之后求出下一探查地址
+363 void collision(HashTable h,int &amp;p)
+364 {
+365     p=(p+1+MAXSIZE)%MAXSIZE;
+366 }
+367 // 在哈希表中查找某关键字
+368 int SearchHash(HashTable h,KeyType key,int &amp;p)
+369 {
+370     p=Hash(key);// 哈西地址
+371     while (h.data[p].key!=NULL &amp;&amp; key!=h.data[p].key )
+372     collision(h,p);
+373 
+374     if (key==h.data[p].key)
+375         return 1;
+376     else
+377         return 0;
+378 
+379 }
+380 // 插入机建立线性探测哈希表
+381 int InsertHash(HashTable &amp;h,ElemType e)
+382 {
+383     int p;
+384     h.count=0;
+385     if (SearchHash(h,e.key,p))
+386         return 0;
+387     else
+388         h.data[p].key=e.key;
+389         h.data[p].data1=e.data1;
+390         h.count++;
+391         return 1;
+392 }
+393 // 遍历输出线线性探测哈希表
+394 void TraverseHash(HashTable h)
+395 {
+396     int i;
+397     for (i=0;i&lt;MAXSIZE;i++)
+398         cout&lt;&lt;&quot;(&quot;&lt;&lt;h.data[i].key&lt;&lt;&quot;,&quot;&lt;&lt;h.data[i].data1&lt;&lt;&quot;)&quot;;
+399     cout&lt;&lt;endl;
+400 }
+401 
+402 // 外拉链法建立哈希表
+403 typedef struct Node
+404 {
+405     ElemType e;
+406     struct Node *next;
+407 }Node,HashTable2[MAXSIZE];
+408 // 查找外拉链表
+409 int searchHash2(HashTable2 h,ElemType e,int &amp;p)
+410 {
+411     p=Hash(e.key);// 哈西地址
+412     Node *q;
+413     q=h[p].next;
+414     while (q)
+415     {
+416        if (q-&gt;e.key==e.key)
+417             return 1;
+418         q=q-&gt;next;
+419     }
+420     return 0;
+421 }
+422 // 插入建立外拉链表
+423 int InsertHash2(HashTable2 h,ElemType e)
+424 {
+425     int p;
+426     Node *q;
+427     if (searchHash2(h,e,p))
+428         return 0;
+429     else
+430     {
+431        q=(Node*)malloc(sizeof(Node));
+432        q-&gt;e.key=e.key;
+433        q-&gt;e.data1=e.data1;
+434        q-&gt;next=h[p].next;//头插法插入元素
+435        h[p].next=q;
+436     }
+437     return 1;
+438 }
+439 // 遍历外拉链表
+440 void TraverseHash2(HashTable2 h)
+441 {
+442     int i;
+443     Node *p;
+444     for (i=0;i&lt;MAXSIZE;i++)
+445     {
+446        p=h[i].next;
+447        while (p)
+448        {
+449            cout&lt;&lt;&quot;(&quot;&lt;&lt;p-&gt;e.key&lt;&lt;&quot;,&quot;&lt;&lt;p-&gt;e.data1&lt;&lt;&quot;)&quot;;
+450            p=p-&gt;next;
+451        }
+452     }
+453 }
+454 
+455 
+456 int main()
+457 {   cout&lt;&lt;&quot;--------------------------------------------------------&quot;&lt;&lt;endl;
+458     cout&lt;&lt;&quot;1.Search_Bin():采用折半查找实现某一已知的关键字的查找&quot;&lt;&lt;endl;
+459     cout&lt;&lt;&quot;2.InsertBST()&amp;&amp;DeleteBST():插入算法建立二叉排序树并删除某指定元素&quot;&lt;&lt;endl;
+460     cout&lt;&lt;&quot;3.InsertAVL():建立AVL树并实现删除某一指定关键字元素&quot;&lt;&lt;endl;
+461     cout&lt;&lt;&quot;4.InsertHash():线性探测法建立哈希表&quot;&lt;&lt;endl;
+462     cout&lt;&lt;&quot;5.InsertHash2():外拉链法建立哈希表&quot;&lt;&lt;endl;
+463     cout&lt;&lt;&quot;--------------------------------------------------------&quot;&lt;&lt;endl;
+464 ll1:cout&lt;&lt;&quot;请输入您选择的函数序号&quot;&lt;&lt;endl;
+465     int x;cin&gt;&gt;x;
+466     ElemType e;int n;
+467     switch(x)
+468     {
+469     case 1:
+470     {
+471     SeqList l;
+472     createSeqList(l);
+473     cout&lt;&lt;&quot;请输入任一关键字&quot;&lt;&lt;endl;
+474     KeyType key;
+475     cin&gt;&gt;key;
+476     int location=Search_Bin(l,key);
+477     printf(&quot;查找位置为：%d\n&quot;,location);
+478     break;
+479     }
+480 
+481     case 2:
+482     {
+483        InsertBST_for();
+484        break;
+485     }
+486 
+487     case 3:
+488         {
+489             BSTree t1;
+490             t1=NULL;
+491             cout&lt;&lt;&quot;请输入数据个数&quot;&lt;&lt;endl;
+492             cin&gt;&gt;n;
+493             cout&lt;&lt;&quot;请输入一组数据（key,data1）以建立平衡二叉树&quot;&lt;&lt;endl;
+494             for (int i=0;i&lt;n;i++)
+495             {
+496                 cin&gt;&gt;e.key&gt;&gt;e.data1;
+497                 InsertAVL(t1,e,false);
+498             }
+499             cout&lt;&lt;&quot;建立结束，现在中序遍历&quot;&lt;&lt;endl;
+500             InOrderTraverse_BST(t1);
+501             break;
+502         }
+503     case 4:
+504         HashTable h;
+505         for (int i=0;i&lt;MAXSIZE;i++)
+506     {
+507       h.data[i].key=0;
+508       h.data[i].data1=&#39;z&#39;;
+509     }
+510         cout&lt;&lt;&quot;请输入元素个数&quot;&lt;&lt;endl;
+511         cin&gt;&gt;n;
+512         cout&lt;&lt;&quot;请输入一组关键字（key,data1）&quot;&lt;&lt;endl;
+513         for (int i=0;i&lt;n;i++)
+514         {
+515             cin&gt;&gt;e.key&gt;&gt;e.data1;
+516             InsertHash(h,e);
+517         }
+518         cout&lt;&lt;&quot;建立结束，遍历哈希表,(0,z)表示NULL&quot;&lt;&lt;endl;
+519         TraverseHash(h);
+520 
+521         break;
+522 
+523     case 5:
+524         HashTable2 h1;
+525         for (int i=0;i&lt;MAXSIZE;i++)
+526     {
+527      h1[i].next=NULL;
+528     }
+529         cout&lt;&lt;&quot;请输入元素个数&quot;&lt;&lt;endl;
+530         cin&gt;&gt;n;
+531         cout&lt;&lt;&quot;请输入一组关键字（key,data1）&quot;&lt;&lt;endl;
+532         for (int i=0;i&lt;n;i++)
+533         {
+534             cin&gt;&gt;e.key&gt;&gt;e.data1;
+535             InsertHash2(h1,e);
+536         }
+537         cout&lt;&lt;&quot;建立结束，遍历哈希表&quot;&lt;&lt;endl;
+538         TraverseHash2(h1);
+539         break;
+540     }
+541     cout&lt;&lt;&quot;您是否还要继续测试其他函数？y/n&quot;&lt;&lt;endl;
+542     fflush(stdin);
+543     char z;
+544     cin&gt;&gt;z;
+545     if (z==&#39;y&#39;)
+546         goto ll1;
+547     else
+548     return 0;
+549 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

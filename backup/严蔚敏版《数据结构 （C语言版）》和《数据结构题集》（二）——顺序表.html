@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（二）——顺序表 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="顺序表的基本操作   1 #include  &amp;lt;iostream&amp;gt;   2 #include &amp;lt;stdio.h&amp;gt;   3 #include &amp;lt;stdlib.h&amp;gt;   4 #define MAXSIZE 1024   5 //define和const的区别：   6 //define 在编译预处理时进行替换，而const int limit=100,   7 //">
+<meta property="og:type" content="website">
+<meta property="og:title" content="严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（二）——顺序表">
+<meta property="og:url" content="http://yoursite.com/backup/严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（二）——顺序表.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="顺序表的基本操作   1 #include  &amp;lt;iostream&amp;gt;   2 #include &amp;lt;stdio.h&amp;gt;   3 #include &amp;lt;stdlib.h&amp;gt;   4 #define MAXSIZE 1024   5 //define和const的区别：   6 //define 在编译预处理时进行替换，而const int limit=100,   7 //">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20170401112027465?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-09-20T01:27:29.783Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（二）——顺序表">
+<meta name="twitter:description" content="顺序表的基本操作   1 #include  &amp;lt;iostream&amp;gt;   2 #include &amp;lt;stdio.h&amp;gt;   3 #include &amp;lt;stdlib.h&amp;gt;   4 #define MAXSIZE 1024   5 //define和const的区别：   6 //define 在编译预处理时进行替换，而const int limit=100,   7 //">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170401112027465?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（二）——顺序表
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/backup/严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（二）——顺序表.html" class="article-date">
+  <time datetime="2018-08-14T02:31:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>顺序表的基本操作</strong></p>
+<pre><code>  1 #include  &lt;iostream&gt;
+  2 #include &lt;stdio.h&gt;
+  3 #include &lt;stdlib.h&gt;
+  4 #define MAXSIZE 1024
+  5 //define和const的区别：
+  6 //define 在编译预处理时进行替换，而const int limit=100,
+  7 //这个常量limit是有类型的,占用存储单元，有地址，可以用指针指向它但是不能修改它。
+  8 using namespace std;
+  9 
+ 10 typedef int Elemtype;//根据具体需要可以更改基本数据类型，以起到一个通用性的作用
+ 11 
+ 12 typedef struct {
+ 13 Elemtype data[MAXSIZE];
+ 14 int length;//链表的长度
+ 15 }Seqlist;
+ 16 
+ 17 void initList(Seqlist &amp;l){
+ 18 l.length=0;
+ 19 }
+ 20 int listLength(Seqlist &amp;l){
+ 21 return l.length;
+ 22 }
+ 23 void getElem(Seqlist &amp;l,int i,Elemtype &amp;e){
+ 24 e=l.data[i-1];
+ 25 }
+ 26 int  locateElem(Seqlist &amp;l,Elemtype e,int compare){
+ 27 switch (compare ){
+ 28 case 1:
+ 29 for (int i=0;i&lt;l.length;i++){
+ 30 if (l.data[i]&gt;e)
+ 31 return i+1;
+ 32 }
+ 33 break;
+ 34 case 0:
+ 35 for (int i=0;i&lt;l.length;i++){
+ 36 if (l.data[i]==e)
+ 37 return i+1;
+ 38 }
+ 39 break;
+ 40 case -1:
+ 41 for (int i=0;i&lt;l.length;i++){
+ 42 if (l.data[i]&lt;e)
+ 43 return i+1;
+ 44 }
+ 45 break;
+ 46 printf (&quot;没有符合compare（）的元素的元素！\n&quot;);
+ 47 }
+ 48 }
+ 49 int listInsert(Seqlist &amp;l,int i,Elemtype e){
+ 50 //1.判断顺序表是否已满
+ 51 //2.判断插入位置i是否合适
+ 52 //3.顺序后移，插入
+ 53 //4.顺序表长度++
+ 54 if (l.length&gt;=MAXSIZE){
+ 55 printf(&quot;full\n&quot;);
+ 56 return 0;
+ 57 //上溢的两种解决方法：1、提示full 2、realloc扩容插入
+ 58 //Seqlist *p=l;
+ 59 //p=realloc(p,(MAXSIZE+1)*sizeof(Elemtype));
+ 60 }
+ 61 if (i&lt;1||i&gt;l.length+1){
+ 62 printf(&quot;position error\n&quot;);
+ 63 return 0;
+ 64 }
+ 65 for (int j=l.length;j&gt;i-1;j--){
+ 66 l.data[j]=l.data[j-1];
+ 67 }
+ 68 l.data[i-1]=e;
+ 69 l.length++;
+ 70 return 1;
+ 71 }
+ 72 int listDelete(Seqlist &amp;l,int i,Elemtype &amp;e){
+ 73 if (i&lt;1||i&gt;l.length){
+ 74 printf(&quot;position error\n&quot;);
+ 75 return 0;
+ 76 }
+ 77 e=l.data[i-1];
+ 78 for (int j=i-1;j&lt;l.length-1;j++){
+ 79 l.data[j]=l.data[j+1];
+ 80 }
+ 81 l.length--;
+ 82 return 1;
+ 83 }
+ 84 int displayList(Seqlist &amp;l){
+ 85 if (l.length==0){
+ 86 printf (&quot;void\n&quot;);
+ 87 return 0;
+ 88 }
+ 89 for (int i=0;i&lt;l.length;i++){
+ 90 printf (&quot;%d &quot;,l.data[i]);
+ 91 }
+ 92 printf (&quot;\n&quot;);
+ 93 }
+ 94 void readElem(Seqlist &amp;l){
+ 95 int x;
+ 96 scanf (&quot;%d&quot;,&amp;x);
+ 97 int i=0;
+ 98 while (x!=-999&amp;&amp;i&lt;MAXSIZE){
+ 99 l.data[i]=x;
+100 scanf (&quot;%d&quot;,&amp;x);
+101 i++;
+102 l.length++;
+103 }
+104 if (i==MAXSIZE-1){
+105 printf (&quot;full\n&quot;);
+106 }
+107 }
+108 int main()
+109 {
+110     Seqlist l;
+111     initList(l);
+112     displayList(l);
+113     readElem(l);
+114     displayList(l);
+115     printf(&quot;顺序表的长度为：%d\n&quot;,listLength(l));
+116     int x;
+117     printf (&quot;输入getelem的元素位置\n&quot;);
+118     scanf (&quot;%d&quot;,&amp;x);
+119     Elemtype e;
+120     getElem(l,x,e);
+121     printf (&quot;%d \n&quot;,e);
+122     int com;
+123     printf (&quot;输入locateelem的compare\n&quot;);
+124     scanf (&quot;%d&quot;,&amp;com);
+125     printf (&quot;%d\n&quot;,locateElem(l,e,com));
+126     printf (&quot;输入listinsert的元素位置\n&quot;);
+127     scanf (&quot;%d&quot;,&amp;x);
+128     listInsert(l,x,e);
+129     displayList(l);
+130     printf (&quot;输入listdelete的元素位置\n&quot;);
+131     scanf (&quot;%d&quot;,&amp;x);
+132     listDelete(l,x,e);
+133     printf (&quot;%d \n&quot;,e);
+134     displayList(l);
+135     return 0;
+136 }
+</code></pre><p><img src="http://img.blog.csdn.net/20170401112027465?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><strong>题目练习5道</strong></p>
+<pre><code> 1  //-----------题目练习----------
+ 2 //求出L中值大于e的元素个数
+ 3 int biggerthane(Seqlist &amp;l,Elemtype e){
+ 4 int count=0;
+ 5 for (int i=0;i&lt;l.length;i++){
+ 6 if (l.data[i]&gt;e)
+ 7 count++;
+ 8 }
+ 9 return count;
+10 }
+11 //删除L中所有值为e的元素
+12 //delete方法的多态
+13 int listDelete(Seqlist &amp;l,int i){
+14 if (i&lt;1||i&gt;l.length){
+15 printf(&quot;position error\n&quot;);
+16 return 0;
+17 }
+18 for (int j=i-1;j&lt;l.length-1;j++){
+19 l.data[j]=l.data[j+1];
+20 }
+21 l.length--;
+22 return 1;
+23 }
+24 void deletee(Seqlist &amp;l,Elemtype e){
+25 for (int i=0;i&lt;l.length;i++){
+26 if (l.data[i]==e)
+27 listDelete(l,i+1);//传入的是位置而不是下标
+28 }
+29 }
+30 //非递减顺序表，插入e,保持有序性
+31 void insertOrderList(Seqlist &amp;l,Elemtype e){
+32 //找到插入位置i
+33 int i=0;
+34 while (l.data[i]&lt;e)
+35 i++;
+36 //跳出循环时data[i]&gt;=e
+37 listInsert(l,i+1,e);
+38 }
+39 //顺序表L中删除第i个元素起的k个元素
+40 int deletek(Seqlist &amp;l,int i,int k){
+41 //如果调用listDelete函数，效率低,不如改造
+42 if (i&lt;1||i&gt;l.length-1){
+43 printf(&quot;position error\n&quot;);
+44 return 0;
+45 }
+46 for (int j=0;j&lt;k;j++){
+47 l.data[i+j]=l.data[j+i+k];
+48 }
+49 l.length=l.length-k;
+50 return 1;
+51 
+52 }
+</code></pre><p>设A=(a1,…,am)和B=(b1,…,bn)均为有序顺序表，<br>A’和B’分别为A和B中除去最大共同前缀后的子表（例如，<br>A=(x,y,y,z,x,z)，B=(x,y,y,z,y,x,x,z)，则两者中最大<br>的共同前缀为(x,y,y,z)， 在两表中除去最大共同前缀后<br>的子表分别为A’=(x,z)和B’=(y,x,x,z)）。若A’=B’=空表，<br>则A=B；若A’=空表，而B’≠ 空表，或者两者均不为空表，<br>且A’的首元小于B’的首元，则A</p>
+<pre><code> 1 void Compare(Seqlist A, Seqlist B){
+ 2 while (A.data[0]==B.data[0]&amp;&amp;A.length&gt;0&amp;&amp;B.length&gt;0){
+ 3 listDelete(A,1);
+ 4 listDelete(B,1);
+ 5 }
+ 6 //不要B.length==A.length==0，因为
+ 7 //它计算 a==b 时,得出一个逻辑值0或者1 ,然后再用这个逻辑值去与0比较
+ 8 if (A.length==0&amp;&amp;B.length==0)
+ 9 printf(&quot;A=B&quot;);
+10 if ((A.length==0&amp;&amp;B.length!=0)||(A.length!=0&amp;&amp;B.length!=0&amp;&amp;A.data[0]&lt;B.data[0]))
+11 printf (&quot;A&lt;B&quot;);
+12 if ((B.length==0&amp;&amp;A.length!=0)||(A.length!=0&amp;&amp;B.length!=0&amp;&amp;A.data[0]&gt;B.data[0]))
+13 printf (&quot;A&gt;B&quot;);
+14 }
+</code></pre><p>2）</p>
+<pre><code> 1 char Compare(Seqlist A, Seqlist B){
+ 2 int i=0,j=0;
+ 3 while (i&lt;A.length&amp;&amp;j&lt;B.length){
+ 4 if (A.data[i]!=B.data[j]){
+ 5 if (A.data[i]&gt;B.data[j])
+ 6 return &#39;&gt;&#39;;
+ 7 else
+ 8 return &#39;&lt;&#39;;
+ 9 }else {
+10 i++;j++;
+11 }
+12 }
+13 //跳出循环之后分三种情况
+14 if (i==A.length&amp;&amp;j==B.length)
+15 return &#39;=&#39;;
+16 else if (i!=A.length)
+17 return &#39;&gt;&#39;;
+18 else
+19 return &#39;&lt;&#39;;
+20 }
+</code></pre><p><strong>另一种顺序表 -</strong></p>
+<pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;stdio.h&gt;
+  3 #include &lt;stdlib.h&gt;
+  4 #define OVERFLOW -2
+  5 #define LIST_INIT_SIZE 100
+  6 #define LISTINCREMENT 10
+  7 //严蔚敏版 顺序表的实现 算法2.3-2.7
+  8 using namespace std;
+  9 
+ 10 typedef int Elemtype;//根据具体需要可以更改基本数据类型，以起到一个通用性的作用
+ 11 
+ 12 typedef struct {
+ 13 Elemtype *data;//存储空间基址
+ 14 int length;//链表的长度
+ 15 int listsize;//当前分配的存储容量，sizeof()为单位
+ 16 }Seqlist;
+ 17 //算法2.3
+ 18 int  initList_Seq(Seqlist &amp;l){
+ 19 l.data=(Elemtype *)malloc(sizeof(Elemtype)*LIST_INIT_SIZE);
+ 20 if (!l.data)//如果分配空间失败
+ 21 exit(OVERFLOW);
+ 22 //exit为C++的退出函数，声明于stdlib.h中，对于C++其标准的头文件为cstdlib,声明为
+ 23 //void exit(int value);
+ 24 //exit的功能为，退出当前运行的程序，并将参数value返回给主调进程。
+ 25 //在main中return v;的效果 与exit(v);相同。
+ 26 l.length=0;
+ 27 l.listsize=LIST_INIT_SIZE;
+ 28 return 1;
+ 29 }
+ 30 int compare(Elemtype a,Elemtype b){
+ 31 if  (a&gt;b)
+ 32 return 1;
+ 33 else
+ 34 return 0;
+ 35 }
+ 36 //算法2.6
+ 37 int  locateElem(Seqlist &amp;l,Elemtype e,int (*compare)(Elemtype,Elemtype)){
+ 38     int i=1;//第一个元素
+ 39     Elemtype *p=l.data;
+ 40     while (i&lt;=l.length&amp;&amp;!(*compare)(*p++,e)) i++;
+ 41     if (i&lt;l.length )
+ 42     return i;
+ 43     else
+ 44     return 0;
+ 45 }
+ 46 //算法2.4
+ 47 int listInsert_Seq(Seqlist &amp;l,int i,Elemtype e){
+ 48 if (l.length&gt;=l.listsize){
+ 49 printf(&quot;full\n&quot;);
+ 50 Elemtype *newbase;
+ 51 newbase=(Elemtype *)realloc(l.data,(LIST_INIT_SIZE+LISTINCREMENT)*sizeof(Elemtype));
+ 52 if (!newbase) exit(OVERFLOW);
+ 53 l.listsize=l.listsize+LISTINCREMENT;
+ 54 }
+ 55 if (i&lt;1||i&gt;l.length+1){
+ 56 printf(&quot;position error\n&quot;);
+ 57 return 0;
+ 58 }
+ 59 for (int j=l.length;j&gt;i-1;j--){
+ 60 l.data[j]=l.data[j-1];
+ 61 }
+ 62 l.data[i-1]=e;
+ 63 l.length++;
+ 64 return 1;
+ 65 }
+ 66 //算法2.5
+ 67 int listDelete(Seqlist &amp;l,int i,Elemtype &amp;e){
+ 68 if (i&lt;1||i&gt;l.length){
+ 69 printf(&quot;position error\n&quot;);
+ 70 return 0;
+ 71 }
+ 72 e=l.data[i-1];
+ 73 for (int j=i-1;j&lt;l.length-1;j++){
+ 74 l.data[j]=l.data[j+1];
+ 75 }
+ 76 l.length--;
+ 77 return 1;
+ 78 }
+ 79 int displayList(Seqlist &amp;l){
+ 80 if (l.length==0){
+ 81 printf (&quot;void\n&quot;);
+ 82 return 0;
+ 83 }
+ 84 for (int i=0;i&lt;l.length;i++){
+ 85 printf (&quot;%d &quot;,l.data[i]);
+ 86 }
+ 87 printf (&quot;\n&quot;);
+ 88 }
+ 89 void readElem(Seqlist &amp;l){
+ 90 int x;
+ 91 scanf (&quot;%d&quot;,&amp;x);
+ 92 int i=0;
+ 93 while (x!=-999&amp;&amp;i&lt;l.listsize){
+ 94 l.data[i]=x;
+ 95 scanf (&quot;%d&quot;,&amp;x);
+ 96 i++;
+ 97 l.length++;
+ 98 }
+ 99 if (i==l.listsize-1){
+100 printf (&quot;full\n&quot;);
+101 }
+102 }
+103 int listLength(Seqlist &amp;l){
+104 return l.length;
+105 }
+106 void getElem(Seqlist &amp;l,int i,Elemtype &amp;e){
+107 e=l.data[i-1];
+108 }
+109 //算法2.7
+110 void mergeList_Seq(Seqlist la,Seqlist lb,Seqlist &amp;lc ){
+111 //不像链表一样，lc寄居在某一条链表之上；lc有个新的数组，因为插入删除操作太频繁
+112 initList_Seq(lc);
+113 int la_len=listLength(la);int lb_len=listLength(lb);
+114 int i=0,j=0,k=0;
+115 while (i&lt;la_len&amp;&amp;j&lt;lb_len){
+116 if (la.data[i]&gt;lb.data[j]){
+117 listInsert_Seq(lc,k+1,lb.data[j]);
+118 j++;
+119 k++;
+120 }else {
+121 listInsert_Seq(lc,k+1,la.data[i]);
+122 i++;
+123 k++;
+124 }
+125 }
+126 while (j&lt;lb_len){
+127 listInsert_Seq(lc,k+1,lb.data[j]);
+128 j++;
+129 k++;
+130 }
+131 while (i&lt;la_len){
+132 listInsert_Seq(lc,k+1,la.data[j]);
+133 i++;
+134 k++;
+135 }
+136 
+137 }
+138 
+139 int main()
+140 {
+141     Seqlist la,lb,lc;
+142     initList_Seq(la);initList_Seq(lb);
+143     readElem(la);readElem(lb);
+144     displayList(la);displayList(lb);
+145     mergeList_Seq(la,lb,lc);
+146     displayList(lc);
+147 
+148     return 0;
+149 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>
