@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数据结构（严版）课本代码重敲——第四章 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="复习笔记 数据结构 第四章 串  1 #include &amp;lt;iostream&amp;gt;   2 #include &amp;lt;string.h&amp;gt;   3 #include &amp;lt;stdio.h&amp;gt;   4 #include &amp;lt;stdlib.h&amp;gt;   5 #define maxSize 20   6 #define ERROR -1   7 using namespace st">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构（严版）课本代码重敲——第四章">
+<meta property="og:url" content="http://yoursite.com/2018/08/21/数据结构（严版）课本代码重敲——第四章/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="复习笔记 数据结构 第四章 串  1 #include &amp;lt;iostream&amp;gt;   2 #include &amp;lt;string.h&amp;gt;   3 #include &amp;lt;stdio.h&amp;gt;   4 #include &amp;lt;stdlib.h&amp;gt;   5 #define maxSize 20   6 #define ERROR -1   7 using namespace st">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:28.017Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构（严版）课本代码重敲——第四章">
+<meta name="twitter:description" content="复习笔记 数据结构 第四章 串  1 #include &amp;lt;iostream&amp;gt;   2 #include &amp;lt;string.h&amp;gt;   3 #include &amp;lt;stdio.h&amp;gt;   4 #include &amp;lt;stdlib.h&amp;gt;   5 #define maxSize 20   6 #define ERROR -1   7 using namespace st">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-数据结构（严版）课本代码重敲——第四章" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据结构（严版）课本代码重敲——第四章
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/21/数据结构（严版）课本代码重敲——第四章/" class="article-date">
+  <time datetime="2018-08-20T17:36:00.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="复习笔记-数据结构-第四章-串"><a href="#复习笔记-数据结构-第四章-串" class="headerlink" title="复习笔记 数据结构 第四章 串"></a>复习笔记 数据结构 第四章 串</h3><pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;string.h&gt;
+  3 #include &lt;stdio.h&gt;
+  4 #include &lt;stdlib.h&gt;
+  5 #define maxSize 20
+  6 #define ERROR -1
+  7 using namespace std;
+  8 /*
+  9     题目：数据结构 cha4 串
+ 10     内容：1. 赋值、取串长度、串比较、串连接、求子串
+ 11     日期：2018/3/11
+ 12     时间：tomato *
+ 13 
+ 14 */
+ 15 // 定长顺序存储
+ 16 typedef struct
+ 17 {
+ 18     char data[maxSize];
+ 19     int length;
+ 20 }str1;
+ 21 
+ 22 typedef struct
+ 23 {
+ 24     char *ch;
+ 25     int length;
+ 26 }Str;
+ 27 
+ 28 // 串比较
+ 29 int cmp(Str s1,Str s2)
+ 30 {
+ 31     for (int i=0; i&lt;s1.length &amp;&amp; i&lt;s2.length ;i++)
+ 32     {
+ 33         if (s1.ch[i] != s2.ch[i])
+ 34             return s1.ch[i] - s2.ch[i];
+ 35     }
+ 36     return s1.length - s2.length;
+ 37 }
+ 38 // 串赋值
+ 39 int strassign(Str &amp;str,char *ch)
+ 40 {
+ 41     if (str.ch)
+ 42         free(ch);// 如果str中存储着一个字符串则释放
+ 43     // 1. 判断ch的长度，若为0则不用赋值，否则赋值
+ 44     int i = 1;
+ 45     int len_ch=0;
+ 46     while (ch[i]!=&#39;\0&#39;)
+ 47     {
+ 48         len_ch ++;
+ 49         i++;
+ 50     }
+ 51     if (len_ch == 0) // 空字符串，返回空串
+ 52     {
+ 53         str.length = 0;
+ 54         str.ch = NULL;
+ 55         return 1;
+ 56     }
+ 57     // 否则创建str的结点
+ 58     str.ch = (char *)malloc((len_ch+1)*sizeof(char));
+ 59     if (str.ch == NULL)
+ 60         return 0; // malloc 失败！经常被忽略★★★
+ 61     for (int i=0;i&lt;=len_ch;i++)
+ 62     {
+ 63         str.ch[i] = ch[i]; // 记得最后的\0终止符也要赋值
+ 64          // 除了用数组的方式获取ch中的值外，还可以 
+ 65          // char *c = ch ; 
+ 66          // c++ *c即为ch[i]的值
+ 67     }
+ 68     str.length = len_ch ; // ★★★ 长度的赋值经常忘！
+ 69     return 1;
+ 70 }
+ 71 // 串连接
+ 72 int strconcat(Str &amp;str,Str str1,Str str2)
+ 73 {
+ 74 
+ 75     int len = str1.length + str2.length ;
+ 76     if (str.ch)
+ 77         free(str1.ch);
+ 78     str.ch  = (char *)malloc(sizeof(char)*(len+1));
+ 79     int i=0;
+ 80     while (str1.length -- )
+ 81     {
+ 82         str.ch[i] = str1.ch[i];i++;
+ 83     }
+ 84     int j=0;
+ 85     while (str2.length --)
+ 86     {
+ 87         str.ch[i+j] = str2.ch[j];j++;
+ 88     }
+ 89     str.ch[i+j+1] = &#39;\0&#39;;
+ 90     str.length = str1.length + str2.length;
+ 91     return 1;
+ 92 }
+ 93 // 求子串
+ 94 int substring(Str &amp;substr,Str str,int pos,int len)
+ 95 {
+ 96     if (pos &lt; 0 || pos &gt;str.length || len &lt;0 || len &gt; str.length-pos)
+ 97         return 0;
+ 98     if (substr.ch)
+ 99         free(substr.ch);
+100     if (len == 0)
+101     {
+102         substr.ch = NULL;
+103         substr.length = 0;
+104         return 1;
+105     }
+106     substr.ch = (char *)malloc(sizeof(char)*len);
+107     int i=0;
+108     while (len--)
+109     {
+110         substr.ch[i] = str.ch[pos];
+111         i++;pos++;
+112     }
+113     substr.ch[i] = &#39;\0&#39;;
+114     substr.length = len;
+115     return 1;
+116 }
+117 int main()
+118 {
+119 
+120     return 0;
+121 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/21/数据结构（严版）课本代码重敲——第三章/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          数据结构（严版）课本代码重敲——第三章
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/21/数据结构（严版）课本代码重敲——第六章/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">数据结构（严版）课本代码重敲——第六章</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

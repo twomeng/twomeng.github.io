@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/9/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-搜索字符串" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/14/搜索字符串/">搜索字符串</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/搜索字符串/" class="article-date">
+  <time datetime="2018-08-14T01:22:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://acm.nefu.edu.cn/JudgeOnline/problemShow.php?problem_id=275" target="_blank" rel="noopener">题目源地址</a></p>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><pre><code>搜索字符串
+</code></pre><h3 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h3><pre><code>输入两个字符串a,b（字符串长度不超过1000）
+</code></pre><h3 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h3><pre><code>输出在a中出现b的次数（每个结果占一行）
+</code></pre><h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input"></a>Sample Input</h3><pre><code>abcdefsdabcbacbbc
+abc
+aabbaabbaabbaa
+abbaa
+</code></pre><h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output"></a>Sample Output</h3><pre><code>2
+3  
+
+
+
+
+ 1 #include &lt;stdio.h&gt;
+ 2 #include &lt;stdlib.h&gt;
+ 3 #include &lt;string.h&gt;
+ 4 
+ 5 #define MAX 1010
+ 6 
+ 7 int main()
+ 8 {
+ 9     char a[MAX],b[MAX];
+10     while(gets(a)!=NULL)
+11     {
+12         gets(b);
+13         int sum=0,i=0,j=0;
+14         int lena,lenb;
+15         lena=strlen(a);
+16         lenb=strlen(b);
+17         while(i&lt;lena)
+18         {
+19             if(a[i]==b[j])
+20             {
+21                 i++;
+22                 j++;
+23             }
+24             else
+25             {
+26                 i=i-j+1;
+27                 j=0;
+28             }
+29             if(j&gt;=lenb)
+30             {
+31                 sum++;
+32                 i=i-j+1;
+33                 j=0;
+34             }
+35         }
+36         printf(&quot;%d\n&quot;,sum);
+37     }
+38 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-统计good" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/14/统计good/">统计good</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/统计good/" class="article-date">
+  <time datetime="2018-08-14T01:20:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://acm.nefu.edu.cn/JudgeOnline/problemShow.php?problem_id=831" target="_blank" rel="noopener">题目源地址</a></p>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><pre><code>我们每天都面临着要学习大量的英文单词，但我最喜欢good这个词，这个词见到的越多，我的生活就越幸福和愉快！给你一些英文单词，你能统计出good有多少个吗？
+</code></pre><h3 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h3><pre><code>输入数据的第1行一个N （1 &lt; N &lt; 100)，代表输入的数据组数，然后有N 行,每行有很多个单词，单词之间用空格隔开；每行的长度不超过100.
+</code></pre><h3 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h3><pre><code>对于每行数据，输出其中含good单词的个数。
+</code></pre><h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input"></a>Sample Input</h3><pre><code>2
+i am a good boy!
+goof good good dood good
+</code></pre><h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output"></a>Sample Output</h3><pre><code>1
+3  
+
+
+
+
+ 1 #include &lt;iostream&gt;
+ 2 #include &lt;algorithm&gt;
+ 3 #include &lt;stdio.h&gt;
+ 4 #include &lt;string.h&gt;
+ 5 using namespace std;
+ 6 
+ 7 int main()
+ 8 {
+ 9   char a[100];
+10   char b[100];
+11   int n,k,count,j,i;
+12   while (cin&gt;&gt;n)
+13   {getchar();
+14       while (n--)
+15       {
+16           count=0;
+17           gets(a);
+18 
+19           k=strlen(a);
+20 
+21           for (i=0;i&lt;k;i++)
+22           {
+23               if (a[i]!=&#39; &#39;)
+24               {
+25                   b[j]=a[i];
+26                   j++;
+27               }
+28               else
+29               {
+30                   b[j]=&#39;\0&#39;;
+31                   j=0;
+32                   if (strcmp(b,&quot;good&quot;)==0)
+33                     count++;
+34               }
+35           }
+36           if (a[k-1]==&#39;d&#39;&amp;&amp;a[k-2]==&#39;o&#39;&amp;&amp;a[k-3]==&#39;o&#39;&amp;&amp;a[k-4]==&#39;g&#39;)
+37             count++;
+38           cout&lt;&lt;count&lt;&lt;endl;
+39 
+40       }
+41   }
+42     return 0;
+43 }
+</code></pre><p>PS:<br>在输入N之后，必须加上getchar！因为输入N之后回车键进入gets()，但是gets()后面不加getchar！这是为什么？最后的good字符没有了空格，所以要单独讨论。<br>当B中封上一次边儿之后必须让J回归零！ 统计字符串中单词的个数和拆分单词（单词间不仅有一个空格——）</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;algorithm&gt;
+ 3 #include &lt;stdio.h&gt;
+ 4 #include &lt;string.h&gt;
+ 5 using namespace std;
+ 6 
+ 7 int main()
+ 8 {
+ 9   char a[100],b[100][100];
+10   int i,j,m,n,num,k;
+11   int flag;  
+12   while (cin&gt;&gt;n)
+13   {
+14       while (n--)
+15       {
+16       getchar();
+17       gets(a);
+18       getchar();
+19       m=strlen(a);
+20       flag=0;j=0;num=0;k=0;
+21       for (i=0;i&lt;m;i++)
+22       {
+23           if (a[i]==&#39; &#39;)
+24           {
+25               if (flag==1)
+26               {
+27 
+28                   b[k][j]=&#39;\0&#39;;
+29                   k++;
+30               }
+31               flag=0;
+32           }
+33           else
+34           {
+35              if (flag==0)
+36              {
+37                  flag=1;
+38                  num++;
+39                  j=0;
+40              }
+41              b[k][j]=a[i];
+42           }
+43       }
+44       b[k][j]=&#39;\0&#39;;
+45       for (i=0;i&lt;num;i++)
+46         printf (&quot;%s&quot;,b[i]);
+47 
+48 
+49 
+50 
+51   }
+52     return 0;
+53 }
+54 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-让气球飞吧" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/14/让气球飞吧/">让气球飞吧</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/让气球飞吧/" class="article-date">
+  <time datetime="2018-08-14T01:17:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://acm.nefu.edu.cn/JudgeOnline/problemShow.php?problem_id=196" target="_blank" rel="noopener">题目源地址</a></p>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><pre><code>国际大学生程序设计竞赛已经发展成为最具影响力的大学生计算机竞赛，ACM-ICPC以团队的形式代表各学校参赛，每队由3名队员组成，一个队每做出来一个题该队就会获得该题对应颜色的气球，气球越多就说明该队做的题目越多。当然如果一个颜色的气球越多就说明该气球对应的题也就越简单。现在给你很多很多的颜色的气球，问你那个颜色的气球最多，哈哈，聪明的acmer这题对你肯定很简单吧， just ac it！
+</code></pre><h3 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h3><pre><code>假设只有6种颜色，green，red，blue，pink，orange，black。输入数据有多组，每组数据开始给出一个整数n代表接下来有n个气球，接下来有n行，每行输入一种颜色，n &lt;= 100,输入以EOF结束。
+</code></pre><h3 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h3><pre><code>输出个数最多的气球的颜色（题目保证个数最多的气球有且仅有一种颜色）
+</code></pre><h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input"></a>Sample Input</h3><pre><code>3
+green
+red
+green
+5
+green
+red
+blue
+red
+red
+</code></pre><h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output"></a>Sample Output</h3><pre><code>green
+red
+
+
+ 1 #include &lt;iostream&gt;
+ 2 #include &lt;algorithm&gt;
+ 3 #include &lt;stdio.h&gt;
+ 4 #include &lt;string.h&gt;
+ 5 using namespace std;
+ 6 
+ 7 int main()
+ 8 {
+ 9   char a[6][10]={&quot;green&quot;,&quot;red&quot;,&quot;blue&quot;,&quot;pink&quot;,&quot;orange&quot;,&quot;black&quot;};
+10   char b[100][10];
+11   int num[6];
+12   int i,n,max,k,j;
+13   while (cin&gt;&gt;n)
+14   {
+15       for (i=0;i&lt;6;i++)
+16       {
+17           num[i]=0;//可以写成memset(num,0,sizeof(num))
+18       }
+19       for (i=0;i&lt;n;i++)
+20       {
+21           scanf (&quot;%s&quot;,b[i]);//可以从设定为一维数组在循环中反复使用
+22 
+23           for (j=0;j&lt;6;j++)
+24           {
+25               if (strcmp(b[i],a[j])==0)
+26                   num[j]++;
+27           }
+28       }
+29       max=-1;
+30       for (i=0;i&lt;6;i++)
+31         if (num[i]&gt;max)
+32         {
+33             max=num[i];
+34             k=i;
+35         }
+36         printf (&quot;%s\n&quot;,a[k]);
+37 
+38 
+39   }
+40     return 0;
+41 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-The hardest problem ever" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/14/The hardest problem ever/">The hardest problem ever</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/The hardest problem ever/" class="article-date">
+  <time datetime="2018-08-14T01:14:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://acm.nefu.edu.cn/JudgeOnline/problemShow.php?problem_id=60" target="_blank" rel="noopener">题目源地址</a></p>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><pre><code>Julius Caesar生活在一个危险而又充斥着阴谋的时代。Caesar面对的最难的情况关系着他的存亡。为了让自己生存，他决心去创造第一种加密方法之一。这个加密方法听起来是这样的令人难以置信，没有一个人可以指出它（的原文）除非知道它怎样工作。
+你是Caesar军队的一个分队长。你的工作是破译Caesar送来的信息并汇报给你的上级。
+密码很简单，每一个字母对应着一个明文，你将明文向右五步来得到安全的信息。（比如，假如那个字母是&#39;A&#39;，密文就是&#39;F&#39;）当你将Caesar的信息中找出明文后，你要反过来做：
+加密文本
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 
+明文文本 
+V W X Y Z A B C D E F G H I J K L M N O P Q R S T U 
+密文中只有字母被切换了，非字母的字符应该保持不变，所有的字母都是大写的。
+</code></pre><h3 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h3><pre><code>这个问题的输入包括一系列（非空）最多100个数据。每一个数据的格式会按照以下格式，并且在不同组数据间不会有空行分隔。所有的字符都是大写的。
+一个单独的测试数据包括三个部分：
+1. 开始行：单独的一行&quot;START&quot; 。
+2. 加密的信息：单独的一行，由1~200个字符组成来自Caesar的一行信息。
+3. 结束行：单独的一行&quot;END&quot; 。
+最后一组测试数据结束会跟着单独的一行&quot;ENDOFINPUT&quot;。
+</code></pre><h3 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h3><pre><code>对每一个测试数据只会有一行输出。它是Caesar的原文。
+</code></pre><h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input"></a>Sample Input</h3><pre><code>START
+NS BFW, JAJSYX TK NRUTYFSHJ FWJ YMJ WJXZQT TK YWNANFQ HFZXJX
+END
+START
+N BTZQI WFYMJW GJ KNWXY NS F QNYYQJ NGJWNFS ANQQFLJ YMFS XJHTSI NS WTRJ
+END
+START
+IFSLJW PSTBX KZQQ BJQQ YMFY HFJXFW NX RTWJ IFSLJWTZX YMFS MJ
+END
+ENDOFINPUT
+</code></pre><h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output"></a>Sample Output</h3><pre><code>IN WAR, EVENTS OF IMPORTANCE ARE THE RESULT OF TRIVIAL CAUSES
+I WOULD RATHER BE FIRST IN A LITTLE IBERIAN VILLAGE THAN SECOND IN ROME
+DANGER KNOWS FULL WELL THAT CAESAR IS MORE DANGEROUS THAN HE  
+
+
+
+
+
+ 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;algorithm&gt;
+ 4 #include &lt;string.h&gt;
+ 5 using namespace std;
+ 6 
+ 7 int main()
+ 8 {
+ 9     char a[100],b[100];
+10     int i,j,k;
+11     while (gets(a))
+12     {
+13         if (strcmp(a,&quot;START&quot;)==0)
+14 
+15             memset(b,0,sizeof(b));//只满足这一个条件便只执行这一个语句，然后就跳出条件语句进入第12行；
+16 
+17         else
+18 
+19             if (strcmp(a,&quot;END&quot;)==0)
+20 
+21                 printf (&quot;%s&quot;,b);
+22 
+23             else
+24 
+25                 if (strcmp(a,&quot;ENDOFINPUT&quot;)==0)
+26                 break;
+27                 else
+28                 {
+29                     k=strlen(a);
+30                     j=0;
+31                     for (i=0;i&lt;k;i++)
+32                     {
+33                         if (a[i]&gt;&#39;Z&#39;||a[i]&lt;&#39;A&#39;)
+34                         {b[j]=a[i];
+35                         j++;}
+36                         else
+37                             if (a[i]+21&gt;90)
+38                             {
+39                                b[j]=a[i]-5;
+40                                j++;
+41 
+42                             }
+43                             else
+44                             {
+45                                 b[j]=a[i]+21;//想不通就找具体的数据代入；
+46                                 j++;
+47                             }
+48 
+49 
+50 
+51                     }
+52 
+53                 }
+54 
+55     }
+56 
+57     return 0;
+58 }
+</code></pre><p>1.输入情况有四种，不必设四个字符数组，只需要用一个gets（） 对输入内容进行判断即可。</p>
+<p>2.每次开始的时候，b数组必须为零，不然输出B字符串的时候后面会有乱码。</p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-两倍问题" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/14/两倍问题/">两倍问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/两倍问题/" class="article-date">
+  <time datetime="2018-08-14T01:11:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://acm.nefu.edu.cn/JudgeOnline/problemShow.php?problem_id=8" target="_blank" rel="noopener">题目源地址</a></p>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><pre><code>给定2到15个不同的正整数，你的任务是计算这些数里面有多少个数对满足：数对中一个数是另一个数的两倍。比如给定1 4 3 2 9 7 18 22，得到的答案是3，因为2是1的两倍，4是2个两倍，18是9的两倍。 
+</code></pre><h3 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h3><pre><code>输入包括n组测试数据。每组数据包括一行，给出2到15个两两不同且小于100的正整数。每一行最后一个数是0，表示这一行的结束后，这个数不属于那2到15个给定的正整数。
+</code></pre><h3 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h3><pre><code>对每组输入数据，输出一行，给出有多少个数对满足其中一个数是另一个数的两倍。
+</code></pre><h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input"></a>Sample Input</h3><pre><code>3
+1 4 3 2 9 7 18 22 0
+2 4 8 10 0
+7 5 11 13 1 3 0
+</code></pre><h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output"></a>Sample Output</h3><pre><code>3
+2
+0  
+</code></pre><p>经过苦苦思索的结果，发现并没有想象中那么的难~好高兴</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;math.h&gt;
+ 3 #include &lt;stdio.h&gt;
+ 4 #include &lt;algorithm&gt;
+ 5 using namespace std;
+ 6 
+ 7 int main()
+ 8 {
+ 9     int n,a[15],i,j,k,count;
+10     cin&gt;&gt;n;
+11     while (n--)
+12     {
+13         i=count=0;
+14         while (1)
+15         {
+16           cin&gt;&gt;a[i];
+17           if (a[i]==0)
+18           break;
+19           i++;
+20         }
+21         k=i;
+22         sort(a,a+k);
+23         for (i=0;i&lt;k;i++)
+24         {for (j=i;j&lt;k;j++)
+25             if (a[j]==2*a[i])
+26             count++;}
+27 
+28 
+29 cout &lt;&lt; count&lt;&lt; endl;
+30 
+31     }
+32 
+33 
+34 
+35 
+36     return 0;
+37 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-通宵教室" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/14/通宵教室/">通宵教室</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/通宵教室/" class="article-date">
+  <time datetime="2018-08-13T22:11:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://acm.nefu.edu.cn/JudgeOnline/problemShow.php?problem_id=6" target="_blank" rel="noopener">题目源地址</a></p>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><pre><code>高校扩招，教室一度变得很紧张。学生白天上自习的地方较少，晚上教室又闲置着，怎样才能充分利用教学资源，扩大学生自习时空呢？通宵教室解决学生自习空间有限和教学资源不充分利用的问题。开放通宵教室促进了学生学习观念的转变，以前课堂内外基本上是听老师安排，现在是学生自觉在学习。晚上学习效率高、生理调节能力强的学生已经尝到了甜头。好学、考研、辅修、创作的学生又有了一片新的学习时空。
+但是通宵教室对传统的学生管理工作带来了一系列的问题。如果通宵教室的利用率不高的话，将教室的所有灯都打开，还会极大地浪费能源。
+现在学校对通宵教室灯光使用做一个新的尝试。假设有N个人使用通宵教室，教室里有N盏灯，每个人和每盏灯都有一个编号。开始所有的灯都没打开，第一个人进教室将所有的灯都打开，第二个人将所有的偶数号的灯都关掉，第三个人对所有3的倍数的灯进行如下操作：如果灯开着，就将它关掉，如果灯关着，就将它打开，……，第i个人对所有i的倍数的灯进行如下操作：如果灯开着，就将它关掉，如果灯关着，就将它打开，重复这样的过程，一直到第N个人完成这样的操作。
+现在，教室管理员向你求助，他希望知道，完成这样的过程后，教室里开着的灯还有多少盏？
+</code></pre><h3 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h3><pre><code>有多组测试数据。第一行是一个正整数T（1&lt;=T&lt;=10000），表示有多少组测试数据。
+以下有T行，每行一个测试数据，包含唯一的一个正整数N(1 &lt;= n &lt; 2^32,)。
+</code></pre><h3 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h3><pre><code>对于每个测试数据，输出一行包含唯一的一个整数:表示完成这样的过程后，教室里开着的灯的盏数。
+</code></pre><h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input"></a>Sample Input</h3><pre><code>2
+1
+2
+</code></pre><h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output"></a>Sample Output</h3><pre><code>1
+1  
+
+思路一
+
+
+ 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;math.h&gt;
+ 4 #include &lt;string.h&gt;
+ 5 #define max 100000000  
+ 6 using namespace std;
+ 7 
+ 8 int main()
+ 9 {
+10     int n,i,j,a[max],count,t;
+11     cin&gt;&gt;t;
+12     while (t--)
+13     {count=0;
+14         cin&gt;&gt;n;
+15         memset(a,0,sizeof(a));
+16         for (i=1;i&lt;=n;i++)                         
+17             for (j=1;j&lt;=n;j++)
+18         {
+19             if (j%i==0)
+20             {
+21                 a[j]=!a[j];
+22             }
+23         }
+24         for (i=1;i&lt;=n;i++)
+25             if (a[i]==1)
+26             count++;
+27         cout &lt;&lt; count &lt;&lt; endl;
+28     }
+29 
+30     return 0;
+31 }
+</code></pre><p>缺点：容易超时，所以转换思路：一开始灯为灭，若有偶数个因子则仍为灭的，所以要想灯亮，灯的序号必须有奇数个因子。</p>
+<p>思路二</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 
+ 3 using namespace std;
+ 4 
+ 5 int main()
+ 6 {
+ 7     int i,j,t,a,n;
+ 8     long long count;
+ 9     cin&gt;&gt;t;
+10     while (t--)
+11     {a=0;count=0;
+12         cin&gt;&gt;n;
+13         for (i=1;i&lt;=n;i++)
+14     for (j=1;j&lt;=i;j++)
+15     if (i%j==0)
+16         a++;
+17         if (a%2!=0)
+18         count++;
+19     cout &lt;&lt; count&lt;&lt; endl;
+20     }
+21 
+22     return 0;
+23 }
+</code></pre><p>仍然超时，思考：如果一个数是完全平方数,那么它的因子的个数一定是奇数?<br>答：X2的因子至少有（1,x,x2，若X2还有因子的话一定是两个不同的数相乘。设还有2n个因子3+2n (n&gt;=0)，所以为奇数。<br>假设有25盏灯，灯的序号从1到25，25开根号为5，也就是1-5的平方，所以25以内共有5个完全平方数。</p>
+<p>正确答案：</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;math.h&gt;
+ 3 using namespace std;
+ 4 
+ 5 int main()
+ 6 {
+ 7     long long t,n;
+ 8 
+ 9     cin&gt;&gt;t;
+10     while (t--)
+11     {
+12         cin&gt;&gt;n;
+13 
+14     cout &lt;&lt; (long long)sqrt(n)&lt;&lt; endl;
+15     }
+16 
+17     return 0;
+18 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/page/8/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span>
+    </nav>
+  
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

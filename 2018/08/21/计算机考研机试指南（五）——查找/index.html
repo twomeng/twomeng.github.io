@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>计算机考研机试指南（五）——查找 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="编程日记 cha2-05 查找找x 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;algorithm&amp;gt;  3 #include &amp;lt;string.h&amp;gt;  4 #include &amp;lt;stdio.h&amp;gt;  5 #include &amp;lt;iomanip&amp;gt;  6 using namespace std;  7 /*  8     题目">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机考研机试指南（五）——查找">
+<meta property="og:url" content="http://yoursite.com/2018/08/21/计算机考研机试指南（五）——查找/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="编程日记 cha2-05 查找找x 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;algorithm&amp;gt;  3 #include &amp;lt;string.h&amp;gt;  4 #include &amp;lt;stdio.h&amp;gt;  5 #include &amp;lt;iomanip&amp;gt;  6 using namespace std;  7 /*  8     题目">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:28.636Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算机考研机试指南（五）——查找">
+<meta name="twitter:description" content="编程日记 cha2-05 查找找x 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;algorithm&amp;gt;  3 #include &amp;lt;string.h&amp;gt;  4 #include &amp;lt;stdio.h&amp;gt;  5 #include &amp;lt;iomanip&amp;gt;  6 using namespace std;  7 /*  8     题目">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-计算机考研机试指南（五）——查找" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      计算机考研机试指南（五）——查找
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/21/计算机考研机试指南（五）——查找/" class="article-date">
+  <time datetime="2018-08-20T17:21:00.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="编程日记-cha2-05-查找"><a href="#编程日记-cha2-05-查找" class="headerlink" title="编程日记 cha2-05 查找"></a>编程日记 cha2-05 查找</h4><h4 id="找x"><a href="#找x" class="headerlink" title="找x"></a>找x</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;algorithm&gt;
+ 3 #include &lt;string.h&gt;
+ 4 #include &lt;stdio.h&gt;
+ 5 #include &lt;iomanip&gt;
+ 6 using namespace std;
+ 7 /*
+ 8     题目：找x
+ 9     用时：tomato *
+10     思路：
+11 
+12 
+13 */
+14 
+15 int main()
+16 {
+17    int n,a[201],x;
+18    bool flag = true;
+19    while (cin &gt;&gt; n )
+20    {
+21        flag = true;
+22        for (int i=0;i&lt;n;i++)
+23         cin &gt;&gt; a[i];
+24        cin &gt;&gt; x;
+25        for (int i=0;i&lt;n;i++)
+26             if (a[i] == x)
+27             {
+28                 cout&lt;&lt;i&lt;&lt;endl;
+29                 flag = false;
+30             }
+31 
+32         if (flag)
+33             cout&lt;&lt;-1&lt;&lt;endl;
+34    }
+35 
+36 
+37 
+38     return 0;
+39 }
+</code></pre><h3 id="查找学生信息"><a href="#查找学生信息" class="headerlink" title="查找学生信息"></a>查找学生信息</h3><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;algorithm&gt;
+ 3 #include &lt;string.h&gt;
+ 4 #include &lt;string&gt;
+ 5 #include &lt;stdio.h&gt;
+ 6 #include &lt;iomanip&gt;
+ 7 using namespace std;
+ 8 /*
+ 9     题目：查找学生信息
+10     用时：tomato *
+11     思路：二分法(序号是有序的)
+12     为什么不能用普通的查找方法：时间复杂度o(m*n):学生个数*需要查找的次数
+13     问题：strlen比较的时候总相反，猜想是因为char类型没有初始化的缘故
+14     解决：最后发现因为没有sort排序的缘故,为什么一定要排序呢？？？？？
+15     难点：重载大于运算符运用在sort中，看c++的书
+16 
+17 
+18 */
+19 struct Student
+20 {
+21     char num[5];
+22     char name[10];
+23     char gender[5];
+24     int age;
+25     bool operator &lt; (const Student &amp; A) const{
+26     return strcmp(num,A.num)&lt;0;
+27     }
+28 }stu[1001];
+29 
+30 int binarySearch(char x[],int n)
+31 {
+32     // 在stu中根据二分法查找number x
+33     int low = 0,high = n-1;
+34     char temp[5];
+35     while ( low &lt;= high )
+36     {
+37         int mid = ( low + high )/2;
+38       //  cout &lt;&lt; &quot;mid num:&quot; &lt;&lt; stu[mid].num &lt;&lt;endl;
+39 //        strcpy(temp,stu[mid].num);
+40         if (strcmp(stu[mid].num , x)&gt;0 )
+41         {
+42             // x比中间小，区间变成左边
+43             high = mid -1;
+44         }
+45         if (strcmp( stu[mid].num , x)&lt;0)
+46         {
+47             low = mid + 1;
+48         }
+49         if (strcmp (stu[mid].num , x ) == 0)
+50             return mid;
+51 
+52     }
+53     return -1;
+54 }
+55 
+56 int main()
+57 {
+58 
+59    int n;
+60    int m;
+61    char x[5];
+62 
+63    while (cin&gt;&gt;n)
+64    {
+65        for (int i=0;i&lt;n;i++)
+66        {
+67            scanf(&quot;%s %s %s %d&quot;,&amp;stu[i].num,&amp;stu[i].name,&amp;stu[i].gender,&amp;stu[i].age);
+68        }
+69        sort(stu,stu+n);
+70        cin &gt;&gt; m;
+71        for (int i=0;i&lt;n;i++)
+72             cout &lt;&lt;stu[i].num&lt;&lt;&#39; &#39;&lt;&lt;stu[i].name&lt;&lt;&#39; &#39;&lt;&lt;stu[i].gender&lt;&lt;&#39; &#39;&lt;&lt;stu[i].age&lt;&lt;endl;
+73 
+74        for (int i=0 ; i&lt;m ; i++)
+75        {
+76            cin&gt;&gt;x;
+77            int result_i = binarySearch(x,n);
+78            if (result_i == -1)
+79                 cout&lt;&lt;&quot;No Answer!&quot;&lt;&lt;endl;
+80            else
+81                 cout &lt;&lt;stu[result_i].num&lt;&lt;&#39; &#39;&lt;&lt;stu[result_i].name&lt;&lt;&#39; &#39;&lt;&lt;stu[result_i].gender&lt;&lt;&#39; &#39;&lt;&lt;stu[result_i].age&lt;&lt;endl;
+82         }
+83    }
+84 
+85 
+86 
+87     return 0;
+88 }
+</code></pre><h3 id="打印极值点下标"><a href="#打印极值点下标" class="headerlink" title="打印极值点下标"></a>打印极值点下标</h3><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;algorithm&gt;
+ 3 #include &lt;string.h&gt;
+ 4 #include &lt;string&gt;
+ 5 #include &lt;stdio.h&gt;
+ 6 #include &lt;iomanip&gt;
+ 7 using namespace std;
+ 8 /*
+ 9     题目：打印极值点下标
+10     用时：tomato *
+11     思路：经过观察，只需比较中间值和两侧数据的大小：比两侧都大或比两侧都小
+12     首尾数据比较特殊：只要不和旁边的数据相等则输出
+13     注意：打印的时候最后一个数字后面没有空格,因此我把所有即将被打印的索引存放到数组中，最后一起输出
+14 
+15 
+16 
+17 
+18 */
+19 
+20 
+21 int main()
+22 {
+23     int k,a[80];
+24     int x[80];
+25     int cur = 0;
+26     while (cin&gt;&gt;k)
+27     {
+28         for (int i=0;i&lt;k;i++)
+29             cin&gt;&gt;a[i];
+30 
+31         for (int i=0;i&lt;k;i++)
+32         {
+33             if (i==0 &amp;&amp; a[i+1]!=a[i])
+34             {
+35                 x[cur] = i;
+36                 cur ++;
+37                 continue;
+38             }
+39             if (i==k-1 &amp;&amp; a[i]!=a[i-1])
+40             {
+41                 x[cur] = i;
+42                 cur ++;
+43                 break;
+44             }
+45             if ((a[i-1] &lt; a[i] &amp;&amp; a[i+1] &lt; a[i]) || (a[i-1] &gt; a[i] &amp;&amp; a[i+1] &gt; a[i]))
+46             {
+47                 x[cur] = i;
+48                 cur ++;
+49             }
+50         }
+51         for (int i=0;i&lt;cur-1;i++)
+52         {
+53             cout &lt;&lt; x[i]&lt;&lt;&#39; &#39;;
+54         }
+55         cout &lt;&lt;x[cur-1];
+56 
+57     }
+58 
+59 
+60 
+61     return 0;
+62 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/21/CCF 第一、二题/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          CCF 第一、二题
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/21/计算机考研机试指南（四）——排版题/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">计算机考研机试指南（四）——排版题</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

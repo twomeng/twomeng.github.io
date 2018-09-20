@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数据结构（严版）课本代码重敲——第六章 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="编程笔记 数据结构 第六章 树与二叉树 以后有什么知识盲点就记录一下， 经常拿出来复习才能彻底消化吸收，一个劲儿地往前学是不可行的方法。  typedef struct 和struct1 首先：//注意在C和C++里不同在C中定义一个结构体类型要用typedef:   1 typedef struct Student 2 　　　　{ 3 　　　　int a; 4 　　　　}Stu; 于是在声明变量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构（严版）课本代码重敲——第六章">
+<meta property="og:url" content="http://yoursite.com/2018/08/21/数据结构（严版）课本代码重敲——第六章/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="编程笔记 数据结构 第六章 树与二叉树 以后有什么知识盲点就记录一下， 经常拿出来复习才能彻底消化吸收，一个劲儿地往前学是不可行的方法。  typedef struct 和struct1 首先：//注意在C和C++里不同在C中定义一个结构体类型要用typedef:   1 typedef struct Student 2 　　　　{ 3 　　　　int a; 4 　　　　}Stu; 于是在声明变量">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:28.179Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构（严版）课本代码重敲——第六章">
+<meta name="twitter:description" content="编程笔记 数据结构 第六章 树与二叉树 以后有什么知识盲点就记录一下， 经常拿出来复习才能彻底消化吸收，一个劲儿地往前学是不可行的方法。  typedef struct 和struct1 首先：//注意在C和C++里不同在C中定义一个结构体类型要用typedef:   1 typedef struct Student 2 　　　　{ 3 　　　　int a; 4 　　　　}Stu; 于是在声明变量">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-数据结构（严版）课本代码重敲——第六章" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据结构（严版）课本代码重敲——第六章
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/21/数据结构（严版）课本代码重敲——第六章/" class="article-date">
+  <time datetime="2018-08-20T17:35:00.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="编程笔记-数据结构-第六章-树与二叉树"><a href="#编程笔记-数据结构-第六章-树与二叉树" class="headerlink" title="编程笔记 数据结构 第六章 树与二叉树"></a>编程笔记 数据结构 第六章 树与二叉树</h3><blockquote>
+<p>以后有什么知识盲点就记录一下， 经常拿出来复习才能彻底消化吸收，一个劲儿地往前学是不可行的方法。</p>
+</blockquote>
+<h4 id="typedef-struct-和struct"><a href="#typedef-struct-和struct" class="headerlink" title="typedef struct 和struct"></a>typedef struct 和struct</h4><p>1 首先：//注意在C和C++里不同<br>在C中定义一个结构体类型要用typedef:  </p>
+<pre><code>1 typedef struct Student
+2 　　　　{
+3 　　　　int a;
+4 　　　　}Stu;
+</code></pre><p>于是在声明变量的时候就可：Stu stu1;(如果没有typedef就必须用struct Student stu1;来声明)<br>这里的Stu实际上就是struct Student的别名。Stu==struct Student<br>另外这里也可以不写Student（于是也不能struct Student stu1;了，必须是Stu stu1;）  </p>
+<pre><code>1 typedef struct
+2 　　　　{
+3 　　　　int a;
+4 　　　　}Stu;
+</code></pre><p>但在c++里很简单，直接  </p>
+<pre><code>1 struct Student
+2 　　　　{
+3 　　　　int a;
+4 　　　　};　　
+</code></pre><p>于是就定义了结构体类型Student，声明变量时直接Student stu2；</p>
+<p>2.其次：<br>在c++中如果用typedef的话，又会造成区别：  </p>
+<pre><code>1 struct   Student   
+2 　　　　{   
+3 　　　　int   a;   
+4 　　　　}stu1;//stu1是一个变量  
+5 typedef   struct   Student2   
+6 　　　　{   
+7 　　　　int   a;   
+8 　　　　}stu2;//stu2是一个结构体类型=struct Student  
+</code></pre><p>使用时可以直接访问stu1.a<br>但是stu2则必须先 stu2 s2;<br>然后 s2.a=10;</p>
+<h4 id="引用和指针"><a href="#引用和指针" class="headerlink" title="引用和指针"></a>引用和指针</h4><p>一、引用的定义</p>
+<p>引用是给另外一个变量起别名，所以引用不会分配内存空间。</p>
+<p>引用的声明方法：类型标识符 &amp;引用名=目标变量名;（如int &amp;ptr = num;）</p>
+<p>二、引用与指针的区别</p>
+<p>1、指针是一个实体，需要分配内存空间。引用只是变量的别名，不需要分配内存空间。</p>
+<p>2、引用在定义的时候必须进行初始化，并且不能够改变。指针在定义的时候不一定要初始化，并且指向的空间可变。（注：不能有引用的值不能为NULL）</p>
+<p>3、有多级指针，但是没有多级引用，只能有一级引用。</p>
+<p>4、指针和引用的自增运算结果不一样。（指针是指向下一个空间，引用时引用的变量值加1）</p>
+<p>5、sizeof 引用得到的是所指向的变量（对象）的大小，而sizeof 指针得到的是指针本身的大小。</p>
+<p>6、引用访问一个变量是直接访问，而指针访问一个变量是间接访问。</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 
+ 3 using namespace std;
+ 4 
+ 5 void swap(int &amp;a, int &amp;b)
+ 6 {
+ 7     int tmp;
+ 8 
+ 9     tmp = a;
+10     a   = b;
+11     b   = tmp;
+12 }
+13 
+14 int main()
+15 {
+16     int a = 3;
+17     int b = 5;
+18 
+19     cout &lt;&lt; &quot;before swap, a = &quot; &lt;&lt; a &lt;&lt; &quot; b = &quot; &lt;&lt; b &lt;&lt; endl;
+20 
+21     swap(a, b);
+22 
+23     cout &lt;&lt; &quot;after swap, a = &quot; &lt;&lt; a &lt;&lt; &quot; b = &quot; &lt;&lt; b &lt;&lt; endl;
+24 
+25     return 0;
+26 }
+
+
+
+
+
+
+#### 3/24 二叉树练习
+</code></pre><blockquote>
+<p>引用是给变量了另一个名字，调用时为直接调用变量而指针是分配了一个内存空间并存下变量的地址，属于间接引用。</p>
+</blockquote>
+<pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;stdio.h&gt;
+  3 #include &lt;algorithm&gt;
+  4 #include &lt;queue&gt;
+  5 using namespace std;
+  6 
+  7 /*
+  8     题目：二叉树
+  9     1. 二叉树的创建
+ 10     2. 四种遍历方法
+ 11     3. 三种非递归遍历方法
+ 12 */
+ 13 typedef char Elemtype;
+ 14 typedef struct node
+ 15 {
+ 16     struct node *lchild;
+ 17     struct node *rchild;
+ 18     Elemtype data;
+ 19 }BiNode, *BiTree;
+ 20 // 给结构体node起别名：BiNode,以及结构体的指针的别名：BiTree
+ 21 
+ 22 void create(BiTree &amp;t)
+ 23 {
+ 24     Elemtype x;
+ 25     cin &gt;&gt; x;
+ 26     if (x == &#39;#&#39;)
+ 27     {
+ 28         t = NULL;
+ 29     }
+ 30     else
+ 31     {
+ 32         t = (BiTree)malloc(sizeof(BiTree));
+ 33         t-&gt;data = x;
+ 34         create(t-&gt;lchild);
+ 35         create(t-&gt;rchild);
+ 36     }
+ 37 }
+ 38 
+ 39 void print(BiTree &amp;t)
+ 40 {
+ 41     if (t != NULL)
+ 42     {
+ 43         cout &lt;&lt; t-&gt;data ;
+ 44         print(t-&gt;lchild);
+ 45         print(t-&gt;rchild);
+ 46     }
+ 47 }
+ 48 // 1. 表达式求值 输入一个表达式创建二叉树
+ 49 
+ 50 void createBD(BiTree &amp;t)
+ 51 {
+ 52     Elemtype x;
+ 53     cin &gt;&gt; x;
+ 54     if (x != &#39;#&#39;)
+ 55     {
+ 56         t = (BiTree )malloc(sizeof(BiTree));
+ 57         t-&gt;data = x;
+ 58         createBD(t-&gt;lchild);
+ 59         createBD(t-&gt;rchild);
+ 60     }else
+ 61     {
+ 62         t = NULL;
+ 63     }
+ 64 }
+ 65 
+ 66 int cmp(int a,char op,int b)
+ 67 {
+ 68     switch (op)
+ 69     {
+ 70         case &#39;+&#39;:return a+b;
+ 71         case &#39;-&#39;:return a-b;
+ 72         case &#39;*&#39;:return a*b;
+ 73         case &#39;/&#39;:
+ 74             if (b!=0)
+ 75                 return a/b;
+ 76     }
+ 77     return 0;
+ 78 }
+ 79 // 后序遍历计算值
+ 80 int countV(BiTree &amp;t)
+ 81 {
+ 82     int a,b;
+ 83 
+ 84     if (t!=NULL)
+ 85     {
+ 86         if (t-&gt;lchild == NULL &amp;&amp; t-&gt;rchild == NULL)
+ 87         {
+ 88             return t-&gt;data - &#39;0&#39;;
+ 89         }
+ 90         else
+ 91         {
+ 92             a = countV(t-&gt;lchild);
+ 93             b = countV(t-&gt;rchild);
+ 94             int c = cmp(a,t-&gt;data,b);
+ 95             return c;
+ 96         }
+ 97     }
+ 98     else
+ 99         return 0;
+100 }
+101 
+102 int depth(BiTree &amp;t)
+103 {
+104     if (t == NULL)
+105         return 0;
+106     else
+107     {
+108         int l = depth(t-&gt;lchild);
+109         int r = depth(t-&gt;rchild);
+110         return l&gt;=r?l+1:r+1;
+111     }
+112 
+113 }
+114 // 层次遍历
+115 void level(BiTree &amp;t)
+116 {
+117     queue&lt;BiTree&gt; q;
+118     BiTree p;
+119     if (t) // 空树没有必要遍历了
+120     {
+121         q.push(t); // 根节点入队
+122         while (!q.empty())
+123         {
+124            p =  q.front(); // 弹栈一个元素
+125            q.pop();
+126             cout &lt;&lt; p-&gt;data &lt;&lt; &#39; &#39;;
+127 
+128             if (p-&gt;lchild)
+129             {
+130                 q.push(p-&gt;lchild);
+131             }
+132             if (p-&gt;rchild)
+133             {
+134                 q.push(p-&gt;rchild);
+135             }
+136         }
+137     }
+138 }
+139 // 计算二叉树的宽度
+140 struct Node{
+141 BiTree t;
+142 int num; // 结点所在的层次号
+143 };
+144 const int maxSize = 100;
+145 int width(BiTree &amp;t)
+146 {
+147     Node q[maxSize];
+148     int front , rear ;
+149     front = rear = 0;
+150     int mm;
+151 
+152     BiTree p;
+153     Node n;
+154     if (t) // 空树没有必要遍历了
+155     {
+156         n.t = t;
+157         n.num = 1;
+158         rear = (rear+1)%maxSize;
+159         q[rear] = n;
+160         while (front != rear)
+161         {
+162            front = (front +1)%maxSize;
+163            p = q[front].t;
+164           // cout &lt;&lt; p-&gt;data &lt;&lt; &#39; &#39;;
+165             int lno = q[front].num;
+166             if (p-&gt;lchild)
+167             {
+168                 n.num = lno +1;
+169                 n.t = p-&gt;lchild;
+170                 rear = (rear +1)%maxSize;
+171                 q[rear] = n;
+172             }
+173             if (p-&gt;rchild)
+174             {
+175                 n.num = lno + 1;
+176                 n.t = p-&gt;rchild;
+177                 rear = (rear +1)%maxSize;
+178                 q[rear] = n;
+179             }
+180         }
+181 
+182 
+183         mm = 0;
+184 
+185         for (int i=1;i&lt;=n.num;i++)
+186         {
+187             int nn = 0 ;
+188             for (int j=1;j&lt;=rear;j++)
+189                 if (q[j].num == i)
+190                     ++nn;
+191 
+192             if (nn &gt; mm)
+193                 mm = nn;
+194         }
+195         return mm;
+196         }
+197         else return 0;
+198     }
+199 
+200 // 非递归遍历算法
+201 // 先序遍历
+202 void preOrderNon(BiTree &amp;t)
+203 {
+204     BiTree s[maxSize];
+205     BiTree p;
+206     int top = -1;
+207     if (t)
+208     {
+209         s[++top] = t;
+210         //cout &lt;&lt; t-&gt;data &lt;&lt; endl;
+211         while (top != -1)
+212         {
+213             p = s[top--];
+214             cout &lt;&lt; p-&gt;data &lt;&lt; &#39; &#39;;
+215             if (p-&gt;lchild)
+216             {
+217                 s[++top] = p-&gt;lchild;
+218             }
+219             if (p-&gt;rchild)
+220             {
+221                 s[++top] = p-&gt;rchild;
+222             }
+223         }
+224     }
+225 }
+226 
+227 // 中序遍历
+228 void inOrderNon(BiTree &amp;t)
+229 {
+230     BiTree s[maxSize];
+231     int top = -1;
+232     BiTree p;
+233     p = t;
+234     if (t){
+235     while (p!=NULL || top != -1)
+236     {
+237         while (p)
+238         {
+239             s[++top] = p;
+240             p = p-&gt;lchild;
+241         }
+242         if (top!=-1)
+243         {
+244             p = s[top--];
+245             cout &lt;&lt; p-&gt;data &lt;&lt; &#39; &#39;;
+246             p = p-&gt;rchild;
+247         }
+248     }
+249     }
+250 }
+251 // 后序遍历
+252 
+253 
+254 int main()
+255 {
+256     BiTree t;
+257     //create(t);
+258     createBD(t);
+259    // width(t);
+260     //int c = countV(t);
+261     //cout &lt;&lt; c &lt;&lt; endl;
+262    // print(t);
+263    // cout &lt;&lt; width(t)&lt;&lt;endl;
+264     inOrderNon(t);
+265     return 0;
+266 }
+</code></pre><h4 id="二叉树练习-2018-3-26"><a href="#二叉树练习-2018-3-26" class="headerlink" title="二叉树练习 2018/3/26"></a>二叉树练习 2018/3/26</h4><pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;stdio.h&gt;
+  3 #include &lt;algorithm&gt;
+  4 #include &lt;queue&gt;
+  5 #include &lt;stack&gt;
+  6 using namespace std;
+  7 
+  8 /*
+  9     题目：二叉树
+ 10 1. 创建二叉树 √
+ 11 2. 三种递归遍历方法+层次遍历法 √
+ 12 3. 三种非递归遍历方法
+ 13 4. 求二叉树的深度
+ 14 6. 求叶子结点的个数
+ 15 8. 求先序遍历中第K个结点的值
+ 16 9. 左右子树互换
+ 17 10.复制二叉树
+ 18 7. 表达式求值
+ 19 5. 求二叉树的宽度
+ 20 */
+ 21 typedef char Elemtype;
+ 22 typedef struct BiNode
+ 23 {
+ 24     Elemtype data;
+ 25     struct BiNode *lchild,*rchild;
+ 26 }BiNode,*BiTree;
+ 27 
+ 28 // 1. 先序创建二叉树
+ 29 void createBiTree(BiTree &amp;t)
+ 30 {
+ 31     // 输入一个字符串序列，为NULL的指针表示为#
+ 32     Elemtype x;
+ 33     cin &gt;&gt; x;
+ 34     if ( x == &#39;#&#39;)
+ 35     {
+ 36         t = NULL;
+ 37     }
+ 38     else
+ 39     {
+ 40         t = (BiTree )malloc(sizeof(BiTree));
+ 41         t-&gt;data = x;
+ 42         createBiTree(t-&gt;lchild);
+ 43         createBiTree(t-&gt;rchild);
+ 44     }
+ 45 }
+ 46 
+ 47 // 2. 先序递归遍历
+ 48 
+ 49 // 访问函数
+ 50 void visited(BiTree p)
+ 51 {
+ 52     cout &lt;&lt;p -&gt;data &lt;&lt;&#39; &#39;;
+ 53 }
+ 54 void preOrderTraverse(BiTree &amp;t)
+ 55 {
+ 56     if (t)
+ 57     {
+ 58         visited(t);
+ 59         preOrderTraverse(t-&gt;lchild);
+ 60         preOrderTraverse(t-&gt;rchild);
+ 61     }
+ 62 }
+ 63 
+ 64 // 2. 层次遍历需要队列的辅助，没有递归遍历方法
+ 65 /*
+ 66 1. 初始化队列
+ 67 2. 压入根之前判断根是否为空
+ 68 3. 取队头 -&gt; 访问结点 -&gt; 压入非空的左孩子和右孩子
+ 69 4. 队列为空时循环结束
+ 70 */
+ 71 void levelOrder(BiTree &amp;t)
+ 72 {
+ 73     queue&lt;BiTree&gt; que ;
+ 74     BiTree p = t; // p : 遍历指针
+ 75     if (t) // 根节点不能为空
+ 76     {
+ 77         que.push(t);
+ 78         while (!que.empty())
+ 79         {
+ 80              p = que.front();
+ 81              que.pop();
+ 82              visited(p);
+ 83              if (p-&gt;lchild)
+ 84              {
+ 85                  que.push(p-&gt;lchild);
+ 86              }
+ 87              if (p-&gt;rchild)
+ 88              {
+ 89                  que.push(p-&gt;rchild);
+ 90              }
+ 91         }
+ 92     }
+ 93 }
+ 94 
+ 95 // 3. 非递归三种遍历方法
+ 96 
+ 97 // 先序非递归
+ 98 /*
+ 99 1. 遇到一个结点首先访问该结点，如果有左子树则继续往左走
+100 2. 到了最左边时弹栈，访问右子树
+101 3. 如果右子树为空则继续弹栈，否则向右子树的左边继续前进
+102 */
+103 void preOrderUn(BiTree &amp;t)
+104 {
+105     stack&lt;BiTree&gt; st;
+106     BiTree p = t;
+107     while (p!= NULL || !st.empty()) // 当且仅当栈和指针都为空时循环结束
+108     {
+109         while (p)
+110         {
+111             visited(p);
+112             st.push(p);
+113             p = p-&gt;lchild;
+114         }
+115         if (!st.empty())
+116         {
+117             p = st.top();
+118             st.pop();
+119             p = p-&gt;rchild;
+120         }
+121     }
+122 }
+123 // 中序非递归
+124 void midOrderUn(BiTree t)
+125 {
+126     stack&lt;BiTree&gt; st;
+127     BiTree p = t;
+128     while (p != NULL || !st.empty())
+129     {
+130         while(p)
+131         {
+132             st.push(p);
+133             p = p-&gt;lchild;
+134         }
+135         if (!st.empty())
+136         {
+137             p  = st.top();
+138             st.pop();
+139             visited(p);
+140             p = p-&gt;rchild;
+141         }
+142     }
+143 }
+144 // 后序非递归遍历
+145 /*
+146 1. 第一次访问结点：入栈，isFirst = 1
+147 2. 弹栈如果isFirst == 1,修改isFirst,压栈，往右走
+148 3. 第三次访问如果isFirst = 0,访问结点数据
+149 */
+150 typedef struct lBiTree
+151 {
+152     BiTree t;
+153     int isFirst;
+154 }lBiTree;
+155 void lastOrderUn(BiTree t)
+156 {
+157     stack&lt;lBiTree&gt; st;
+158     BiTree p = t;
+159     lBiTree l;
+160     while ( p!=NULL || !st.empty())
+161     {
+162         while (p)
+163         {
+164             l.isFirst = 1;
+165             l.t = p;
+166             st.push(l);
+167             p = p-&gt;lchild;
+168         }
+169         if (!st.empty())
+170         {
+171             l = st.top();
+172             st.pop();
+173 
+174             if (l.isFirst == 1)
+175             {
+176                 l.isFirst = 0;
+177                 p = l.t-&gt;rchild;
+178                 st.push(l);
+179             }
+180             else
+181             {
+182                 visited(l.t);
+183                 p = NULL;
+184             }
+185         }
+186     }
+187 }
+188 // 4. 深度
+189 int depth(BiTree t)
+190 {
+191     if (t == NULL)
+192         return 0;
+193     else
+194     {
+195         int l = depth(t-&gt;lchild);
+196         int r = depth(t-&gt;rchild);
+197         return l &gt;= r?l+1:r+1;
+198     }
+199 }
+200 
+201 // 求叶子结点个数
+202 int leaf(BiTree t)
+203 {
+204     if (t)
+205     {
+206         if (t-&gt;lchild == NULL &amp;&amp; t-&gt;rchild == NULL)
+207         {
+208             return 1;
+209         }
+210         else
+211         {
+212             return leaf(t-&gt;lchild)+leaf(t-&gt;rchild);
+213         }
+214     }
+215     else
+216         return 0;
+217 }
+218 
+219 // 求树的结点个数
+220 int number(BiTree t)
+221 {
+222     if (t)
+223         return 0; //空树没有结点
+224     else{
+225         return 1+number(t-&gt;lchild)+number(t-&gt;rchild);
+226     }
+227 }
+228 // 左右子树互换
+229 void exchange(BiTree &amp;t)
+230 {
+231     BiTree s;
+232     if (t)
+233     {
+234         s = t-&gt;lchild;
+235         t-&gt;lchild = t-&gt;rchild;
+236         t-&gt;rchild = s;
+237         exchange(t-&gt;lchild);
+238         exchange(t-&gt;rchild);
+239     }
+240 
+241 }
+242 // 复制二叉树
+243 BiTree copyBiTree(BiTree &amp;t)
+244 {
+245     BiTree p;
+246     if (t)
+247     {
+248         p = (BiTree)malloc(sizeof(BiTree));
+249         p-&gt;data = t-&gt;data;
+250         p-&gt;lchild = copyBiTree(t-&gt;lchild);
+251         p-&gt;rchild = copyBiTree(t-&gt;rchild);
+252         return p;
+253     }
+254 
+255 }
+256 
+257 // 表达式求值
+258 int countValue(BiTree t)
+259 {
+260     if (t)
+261     {
+262         if (t-&gt;lchild == NULL &amp;&amp;t-&gt;rchild == NULL)
+263         {
+264             return t-&gt;data-&#39;0&#39;;
+265         }
+266         else{
+267             int a = countValue(t-&gt;lchild);
+268             int b = countValue(t-&gt;rchild);
+269             int c = cmp(a,t-&gt;data,b);
+270             return c;
+271         }
+272     }
+273 }
+274 
+275 
+276 int main()
+277 {
+278     BiTree t;
+279     createBiTree(t);
+280    // preOrderTraverse(t);
+281    // levelOrder(t);
+282   // preOrderUn(t);
+283   //midOrderUn(t);
+284  // lastOrderUn(t);
+285  //cout &lt;&lt; depth(t)&lt;&lt;endl;
+286  cout &lt;&lt; leaf(t)&lt;&lt;endl;
+287     return 0;
+288 }
+</code></pre><h4 id="3-29-日练习"><a href="#3-29-日练习" class="headerlink" title="3/29 日练习"></a>3/29 日练习</h4><pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;stdio.h&gt;
+  3 #include &lt;algorithm&gt;
+  4 #include &lt;queue&gt;
+  5 #include &lt;stack&gt;
+  6 using namespace std;
+  7 
+  8 /*
+  9     时间：2018/3/26
+ 10     题目：二叉树
+ 11 1. 创建二叉树 √
+ 12 2. 三种递归遍历方法+层次遍历法 √
+ 13 3. 三种非递归遍历方法 √
+ 14 4. 求二叉树的深度 √
+ 15 5. 求叶子结点的个数 √
+ 16 6. 求先序遍历中第K个结点的值 √
+ 17 7. 左右子树互换 √
+ 18 8.复制二叉树 √
+ 19 9. 表达式求值 √
+ 20 10. 求二叉树的宽度 √
+ 21 11.线索二叉树的中序线索化
+ 22 12.线索二叉树的中序遍历
+ 23 13.线索二叉树的先序、后序线索化以及遍历方法
+ 24 */
+ 25 typedef char Elemtype;
+ 26 typedef struct BiNode
+ 27 {
+ 28     Elemtype data;
+ 29     struct BiNode *lchild,*rchild;
+ 30 }BiNode,*BiTree;
+ 31 void createBiTree(BiTree &amp;t)
+ 32 {
+ 33     Elemtype x;
+ 34     cin &gt;&gt; x;
+ 35     if (x!=&#39;#&#39;)
+ 36     {
+ 37         t = (BiTree )malloc(sizeof(BiTree));
+ 38         t-&gt;data = x;
+ 39         createBiTree(t-&gt;lchild);
+ 40         createBiTree(t-&gt;rchild);
+ 41     }
+ 42     else
+ 43     {
+ 44         t = NULL;
+ 45     }
+ 46 }
+ 47 void visit(BiTree p)
+ 48 {
+ 49     cout &lt;&lt; p-&gt;data &lt;&lt;&#39; &#39;;
+ 50 }
+ 51 void preOrder(BiTree &amp;t)
+ 52 {
+ 53     if (t)
+ 54     {
+ 55         visit(t);
+ 56         preOrder(t-&gt;lchild);
+ 57         preOrder(t-&gt;rchild);
+ 58     }
+ 59 }
+ 60 void levelOrder(BiTree &amp;t)
+ 61 {
+ 62     queue&lt;BiTree&gt; que;
+ 63     BiTree p = t;
+ 64     if (t)
+ 65     {
+ 66         que.push(p);
+ 67         while (!que.empty()) // 注意这里队空时结束，而不是队和P指针都为空，到最后的时候P不为空
+ 68         {
+ 69             p = que.front();
+ 70             que.pop();
+ 71             visit(p);
+ 72             if (p-&gt;lchild!=NULL)
+ 73                 que.push(p-&gt;lchild);
+ 74             if (p-&gt;rchild!=NULL)
+ 75                 que.push(p-&gt;rchild);
+ 76         }
+ 77     }
+ 78 }
+ 79 void preOrderUn(BiTree &amp;t)
+ 80 {
+ 81     stack&lt;BiTree&gt; st;
+ 82     BiTree p = t;
+ 83     if (t)
+ 84     {
+ 85         while (p || !st.empty())
+ 86         {
+ 87             while (p)
+ 88             {
+ 89                 visit(p);
+ 90                 st.push(p);
+ 91                 p = p-&gt;lchild;
+ 92             }
+ 93             if (!st.empty())
+ 94             {
+ 95                 p = st.top();
+ 96                 st.pop();
+ 97                 p = p-&gt;rchild;
+ 98             }
+ 99         }
+100     }
+101 }
+102 typedef struct
+103 {
+104     BiTree k;
+105     int isFirst;
+106 }PBiTree;
+107 void postOrderUn(BiTree &amp;t)
+108 {
+109     stack&lt;PBiTree&gt; st;
+110     BiTree p  = t;
+111     PBiTree tmp;
+112     if (t)
+113     {
+114         while (p || !st.empty())
+115         {
+116             while (p)
+117             {
+118                 tmp.isFirst = 1;
+119                 tmp.k = p;
+120                 st.push(tmp);
+121                 p = p-&gt;lchild;
+122             }
+123             if (!st.empty())
+124             {
+125                 tmp = st.top();
+126                 st.pop();
+127                 if (tmp.isFirst == 1)
+128                 {
+129                     tmp.isFirst = 0;
+130                     st.push(tmp);
+131                     p = tmp.k-&gt;rchild;
+132                 }else
+133                 {
+134                     visit(tmp.k);
+135                     p = NULL;
+136                 }
+137             }
+138         }
+139     }
+140 }
+141 int depth(BiTree &amp;t)
+142 {
+143     if (t-&gt;lchild == NULL &amp;&amp; t-&gt;rchild == NULL)
+144     {
+145         return 1;
+146     }
+147     if (t)
+148     {
+149         int l = depth(t-&gt;lchild);
+150         int r = depth(t-&gt;rchild);
+151         return l&gt;r?l+1:r+1;
+152     }
+153 }
+154 int leaf(BiTree &amp;t)
+155 {
+156     if (t-&gt;lchild == NULL &amp;&amp; t-&gt;rchild == NULL)
+157         return 1;
+158     if (t)
+159     {
+160         return leaf(t-&gt;lchild)+leaf(t-&gt;rchild);
+161     }
+162 }
+163 void exchange(BiTree &amp;t)
+164 {
+165     BiTree p;
+166     if (t)
+167     {
+168         p = t-&gt;lchild;
+169         t-&gt;lchild = t-&gt;rchild;
+170         t-&gt;rchild = p;
+171         exchange(t-&gt;lchild);
+172         exchange(t-&gt;rchild);
+173     }
+174 }
+175 int count(int a,char c,int b)
+176 {
+177     return 1;
+178 }
+179 int value(BiTree &amp;t)
+180 {
+181     if (t-&gt;lchild == NULL &amp;&amp; t-&gt;rchild == NULL)
+182     {
+183             return t-&gt;data -&#39;0&#39;;
+184     }
+185     if (t)
+186     {
+187         int a = value(t-&gt;lchild);
+188         int b = value(t-&gt;rchild);
+189         int c = count(a,t-&gt;data,b);
+190         return c;
+191     }
+192 }
+193 typedef struct
+194 {
+195     BiTree k;
+196     int level;
+197 }WBiTree;
+198 const int MAXSIZE  = 20;
+199 int width(BiTree &amp;t)
+200 {
+201     WBiTree que[MAXSIZE];
+202     BiTree p = t;
+203     WBiTree tmp,tmp2;
+204     int front=0,rear = 0;
+205     int level = 1;
+206     if (t)
+207     {
+208         rear = (rear+1)%MAXSIZE;
+209         tmp.k = p;
+210         tmp.level = level;
+211         que[rear] = tmp;
+212         while (front != rear)
+213         {
+214             front = (front+1)%MAXSIZE;
+215             tmp = que[front];
+216             if (tmp.k-&gt;lchild)
+217             {
+218                 rear = (rear+1)%MAXSIZE;
+219                 tmp2.k = tmp.k-&gt;lchild;
+220                 tmp2.level = tmp.level+1;
+221                 que[rear] = tmp2; // 等于根节点+1
+222             }
+223             if (tmp.k-&gt;rchild)
+224             {
+225                 rear = (rear+1)%MAXSIZE;
+226                 tmp2.k = tmp.k-&gt;rchild;
+227                 tmp2.level = tmp.level+1;
+228                 que[rear] = tmp2; // 等于根节点+1
+229             }
+230         }
+231         // 遍历一下que数组，从0-rear,统计每层的结点个数，求最大值
+232         int maxNum = 0;
+233         int num = 1;
+234         int j = 1;
+235         for (int i = 1;i&lt;=rear;i++)
+236         {
+237 
+238             if (que[i+1].level == que[i].level)
+239             {
+240                 num++;
+241             }
+242             else
+243             {
+244                 num = 1;
+245             }
+246             if (num &gt; maxNum)
+247             {
+248                 maxNum = num;
+249             }
+250         }
+251         return maxNum;
+252     }
+253     return 0;
+254 }
+255 int main()
+256 {
+257     BiTree t;
+258     createBiTree(t);
+259 //    preOrder(t);
+260 //    levelOrder(t);
+261 //    preOrderUn(t);
+262 //postOrderUn(t);
+263 //cout &lt;&lt; depth(t) &lt;&lt; endl;
+264 //cout &lt;&lt; leaf(t) &lt;&lt; endl;
+265 cout &lt;&lt; width(t) &lt;&lt; endl;
+266 
+267     return 0;
+268 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/21/数据结构（严版）课本代码重敲——第四章/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          数据结构（严版）课本代码重敲——第四章
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/21/数据结构（严版）课本代码重敲——第七章/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">数据结构（严版）课本代码重敲——第七章</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

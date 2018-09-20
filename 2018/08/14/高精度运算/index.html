@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>高精度运算 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="问：什么是大数和高精度？（big number）答：超过浮点数取值范围的数据，比如一个1000位的整数，无法用常规方法来处理。这些精度很高的数据通常称为高精度数，或称为大数。高精度数的运算只能用本章介绍的高精度数计算方法来处理。 5.2.1 小学生算术描述很多小学生在学习加法时，发现”进位”特别容易出错。你的任务是计算两个三位数在相加时需要多少次进位。你编制的程序应当可以连续处理多组数据，直到读到">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高精度运算">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/高精度运算/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="问：什么是大数和高精度？（big number）答：超过浮点数取值范围的数据，比如一个1000位的整数，无法用常规方法来处理。这些精度很高的数据通常称为高精度数，或称为大数。高精度数的运算只能用本章介绍的高精度数计算方法来处理。 5.2.1 小学生算术描述很多小学生在学习加法时，发现”进位”特别容易出错。你的任务是计算两个三位数在相加时需要多少次进位。你编制的程序应当可以连续处理多组数据，直到读到">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20161201173852910">
+<meta property="og:updated_time" content="2018-09-20T01:27:30.480Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="高精度运算">
+<meta name="twitter:description" content="问：什么是大数和高精度？（big number）答：超过浮点数取值范围的数据，比如一个1000位的整数，无法用常规方法来处理。这些精度很高的数据通常称为高精度数，或称为大数。高精度数的运算只能用本章介绍的高精度数计算方法来处理。 5.2.1 小学生算术描述很多小学生在学习加法时，发现”进位”特别容易出错。你的任务是计算两个三位数在相加时需要多少次进位。你编制的程序应当可以连续处理多组数据，直到读到">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20161201173852910">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-高精度运算" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      高精度运算
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/高精度运算/" class="article-date">
+  <time datetime="2018-08-14T01:43:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>问：什么是大数和高精度？（big number）<br>答：超过浮点数取值范围的数据，比如一个1000位的整数，无法用常规方法来处理。这些精度很高的数据通常称为高精度数，或称为大数。<br>高精度数的运算只能用本章介绍的高精度数计算方法来处理。</p>
+<h2 id="5-2-1-小学生算术"><a href="#5-2-1-小学生算术" class="headerlink" title="5.2.1 小学生算术"></a><strong>5.2.1 小学生算术</strong></h2><p>描述<br>很多小学生在学习加法时，发现”进位”特别容易出错。你的任务是计算两个三位数在相加时需要多少次进位。你编制的程序应当可以连续处理多组数据，直到读到两个0（这是输入结束标记）。<br>输入<br>输入两个正整数m,n.(m,n,都是三位数)<br>输出<br>输出m,n,相加时需要进位多少次。<br>样例输入<br>123 456<br>555 555<br>123 594<br>0 0<br>样例输出<br>0<br>3<br>1</p>
+<p>我的代码：比较清晰但也比较啰嗦</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;iomanip&gt;
+ 3 #include &lt;string.h&gt;
+ 4 #include &lt;stdio.h&gt;
+ 5 #include &lt;stdlib.h&gt;
+ 6 //
+ 7 using namespace std;
+ 8 
+ 9 int main()
+10 {
+11     int m,n,cf,sum;//输入整数不超过9个数字，整型刚刚好
+12     cin&gt;&gt;m&gt;&gt;n;
+13     while (m!=0&amp;&amp;n!=0)
+14     {   cf=0;sum=0;
+15         while (m&gt;0&amp;&amp;n&gt;0)
+16         {           
+17             if ((m%10+n%10+cf)&gt;9)
+18            {
+19              cf=1;
+20              sum++;
+21            }
+22            else
+23             cf=0;
+24             m=m/10;
+25             n=n/10;
+26         }
+27         cout&lt;&lt;sum&lt;&lt;endl;
+28 
+29         cin&gt;&gt;m&gt;&gt;n;
+30     }
+31 
+32 
+33 }
+</code></pre><p>课本代码：机智地运用了三目条件判断语句</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 using namespace std;
+ 5 
+ 6 int main()
+ 7 {
+ 8     int m,n;
+ 9     while (cin&gt;&gt;m&gt;&gt;n)
+10     {
+11         if (!m&amp;&amp;!n)
+12             return 0;//当当a=b=0时条件为1
+13         int cf=0,sum=0;
+14         while (m&gt;0&amp;&amp;n&gt;0)
+15         {
+16             cf=(m%10+n%10+cf)&gt;9?1:0;
+17             sum+=cf;
+18             m/=10;
+19             n/=10;
+20         }
+21         cout&lt;&lt;sum&lt;&lt;endl;
+22     }
+23 
+24     return 0;
+25 }
+</code></pre><h2 id="5-2-2-阶乘的精确值"><a href="#5-2-2-阶乘的精确值" class="headerlink" title="5.2.2 阶乘的精确值"></a><strong>5.2.2 阶乘的精确值</strong></h2><p>输入不超过1000的正整数n，输出n的阶乘的精确结果</p>
+<p>样例输入：30</p>
+<p>样例输出：265252859812191058636308480000000</p>
+<p>思路：</p>
+<p>1）为了保存结果，需要分析1000！有多大。用计算器算一算不难知道，1000！约等于4*10^2567,也就是这个上限数字大约有3000位，因此可以用一个3000个元素的数组f保存，每个数组元素仅保存一个10以内的数字，输出时遍历数组即可把该数字打印出来。为方便起见，让f【0】保存个位，f【1】保存十位等等。<br>2）外循环N次，每次3000位各位都要乘以I，依次进位<br>3）输出时从max开始，先找到第一个不为零的数，再打印输出。</p>
+<p>解法（1）</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;iomanip&gt;
+ 3 #include &lt;string.h&gt;
+ 4 #include &lt;stdio.h&gt;
+ 5 #include &lt;stdlib.h&gt;
+ 6 
+ 7 using namespace std;
+ 8 
+ 9 int main()
+10 {
+11     const int maxn=3000;
+12     int n,cf,k;
+13     int f[maxn+1];
+14 
+15     while(cin&gt;&gt;n)
+16     {
+17         memset(f,0,sizeof(f));//数组初始化
+18         f[0]=1;//第一位set1
+19         for (int i=2; i&lt;=n; i++)//I代表每次阶乘的数
+20         {
+21             cf=0;//代表进位
+22             for(int j=0; j&lt;=maxn; j++)//3000位数组都要乘以I
+23             {
+24                 int s=f[j]*i+cf;
+25                 f[j]=s%10;
+26                 cf=s/10;
+27             }
+28         }
+29         for(k=maxn; k&gt;=0; k--)
+30             if (f[k]!=0)
+31                 break;//找到第一个不为零的数
+32         for(int j=k; j&gt;=0; j--)
+33             cout&lt;&lt;f[j];
+34             cout&lt;&lt;endl;
+35     }
+36 
+37 
+38 }
+</code></pre><p>解法（2）: 还能不能更快？<br>思路：数组元素为INT，最多能保存9位数字，现在我们每5位进一位可以吗？</p>
+<p>1）</p>
+<pre><code>1 int s=f[j]*i+cf;
+2 f[j]=s%100000;
+3 cf=s/100000;
+</code></pre><p>2）但是输出时必须要考虑这个五位数的前几位为0怎么办？必须要凑足五位。</p>
+<pre><code>1 printf(&quot;%05d&quot;,f[j]);//5位的数字，不足前面添0
+</code></pre><p>完整代码：</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;iomanip&gt;
+ 3 #include &lt;string.h&gt;
+ 4 #include &lt;stdio.h&gt;
+ 5 #include &lt;stdlib.h&gt;
+ 6 
+ 7 using namespace std;
+ 8 
+ 9 int main()
+10 {
+11     const int maxn=600;
+12     int n,cf,k;
+13     int f[maxn+1];
+14 
+15     while(cin&gt;&gt;n)
+16     {
+17         memset(f,0,sizeof(f));//数组初始化
+18         f[0]=1;//第一位set1
+19         for (int i=2; i&lt;=n; i++)//I代表每次阶乘的数
+20         {
+21             cf=0;//代表进位
+22             for(int j=0; j&lt;=maxn; j++)//3000位数组都要乘以I
+23             {
+24                 int s=f[j]*i+cf;
+25                 f[j]=s%100000;
+26                 cf=s/100000;
+27             }
+28         }
+29         for(k=maxn; k&gt;=0; k--)
+30             if (f[k]!=0)
+31                 break;//找到第一个不为零的数
+32                 cout&lt;&lt;f[k];//第一个数不需要补全0
+33         for(int j=k-1; j&gt;=0; j--)
+34             printf (&quot;%05d&quot;,f[j]);
+35             cout&lt;&lt;endl;
+36     }
+37 
+38 
+39 }
+</code></pre><p>解法（3）字符数组</p>
+<p>本题可以采用字符数组来存储读入的两个加数。因为一个big<br>number可以作为一个很长很长的字符串”123654789”保存到char类型的数组里，然后对两个字符数据进行加法、进位。便不用考虑整型还是长整型能不能放的下这个big<br>number的问题了！</p>
+<p>对两个加数进行加法运算时，要注意以下两点：<br>（1）在进行加法时，要得到数字字符对应的数值，方法是将数字字符减去数字字符”0”<br>（2）从两个加数的最低位开始按位求和，如果和大于9，则会向前一位进位。要注意某一个加数的每一位都运算完毕，但另一个加数还有若干位没有运算完毕的情形。999586<br>+<br>798，这两个加数分为有6位和3位数。当第2个加数的最低3位数都运算完毕时，还会向前面进位，这时第1个加数还有3位没有运算完毕，由于进位的存在，这3位在运算时都还会产生进位。</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;string.h&gt;
+ 5 //计算两数相加的进位次数
+ 6 int main( )
+ 7 {
+ 8     char add1[11], add2[11];    //读入的两个加数
+ 9     while( scanf(&quot;%s%s&quot;, add1, add2) )
+10     {
+11         if( !strcmp(add1,&quot;0&quot;) &amp;&amp; !strcmp(add2,&quot;0&quot;) )  break;
+12 
+13         int carry = 0;  //进位次数
+14         int i1 = strlen(add1) - 1;//指向这个big number的个位
+15         int i2 = strlen(add2) - 1;
+16         int C = 0;      //进位
+17         while( i1&gt;=0 &amp;&amp; i2&gt;=0 ) 
+18         {//从两个数的最后一位开始相加，在撸完一个串儿或两个串儿同时撸完的时候循环结束
+19             if( add1[i1]-&#39;0&#39;+add2[i2]-&#39;0&#39;+C&gt;9 )
+20             {
+21                 carry++;
+22                 C = 1;
+23             }
+24             else  C = 0;
+25             i1--;
+26             i2--;
+27         }
+28         while( i1&gt;=0 )  //如果第1个串儿没撸完
+29         {
+30             if( add1[i1]-&#39;0&#39;+C&gt;9 )
+31             {
+32                 carry++;
+33                 C = 1;
+34             }
+35             else  C = 0;
+36             i1--;
+37         }
+38         while( i2&gt;=0 )  //如果第2个串儿没撸完
+39         {
+40             if( add2[i2]-&#39;0&#39;+C&gt;9 )
+41             {
+42                 carry++;
+43                 C = 1;
+44             }
+45             else  C = 0;
+46             i2--;
+47         }
+48         if( carry&gt;1 )  
+49             printf( &quot;%d carry operations.\n&quot;, carry );
+50         else if( carry==1 ) 
+51          printf( &quot;%d carry operation.\n&quot;, carry );
+52         else  printf( &quot;No carry operation.\n&quot; );
+53     }
+54     return 0;
+55 }
+</code></pre><h2 id="另一种计算N！的方式——log展开，求数的位数"><a href="#另一种计算N！的方式——log展开，求数的位数" class="headerlink" title="另一种计算N！的方式——log展开，求数的位数"></a>另一种计算N！的方式——log展开，求数的位数</h2><p><strong><a href="http://acm.nefu.edu.cn/JudgeOnline/problemShow.php?problem_id=65" target="_blank" rel="noopener">http://acm.nefu.edu.cn/JudgeOnline/problemShow.php?problem_id=65</a></strong></p>
+<p>Problem:65</p>
+<p>Time Limit:1000ms</p>
+<p>Memory Limit:65536K</p>
+<p>Description</p>
+<p>N! (N的阶乘) 是非常大的数，计算公式为：N! = N <em> (N - 1) </em> (N - 2) <em> … </em> 2 *<br>1)。现在需要知道N!有多少（十进制）位。</p>
+<p>Input</p>
+<p>每行输入1个正整数N。0 &lt; N &lt; 1000000</p>
+<p>Output</p>
+<p>对于每个N，输出N!的（十进制）位数。</p>
+<p>Sample Input</p>
+<p>1<br>3<br>32000<br>1000000</p>
+<p>Sample Output</p>
+<p>1<br>1<br>130271<br>5565709</p>
+<p>思路：<br>1） 所谓N!的（十进制）位数，就是Lg(N!)+1<br>2） 根据数学公式，有 N!=1<em>2</em>……*N Lg(N!)=lg(2)+……+lg(N)，即转化成循环相加的运算。<br>3） 注意log10（x）函数返回值类型为double，sum必须定义为1.0，如果用int误差超级大。</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;math.h&gt;
+ 5 using namespace std;
+ 6 
+ 7 int main()
+ 8 {
+ 9     int n,i;//N&lt;100000用INT没问题
+10     double sum;//注意这里的sum一定要定义成double类型的
+11     while(scanf(&quot;%ld&quot;,&amp;n)!=EOF)
+12     {
+13         sum=1.0;
+14         for(i=2; i&lt;=n; i++) sum+=log10(i);
+15         printf(&quot;%ld\n&quot;,(int)sum);
+16     }
+17 }
+</code></pre><p>解法（2）记忆化搜索</p>
+<p>Hdu 1018 Big Number Pku 1423 Big Number 用1+lg(1)+lg(2)+..+lg(n)的方法，在PKU上超时了。<br><strong>原因：</strong><br>1 &lt;= m &lt;= 10^7 规模很大。这道题目给出的限时是1000ms。假如对于给出的每一个数据，我们都慢慢地将它从log10(1)<br>慢慢加到log10(N)，绝对会超时。因为里面有大量重复的运算，例如log10(1)，如果有100组数据，那么它的值就会被计算100次。<br>于是，我们想到，能否把所有计算过的log10值保存起来，然后若遇到重复的，就从这个结果数组里面提取就可以了，不用再计算。这个方法很好，但是题目给出的数据规模比较大，开一个10^7大的double数组，绝对会Memory<br>Excceed Limit。</p>
+<p><strong>思路：</strong><br>1）<br>假设问题给出的C组数据，是从小往大排列的，例如，给出三个数据，10，20，30，那么我们可以想到，计算log10(20!)的时候，我们是可以利用long10(10!)的结果。因为：<br>log10(10!) = log10(1) + log10(2) + log10(3) + … + log10(9) +log10(10)<br>log10(20!) = log10(1) + log10(2) + log10(3) + … + log10(9) +log10(10) +<br>log10(11) + log10(12) +… +log10(19) + log10(20) 容易看出： log10(20!) = log10(10!)</p>
+<ul>
+<li>log10(11) + log10(12) +… +log10(19) + log10(20) ; 同理： log10(30!) =<br>log10(10!) + log10(21) + log10(22) +… +log10(29) + log10(30) ;<br>2）<br>题目没有说给出的数据是有序的，但是我们可以通过排序使之有序。至于排序，那么当然是系统的sort()函数了。<br>3）为什么要定义一个结构体？为了保留每个输入数据的结果和排序之前的序号。</li>
+</ul>
+<pre><code>1 typedef struct 
+2 {     
+3 int num;     
+4 int id;     
+5 double result;
+6  } data; 
+</code></pre><p>我试着写了一个代码，但是怎么巨长无比？而且输入10，20出现的结果是7，18，用stirling公式算的等于7，19。<br>黑人问号脸？？？？？</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;math.h&gt;
+ 5 #include &lt;algorithm&gt;
+ 6 using namespace std;
+ 7 
+ 8 typedef struct//定义结构体，简化版名称为ata
+ 9 {
+10     int num;//数据
+11     int id;//序号
+12     double result;
+13 } data;
+14 
+15 int dig(int n)
+16 {
+17     int i;
+18     double sum=1.0;
+19         for (i=2;i&lt;=n;i++)
+20         {
+21             sum+=log10(i);
+22         }
+23         return sum;
+24 }
+25 int dig2(int m,int n)
+26 {
+27     int i;
+28     double sum=0.0;
+29         for (i=m;i&lt;=n;i++)
+30         {
+31             sum+=log10(i);
+32         }
+33         return sum;
+34 }
+35 void asort(data a[10],int n)
+36 {
+37     int i,j;
+38     data temp;
+39     for (i=0;i&lt;n-1;i++)
+40         for (j=i;j&lt;n-1-i;j++)
+41     {
+42         if (a[j].num&gt;a[j+1].num)
+43         {
+44             temp=a[j];
+45             a[j]=a[j+1];
+46             a[j+1]=temp;
+47         }
+48     }
+49 }
+50 void re(data a[],int n)
+51 {
+52     int i,j;
+53     data temp;
+54     for (i=0;i&lt;n-1;i++)
+55         for (j=i;j&lt;n-1-i;j++)
+56     {
+57         if (a[j].id&gt;a[j+1].id)
+58         {
+59             temp=a[j];
+60             a[j]=a[j+1];
+61             a[j+1]=temp;
+62         }
+63     }
+64 }
+65 int main()
+66 {
+67    int n,i;
+68    data a[10];
+69    cin&gt;&gt;n;
+70 
+71        for (i=0;i&lt;n;i++)
+72        {
+73             cin&gt;&gt;a[i].num;
+74             a[i].id=i;
+75        }
+76 
+77     asort(a,n);
+78      a[0].result=(int)dig(a[0].num);
+79      for (i=1;i&lt;n;i++)
+80      {
+81          a[i].result=(int)(a[i-1].result+dig2(a[i].num-a[i-1].num+1,a[i].num));
+82 
+83      }
+84      re(a,n);
+85      for (i=0;i&lt;n;i++)
+86         cout&lt;&lt;a[i].result&lt;&lt;endl;
+87 
+88 
+89 
+90 }
+</code></pre><p>解法（3）Stirling公式<br><img src="http://img.blog.csdn.net/20161201173852910" alt="这里写图片描述"></p>
+<p>思路：<br>1） 易知整数n的位数为[lg10(n)]+1。<br>用Stirling公式计算n!结果的位数时，可以两边取对数，得：<br>log10(n!) = log10(2<em>PI</em>n)/2+n<em>log10(n/E);<br>故n!的位数为 res=log10(2</em>PI<em>n)/2+n</em>log10(n/E)+1</p>
+<pre><code> 1 #include &lt;iostream&gt; 
+ 2 #include &lt;math.h&gt; 
+ 3 using namespace std; 
+ 4 //注意 e和pi的值要精确 
+ 5 
+ 6 const double e=2.7182818284590452354, pi = 3.141592653589793239;  
+ 7 double str_ling(int n) 
+ 8 { 
+ 9 return 0.5*log10(2*pi*n)+n*log10(n/e);     
+10 } 
+11 int main() 
+12 {  
+13 int t,m;  
+14 cin&gt;&gt;t;  
+15 while(t--)  
+16 {   
+17 cin&gt;&gt; m;   
+18 cout&lt;&lt;(int)str_ling(m)+1&lt;&lt;endl;             }       return 0;    
+19 } 
+</code></pre><p><strong>高精度计算的基本思路是：</strong><br>用 <strong>数组</strong> 存储参与运算的数的每一位，在运算时以数组元素所表示的位为单位进行运算。可以采用 <strong>字符数组</strong> ，也可以采用 <strong>整数数组</strong><br>，到底采用字符数组还是整数数组更方便，应试具体题目而定。</p>
+<p><strong>skew二进制(Skew Binary)</strong><br>题目来源：Mid-Central USA 1997<br>题号：ZOJ1712，POJ1565<br>题目描述：<br>在十进制里，第k位数字的权值是10k。(每位数字的顺序是从右到左的，最低位，也就是最右边的位，称为第0位)。例如：<br>81307(10) = 8 <em> 104 + 1 </em> 103 + 3 <em> 102 + 0 </em> 101 + 7 <em> 100<br>= 80000 + 1000 + 300 + 0 + 7 = 81307.<br>而在二进制里，第k位的权值为2k。例如：<br>10011(2) = 1 </em> 24 + 0 <em> 23 + 0 </em> 22 + 1 <em> 21 + 1 </em> 20<br>= 16 + 0 + 0 + 2 + 1 = 19.<br>在skew二进制里，第k位的权值为2(k+1) - 1，skew二进制的数码为0和1，最低的非0位可以取2。例如：<br>10120(skew2)<br>= 1 <em> (25 - 1) + 0 </em> (24 - 1) + 1 <em> (23 - 1) + 2 </em> (22 - 1) + 0 * (21 - 1)<br>= 31 + 0 + 7 + 6 + 0 = 44.<br>skew二进制的前10个数为0，1，2，10，11，12，20，100，101和102。</p>
+<p>输入描述：<br>输入文件包含若干行，每行为一个整数n。n = 0代表输入结束。除此之外，n是skew二进制下的一个非负整数。</p>
+<p>输出描述：<br>对输入文件中的每个skew二进制数，输出对应的十进制数。输入文件中n最大值对应到十进制为231 - 1 = 2147483647。</p>
+<p>样例输入：<br>10120<br>200000000000000000000000000000<br>10<br>1000000000000000000000000000000<br>0</p>
+<p>样例输出：<br>44<br>2147483646<br>3<br>2147483647</p>
+<p>思路：<br>1）对输入文件中的skew二进制数，不能采用整数形式(int)读入，必须采用字符数组。那么需要定义多长的字符数组？<br>2）正如样例输入数据所示，十进制数2147483647对应的skew二进制数为：<br>1000000000000000000000000000000。<br>因此存储输入文件中的skew二进制数可以采用长度为40的字符数组。<br>3）在把skew二进制数转换成十进制时，只需把每位按权值展开求和即可。采用字符数组存储高精度数，要求高精度数的总位数及取出每位上的数码都是很方便的。</p>
+<p>完整代码：</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;string.h&gt;
+ 3 #include &lt;math.h&gt;
+ 4 using namespace std;
+ 5 
+ 6 int main( )
+ 7 {
+ 8    char n[40];
+ 9    int k,i,j;
+10    int  sum;
+11    cin&gt;&gt;n;
+12    while ((n-&#39;0&#39;)!=0)
+13    {
+14        sum=0;
+15        k=strlen(n);
+16        for (i=k-1,j=0;i&gt;=0;i--,j++)
+17        {
+18           sum+=(pow(2,j+1)-1)*(n[i]-&#39;0&#39;);
+19        }
+20        cout&lt;&lt;sum&lt;&lt;endl;
+21          cin&gt;&gt;n;
+22    }
+23 
+24     return 0;
+25 }
+</code></pre><p><strong>高精度数的基本运算 ——加法、乘法和除法</strong></p>
+<p><strong>高精度数的加法</strong></p>
+<p>例整数探究(Integer Inquiry)<br>题目来源：Central Europe 2000<br>题号：pku1503 hdu1047</p>
+<p><strong><a href="http://acm.hdu.edu.cn/showproblem.php?pid=1047" target="_blank" rel="noopener">http://acm.hdu.edu.cn/showproblem.php?pid=1047</a></strong></p>
+<p>Integer Inquiry<br>Time Limit: 2000/1000 MS (Java/Others) Memory Limit: 65536/32768 K<br>(Java/Others)<br>Total Submission(s): 19343 Accepted Submission(s): 5063</p>
+<p>Problem Description<br>One of the first users of BIT’s new supercomputer was Chip Diller. He extended<br>his exploration of powers of 3 to go from 0 to 333 and he explored taking<br>various sums of those numbers.<br><code>This supercomputer is great,&#39;&#39; remarked Chip.</code>I only wish Timothy were here<br>to see these results.” (Chip moved to a new apartment, once one became<br>available on the third floor of the Lemon Sky apartments on Third Street.)</p>
+<p>Input<br>The input will consist of at most 100 lines of text, each of which contains a<br>single VeryLongInteger. Each VeryLongInteger will be 100 or fewer characters<br>in length, and will only contain digits (no VeryLongInteger will be negative).</p>
+<p>The final input line will contain a single zero on a line by itself.</p>
+<p>Output<br>Your program should output the sum of the VeryLongIntegers given in the input.</p>
+<p>This problem contains multiple test cases!</p>
+<p>The first line of a multiple input is an integer N, then a blank line followed<br>by N input blocks. Each input block is in the format indicated in the problem<br>description. There is a blank line between input blocks.</p>
+<p>The output format consists of N output blocks. There is a blank line between<br>output blocks.</p>
+<p>Sample Input<br>1</p>
+<p>123456789012345678901234567890<br>123456789012345678901234567890<br>123456789012345678901234567890<br>0</p>
+<p>Sample Output<br>370370367037037036703703703670</p>
+<p>中文版：<br>输入描述：<br>输入文件的第1行为一个整数N，表示输入文件中接下来有N组数据。每组数据最多包含100行。每一行由一个非常长的十进制整数组成，这个整数的长度不会超过100个字符而且只包含数字，每组数据的最后一行为0，表示这组数据结束。<br>每组数据之间有一个空行。</p>
+<p>输出描述：<br>对输入文件中的每组数据，输出它们的和。每两组数据的输出之间有一个空行。</p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/14/慕课网-安卓攻城狮视频学习及练习（一）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          慕课网-安卓攻城狮视频学习及练习（一）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/14/最大公约数和最小公倍数/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">最大公约数和最小公倍数</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

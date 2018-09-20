@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数据结构（严版）课本代码重敲——第二章 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="复习笔记 数据结构 第二章 线性表说明：数据结构高分笔记上的经典编程题   1 #include &amp;lt;iostream&amp;gt;   2 #include &amp;lt;string.h&amp;gt;   3 #include &amp;lt;stdio.h&amp;gt;   4 #include &amp;lt;stdlib.h&amp;gt;   5 #define dataSize 20   6 #define ERROR -1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构（严版）课本代码重敲——第二章">
+<meta property="og:url" content="http://yoursite.com/2018/08/21/数据结构（严版）课本代码重敲——第二章/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="复习笔记 数据结构 第二章 线性表说明：数据结构高分笔记上的经典编程题   1 #include &amp;lt;iostream&amp;gt;   2 #include &amp;lt;string.h&amp;gt;   3 #include &amp;lt;stdio.h&amp;gt;   4 #include &amp;lt;stdlib.h&amp;gt;   5 #define dataSize 20   6 #define ERROR -1">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:27.990Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构（严版）课本代码重敲——第二章">
+<meta name="twitter:description" content="复习笔记 数据结构 第二章 线性表说明：数据结构高分笔记上的经典编程题   1 #include &amp;lt;iostream&amp;gt;   2 #include &amp;lt;string.h&amp;gt;   3 #include &amp;lt;stdio.h&amp;gt;   4 #include &amp;lt;stdlib.h&amp;gt;   5 #define dataSize 20   6 #define ERROR -1">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-数据结构（严版）课本代码重敲——第二章" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据结构（严版）课本代码重敲——第二章
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/21/数据结构（严版）课本代码重敲——第二章/" class="article-date">
+  <time datetime="2018-08-20T17:37:00.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="复习笔记-数据结构-第二章-线性表"><a href="#复习笔记-数据结构-第二章-线性表" class="headerlink" title="复习笔记 数据结构 第二章 线性表"></a>复习笔记 数据结构 第二章 线性表</h4><p>说明：数据结构高分笔记上的经典编程题</p>
+<pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;string.h&gt;
+  3 #include &lt;stdio.h&gt;
+  4 #include &lt;stdlib.h&gt;
+  5 #define dataSize 20
+  6 #define ERROR -1
+  7 using namespace std;
+  8 /*
+  9     题目：数据结构 cha2 线性表
+ 10     内容：1. 顺序表的操作
+ 11     日期：2018/3/9
+ 12     时间：tomato * 2
+ 13     笔记：1. 线性表包括顺序表和链表
+ 14     2. 顺序表是逻辑和存储结构均为线性连续的数组形式，一般用数组表示
+ 15     3.链表分为单链表和双链表，包括带头结点和不带头结点两种类型，也包括循环和非循环两种类型
+ 16     还有一种特殊的&quot;静态链表&quot;
+ 17 */
+ 18 /* 顺序表的定义方式
+ 19     注意：typedef的含义是给这个结构体起的名字叫做Sqlist,是一种用户自定义的数据类型
+ 20     而平时编程中struct student {}stu[20];则是C++中的简略写法，stu[20]即为创建的
+ 21     数据类型为Student的数组变量
+ 22 */
+ 23 typedef struct
+ 24 {
+ 25     int data[dataSize];
+ 26     int length;
+ 27 }Sqlist;
+ 28 
+ 29 
+ 30 typedef int Elemtype;
+ 31 
+ 32 
+ 33 /* (1)以下为顺序表的基本操作
+ 34     1. 初始化
+ 35     2. 按元素值的查找
+ 36     3. 求指定位置元素
+ 37     4. 插入元素
+ 38     5. 删除元素
+ 39     笔记：1.是否用&amp;取决于改结构体的内容
+ 40 */
+ 41 void initSqlist(Sqlist &amp;l)
+ 42 {
+ 43     l.length = 0;
+ 44 }
+ 45 int findElem(Sqlist l,Elemtype x)
+ 46 {
+ 47     for (int i=0;i&lt;l.length;i++)
+ 48     {
+ 49         if (l.data[i] == x)
+ 50             return i;
+ 51     }
+ 52     return ERROR;
+ 53 }
+ 54 Elemtype getElem(Sqlist l, int loc)
+ 55 {
+ 56     if (loc &lt; 0 || loc &gt; l.length-1)
+ 57         return ERROR;
+ 58     return l.data[loc];
+ 59 }
+ 60 void insertSqlist(Sqlist &amp;l,Elemtype x,int loc)
+ 61 {
+ 62     if (loc &lt; 0 || loc &gt;l.length-1)
+ 63         cout&lt;&lt;&quot;error&quot;;
+ 64     for (int i=l.length-1 ; i &gt;= loc ; i--  )
+ 65     {
+ 66         l.data[i+1] = l.data[i];
+ 67     }
+ 68     l.data[loc] = x;
+ 69     l.length++; // ★★★ 勿忘！
+ 70 }
+ 71 Elemtype deleteSqlist(Sqlist &amp;l,int loc,Elemtype &amp;x)
+ 72 {
+ 73     if (loc&lt;0||loc&gt;l.length-1)
+ 74         {cout &lt;&lt; &quot;error&quot;;return 0;}
+ 75     x = l.data[loc];
+ 76     for (int i=loc;i&lt;l.length-1;i++)
+ 77     {
+ 78         l.data[i] = l.data[i+1];
+ 79     }
+ 80     l.length -- ;
+ 81     return x;
+ 82 }
+ 83 // 单链表结点定义
+ 84 typedef int Elemtype;
+ 85 typedef struct LNode
+ 86 {
+ 87     Elemtype data;
+ 88     struct LNode *next;
+ 89 }LNode;
+ 90 
+ 91 /*
+ 92     (2)单链表的操作
+ 93     1. 创建单链表 尾插法和头插法
+ 94     2. 归并单链表 递增和递减（头插法）
+ 95     3. 查找单链表
+ 96     4. 插入单链表
+ 97     5. 删除
+ 98     6. 打印链表内容
+ 99     7. 查找x并删除
+100 */
+101 // 头插法
+102 void createLNode(LNode *&amp;h,int n)
+103 {
+104     // 1. 创建头结点
+105     h = (LNode *)malloc(sizeof(LNode));
+106     h-&gt;next = NULL;
+107     Elemtype x;
+108     cout&lt;&lt;&quot;输入线性表数据&quot;&lt;&lt;endl;
+109     LNode *q;
+110     q = h;
+111     for(int i=0;i&lt;n;i++)
+112     {
+113         cin &gt;&gt; x;
+114         q = (LNode *)malloc(sizeof(LNode));
+115         q-&gt;data = x;
+116         q-&gt;next = h-&gt;next;
+117         h-&gt;next = q;
+118     }
+119 
+120 }
+121 // 尾插法
+122 void createLNodeH(LNode *&amp;h,int n)
+123 {
+124     h = (LNode *)malloc(sizeof(LNode));
+125     h-&gt;next = NULL;
+126     LNode *p,*q;
+127     q = h;
+128     int x;
+129     cout &lt;&lt;&quot;数据：&quot;&lt;&lt;endl;
+130     for (int i=0;i&lt;n;i++)
+131     {
+132         cin &gt;&gt; x;
+133         p = (LNode *) malloc(sizeof(LNode));
+134         p-&gt;data = x;
+135         q-&gt;next = p;
+136         q = p;
+137     }
+138     p-&gt;next = NULL; // 最后赋值即可
+139 
+140 }
+141 void print(LNode *h)
+142 {
+143     LNode *t = h;
+144     while (t-&gt;next!=NULL)
+145     {
+146         t = t-&gt;next;
+147         cout&lt;&lt;t-&gt;data&lt;&lt;&#39; &#39;;
+148     }
+149     cout &lt;&lt; endl;
+150 }
+151 void mergeLNode(LNode *&amp;a,LNode *&amp;b,LNode *&amp;c)
+152 {
+153     LNode *pa,*pb,*pc;
+154     pa = a-&gt;next;pb=b-&gt;next;
+155     pc = (LNode *)malloc(sizeof(LNode));
+156     c = pc ;
+157     while (pa!=NULL &amp;&amp; pb!=NULL)
+158     {
+159         cout &lt;&lt;&quot;test&quot;&lt;&lt;endl;
+160         if (pa-&gt;data &gt;= pb-&gt;data)
+161         {
+162             pc-&gt;next = pb;
+163             pb = pb-&gt;next;
+164             pc = pc-&gt;next;
+165         }
+166         else
+167         {
+168             pc-&gt;next = pa;
+169             pa = pa-&gt;next;
+170             pc = pc-&gt;next;
+171         }
+172     }
+173     pc-&gt;next = NULL;
+174     if (pa!=NULL)
+175     {
+176         pc-&gt;next = pa;
+177     }
+178     if (pb!=NULL)
+179     {
+180         pc-&gt;next = pb;
+181     }
+182 
+183 }
+184 void merge_2(LNode *&amp;a,LNode *&amp;b,LNode *&amp;c)
+185 {
+186     LNode *pa,*pb,*pc;
+187     pa = a-&gt;next; pb = b-&gt;next;
+188     c = (LNode *)malloc(sizeof(LNode));
+189     pc = c;
+190 
+191     while (pa!=NULL &amp;&amp; pb!=NULL)
+192     {
+193         if (pa-&gt;data &gt;= pb-&gt;data)
+194         {
+195             pc = pb;
+196             pb = pb-&gt;next;
+197             pc -&gt; next = c-&gt;next;
+198             c-&gt;next = pc;
+199         }
+200         else
+201         {
+202             pc = pa;
+203             pa = pa-&gt;next;
+204             pc -&gt; next = c-&gt;next;
+205             c-&gt;next = pc;
+206         }
+207     }
+208     while (pa!=NULL)
+209     {
+210         pc = pa;
+211         pa = pa-&gt;next;
+212         pc -&gt; next = c-&gt;next;
+213         c-&gt;next = pc;
+214     }
+215     while (pb!=NULL)
+216     {
+217         pc = pb;
+218         pb = pb-&gt;next;
+219         pc -&gt; next = c-&gt;next;
+220         c-&gt;next = pc;
+221     }
+222 }
+223 
+224 int findAndDelete(LNode *l,Elemtype x)
+225 {
+226     LNode *p = l,*q;
+227 
+228     while (p-&gt;next!=NULL)
+229     {
+230        if (p-&gt;next-&gt;data == x)
+231        {
+232            q = p-&gt;next ;
+233            p-&gt;next = q-&gt;next;
+234            return 1;
+235        }
+236        p = p-&gt;next;
+237     }
+238     return 0;
+239 }
+240 // 双链表结点定义
+241 typedef struct DLNode
+242 {
+243     Elemtype data;
+244     struct DLNode *prior;
+245     struct DLNode *next;
+246 }DLNode;
+247 
+248 /*
+249     1.双链表的建立
+250     2. 查找结点
+251     3. 插入结点，在p之后
+252 */
+253 void createDLNode(DLNode *&amp;dl,int n)
+254 {
+255     dl = (DLNode *)malloc(sizeof(DLNode));
+256     dl -&gt;prior = NULL;
+257     DLNode *p,*q;
+258     p = dl;
+259     cout&lt;&lt;&quot;data:&quot;&lt;&lt;endl;
+260     int x;
+261     for (int i=0;i&lt;n;i++)
+262     {
+263         q = (DLNode *)malloc(sizeof(DLNode));
+264         cin &gt;&gt; x;
+265         q-&gt;data = x;
+266         p-&gt;next = q;
+267         q-&gt;prior = p;
+268         p = q;
+269     }
+270     p-&gt;next = NULL;
+271 
+272 }
+273 
+274 int main()
+275 {
+276     DLNode *dl;
+277     int n;
+278     cout&lt;&lt;&quot;数据个数n：&quot;&lt;&lt;endl;
+279     cin&gt;&gt;n;
+280     createDLNode(dl,n);
+281     print(dl);
+282     return 0;
+283 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/21/计算机考研机试指南（六） ——栈/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          计算机考研机试指南（六） ——栈
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/21/数据结构（严版）课本代码重敲——第三章/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">数据结构（严版）课本代码重敲——第三章</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

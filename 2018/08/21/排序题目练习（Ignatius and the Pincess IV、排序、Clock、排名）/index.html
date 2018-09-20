@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>排序题目练习（Ignatius and the Pincess IV、排序、Clock、排名） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="HDJ排序题目练习 HDU Sort  HDU 1029 Ignatius and the Pincess IV HDU 1106 排序 HDU 1209 Clock HDU 1236 排名        Ignatius and the  Pincess IV Problem Description “OK, you are not too bad, em… But you can never">
+<meta property="og:type" content="article">
+<meta property="og:title" content="排序题目练习（Ignatius and the Pincess IV、排序、Clock、排名）">
+<meta property="og:url" content="http://yoursite.com/2018/08/21/排序题目练习（Ignatius and the Pincess IV、排序、Clock、排名）/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="HDJ排序题目练习 HDU Sort  HDU 1029 Ignatius and the Pincess IV HDU 1106 排序 HDU 1209 Clock HDU 1236 排名        Ignatius and the  Pincess IV Problem Description “OK, you are not too bad, em… But you can never">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:26.647Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="排序题目练习（Ignatius and the Pincess IV、排序、Clock、排名）">
+<meta name="twitter:description" content="HDJ排序题目练习 HDU Sort  HDU 1029 Ignatius and the Pincess IV HDU 1106 排序 HDU 1209 Clock HDU 1236 排名        Ignatius and the  Pincess IV Problem Description “OK, you are not too bad, em… But you can never">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-排序题目练习（Ignatius and the Pincess IV、排序、Clock、排名）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      排序题目练习（Ignatius and the Pincess IV、排序、Clock、排名）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/21/排序题目练习（Ignatius and the Pincess IV、排序、Clock、排名）/" class="article-date">
+  <time datetime="2018-08-21T04:50:00.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>HDJ排序题目练习</p>
+<p>HDU Sort</p>
+<ol>
+<li><a href="https://cn.vjudge.net/problem/HDU-1029" target="_blank" rel="noopener">HDU 1029</a> Ignatius and the Pincess IV</li>
+<li><a href="https://cn.vjudge.net/problem/HDU-1106" target="_blank" rel="noopener">HDU 1106</a> 排序</li>
+<li><a href="https://cn.vjudge.net/problem/HDU-1209" target="_blank" rel="noopener">HDU 1209</a> Clock</li>
+<li><a href="https://cn.vjudge.net/problem/HDU-1236" target="_blank" rel="noopener">HDU 1236</a> 排名      </li>
+</ol>
+<p><a href="https://cn.vjudge.net/problem/HDU-1280" target="_blank" rel="noopener"><strong>Ignatius and the  Pincess IV</strong></a></p>
+<p>Problem Description</p>
+<p>“OK, you are not too bad, em… But you can never pass the next test.”<br>feng5166 says.  </p>
+<p>“I will tell you an odd number N, and then N integers. There will be a special<br>integer among them, you have to tell me which integer is the special one after<br>I tell you all the integers.” feng5166 says.  </p>
+<p>“But what is the characteristic of the special integer?” Ignatius asks.  </p>
+<p>“The integer will appear at least (N+1)/2 times. If you can’t find the right<br>integer, I will kill the Princess, and you will be my dinner, too.<br>Hahahaha…..” feng5166 says.  </p>
+<p>Can you find the special integer for Ignatius?</p>
+<p><strong>  
+</strong></p>
+<p>Input</p>
+<p>The input contains several test cases. Each test case contains two lines. The<br>first line consists of an odd integer N(1&lt;=N&lt;=999999) which indicate the<br>number of the integers feng5166 will tell our hero. The second line contains<br>the N integers. The input is terminated by the end of file.</p>
+<p><strong>  
+</strong></p>
+<p>Output</p>
+<p>For each test case, you have to output only one line which contains the<br>special number you have found.</p>
+<p><strong>  
+</strong></p>
+<p>Sample Input</p>
+<p>5 1 3 2 3 3 11 1 1 1 1 1 5 5 5 5 5 5 7 1 1 1 1 1 1 1</p>
+<p><strong>  
+</strong></p>
+<p>Sample Output</p>
+<p>3 5 1</p>
+<p>思路：用map存储输入数据并计算每个数出现的次数后，map容器按照key自动排序，但value的排序需要通过自定义的结构体pai进行转储，然后对结构体进行排序便得到value最大的数字。</p>
+<p>注意map进行循环遍历的方法以及调用key和value的方法。</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;queue&gt;
+ 4 #include &lt;string.h&gt;
+ 5 #include &lt;algorithm&gt;
+ 6 #include &lt;map&gt;
+ 7 
+ 8 using namespace std;
+ 9 
+10 /*
+11 找到最少出现（n+1）/2次的special number
+12 */
+13 const int maxn=1000000;
+14 map&lt;int,int&gt; m;
+15 struct pai
+16 {
+17     int key,value;
+18 }p[maxn];
+19 bool cmp(const pai &amp;a,const pai &amp;b)
+20 {
+21     return a.value&lt;b.value;
+22 }
+23 int main()
+24 {
+25     int n,x,i;
+26     map&lt;int,int&gt;::iterator iter;
+27     while (cin &gt;&gt;n)
+28     {
+29         m.clear(); // map容器的清空方法？
+30        // m.erase(m.begin(),m.end());
+31         for (int i=0;i&lt;n;i++)
+32         {
+33             cin &gt;&gt;x;
+34             m[x]++;
+35         }
+36         // 把map中的键值对转储到pair中形成结构体数组
+37         int k=0;
+38         iter=m.begin();
+39         while (iter!=m.end())
+40         {
+41             p[k].key=iter-&gt;first;
+42             p[k].value=iter-&gt;second;
+43             k++;iter++;
+44         }
+45 
+46         sort(p,p+k,cmp);
+47         cout &lt;&lt;p[k-1].key&lt;&lt;endl;
+48     }
+49     return 0;
+50 }
+</code></pre><p>map的基本使用方法：<a href="https://www.cnblogs.com/empty16/p/6395813.html" target="_blank" rel="noopener">https://www.cnblogs.com/empty16/p/6395813.html</a></p>
+<p>map的迭代遍历方法：<a href="https://blog.csdn.net/u010429424/article/details/75332700" target="_blank" rel="noopener">https://blog.csdn.net/u010429424/article/details/75332700</a></p>
+<p><strong>排序</strong></p>
+<p>Problem Description</p>
+<p>输入一行数字，如果我们把这行数字中的’5’都看成空格，那么就得到一行用空格分割的若干非负整数（可能有些整数以’0’开头，这些头部的’0’应该被忽略掉，除非这个整数就是由若干个’0’组成的，这时这个整数就是0）。  </p>
+<p>你的任务是：对这些分割得到的整数，依从小到大的顺序排序输出。  </p>
+<p>Input</p>
+<p>输入包含多组测试用例，每组输入数据只有一行数字（数字之间没有空格），这行数字的长度不大于1000。  </p>
+<p>输入数据保证：分割得到的非负整数不会大于100000000；输入数据不可能全由’5’组成。</p>
+<p>Output</p>
+<p>对于每个测试用例，输出分割得到的整数排序的结果，相邻的两个整数之间用一个空格分开，每组输出占一行。</p>
+<p>Sample Input</p>
+<p>0051231232050775</p>
+<p>Sample Output</p>
+<p>0 77 12312320</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;queue&gt;
+ 4 #include &lt;string.h&gt;
+ 5 #include &lt;algorithm&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;vector&gt;
+ 8 
+ 9 using namespace std;
+10 /*
+11 可能会有连续的5出现，不应该只跳过一个五
+12 
+13 最后一个数字可能不是5，所以\0也是一个分界符
+14 */
+15 vector&lt;int&gt; a;
+16 char s[1001];
+17 void push_into_vector(int i,int j)
+18 {
+19     // s[i-j-1]进入vector中
+20     if (i==j) return ;
+21     int sum=0;
+22     int k=1;
+23     int t=j-i;
+24     while (t--)
+25     {
+26         sum+=(s[--j]-&#39;0&#39;)*k;
+27         k=k*10;
+28     }
+29     a.push_back(sum);
+30 }
+31 int main()
+32 {
+33 
+34     int i,j,k;
+35     while (cin&gt;&gt;s)
+36     {
+37         i=0;j=0;
+38         while (!a.empty()) a.pop_back();
+39         while (s[i]!=&#39;\0&#39;)
+40         {
+41             while (s[j]!=&#39;5&#39;&amp;&amp;s[j]!=&#39;\0&#39;) j++;
+42             k=j;
+43             while (s[k]==&#39;5&#39;) k++;
+44             push_into_vector(i,j);
+45             i=k;j=i;
+46         }
+47         sort(a.begin(),a.end());
+48         for (i=0;i&lt;a.size()-1;i++) cout &lt;&lt; a[i] &lt;&lt;&quot; &quot;;
+49         cout &lt;&lt; a[i]&lt;&lt;endl;
+50     }
+51     return 0;
+52 }
+</code></pre><p><strong>Clock</strong></p>
+<p>Problem Description</p>
+<p>There is an analog clock with two hands: an hour hand and a minute hand. The<br>two hands form an angle. The angle is measured as the smallest angle between<br>the two hands. The angle between the two hands has a measure that is greater<br>than or equal to 0 and less than or equal to 180 degrees.  </p>
+<p>Given a sequence of five distinct times written in the format hh : mm , where<br>hh are two digits representing full hours (00 &lt;= hh &lt;= 23) and mm are two<br>digits representing minutes (00 &lt;= mm &lt;= 59) , you are to write a program that<br>finds the median, that is, the third element of the sorted sequence of times<br>in a nondecreasing order of their associated angles. Ties are broken in such a<br>way that an earlier time precedes a later time.  </p>
+<p>For example, suppose you are given a sequence (06:05, 07:10, 03:00, 21:00,<br>12:55) of times. Because the sorted sequence is (12:55, 03:00, 21:00, 06:05,<br>07:10), you are to report 21:00.</p>
+<p><strong>  
+</strong></p>
+<p>Input</p>
+<p>The input consists of T test cases. The number of test cases (T) is given on<br>the first line of the input file. Each test case is given on a single line,<br>which contains a sequence of five distinct times, where times are given in the<br>format hh : mm and are separated by a single space.</p>
+<p><strong>  
+</strong></p>
+<p>Output</p>
+<p>Print exactly one line for each test case. The line is to contain the median<br>in the format hh : mm of the times given. The following shows sample input and<br>output for three test cases.</p>
+<p><strong>  
+</strong></p>
+<p>Sample Input</p>
+<p>3 00:00 01:00 02:00 03:00 04:00 06:05 07:10 03:00 21:00 12:55 11:05 12:05<br>13:05 14:05 15:05</p>
+<p><strong>  
+</strong></p>
+<p>Sample Output</p>
+<p>02:00 21:00 14:05</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;queue&gt;
+ 4 #include &lt;string.h&gt;
+ 5 #include &lt;algorithm&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;vector&gt;
+ 8 #include &lt;math.h&gt;
+ 9 
+10 using namespace std;
+11 /*
+12 abs:int 
+13 fabs:float 
+14 这里除以2极有可能是浮点类型的
+15 */
+16 struct node
+17 {
+18     int h,m;
+19     float angle;
+20 }a[6];
+21 int cmp(node x,node y)
+22 {
+23     if(x.angle!=y.angle)
+24     return x.angle&lt;y.angle;
+25     return x.h&lt;y.h; // 角度相同时按照小时进行排序
+26 }
+27 int main()
+28 {
+29     int t,hh;
+30     while (cin&gt;&gt;t)
+31     {
+32         while (t--)
+33         {
+34             for (int i=0;i&lt;5;i++)
+35             {
+36                 scanf(&quot;%d:%d&quot;,&amp;a[i].h,&amp;a[i].m);
+37                 // 作为整型的输入方式即可，用字符串太麻烦
+38             //    cout &lt;&lt; a[i].h&lt;&lt;&quot;:&quot;&lt;&lt;a[i].m&lt;&lt;endl;
+39 
+40                 if (a[i].h&gt;=12) hh=a[i].h-12;
+41                 else hh=a[i].h;
+42                     a[i].angle=fabs(30.0*(hh)-6.0*a[i].m+a[i].m/2.0);
+43                 if (a[i].angle&gt;180) a[i].angle=360-a[i].angle;
+44             }
+45             sort(a,a+5,cmp);
+46             printf(&quot;%02d:%02d\n&quot;,a[2].h,a[2].m);
+47 
+48         }
+49     }
+50 
+51 
+52     return 0;
+53 }
+</code></pre><p>  <strong>排名</strong></p>
+<p>今天的上机考试虽然有实时的Ranklist，但上面的排名只是根据完成的题数排序，没有考虑<br>每题的分值，所以并不是最后的排名。给定录取分数线，请你写程序找出最后通过分数线的<br>考生，并将他们的成绩按降序打印。</p>
+<p>Input</p>
+<p>测试输入包含若干场考试的信息。每场考试信息的第1行给出考生人数N ( 0 &lt; N<br>&lt; 1000 )、考题数M ( 0 &lt; M &lt; = 10 )、分数线（正整数）G；第2行排序给出第1题至第M题的正整数分值；以下N行，每行给出一<br>名考生的准考证号（长度不超过20的字符串）、该生解决的题目总数m、以及这m道题的题号<br>（题目号由1到M）。<br>当读入的考生人数为0时，输入结束，该场考试不予处理。</p>
+<p><strong>  
+</strong></p>
+<p>Output</p>
+<p>对每场考试，首先在第1行输出不低于分数线的考生人数n，随后n行按分数从高<br>到低输出上线考生的考号与分数，其间用1空格分隔。若有多名考生分数相同，则按他们考<br>号的升序输出。</p>
+<p><strong>  
+</strong></p>
+<p>Sample Input</p>
+<p>4 5 25 10 10 12 13 15 CS004 3 5 1 3 CS003 5 2 4 1 3 5 CS002 2 1 2 CS001 3 2 3<br>5 1 2 40 10 30 CS001 1 2 2 3 20 10 10 10 CS000000000000000001 0<br>CS000000000000000002 2 1 2 0</p>
+<p><strong>  
+</strong></p>
+<p>Sample Output</p>
+<p>3 CS003 60 CS001 37 CS004 37 0 1 CS000000000000000002 20</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;queue&gt;
+ 4 #include &lt;string.h&gt;
+ 5 #include &lt;algorithm&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;vector&gt;
+ 8 #include &lt;math.h&gt;
+ 9 
+10 /*
+11 成绩相同时按照考号升序进行排序；
+12 考察的主要是结构体数据的排序过程。
+13 
+14 */
+15 using namespace std;
+16 int n,m,line;
+17 int grade[11];
+18 struct stu
+19 {
+20     char sno[50];
+21     int num;
+22     int no[11];
+23 }s[1001];
+24 bool cmp(const stu &amp;a,const stu &amp;b)
+25 {
+26     if (a.num!=b.num)
+27     return a.num &gt; b.num;
+28     else
+29     {
+30         return strcmp(a.sno,b.sno)&lt;0;
+31     }
+32 
+33 }
+34 int main()
+35 {
+36     while (scanf(&quot;%d%d%d&quot;,&amp;n,&amp;m,&amp;line)!=EOF)
+37     {
+38         if (n==0) break;
+39         for (int i=0;i&lt;m;i++) scanf(&quot;%d&quot;,&amp;grade[i]);
+40 
+41         int sum;
+42         int cnt=0;
+43         for (int i=0;i&lt;n;i++)
+44         {
+45             scanf(&quot;%s %d&quot;,&amp;s[i].sno,&amp;s[i].num);
+46             sum=0;
+47             for (int j=0;j&lt;s[i].num;j++)
+48             {
+49                 scanf(&quot;%d&quot;,&amp;s[i].no[j]);
+50                 sum+=grade[s[i].no[j]-1];
+51             }
+52             s[i].num=sum;
+53             if (sum&gt;=line) cnt++;
+54         }
+55         sort(s,s+n,cmp);
+56         int i=0;
+57         printf(&quot;%d\n&quot;,cnt);
+58         while (n--&amp;&amp;s[i].num&gt;=line)
+59         {
+60             printf(&quot;%s %d\n&quot;,s[i++].sno,s[i].num);
+61         }
+62 
+63 
+64     }
+65 
+66 
+67     return 0;
+68 }
+</code></pre><p>八大排序算法复习</p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/22/立个FLAG！/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          立个FLAG！
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/21/下雨日有悟/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">下雨日有悟</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

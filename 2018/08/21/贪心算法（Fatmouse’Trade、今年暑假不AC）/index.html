@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>贪心算法（Fatmouse’Trade、今年暑假不AC） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Fatmouse’Trade 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;algorithm&amp;gt;  3 #include &amp;lt;string.h&amp;gt;  4 #include &amp;lt;string&amp;gt;  5 #include &amp;lt;stdio.h&amp;gt;  6 #include &amp;lt;iomanip&amp;gt;  7 using namesp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="贪心算法（Fatmouse’Trade、今年暑假不AC）">
+<meta property="og:url" content="http://yoursite.com/2018/08/21/贪心算法（Fatmouse’Trade、今年暑假不AC）/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Fatmouse’Trade 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;algorithm&amp;gt;  3 #include &amp;lt;string.h&amp;gt;  4 #include &amp;lt;string&amp;gt;  5 #include &amp;lt;stdio.h&amp;gt;  6 #include &amp;lt;iomanip&amp;gt;  7 using namesp">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:27.118Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="贪心算法（Fatmouse’Trade、今年暑假不AC）">
+<meta name="twitter:description" content="Fatmouse’Trade 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;algorithm&amp;gt;  3 #include &amp;lt;string.h&amp;gt;  4 #include &amp;lt;string&amp;gt;  5 #include &amp;lt;stdio.h&amp;gt;  6 #include &amp;lt;iomanip&amp;gt;  7 using namesp">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-贪心算法（Fatmouse’Trade、今年暑假不AC）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      贪心算法（Fatmouse’Trade、今年暑假不AC）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/21/贪心算法（Fatmouse’Trade、今年暑假不AC）/" class="article-date">
+  <time datetime="2018-08-20T18:06:00.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Fatmouse’Trade"><a href="#Fatmouse’Trade" class="headerlink" title="Fatmouse’Trade"></a>Fatmouse’Trade</h3><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;algorithm&gt;
+ 3 #include &lt;string.h&gt;
+ 4 #include &lt;string&gt;
+ 5 #include &lt;stdio.h&gt;
+ 6 #include &lt;iomanip&gt;
+ 7 using namespace std;
+ 8 /*
+ 9     题目：FatMouse&#39;Trade
+10     用时：tomato *
+11     思路：贪心
+12     坑：一直显示没有通过所有的测试用例
+13     1. m设置为double，所有的float都设置成double %lf 类型即可 
+14 */
+15 
+16 struct goods
+17 {
+18     double catFood;
+19     double javabean;
+20     double w ;
+21     bool operator &lt;(const goods &amp; g)const{
+22         return w-g.w &gt; 0; // 降序排列
+23     }
+24 }buf[1000];
+25 
+26 
+27 int main()
+28 {
+29     double m;
+30     int n;
+31     cin &gt;&gt; m &gt;&gt; n;
+32     double result=0;
+33     while (m!= -1 &amp;&amp; n!= -1)
+34     {
+35         for (int i=0;i&lt;n;i++)
+36         {
+37             cin&gt;&gt;buf[i].javabean &gt;&gt; buf[i].catFood;
+38             buf[i].w = (float)buf[i].javabean/buf[i].catFood;
+39         }
+40         sort(buf,buf+n);
+41         result =0;
+42         for (int i=0;i&lt;n &amp;&amp; m &gt; 0;i++)
+43         {
+44             if (buf[i].catFood &lt;= m )
+45             { // catFood足够充裕买完这个room所有的bean
+46                 m = m - buf[i].catFood ;
+47                 result += buf[i].javabean;
+48             }
+49             else{ // 猫粮不够充裕仅仅能买一部分
+50                 result += buf[i].w * m;
+51                 m = 0 ;
+52             }
+53         }
+54         printf(&quot;%.3lf\n&quot;,result);
+55         cin &gt;&gt; m &gt;&gt;n;
+56     }
+57 
+58     return 0;
+59 }
+</code></pre><h4 id="今年暑假不AC"><a href="#今年暑假不AC" class="headerlink" title="今年暑假不AC"></a>今年暑假不AC</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;algorithm&gt;
+ 4 using namespace std;
+ 5 
+ 6 const int N = 100;
+ 7 struct show
+ 8 {
+ 9     int start ;
+10     int end1;
+11     bool operator &lt; (const show &amp;a)const{
+12     return end1 &lt; a.end1 ;
+13     }
+14 };
+15 
+16 bool cmp(const show &amp;a,const show &amp;b)
+17 {
+18     return a.end1 &lt;= b.end1 ;
+19 }
+20 
+21 int main()
+22 {
+23    int n,i,j;
+24    show show[N];
+25    while (cin &gt;&gt; n &amp;&amp; n!=0)
+26    {
+27    for (i=0;i&lt;n;i++)
+28    {
+29     cin &gt;&gt; show[i].start &gt;&gt;show[i].end1 ;
+30    }
+31    sort(show,show+n,cmp);
+32    int sum = 1;
+33    for (i = 0 , j = 1;i &lt; n &amp;&amp; j &lt; n; j++)
+34    {
+35     if (show[j].start &gt;= show[i].end1)
+36     {
+37         sum ++;
+38         i=j;
+39     }
+40    }
+41    cout &lt;&lt; sum &lt;&lt; endl;
+42    }
+43     return 0;
+44 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/21/线段树、树状数组/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          线段树、树状数组
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/21/搜索+DP专题（背包问题、N个数选K个使平方和最大且和为X、divide by three, multiple by two、全排列、组合、N皇后、jugs、掉石头迷宫、斐波那契、最大连续子序列和、最长上升子序列、非常可乐、导弹拦截系统：最长不降子序列）/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">搜索+DP专题（背包问题、N个数选K个使平方和最大且和为X、divide by three, multiple by two、全排列、组合、N皇后、jugs、掉石头迷宫、斐波那契、最大连续子序列和、最长上升子序列、非常可乐、导弹拦截系统：最长不降子序列）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（三）——单链表 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="线性链表 静态链表（数组）/动态链表（malloc） 循环链表 双向链表/单链表1 线性链表的基本操作顺序存储方式的优点：1）随机存取2）不需要额外增加空间以表示结点间的逻辑关系缺点：1）插入删除效率低2）只能利用连续空间，不能利用小块空间3）静态存储分配。表长变化大时难以确定表长的规模    1 #include &amp;lt;iostream&amp;gt;   2 #include &amp;lt;stdio.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（三）——单链表">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（三）——单链表/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="线性链表 静态链表（数组）/动态链表（malloc） 循环链表 双向链表/单链表1 线性链表的基本操作顺序存储方式的优点：1）随机存取2）不需要额外增加空间以表示结点间的逻辑关系缺点：1）插入删除效率低2）只能利用连续空间，不能利用小块空间3）静态存储分配。表长变化大时难以确定表长的规模    1 #include &amp;lt;iostream&amp;gt;   2 #include &amp;lt;stdio.">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20170403142437318?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170404094548616?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170404111223869?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-09-20T01:27:29.731Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（三）——单链表">
+<meta name="twitter:description" content="线性链表 静态链表（数组）/动态链表（malloc） 循环链表 双向链表/单链表1 线性链表的基本操作顺序存储方式的优点：1）随机存取2）不需要额外增加空间以表示结点间的逻辑关系缺点：1）插入删除效率低2）只能利用连续空间，不能利用小块空间3）静态存储分配。表长变化大时难以确定表长的规模    1 #include &amp;lt;iostream&amp;gt;   2 #include &amp;lt;stdio.">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170403142437318?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（三）——单链表" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（三）——单链表
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（三）——单链表/" class="article-date">
+  <time datetime="2018-08-14T02:34:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li>线性链表</li>
+<li>静态链表（数组）/动态链表（malloc）</li>
+<li>循环链表</li>
+<li>双向链表/单链表<br><strong>1 线性链表的基本操作</strong><br>顺序存储方式的优点：<br>1）随机存取<br>2）不需要额外增加空间以表示结点间的逻辑关系<br>缺点：<br>1）插入删除效率低<br>2）只能利用连续空间，不能利用小块空间<br>3）静态存储分配。表长变化大时难以确定表长的规模</li>
+</ol>
+<pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;stdio.h&gt;
+  3 #include &lt;stdlib.h&gt;
+  4 #define OVERFLOW -2
+  5 
+  6 using namespace std;
+  7 
+  8 typedef int Elemtype;
+  9 typedef struct node{
+ 10 Elemtype data;
+ 11 struct node *next;
+ 12 }node,*linklist;
+ 13 
+ 14 //建立单链表
+ 15 //1.头插 2.尾插
+ 16 void createList_L(linklist &amp;l){
+ 17 l=(linklist )malloc(sizeof(node));
+ 18 linklist p=l,q;
+ 19 int x;
+ 20 scanf (&quot;%d&quot;,&amp;x);
+ 21 while (x!=-999){
+ 22 q=(linklist )malloc(sizeof(node));
+ 23 q-&gt;data=x;
+ 24 p-&gt;next=q;
+ 25 p=q;
+ 26 scanf (&quot;%d&quot;,&amp;x);
+ 27 }
+ 28 q-&gt;next=NULL;
+ 29 }
+ 30 //算法2.11
+ 31 void createList_Lhead(linklist &amp;l){
+ 32 l=(linklist )malloc(sizeof(node));
+ 33 linklist p;
+ 34 l-&gt;next=NULL;
+ 35 int x;
+ 36 scanf (&quot;%d&quot;,&amp;x);
+ 37 while (x!=-999){
+ 38 p=(linklist )malloc(sizeof(node));
+ 39 p-&gt;data=x;
+ 40 p-&gt;next=l-&gt;next;
+ 41 l-&gt;next=p;
+ 42 scanf (&quot;%d&quot;,&amp;x);
+ 43 }
+ 44 }
+ 45 void displayList_L(linklist &amp;l){
+ 46 linklist p=l-&gt;next;
+ 47 while (p!=NULL){
+ 48 printf (&quot;%d &quot;,p-&gt;data);
+ 49 p=p-&gt;next;
+ 50 }
+ 51 printf (&quot;\n&quot;);
+ 52 }
+ 53 //查找运算
+ 54 //1. 按照序号查找 2、按值查找
+ 55 linklist getElem(linklist &amp;l,int i){
+ 56 int j=1;
+ 57 linklist p=l-&gt;next;
+ 58 while (p!=NULL&amp;&amp;j&lt;i){
+ 59 p=p-&gt;next;
+ 60 j++;
+ 61 }
+ 62 return p;
+ 63 }
+ 64 linklist getElem_2(linklist &amp;l,Elemtype e){
+ 65 linklist p=l-&gt;next;
+ 66 while (p!=NULL&amp;&amp;p-&gt;data!=e){
+ 67 p=p-&gt;next;
+ 68 }
+ 69 if (!p){
+ 70 printf(&quot;没有该元素\n&quot;);
+ 71 return NULL;//返回值类型为指针
+ 72 }
+ 73 return p;
+ 74 }
+ 75 
+ 76 int listLength(linklist &amp;l){
+ 77 int count =0;
+ 78 linklist p=l-&gt;next;
+ 79 while (p){
+ 80 p=p-&gt;next;
+ 81 count ++;
+ 82 }
+ 83 return count;
+ 84 }
+ 85 //插入运算
+ 86 //1.指定节点前、后 2.指定位置前、后
+ 87 void listInsert_Lafter(linklist &amp;p,Elemtype e){
+ 88 linklist q;
+ 89 q=(linklist )malloc (sizeof(node));
+ 90 q-&gt;data=e;
+ 91 q-&gt;next=p-&gt;next;
+ 92 p-&gt;next=q;
+ 93 }
+ 94 void listInsert_Lbefore(linklist &amp;l,linklist p,Elemtype e){
+ 95 linklist q=l;
+ 96 while (q-&gt;next!=p) q=q-&gt;next;
+ 97 listInsert_Lafter(q,e);
+ 98 }
+ 99 void listInsert_Lbefore_2(linklist &amp;l,linklist p,Elemtype e){
+100 //仍然将Q插到P的后面，然后交换数据域！很聪明的前插方式，不用循环查找前驱了
+101 linklist q;
+102 q=(linklist )malloc (sizeof(node));
+103 q-&gt;next=p-&gt;next;
+104 p-&gt;next=q;
+105 q-&gt;data=p-&gt;data;
+106 p-&gt;data=e;
+107 }
+108 //在第i个元素之前插入e
+109 int listInsert_L_i(linklist &amp;l,int i,Elemtype e){
+110 int j=0;//必须从头结点开始
+111 linklist p=l;
+112 //if (i&lt;1||i&gt;listLength(l)){
+113 //printf(&quot;position error !\n&quot;);
+114 //return 0;
+115 //}
+116 while (p&amp;&amp;j&lt;i-1) {
+117 //为什么这里是P？因为I可以是1--length+1
+118 p=p-&gt;next;
+119 j++;
+120 }
+121 if (!p||j&gt;i-1){
+122 //p为空是i太大，j&gt;i-1是i太小
+123 printf(&quot;position error \n&quot;);
+124 return 0;
+125 }
+126 linklist q;
+127 q=(linklist )malloc (sizeof(node));
+128 q-&gt;data=e;
+129 q-&gt;next=p-&gt;next;
+130 p-&gt;next=q;
+131 return 1;
+132 }
+133 //在值为y的结点前插入e
+134 int listInsert_L_y(linklist &amp;l,Elemtype y,Elemtype e){
+135 linklist p=l;
+136 while (p-&gt;next&amp;&amp;p-&gt;next-&gt;data!=y){
+137 //如果P-&gt;next为空则Y元素必定不存在，注意这里与上一个插入的区别
+138 p=p-&gt;next;
+139 }
+140 if (!p){
+141 printf (&quot;元素不存在\n&quot;);
+142 return 0;
+143 }
+144 linklist q;
+145 q=(linklist )malloc (sizeof(node));
+146 q-&gt;data=e;
+147 q-&gt;next=p-&gt;next;
+148 p-&gt;next=q;
+149 
+150 }
+151 //删除
+152 //1、给定结点2、给定位置
+153 //注意：1、被删除结点是否存在2、释放存储空间
+154 int listDelete_L(linklist &amp;l,linklist &amp;p){
+155 linklist q=l;
+156 while (q&amp;&amp;q-&gt;next!=p) q=q-&gt;next;
+157 if (!q) {
+158 printf (&quot;结点不存在\n&quot;);
+159 return 0;
+160 }
+161 q-&gt;next=p-&gt;next;
+162 free(p);
+163 return 1;
+164 }
+165 int listDelete_L_i(linklist &amp;l,int i,Elemtype &amp;e){
+166 linklist p=l;
+167 int j=0;
+168 while (p-&gt;next&amp;&amp;j&lt;i-1){
+169     //查找第I-1个结点
+170 p=p-&gt;next;
+171 j++;
+172 }
+173 if (!p-&gt;next||j&gt;i-1){
+174 printf (&quot;position error\n&quot;);
+175 return 0;
+176 }
+177 linklist q=p-&gt;next;
+178 p-&gt;next=q-&gt;next;
+179 e=q-&gt;data;
+180 free(q);
+181 return 1;
+182 }
+183 int main()
+184 {
+185 linklist l;
+186 createList_L(l);
+187 displayList_L(l);
+188 Elemtype e;
+189 listDelete_L_i(l,3,e);
+190 displayList_L(l);
+191 
+192     return 0;
+193 }
+</code></pre><p><strong>练习题，不调用函数</strong></p>
+<pre><code>  1  //1.删除单链表l中的重复结点
+  2 int deleteDupNode(linklist &amp;l){
+  3 linklist p=l-&gt;next,q=p,k;
+  4 if (!p) 
+  5 return 0;//空链直接返回
+  6 while (p-&gt;next){
+  7 while (q-&gt;next){
+  8 if (q-&gt;next-&gt;data==p-&gt;data){
+  9 k=q-&gt;next;
+ 10 q-&gt;next=k-&gt;next;
+ 11 free(k);
+ 12 }
+ 13 else 
+ 14 q=q-&gt;next;
+ 15 }
+ 16 p=p-&gt;next;
+ 17 q=p;
+ 18 }
+ 19 
+ 20 return 1;
+ 21 }
+ 22 //2.逆置单链表l
+ 23 void flipL(linklist &amp;l){
+ 24 linklist p=l-&gt;next,q=p;
+ 25 l-&gt;next=NULL;//分离头结点
+ 26 while (p){
+ 27 p=p-&gt;next;//q指向当前断链的头结点，p指向待分离链的头结点
+ 28 q-&gt;next=l-&gt;next;
+ 29 l-&gt;next=q;
+ 30 q=p;
+ 31 }
+ 32 }
+ 33 //3.非递增单链表ab,融合成非递增有序单链表c
+ 34 linklist unionL(linklist &amp;a,linklist &amp;b){
+ 35 linklist c=a;
+ 36 linklist pa=a-&gt;next,pb=b-&gt;next,pc=c;
+ 37 while (pa&amp;&amp;pb){
+ 38 if (pa-&gt;data &gt; pb-&gt;data){
+ 39 pc-&gt;next=pb;
+ 40 pc=pc-&gt;next;//pc始终指向C链的尾
+ 41 pb=pb-&gt;next;
+ 42 }
+ 43 else {
+ 44 pc-&gt;next=pa;
+ 45 pc=pc-&gt;next;//pc始终指向C链的尾
+ 46 pa=pa-&gt;next;
+ 47 }
+ 48 }
+ 49 if(pa){
+ 50 pc-&gt;next=pa;
+ 51 }
+ 52 if(pb){
+ 53 pc-&gt;next=pb;
+ 54 }
+ 55 //pc-&gt;next=pa?pa:pb;
+ 56 free(b);
+ 57 return c;
+ 58 }
+ 59 //5.对不带头结点的L就地逆置
+ 60 void createList_Lnohead(linklist &amp;l){
+ 61 l=NULL;
+ 62 linklist p,q;
+ 63 int x;
+ 64 scanf (&quot;%d&quot;,&amp;x);
+ 65 while (x!=-999){
+ 66 q=(linklist)malloc(sizeof(node));
+ 67 q-&gt;data=x;
+ 68 if (!l){
+ 69 p=q;l=q;
+ 70 }else{
+ 71 p-&gt;next=q;
+ 72 q-&gt;next=NULL;
+ 73 p=q;
+ 74 }
+ 75 scanf (&quot;%d&quot;,&amp;x);
+ 76 }
+ 77 }
+ 78 void displayList_Lnohead(linklist &amp;l){
+ 79 linklist p=l;
+ 80 while (p!=NULL){
+ 81 printf (&quot;%d &quot;,p-&gt;data);
+ 82 p=p-&gt;next;
+ 83 }
+ 84 printf (&quot;\n&quot;);
+ 85 }
+ 86 void flip_Lnohead(linklist &amp;l){
+ 87 linklist p,q;
+ 88 q=p=l;//可以连续赋值，从左到右
+ 89 l=NULL;//分离头指针
+ 90 while (p){
+ 91 p=q-&gt;next;
+ 92 q-&gt;next=l;
+ 93 l=q;
+ 94 q=p;
+ 95 }
+ 96 }
+ 97 //6.对单链表l进行排序
+ 98 // 冒泡for 
+ 99 void sort_Lfor(linklist &amp;l){
+100     linklist p,q;
+101     p=l-&gt;next;q=p-&gt;next;
+102     int t;
+103 for (int i=0;i&lt;listLength(l)-1;i++){
+104 for (int j=0;j&lt;listLength(l)-1-i;j++){
+105 if (p-&gt;data &gt;q-&gt;data){
+106 t=p-&gt;data;
+107 p-&gt;data=q-&gt;data;
+108 q-&gt;data=t;
+109 }
+110 p=p-&gt;next;
+111 q=q-&gt;next;
+112 }
+113 p=l-&gt;next;
+114 q=p-&gt;next;
+115 }
+116 }
+117 //7.单链表la,lb存储两个字符串，找出la中第一个不在lb中出现的字符
+118 int haha(linklist &amp;la,linklist &amp;lb){
+119 linklist pa=la-&gt;next;
+120 int locate_L(linklist &amp;l,linklist p);
+121 while (pa){
+122 if (locate_L(lb,pa))
+123 pa=pa-&gt;next;
+124 else
+125 return pa-&gt;data;
+126 }
+127 }
+128 int locate_L(linklist &amp;l,linklist p){
+129 linklist q=l-&gt;next;
+130 while (q){
+131 if (q-&gt;data==p-&gt;data)
+132 return 1;
+133 q=q-&gt;next;
+134 }
+135 return 0;
+136 }
+137 //8.递增有序la,lb,求交集lc
+138 linklist jiaoji(linklist &amp;la,linklist &amp;lb){
+139 linklist pa=la-&gt;next,pb=lb-&gt;next,lc,pc;
+140 lc=(linklist )malloc(sizeof(node));lc-&gt;next=NULL;
+141 pc=lc;
+142 while (pa&amp;&amp;pb){
+143 //如果两个元素相等则连接到lc上，否则比较大小后后移较小元素
+144 if (pa-&gt;data &gt; pb-&gt;data)
+145 pb=pb-&gt;next;
+146 if (pa-&gt;data &lt; pb-&gt;data)
+147 pa=pa-&gt;next;
+148 if (pa-&gt;data==pb-&gt;data){
+149 pc=(linklist )malloc (sizeof(node));
+150 pc-&gt;data=pa-&gt;data;
+151 pc-&gt;next=lc-&gt;next;
+152 lc-&gt;next=pc;
+153 pa=pa-&gt;next;pb=pb-&gt;next;
+154 }
+155 }
+156 return lc;
+157 }
+158 //9.两个字符串la/lb,判断lb是否是la的子串（一个字符串中若干的字符称为子串）
+159 int haha(linklist &amp;la,linklist &amp;lb){
+160 linklist pa=la-&gt;next,pb=lb-&gt;next;
+161 while (pa&amp;&amp;pa-&gt;data!=pb-&gt;data) pa=pa-&gt;next;
+162 if (!pa) {
+163 printf (&quot;no\n&quot;);
+164 return 0;
+165 }
+166 while (pb&amp;&amp;pa-&gt;data==pb-&gt;data){
+167  pb=pb-&gt;next;pa=pa-&gt;next;
+168 }
+169 if (!pb)printf (&quot;yes\n&quot;);
+170 else printf (&quot;no\n&quot;);
+171 return 1;
+172 }
+</code></pre><p><img src="http://img.blog.csdn.net/20170403142437318?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<pre><code> 1 //10.
+ 2 int DeleteandInsert(linklist &amp;la,linklist &amp;lb,int i,int j,int len){
+ 3 if (i&lt;0||j&lt;0||len&lt;0) return 0;
+ 4 linklist p=la,q,s,t;
+ 5 s=lb;
+ 6 int k=0;
+ 7 while (k&lt;i&amp;&amp;p){
+ 8 p=p-&gt;next;k++;
+ 9 }//P指向第I个元素
+10 if (!p) return 0;
+11 q=p;
+12 k=0;
+13 while(k&lt;len&amp;&amp;q){
+14 q=q-&gt;next;k++;
+15 }//q指向被删除的最后一个元素
+16 if (!q) return 0;
+17 k=0;
+18 while(k&lt;j-1&amp;&amp;s){
+19 s=s-&gt;next;k++;
+20 }//s指向被插入元素的前驱
+21 if (!s) return 0;
+22 t=s-&gt;next;
+23 s-&gt;next=p-&gt;next;
+24 p-&gt;next=q-&gt;next;
+25 q-&gt;next=t;
+26 return 1;
+27 }
+28 //11.删除单调递增链表l中所有值大于min并且小于max的元素（如果存在这样的元素的话）
+29 //同时删除被删结点空间
+30 void deletel(linklist &amp;l,int min,int max){
+31 linklist p=l,q;
+32 while (p-&gt;next){
+33 if (p-&gt;next-&gt;data&gt;min&amp;&amp;p-&gt;next-&gt;data &lt; max){
+34 q=p-&gt;next;
+35 p-&gt;next=q-&gt;next;
+36 free(q);
+37 }else
+38 p=p-&gt;next;
+39 if (!p)
+40 break;
+41 }
+42 }
+</code></pre><p>方法二：</p>
+<pre><code> 1 int deletel(linklist &amp;l,int min,int max){
+ 2 linklist p=l,q;
+ 3 while (p-&gt;next-&gt;data&lt;=min&amp;&amp;p) p=p-&gt;next;
+ 4 //找到第一个被删除结点的前驱
+ 5 if (!p) return 0;
+ 6 q=p-&gt;next;
+ 7 while (q&amp;&amp;q-&gt;data&lt;max) q=q-&gt;next;
+ 8 //这里q&amp;&amp;q-&gt;data与q-&gt;Data&amp;&amp;q不同，后者会报错，因为当Q指向NULL时
+ 9 //q-&gt;Data为错误的表达式
+10 //q指向第一个不被删除的元素
+11 p-&gt;next=q;
+12 return 1;
+13 }
+14 //12.删除递增表L中所有值相同的多余元素
+15 void deletel(linklist &amp;l){
+16 linklist p=l-&gt;next,q=p-&gt;next;
+17 while (q){
+18 if (p-&gt;data==q-&gt;data){
+19 p-&gt;next=q-&gt;next;
+20 free(q);
+21 q=p-&gt;next;
+22 }else {
+23 p=p-&gt;next;
+24 q=q-&gt;next;
+25 }
+26 }
+27 }
+</code></pre><p><img src="http://img.blog.csdn.net/20170404094548616?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<pre><code> 1 void mergeAandB(linklist &amp;la,linklist &amp;lb,linklist &amp;lc){
+ 2 linklist pa=la-&gt;next,pb=lb-&gt;next;
+ 3 linklist qa=pa-&gt;next,qb=pb-&gt;next;
+ 4 lc=la;
+ 5 while (qa&amp;&amp;qb){
+ 6 pa-&gt;next=pb;
+ 7 pb-&gt;next=qa;
+ 8 pa=qa;
+ 9 pb=qb;
+10 qa=pa-&gt;next;
+11 qb=pb-&gt;next;
+12 }
+13 if (!qa){
+14 pa-&gt;next=pb;
+15 }
+16 if (!qb){
+17 pb-&gt;next=pa;
+18 }
+19 }
+</code></pre><p><img src="http://img.blog.csdn.net/20170404111223869?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<pre><code> 1 //分析:本算法的思想是,按从小到大的顺序依次把A和B的元素
+ 2 //插入新表的头部pc处,最后处理A或B的剩余元素.
+ 3 void reverse_merge(linklist &amp;la,linklist &amp;lb,linklist &amp;lc){
+ 4 linklist pa=la-&gt;next,pb=lb-&gt;next,pc,t;
+ 5 pc=NULL;
+ 6 while (pa&amp;&amp;pb){
+ 7 if (pa-&gt;data &lt; pb-&gt;data ){
+ 8 t=pa-&gt;next;
+ 9 pa-&gt;next=pc;
+10 pc=pa;
+11 pa=t;
+12 }
+13 else {
+14 t=pb-&gt;next;
+15 pb-&gt;next=pc;
+16 pc=pb;
+17 pb=t;
+18 }
+19 }
+20 while (pb){
+21 t=pb-&gt;next;
+22 pb-&gt;next=pc;
+23 pc=pb;
+24 pb=t;
+25 }
+26 while (pa){
+27 t=pa-&gt;next;
+28 pa-&gt;next=pc;
+29 pc=pa;
+30 pa=t;
+31 }
+32 lc=la;
+33 lc-&gt;next=pc;
+34 free(pb);
+35 
+36 }
+</code></pre><p>28.</p>
+<pre><code> 1 //8.递增有序la,lb,求交集lc
+ 2 linklist jiaoji(linklist &amp;la,linklist &amp;lb){
+ 3 linklist pa=la-&gt;next,pb=lb-&gt;next,lc,pc;
+ 4 lc=(linklist )malloc(sizeof(node));lc-&gt;next=NULL;
+ 5 pc=lc;
+ 6 while (pa&amp;&amp;pb){
+ 7 //如果两个元素相等则连接到lc上，否则比较大小后后移较小元素
+ 8 if (pa-&gt;data &gt; pb-&gt;data)
+ 9 pb=pb-&gt;next;
+10 else
+11 if (pa-&gt;data &lt; pb-&gt;data)
+12 pa=pa-&gt;next;
+13 else{
+14 if (pc-&gt;data!=pa-&gt;data){
+15 pc=(linklist )malloc (sizeof(node));
+16 pc-&gt;data=pa-&gt;data;
+17 pc-&gt;next=lc-&gt;next;
+18 lc-&gt;next=pc;
+19 }
+20 pa=pa-&gt;next;pb=pb-&gt;next;
+21 }
+22 
+23 }
+24 return lc;
+25 }
+26 //2.30 对于A，删去即在b又在c中出现的元素
+27 void lalblc(linklist &amp;la,linklist &amp;lb,linklist &amp;lc){
+28 linklist pa=la,pb=lb-&gt;next,pc=lc-&gt;next,t;
+29 while (pa-&gt;next&amp;&amp;pb&amp;&amp;pc){
+30 if (pb-&gt;data &gt; pc-&gt;data)
+31 pb=pb-&gt;next;
+32 else
+33 if (pb-&gt;data &lt; pc-&gt;data)
+34 pc=pc-&gt;next;
+35 else
+36 {
+37     if (pa-&gt;next-&gt;data &lt; pb-&gt;data)
+38     pa=pa-&gt;next;
+39     else{
+40     while (pa-&gt;next-&gt;data == pb-&gt;data)
+41     {
+42     t=pa-&gt;next;
+43     pa-&gt;next=t-&gt;next;
+44     free(t);
+45     }
+46     pb=pb-&gt;next;pc=pc-&gt;next;
+47 }
+48 }
+49 }
+50 }
+</code></pre><p>//思路：<br>1.对b和c进行比较：不等时较小数后移；相等时再对a进行比较：a小时移动a，a大时bc移动，相等时对a进行删除。注意这里用while判断pa-&gt;next-&gt;data<br>== pb-&gt;data，因为a中可能有重复的被删除元素。</p>
+<p>2）</p>
+<pre><code> 1 void LinkList_Intersect_Delete(LinkList &amp;A,LinkList B,LinkList C)//在链表结构上重做上题
+ 2 {
+ 3   p=B-&gt;next;q=C-&gt;next;r=A-next;
+ 4   while(p&amp;&amp;q&amp;&amp;r)
+ 5   {
+ 6     if(p-&gt;data&lt;q-&gt;data) p=p-&gt;next;
+ 7     else if(p-&gt;data&gt;q-&gt;data) q=q-&gt;next;
+ 8     else
+ 9     {
+10       u=p-&gt;data; //确定待删除元素u
+11       while(r-&gt;next-&gt;data&lt;u) r=r-&gt;next; //确定最后一个小于u的元素指针r
+12       if(r-&gt;next-&gt;data==u)
+13       {
+14         s=r-&gt;next;
+15         while(s-&gt;data==u)
+16         {
+17           t=s;s=s-&gt;next;free(t); //确定第一个大于u的元素指针s
+18         }//while
+19         r-&gt;next=s; //删除r和s之间的元素
+20       }//if
+21       while(p-&gt;data=u) p=p-&gt;next;
+22       while(q-&gt;data=u) q=q-&gt;next;
+23     }//else
+24   }//while
+25 }//LinkList_Intersect_Delete 
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/14/严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（四）——循环链表、双向链表、一元多项式/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（四）——循环链表、双向链表、一元多项式
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/14/严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（二）——顺序表/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（二）——顺序表</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

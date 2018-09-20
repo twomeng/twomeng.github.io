@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>MATLAB在数学建模中的应用（三） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="optimset函数 功能：创建或编辑优化选项参数结构。语法： 1 options = optimset(&amp;#39;param1&amp;#39;,value1,&amp;#39;param2&amp;#39;,value2,…)  2 options = optimset  3 options = optimset(oldopts,&amp;#39;param1&amp;#39;,value1,…)  描述：options = opt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MATLAB在数学建模中的应用（三）">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/MATLAB在数学建模中的应用（三）/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="optimset函数 功能：创建或编辑优化选项参数结构。语法： 1 options = optimset(&amp;#39;param1&amp;#39;,value1,&amp;#39;param2&amp;#39;,value2,…)  2 options = optimset  3 options = optimset(oldopts,&amp;#39;param1&amp;#39;,value1,…)  描述：options = opt">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:29.974Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MATLAB在数学建模中的应用（三）">
+<meta name="twitter:description" content="optimset函数 功能：创建或编辑优化选项参数结构。语法： 1 options = optimset(&amp;#39;param1&amp;#39;,value1,&amp;#39;param2&amp;#39;,value2,…)  2 options = optimset  3 options = optimset(oldopts,&amp;#39;param1&amp;#39;,value1,…)  描述：options = opt">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-MATLAB在数学建模中的应用（三）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      MATLAB在数学建模中的应用（三）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/MATLAB在数学建模中的应用（三）/" class="article-date">
+  <time datetime="2018-08-14T02:10:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>optimset函数</strong></p>
+<p>功能：创建或编辑优化选项参数结构。<br>语法：</p>
+<pre><code>1 options = optimset(&#39;param1&#39;,value1,&#39;param2&#39;,value2,…) 
+2 options = optimset 
+3 options = optimset(oldopts,&#39;param1&#39;,value1,…) 
+</code></pre><p>描述：<br>options = optimset(‘param1’,value1,’param2’,value2,…)<br>创建一个称为options的优化选项参数，其中指定的参数具有指定值。所有未指定的参数都设置为空矩阵[]（将参数设置为[]表示当options传递给优化函数时给参数赋缺省值）。赋值时只要输入参数前面的字母就行了。</p>
+<p>optimset函数没有输入输出变量时，将显示一张完整的带有有效值的参数列表。</p>
+<p>options = optimset (with no input arguments) 创建一个选项结构options，其中所有的元素被设置为[]。</p>
+<p>eg 2.7</p>
+<pre><code> 1 function f= fun1(x)
+ 2 f=x(1)^2+x(2)^2+8;
+ 3 end
+ 4 function [g,h]=fun2(x)
+ 5 g=-x(1)^2-x(2)^2;
+ 6 h=-x(1)-x(2)^2+2;
+ 7 end
+ 8 
+ 9 %命令以及函数调用
+10 options=optimset;
+11 [x,y]=fmincon(&#39;fun1&#39;,rand(2,1),[],[],[],[],zeros(2,1),[],...
+12     &#39;fun2&#39;,options)
+13 x =
+14 
+15     0.5000
+16     1.2247
+17 
+18 
+19 y =
+20 
+21     9.7500
+</code></pre><p>eg 2.8</p>
+<pre><code> 1 function f= fun1(x)
+ 2 f=-(sqrt(x(1))+sqrt(x(2))+sqrt(x(3))+sqrt(x(4)));
+ 3 end
+ 4 function [g,h]=fun2(x)
+ 5 g(1)=x(1)-400;
+ 6 g(2)=1.1*x(1)+x(2)-440;
+ 7 g(3)=1.21*x(1)+1.1*x(2)+x(3)-484;
+ 8 g(4)=1.331*x(1)+1.21*x(2)+1.1*x(3)+x(4)-532.4;
+ 9 h=0;
+10 end
+11 
+12 x0=[1;1;1;1];
+13 %options=optimset;
+14 [x,y]=fmincon(&#39;fun1&#39;,x0,[],[],[],[],zeros(4,1),[],...
+15     &#39;fun2&#39;)
+16 x =
+17 
+18    1.0e+02 *
+19 
+20    0.861883268508773
+21    1.042878554277346
+22    1.261883183737369
+23    1.526878812873891
+24 
+25 
+26 y =
+27 
+28  -43.085960574428569
+</code></pre><p>罚函数法：<br>eg 2.10<br>1)普通方法</p>
+<pre><code> 1 function f= fun1(x)
+ 2 f=x(1)^2+x(2)^2+8;
+ 3 end
+ 4 function [g,h]=fun2(x)
+ 5 g=-x(1)^2+x(2);
+ 6 h=-x(1)-x(2)^2+2;
+ 7 end
+ 8 
+ 9 [x,y]=fmincon(&#39;fun1&#39;,rand(2,1),[],[],[],[],zeros(2,1),[],...
+10     &#39;fun2
+11 x =
+12 
+13    1.000001999995532
+14    0.999999000001734
+15 
+16 
+17 y =
+18 
+19   10.000001999999531
+</code></pre><p>2）罚函数</p>
+<pre><code> 1 function g= fun1(x)
+ 2 M=50000;
+ 3 f=x(1)^2+x(2)^2+8;%产生的中间函数
+ 4 g=f-M*min(x(1),0)-M*min(x(2),0)-M*min(x(1)^2-x(2),0)+...
+ 5     M*abs(-x(1)-x(2)^2+2);
+ 6 end
+ 7 [x,y]=fminunc(&#39;fun1&#39;,rand(2,1))
+ 8 x =
+ 9 
+10    0.508134596752331
+11    1.221419421512379
+12 
+13 
+14 y =
+15 
+16      4.817068272095967e+04
+</code></pre><p><strong>rand( ‘state’,sum(clock))</strong><br>作用是定义一个随时间变化的初值x_0。</p>
+<p><strong>tic和toc</strong><br>用来记录matlab命令执行的时间。<br>tic用来保存当前时间，而后使用toc来记录程序完成时间。<br>两者往往结合使用，用法如下：<br>tic<br>operations<br>toc<br>显示时间单位：秒。</p>
+<p><strong>y = floor(x)</strong><br>函数将x中元素取整，值y为不大于本身的最小整数。</p>
+<p><strong>ceil</strong><br>是向离它最近的大整数取整</p>
+<p><strong>云模型</strong></p>
+<pre><code> 1 N= 1500;
+ 2 Y=[9.5 10.3 10.1 8.1
+ 3     10.3 9.7 10.4 10.1
+ 4     10.6 8.6 9.2 10
+ 5     10.5 10.4 10.1 10.1 
+ 6     10.9 9.8 10 10.1
+ 7     10.6 9.8 9.7 10
+ 8     10.4 10.5 10.6 10.3
+ 9     10.1 10.2 10.8 8.4
+10     9.3 10.2 9.6 10
+11     10.5 10 10.7 9.9]&#39;;
+12 
+13 for i=1:size(Y,1)
+14     subplot(size(Y,1)/2,2,i);
+15     [x,y,Ex,En,He]=cloud_transform(Y(i,:),N);
+16     plot(x,y,&#39;r.&#39;);
+17     xlabel(&#39;射击成绩分布/环&#39;);
+18     ylabel(&#39;确定度&#39;);
+19     title(strcat(&#39;第&#39;,num2str(i),&#39;人射击云模型还原图&#39;));
+20     axis([8,12,0,1]);
+21 end
+22 function [x,y,Ex,En,He]= cloud_transform(y,n)
+23 Ex=mean(y);%y是一个向量，代表每一个人的射击数据
+24 En=mean(abs(y-Ex)).*sqrt(pi/2);%向量
+25 He=sqrt(var(y)-En.^2);%向量
+26 for q=1:n
+27     Enn=randn(1).*He+En;
+28     %randn(1)产生一个随数，但He为向量
+29     x(q)=randn(1).*Enn+Ex;
+30     y(q)=exp(-(x(q)-Ex).^2./(2.*Enn.^2));
+31 end
+32 x;
+33 y;
+
+
+
+
+
+![这里写图片描述](http://img.blog.csdn.net/20170112111316631?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+</code></pre><p><strong>logistic模型</strong></p>
+<pre><code> 1  syms a b;
+ 2 c=[a b]&#39;;
+ 3 A=[174 179 183 189 207 234 220.5 256 270 285];
+ 4 B=cumsum(A);
+ 5 n=length(A);
+ 6 for i=1:(n-1)
+ 7     C(i)=(B(i)+B(i+1))/2;
+ 8 end
+ 9 D=A;
+10 D(1)=[];
+11 D=D&#39;;
+12 E=[-C;ones(1,n-1)];
+13 c=inv(E*E&#39;)*E*D;
+14 c=c&#39;;
+15 a=c(1);b=c(2);
+16 %计算待定参数a,b的值
+17 F=[];F(1)=A(1);
+18 for i=2:(n+10)
+19     F(i)=(A(1)-b/a)/exp(a*(i-1))+b/a;
+20 end
+21 G=[];G(1)=A(1);
+22 for i=2:(n+10)
+23     G(i)=F(i)-F(i-1);%为预测出来的20组数据
+24 end
+25 t1=1995:2004;
+26 t2=1995:2014;
+27 G;a,b
+28 plot(t1,A,&#39;o&#39;,t2,G)
+
+
+
+
+
+![这里写图片描述](http://img.blog.csdn.net/20170112114149481?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+</code></pre><p><strong>归一化函数mapminmax</strong><br>[pn,ps]=mapminmax(P)或=mapstd(P) %P是输入向量，pn,ps是什么？<br>pn表示你归一化后的返回数据<br>ps是进行归一化时所用的参数。<br>下面的实例更能帮助理解：</p>
+<pre><code> 1 x=[100,200,300,400]; 
+ 2 [pn,px]=mapminmax(x)； 
+ 3 pn = 
+ 4 -1.0000 -0.3333 0.3333 1.0000 
+ 5 px = 
+ 6 name: &#39;mapminmax&#39; 
+ 7 xrows: 1 
+ 8 xmax: 400 
+ 9 xmin: 100 
+10 xrange: 300 
+11 yrows: 1 
+12 ymax: 1 
+13 ymin: -1 
+14 yrange: 2 
+15 no_change: 0 
+16 gain: 0.0067 
+17 xoffset: 100
+</code></pre><p><strong>figure</strong><br>是建立图形的意思，系统自动从1，2，3，4…来建立图形，数字代表第几幅图形，figure(1)，figure(2)就是第一第二副图的意思，在建立图形的时候，您注意一下它的标题就是figure1或figure2等等，对应到程序中就是您的例子语句<br>一般建立新图只需要一个figure就行，系统自动建立新图，可以简单一点，当然要加上也可以。</p>
+<p><strong>subplot(m,n,k)</strong><br>多子图，就是一张图中有好多小图，也是有标号的<br>subplot(‘Position’,[left bottom width height])<br>m表示画几行<br>n表示画几列<br>k表示现在画的是第几幅图</p>
+<p><strong>基于MATLAB工具箱公路运量预测 P137 源代码</strong></p>
+<pre><code> 1  clc;
+ 2 p=[sqrs;sqjdcs;sqglmj];
+ 3 t=[glkyl;glhyl];
+ 4 [pn,input_str]=mapminmax(p);
+ 5 [tn,output_str]=mapminmax(t);
+ 6 net=newff(pn,tn,[3,7,2],{&#39;purelin&#39;,&#39;logsig&#39;,&#39;purelin&#39;}); %建立模型，并用梯度下降法训练．
+ 7 net.trainParam.show=10;             
+ 8 net.trainParam.Lr=0.05;                 %学习速度为0.05
+ 9 net.trainParam.epochs=5000;           %最大训练轮回为50000次
+10 net.trainParam.goal=0.65*10^(-3);   
+11 net.divideFcn=&#39;&#39;;   
+12 net=train(net,pn,tn);                   %开始训练，其中pn,tn分别为输入输出样本
+13 %利用原始数据对BP网络仿真
+14 an=sim(net,pn);           %用训练好的模型进行仿真
+15 a=mapminmax(&#39;reverse&#39;,an,output_str); % 把仿真得到的数据还原为原始的数量级
+16 x=1990:2009;
+17 newk=a(1,:);
+18 newh=a(2,:);
+19 figure(2);
+20 subplot(2,1,1);
+21 plot(x,newk,&#39;r-o&#39;,x,glkyl,&#39;b--+&#39;);
+22 legend(&#39;网络输出客运量&#39;,&#39;实际客运量&#39;);
+23 xlabel(&#39;年份&#39;);
+24 ylabel(&#39;客运量/万人&#39;);
+25 title(&#39;运用工具箱客运量学习和测试对比图&#39;);
+26 subplot(2,1,2);
+27 plot(x,newh,&#39;r-o&#39;,x,glhyl,&#39;b--+&#39;);
+28 legend(&#39;网络输出货运量&#39;,&#39;实际货运量&#39;);
+29 xlabel(&#39;年份&#39;);
+30 ylabel(&#39;货运量/万人&#39;);
+31 title(&#39;运用工具箱货运量学习和测试对比图&#39;);
+32 
+33 pnew=[73.39 75.55
+34     3.9635 4.0975
+35     0.9880 1.0268];
+36 pnewn=mapminmax(&#39;apply&#39;,pnew,input_str);
+37 anewn=sim(set,pnewn);
+38 anew=mapminmax(&#39;reverse&#39;,anewn,output_str);
+</code></pre><p>但是不造为毛，出错 haha (line 21)</p>
+<pre><code>1 plot(x,newk,&#39;r-o&#39;,x,glkyl,&#39;b-+&#39;);
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/14/JavaWeb 小试牛刀（一）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          JavaWeb 小试牛刀（一）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/14/MATLAB在数学建模中的应用（二）/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">MATLAB在数学建模中的应用（二）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

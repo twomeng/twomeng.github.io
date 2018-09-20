@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>计算机考研机试指南（一）——排序 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="编程笔记 cha 2-1 排序排序算法1. 排序（牛客网） 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;algorithm&amp;gt;  3 using namespace std;  4 /*  5     题目：排序  6     思路：1--n冒泡排序、选择排序、快排  7 */  8 void bubbleSort(int a[],int n){">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机考研机试指南（一）——排序">
+<meta property="og:url" content="http://yoursite.com/2018/08/21/计算机考研机试指南（一）——排序/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="编程笔记 cha 2-1 排序排序算法1. 排序（牛客网） 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;algorithm&amp;gt;  3 using namespace std;  4 /*  5     题目：排序  6     思路：1--n冒泡排序、选择排序、快排  7 */  8 void bubbleSort(int a[],int n){">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:28.731Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算机考研机试指南（一）——排序">
+<meta name="twitter:description" content="编程笔记 cha 2-1 排序排序算法1. 排序（牛客网） 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;algorithm&amp;gt;  3 using namespace std;  4 /*  5     题目：排序  6     思路：1--n冒泡排序、选择排序、快排  7 */  8 void bubbleSort(int a[],int n){">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-计算机考研机试指南（一）——排序" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      计算机考研机试指南（一）——排序
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/21/计算机考研机试指南（一）——排序/" class="article-date">
+  <time datetime="2018-08-20T17:15:00.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="编程笔记-cha-2-1-排序"><a href="#编程笔记-cha-2-1-排序" class="headerlink" title="编程笔记 cha 2-1 排序"></a>编程笔记 cha 2-1 排序</h3><h3 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h3><h4 id="1-排序（牛客网）"><a href="#1-排序（牛客网）" class="headerlink" title="1. 排序（牛客网）"></a>1. 排序（牛客网）</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;algorithm&gt;
+ 3 using namespace std;
+ 4 /*
+ 5     题目：排序
+ 6     思路：1--n冒泡排序、选择排序、快排
+ 7 */
+ 8 void bubbleSort(int a[],int n){
+ 9     int t;
+10     for (int i=0;i&lt;n-1;i++){
+11         for (int j=0;j&lt;n-i-1;j++){
+12             if (a[j]&gt;a[j+1]){
+13                 t = a[j];
+14                 a[j] = a[j+1];
+15                 a[j+1] = t;
+16             }
+17         }
+18     }
+19 }
+20 void selectSort(int a[],int n){
+21     int k,t;
+22     for (int i=0;i&lt;n-1;i++){
+23         k = i;
+24         for (int j=i+1;j&lt;n;j++){
+25             if (a[j]&lt;a[k]){
+26                 k = j;
+27             }
+28         }
+29         if (k!=i){
+30             t = a[k];
+31             a[k] = a[i];
+32             a[i] = t;
+33         }
+34     }
+35 }
+36 void Qsort(int a[],int low,int high){
+37     if (low &gt;= high)
+38         return;
+39 
+40     int first = low ;
+41     int last = high ;
+42     int key = a[first];
+43     while (first &lt; last){
+44         while (first &lt; last &amp;&amp; a[last] &gt;= key){
+45             --last; // last先减一，再与first比较
+46         }
+47         a[first] = a[last];
+48         while (first &lt; last &amp;&amp; a[first] &lt;= key){
+49             ++first;
+50         }
+51         a[last] = a[first];
+52     }
+53     a[first]=key; // 交换过程中key并没有交换，此时first/last之前的比key小，之后的比key大，递归调用
+54     Qsort(a,low,first-1);
+55     Qsort(a,first+1,high);
+56 
+57 }
+58 bool cmp(int x,int y){
+59     return x&gt;y;
+60 }
+61 void print(int a[],int n){
+62     for (int i=0;i&lt;n;i++)
+63         cout &lt;&lt; a[i] &lt;&lt; &#39; &#39;;
+64     cout&lt;&lt;endl;
+65 }
+66 int main()
+67 {
+68     int n,a[101];
+69     while (cin &gt;&gt; n){
+70         for (int i=0;i&lt;n;i++)
+71             cin &gt;&gt; a[i];
+72         //bubbleSort(a,n);
+73         //selectSort(a,n);
+74         //sort(a,a+n);//内置快排升序算法，推荐使用
+75         //sort(a,a+n,cmp);重载降序
+76         Qsort(a,0,n-1);
+77         print(a,n);
+78 
+79     }
+80     return 0;
+81 }
+</code></pre><h4 id="2-成绩排序"><a href="#2-成绩排序" class="headerlink" title="2.成绩排序"></a>2.成绩排序</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;algorithm&gt;
+ 3 #include &lt;string.h&gt;
+ 4 using namespace std;
+ 5 /*
+ 6     题目：成绩排序
+ 7     思路：内置排序函数+重构cmp
+ 8 */
+ 9 struct Stu{
+10     char name[100];
+11     // string name;
+12     int age;
+13     int grade;
+14 };
+15 bool cmp(Stu s1,Stu s2){
+16     if (s1.grade != s2.grade)
+17         return s1.grade &lt; s2.grade;//成绩低的在前面
+18     int tmp = strcmp(s1.name,s2.name);
+19     // int tmp = s1.name - s2.name;
+20     if (tmp != 0)
+21         return tmp &lt; 0; // 字典序小的在前面
+22     return s1.age &lt; s2.age;
+23 }
+24 void print(Stu s[],int n){
+25     for (int i=0;i&lt;n;i++)
+26         cout &lt;&lt; s[i].name &lt;&lt; &#39; &#39;&lt;&lt;s[i].age&lt;&lt;&#39; &#39;&lt;&lt;s[i].grade&lt;&lt;endl;
+27 
+28 }
+29 int main()
+30 {
+31     int n;
+32     Stu s[1001];
+33     while (cin &gt;&gt; n){
+34         for (int i=0;i&lt;n;i++)
+35             cin &gt;&gt; s[i].name&gt;&gt;s[i].age&gt;&gt;s[i].grade;
+36         sort(s,s+n,cmp);
+37         print(s,n);
+38     }
+39 
+40 
+41     return 0;
+42 }
+</code></pre><h4 id="特殊排序"><a href="#特殊排序" class="headerlink" title="特殊排序"></a>特殊排序</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;algorithm&gt;
+ 3 #include &lt;string.h&gt;
+ 4 using namespace std;
+ 5 /*
+ 6     题目：特殊排序
+ 7     思路：内置排序函数+重构cmp
+ 8 */
+ 9 
+10 void print(int a[],int n){
+11     cout&lt;&lt;a[n-1]&lt;&lt;endl;
+12     if (n!=1){
+13         for (int i=0;i&lt;n-2;i++)
+14             cout &lt;&lt; a[i] &lt;&lt; &#39; &#39;;
+15         cout &lt;&lt;a[n-2]&lt;&lt;endl;
+16         // 提示格式错误：最后一个数后面没有空格
+17     }
+18     else{
+19         cout&lt;&lt;-1&lt;&lt;endl;
+20     }
+21 }
+22 int main()
+23 {
+24     int n,a[1001];
+25     while (cin &gt;&gt; n){
+26         for (int i=0;i&lt;n;i++)
+27             cin &gt;&gt; a[i];
+28         sort(a,a+n);
+29         print(a,n);
+30     }
+31 
+32 
+33     return 0;
+34 }
+</code></pre><h4 id="EXCEL排序"><a href="#EXCEL排序" class="headerlink" title="EXCEL排序"></a>EXCEL排序</h4><pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;algorithm&gt;
+  3 #include &lt;string.h&gt;
+  4 using namespace std;
+  5 /*
+  6     题目：EXCEL排序
+  7     遇到的问题：定义number和name同时为char类型时，在一行内输入&quot;010000 ack 30 &quot;时空格
+  8     会被视为字符串内的一个字符，因此连续cin多个字符串时应当用回车来分离字符串。
+  9     这里审题不清：将number定义为整数够用。
+ 10 
+ 11     报错：编译错误：
+ 12     error: control may reach end of non-void function [-Werror,-Wreturn-type]
+ 13     原因：某些测试条件下函数没有响应的返回
+ 14 
+ 15     输出int number时为了变成&#39;000001&#39;的6位形式需加上my_itoa()函数
+ 16 
+ 17     当number和name都是char[]类型时的另一种输入方法：
+ 18     scanf(&quot;%s %s %d&quot;,buf[i].num,buf[i].name,&amp;buf[i].score);
+ 19 */
+ 20 struct Stu{
+ 21     int number;
+ 22     char name[8];
+ 23     int grade;
+ 24 }student[100000];
+ 25 int c;
+ 26 /*
+ 27 替代写法：
+ 28  cout &lt;&lt; setw(6) &lt;&lt; setfill(&#39;0&#39;) &lt;&lt; list[i].num &lt;&lt; &quot; &quot;;
+ 29  setw设置输出宽度为6位
+ 30  除去输出数据num所占位数外其余填充fill0 
+ 31 */
+ 32 char *my_itoa(int n)
+ 33 {
+ 34     static char str[7];
+ 35     int i;
+ 36     for(i=0;i&lt;6;i++)
+ 37         str[i]=&#39;0&#39;;
+ 38     str[7]=&#39;\0&#39;;
+ 39     i=5;
+ 40     while(n)
+ 41     {
+ 42         str[i--]=n%10 + &#39;0&#39;;
+ 43         n/=10;
+ 44     }
+ 45     return str;
+ 46 }
+ 47 bool cmp(Stu a,Stu b)
+ 48 {
+ 49     switch(c)
+ 50     {
+ 51     case 1:return a.number&lt;b.number;
+ 52     case 2:
+ 53         if (strcmp(a.name,b.name)==0)
+ 54             return a.number-b.number&lt;0;
+ 55         else
+ 56             return strcmp(a.name,b.name)&lt;=0;
+ 57     case 3:
+ 58         if (a.grade==b.grade)
+ 59             return a.number&lt;b.number;
+ 60         else
+ 61             return a.grade&lt;=b.grade;
+ 62     default:return 0;
+ 63     }
+ 64 }
+ 65 
+ 66 /*
+ 67 cmp函数的另一种写法：
+ 68 
+ 69 
+ 70 bool cmp1(stu a, stu b) {
+ 71 
+ 72     return a.num &lt; b.num; // 递增，当a&lt;b时返回真
+ 73 
+ 74 }
+ 75 
+ 76 bool cmp2(stu a, stu b) {
+ 77 
+ 78     return a.name &lt;= b.name;// 非递减 
+ 79 
+ 80 }
+ 81 
+ 82 bool cmp3(stu a, stu b) {
+ 83 
+ 84     if (a.grade != b.grade) {
+ 85 
+ 86         return a.grade &lt;= b.grade; // 非递减 
+ 87 
+ 88     }
+ 89 
+ 90     else {
+ 91 
+ 92         return a.num &lt; b.num;
+ 93 
+ 94     }
+ 95 
+ 96 }
+ 97 */
+ 98 void print(int n)
+ 99 {
+100     cout&lt;&lt;&quot;Case:&quot;&lt;&lt;endl;
+101     for (int i=0;i&lt;n;i++)
+102     {
+103         cout&lt;&lt;my_itoa(student[i].number)&lt;&lt;&quot; &quot;&lt;&lt;student[i].name&lt;&lt;&quot; &quot;&lt;&lt;student[i].grade&lt;&lt;endl;
+104     }
+105 }
+106 int main()
+107 {
+108 
+109     int n;
+110     while (cin&gt;&gt;n)
+111     {
+112         cin&gt;&gt;c;
+113         for (int i=0;i&lt;n;i++)
+114         {
+115             cin&gt;&gt;student[i].number;
+116             cin&gt;&gt;student[i].name;
+117             cin&gt;&gt;student[i].grade;
+118         }
+119         sort(student,student+n,cmp);
+120         print(n);
+121 
+122     }
+123 
+124 
+125 
+126 
+127     return 0;
+128 }
+</code></pre><h4 id="字符串排序"><a href="#字符串排序" class="headerlink" title="字符串排序"></a>字符串排序</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;algorithm&gt;
+ 3 #include &lt;string.h&gt;
+ 4 #include &lt;stdio.h&gt;
+ 5 using namespace std;
+ 6 /*
+ 7     题目：字符串内排序
+ 8     思路：字符串相当于一个数组，字母本质是个整数，所以用sort()配合strlen()求出字符串长度绰绰有余啦。
+ 9 */
+10 int main()
+11 {
+12     char str[200];
+13     while (scanf(&quot;%s&quot;,str)!=EOF)
+14     {
+15         sort(str,str+strlen(str));
+16         cout&lt;&lt;str&lt;&lt;endl;
+17     }
+18     return 0;
+19 }
+</code></pre><p> 排序总结：</p>
+<p>头文件：algorithm.h</p>
+<p>快排函数：sort（数组名，数组名+数组长度，比较函数（默认为从小到大排序））</p>
+<p>比较函数的定义：</p>
+<p>（1）非结构体的基本数据类型作为参数的比较函数定义</p>
+<pre><code>bool cmp(int x,int y)
+{
+    return x&lt;y; // 递增
+}
+bool cmp(int x,int y)
+{
+    return x&lt;=y; // 非递减
+}
+bool cmp(int x,int y)
+{
+    return x&gt;y; // 递减
+}
+bool cmp(int x,int y)
+{
+    return x&gt;=y; // 非递增
+}
+</code></pre><p>（2）结构体的比较函数定义</p>
+<pre><code> 1 struct stu
+ 2 {
+ 3     char name[101];
+ 4     int age;
+ 5     int score;
+ 6     bool operator&lt;(const stu &amp;b)const 
+ 7 {
+ 8     // 分数不相同时分数低者在前
+ 9     if (score!=b.score) return score&lt;b.score;
+10     int tmp=strcmp(name,b.name);
+11     if (tmp!=0) return tmp&lt;0;
+12     else return age &lt; b.age;
+13 }
+14 };
+15 bool cmp(const stu &amp;a, const stu &amp;b)
+16 {
+17     // 分数不相同时分数低者在前
+18     if (a.score!=b.score) return a.score&lt;b.score;
+19     int tmp=strcmp(a.name,b.name);
+20     if (tmp!=0) return tmp&lt;0;
+21     else return a.age &lt; b.age;
+22 }
+</code></pre><p>第一种方式：定义cmp函数，参数最好写成const 数据类型 &amp;变量名的形式，防止调用函数过程中对于变量的改变</p>
+<p>第二种方式：结构体内重载&lt;运算符，此时参数和成员函数进行比较，仅需要一个参数即可。注意此时函数要定义成const的不可变函数，否则会报错。</p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/21/计算机考研机试指南（二）——日期类问题/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          计算机考研机试指南（二）——日期类问题
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/21/大学生创新项目认真投一篇中文核心的坎坷故事/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">大学生创新项目认真投一篇中文核心的坎坷故事</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

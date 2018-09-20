@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>codeforces 1006 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="div3 1006 E dfs系列 我的解法： 中规中矩但wa+timelimit了，估计是算法效率太低。 ！！！！这个序列只需要递归一遍，从根节点开始，然后根据输入的查询查找序列即可  1 #include&amp;lt;bits/stdc++.h&amp;gt;  2    3 using namespace std;  4 const int maxn=200001;  5 vector&amp;lt;int&amp;gt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="codeforces 1006">
+<meta property="og:url" content="http://yoursite.com/2018/08/21/codeforces 1006/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="div3 1006 E dfs系列 我的解法： 中规中矩但wa+timelimit了，估计是算法效率太低。 ！！！！这个序列只需要递归一遍，从根节点开始，然后根据输入的查询查找序列即可  1 #include&amp;lt;bits/stdc++.h&amp;gt;  2    3 using namespace std;  4 const int maxn=200001;  5 vector&amp;lt;int&amp;gt">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:26.825Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="codeforces 1006">
+<meta name="twitter:description" content="div3 1006 E dfs系列 我的解法： 中规中矩但wa+timelimit了，估计是算法效率太低。 ！！！！这个序列只需要递归一遍，从根节点开始，然后根据输入的查询查找序列即可  1 #include&amp;lt;bits/stdc++.h&amp;gt;  2    3 using namespace std;  4 const int maxn=200001;  5 vector&amp;lt;int&amp;gt">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-codeforces 1006" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      codeforces 1006
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/21/codeforces 1006/" class="article-date">
+  <time datetime="2018-08-20T18:23:00.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>div3 1006 E dfs系列</p>
+<p>我的解法：</p>
+<p>中规中矩但wa+timelimit了，估计是算法效率太低。</p>
+<p>！！！！这个序列只需要递归一遍，从根节点开始，然后根据输入的查询查找序列即可</p>
+<pre><code> 1 #include&lt;bits/stdc++.h&gt;
+ 2  
+ 3 using namespace std;
+ 4 const int maxn=200001;
+ 5 vector&lt;int&gt; que[maxn],ans;//记录每个节点的孩子结点
+ 6 int u,k,n,q,x,cnt;
+ 7 bool dfs(int index)
+ 8 {
+ 9 // cnt:搜索到孩子个数
+10 if (cnt==k)
+11 {
+12 ans.push_back(index); return true;
+13 }
+14 if (index&gt;n) return false;
+15 // cout &lt;&lt;que[index].size()&lt;&lt;&quot;11&quot;&lt;&lt;endl;
+16 for (int i=0;i&lt;que[index].size();i++) // 遍历孩子结点
+17 {
+18 cnt++;
+19 // cout&lt;&lt;&quot;index:&quot;&lt;&lt;index&lt;&lt;&quot;,cnt:&quot;&lt;&lt;cnt&lt;&lt;&quot;,que[index][i]&quot;&lt;&lt;que[index][i]&lt;&lt;endl;
+20 if (dfs(que[index][i])) return true;
+21 }
+22  
+23 }
+24 int main()
+25 {
+26 while (scanf(&quot;%d%d&quot;,&amp;n,&amp;q)!=EOF)
+27 {
+28 for (int i=1;i&lt;=n;i++) que[i].clear();
+29 for (int i=2;i&lt;=n;i++)
+30 {
+31 cin&gt;&gt;x;
+32 que[x].push_back(i);
+33 }
+34 ans.clear();
+35 while (q--)
+36 {
+37 cin&gt;&gt;u&gt;&gt;k;//从u点为根开始先序遍历的第k个结点的序号，深搜
+38 cnt=1;
+39 if (!dfs(u)) ans.push_back(-1);
+40 }
+41 for (int i=0;i&lt;ans.size();i++) cout &lt;&lt; ans[i] &lt;&lt; &#39; &#39;;
+42 }
+43  
+44 return 0;
+45 }
+
+
+
+
+
+
+
+  1 #include &lt;bits/stdc++.h&gt;
+  2  
+  3 using namespace std;
+  4  
+  5 int v1[200000 + 1];
+  6 int v2[200000 + 1];
+  7 int v3[200000 + 1];
+  8 vector &lt;int&gt; adjList[200000 + 1];
+  9 int cont;
+ 10  
+ 11 int dfs(int nodo) {
+ 12 v1[cont] = nodo;
+ 13 ++cont;
+ 14 v3[nodo] = cont;
+ 15  
+ 16 int suma = 0;
+ 17 for(int i = 0; i &lt; adjList[nodo].size(); i++) {
+ 18 suma += dfs(adjList[nodo][i]);
+ 19 }
+ 20  
+ 21 v2[nodo] += suma+1;
+ 22 return v2[nodo];
+ 23 }
+ 24  
+ 25 int main() {
+ 26  
+ 27 int n,q;
+ 28 scanf(&quot;%d%d&quot;, &amp;n, &amp;q);
+ 29  
+ 30 int aux;
+ 31 for (int i = 1; i &lt; n; i++) {
+ 32 scanf(&quot;%d&quot;, &amp;aux);
+ 33 adjList[aux-1].push_back(i);
+ 34 }
+ 35  
+ 36 cont = 0;
+ 37 dfs(0);
+ 38  
+ 39 int a,b;
+ 40 while (q--) {
+ 41 scanf(&quot;%d%d&quot;,&amp;a, &amp;b);
+ 42 if (v2[a-1] &gt;= b)
+ 43 cout &lt;&lt; v1[v3[a-1]-2+b]+1 &lt;&lt; endl;
+ 44 else
+ 45 cout &lt;&lt; -1 &lt;&lt; endl;
+ 46 }
+ 47  
+ 48 return 0;
+ 49 }
+ 50 #include&lt;bits/stdc++.h&gt;
+ 51  
+ 52 using namespace std;
+ 53  
+ 54 const int maxn=200001;
+ 55  
+ 56 vector&lt;int&gt; que[maxn];
+ 57 int child[maxn],order[maxn],ans[maxn];//记录每个节点的孩子结点
+ 58 int u,k,n,q,x,cnt;
+ 59  
+ 60 int dfs(int index)
+ 61 {
+ 62 ans[cnt++]=index;//依次存放以0为根的序列
+ 63 order[index]=cnt; // index在最终的序列中为第几个位置
+ 64  
+ 65 int sum=0;
+ 66 for (int i=0;i&lt;que[index].size();i++) // 遍历孩子结点
+ 67 {
+ 68 // cout&lt;&lt;&quot;index:&quot;&lt;&lt;index&lt;&lt;&quot;,que[index][i]：&quot;&lt;&lt;que[index][i]&lt;&lt;endl;
+ 69 sum+=dfs(que[index][i]);
+ 70 }
+ 71 child[index]=sum+1;
+ 72 return child[index];//以index为根节点的子节点总个数
+ 73 }
+ 74 int main()
+ 75 {
+ 76 while (scanf(&quot;%d%d&quot;,&amp;n,&amp;q)!=EOF)
+ 77 {
+ 78 /* 全局变量会默认地初始化为0 而局部变量不会 有内存就是任性
+ 79 for (int i=1;i&lt;=n;i++) que[i].clear();
+ 80 ans.clear();
+ 81 memset(child,0,sizeof(child));
+ 82 memset(order,0,sizeof(order));
+ 83 */
+ 84 for (int i=2;i&lt;=n;i++)
+ 85 {
+ 86 cin&gt;&gt;x;
+ 87 que[x].push_back(i);
+ 88 }
+ 89  
+ 90 cnt=0;
+ 91 dfs(1);
+ 92 // for (int i=0;i&lt;ans.size();i++) cout &lt;&lt; ans[i] &lt;&lt;&quot; &quot;; cout &lt;&lt; endl;
+ 93  
+ 94 while (q--)
+ 95 {
+ 96 cin&gt;&gt;u&gt;&gt;k;//从u点为根开始先序遍历的第k个结点的序号，深搜
+ 97 if (child[u]&gt;=k)
+ 98 {
+ 99 cout &lt;&lt; ans[order[u]+k-2] &lt;&lt; endl;
+100 }
+101 else
+102 cout &lt;&lt; -1 &lt;&lt; endl;
+103 }
+104 }
+105 return 0;
+106 }
+</code></pre><p>A. New Year Transportation</p>
+<p>time limit per test2 seconds</p>
+<p>memory limit per test256 megabytes</p>
+<p>inputstandard input</p>
+<p>outputstandard output</p>
+<p>New Year is coming in Line World! In this world, there are n cells numbered by<br>integers from 1 to n, as a 1 × n board. People live in cells. However, it was<br>hard to move between distinct cells, because of the difficulty of escaping the<br>cell. People wanted to meet people who live in other cells.</p>
+<p>So, user tncks0121 has made a transportation system to move between these<br>cells, to celebrate the New Year. First, he thought of n - 1 positive integers<br>a1, a2, …, an - 1. For every integer i where 1 ≤ i ≤ n - 1 the condition 1 ≤<br>ai ≤ n - i holds. Next, he made n - 1 portals, numbered by integers from 1 to<br>n - 1. The i-th (1 ≤ i ≤ n - 1) portal connects cell i and cell (i + ai), and<br>one can travel from cell i to cell (i + ai) using the i-th portal.<br>Unfortunately, one cannot use the portal backwards, which means one cannot<br>move from cell (i + ai) to cell i using the i-th portal. It is easy to see<br>that because of condition 1 ≤ ai ≤ n - i one can’t leave the Line World using<br>portals.</p>
+<p>Currently, I am standing at cell 1, and I want to go to cell t. However, I<br>don’t know whether it is possible to go there. Please determine whether I can<br>go to cell t by only using the construted transportation system.</p>
+<p>Input</p>
+<p>The first line contains two space-separated integers n (3 ≤ n ≤ 3 × 104) and t<br>(2 ≤ t ≤ n) — the number of cells, and the index of the cell which I want to<br>go to.</p>
+<p>The second line contains n - 1 space-separated integers a1, a2, …, an - 1 (1 ≤<br>ai ≤ n - i). It is guaranteed, that using the given transportation system, one<br>cannot leave the Line World.</p>
+<p>Output</p>
+<p>If I can go to cell t using the transportation system, print “YES”. Otherwise,<br>print “NO”.</p>
+<p>Examples</p>
+<p>inputCopy</p>
+<p>8 4</p>
+<p>1 2 1 2 1 2 1</p>
+<p>outputCopy</p>
+<p>YES</p>
+<p>inputCopy</p>
+<p>8 5</p>
+<p>1 2 1 2 1 1 1</p>
+<p>outputCopy</p>
+<p>NO</p>
+<pre><code> 1 #include&lt;bits/stdc++.h&gt;
+ 2  
+ 3 using namespace std;
+ 4  
+ 5 const int maxn=30005;
+ 6 int n,t,a[maxn],j;
+ 7  
+ 8 int main()
+ 9 {
+10 int flag;
+11 while (scanf(&quot;%d%d&quot;,&amp;n,&amp;t)!=EOF)
+12 {
+13 flag=false;
+14 for (int i=1;i&lt;n;i++) {
+15 scanf(&quot;%d&quot;,&amp;a[i]);
+16 a[i]+=i;
+17 }
+18 for (j=1;j&lt;t;j=a[j]);
+19 // 不停地往下跳，j是一定小于t的
+20 cout &lt;&lt; (j==t?&quot;YES&quot;:&quot;NO&quot;)&lt;&lt;endl;
+21 }
+22 return 0;
+23 }
+</code></pre><p>没有理解清楚题意，很巧妙的解法。</p>
+<h3 id="B-BerSU-Ball"><a href="#B-BerSU-Ball" class="headerlink" title="B. BerSU Ball"></a>B. BerSU Ball</h3><p>outputstandard output</p>
+<p>The Berland State University is hosting a ballroom dance in celebration of its<br>100500-th anniversary! n boys and m girls are already busy rehearsing waltz,<br>minuet, polonaise and quadrille moves.</p>
+<p>We know that several boy&amp;girl pairs are going to be invited to the ball.<br>However, the partners’ dancing skill in each pair must differ by at most one.</p>
+<p>For each boy, we know his dancing skills. Similarly, for each girl we know her<br>dancing skills. Write a code that can determine the largest possible number of<br>pairs that can be formed from n boys and m girls.</p>
+<p>Input</p>
+<p>The first line contains an integer n (1 ≤ n ≤ 100) — the number of boys. The<br>second line contains sequence a1, a2, …, an (1 ≤ ai ≤ 100), where ai is the<br>i-th boy’s dancing skill.</p>
+<p>Similarly, the third line contains an integer m (1 ≤ m ≤ 100) — the number of<br>girls. The fourth line contains sequence b1, b2, …, bm (1 ≤ bj ≤ 100), where<br>bj is the j-th girl’s dancing skill.</p>
+<p>Output</p>
+<p>Print a single number — the required maximum possible number of pairs.</p>
+<p>Examples</p>
+<p>inputCopy</p>
+<p>4</p>
+<p>1 4 6 2</p>
+<p>5</p>
+<p>5 1 5 7 9</p>
+<p>outputCopy</p>
+<p>3</p>
+<pre><code> 1 #include&lt;bits/stdc++.h&gt;
+ 2 #define f(s,a) for(int i=0;i&lt;s;i++) cin&gt;&gt;a[i];
+ 3 // 避免代码重复度高，只需要替换两个字符便能解决的函数
+ 4 using namespace std;
+ 5  
+ 6 int n,m;
+ 7  
+ 8 int main()
+ 9 {
+10 int n,m,c,a[1000],b[1000];
+11 cin&gt;&gt;n;
+12 f(n,a)
+13 cin&gt;&gt;m;
+14 f(m,b)
+15 sort(a,a+n);
+16 sort(b,b+m);
+17 for(int i=0,j=0;i&lt;n &amp;&amp; j&lt;m;) // for循环的循环增长条件可以不写
+18 if(a[i]-1&gt;b[j]) j++;
+19 else
+20 if(a[i]&lt;b[j]-1) i++;
+21 else c++,i++,j++;
+22 // a[i] b[j]的三种关系：a[i]远大于b，b远大于a,以及绝对值相差1以内
+23 cout&lt;&lt;c;
+24  
+25 return 0;
+26 }
+</code></pre><p>看别人的代码真的能够学到好多东西！！</p>
+<h3 id="dfs-hdu-搜索练习！"><a href="#dfs-hdu-搜索练习！" class="headerlink" title="dfs hdu 搜索练习！"></a>dfs hdu 搜索练习！</h3><h3 id="temple-of-bone-hdu1010"><a href="#temple-of-bone-hdu1010" class="headerlink" title="temple of bone hdu1010"></a>temple of bone hdu1010</h3><p>明明和正确答案敲得一样，但是却总是WA，气得我一直不停地提交不知道提交了几十遍了。但最后看起来最不起眼的一个地方却是致命点，其实还是我对这个程序的理解不够深！不然怎么会犯这样的错误！全局变量和局部变量的问题+递归调用对局部变量的使用问题！归根结底还是没有研究明白啊你！先读别人的代码！想一想这样写的好处是什么？以及你之前写dfs的时候的问题！</p>
+<p>心情舒畅！</p>
+<p>我的正确代码：</p>
+<pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;stdio.h&gt;
+  3 using namespace std;
+  4 /*
+  5 1. 起点终点位置不固定，需要先求出来
+  6 2. 坐标和的奇偶性：每走一步奇偶性会产生变化
+  7 */
+  8 int n,m,t;
+  9 char a[10][10];
+ 10 int path[4][2]=
+ 11 {
+ 12 0,1,1,0,0,-1,-1,0
+ 13 };
+ 14 bool success;
+ 15 void dfs(int ct,int i,int j)
+ 16 {
+ 17 for (int k=0;k&lt;4;k++)
+ 18 {
+ 19 int ni=i+path[k][0];
+ 20 int nj=j+path[k][1];
+ 21 if (ni&gt;=n||nj&gt;=m||ni&lt;0||nj&lt;0) continue;
+ 22 if (a[ni][nj]==&#39;X&#39;) continue;
+ 23 if (a[ni][nj]==&#39;D&#39;)
+ 24 {
+ 25 if (ct+1==t)
+ 26 {
+ 27 success=true;
+ 28 return;
+ 29 }else
+ 30 continue;
+ 31 }
+ 32  
+ 33 a[ni][nj]=&#39;X&#39;;
+ 34 dfs(ct+1,ni,nj);
+ 35 a[ni][nj]=&#39;.&#39;;
+ 36 if (success) return;
+ 37 }
+ 38 }
+ 39 int main ()
+ 40 {
+ 41 int dx,dy;
+ 42 while (scanf(&quot;%d%d%d&quot;,&amp;n,&amp;m,&amp;t)!=EOF){
+ 43 if (n==0&amp;&amp;m==0&amp;&amp;t==0) break;
+ 44 success = false;
+ 45 for (int i=0;i&lt;n;i++) scanf(&quot;%s&quot;,a[i]);
+ 46 for (int i=0;i&lt;n;i++)
+ 47 {
+ 48 for (int j=0;j&lt;m;j++)
+ 49 {
+ 50 if (a[i][j]==&#39;D&#39;) {dx=i;dy=j;}
+ 51 }
+ 52 }
+ 53 for (int i=0;i&lt;n;i++)
+ 54 {
+ 55 for (int j=0;j&lt;m;j++)
+ 56 {
+ 57 if (a[i][j]==&#39;S&#39; &amp;&amp; (i+j)%2==((dx+dy)%2+t%2)%2){
+ 58 a[i][j]=&#39;X&#39;;
+ 59 dfs(0,i,j);
+ 60 }
+ 61 }
+ 62 }
+ 63 puts(success==true?&quot;YES&quot;:&quot;NO&quot;);
+ 64  
+ 65 }
+ 66 return 0;
+ 67 }
+ 68  
+ 69 另一种我更喜欢写但效率上偏低的写法：
+ 70 #include &lt;iostream&gt;
+ 71 #include &lt;stdio.h&gt;
+ 72 using namespace std;
+ 73 /*
+ 74 1. 起点终点位置不固定，需要先求出来
+ 75 2. 坐标和的奇偶性：每走一步奇偶性会产生变化
+ 76 */
+ 77 int n,m,t;
+ 78 char a[10][10];
+ 79 int path[4][2]=
+ 80 {
+ 81 0,1,1,0,0,-1,-1,0
+ 82 };
+ 83 bool success;
+ 84 void dfs(int ct,int i,int j)
+ 85 {
+ 86 if (a[i][j]==&#39;D&#39;)
+ 87 {
+ 88 if (ct==t)
+ 89 success=true;
+ 90 return;
+ 91 }
+ 92 if (i&gt;=n||j&gt;=m||i&lt;0||j&lt;0) return;
+ 93 if (a[i][j]==&#39;X&#39;) return;
+ 94  
+ 95 for (int k=0;k&lt;4;k++)
+ 96 {
+ 97 a[i][j]=&#39;X&#39;;
+ 98 dfs(ct+1,i+path[k][0],j+path[k][1]);
+ 99 a[i][j]=&#39;.&#39;;
+100 if (success) return;
+101 }
+102 }
+103 int main ()
+104 {
+105 int dx,dy;
+106 while (scanf(&quot;%d%d%d&quot;,&amp;n,&amp;m,&amp;t)!=EOF){
+107 if (n==0&amp;&amp;m==0&amp;&amp;t==0) break;
+108 success = false;
+109 for (int i=0;i&lt;n;i++) scanf(&quot;%s&quot;,a[i]);
+110 for (int i=0;i&lt;n;i++)
+111 {
+112 for (int j=0;j&lt;m;j++)
+113 {
+114 if (a[i][j]==&#39;D&#39;) {dx=i;dy=j;}
+115 }
+116 }
+117 for (int i=0;i&lt;n;i++)
+118 {
+119 for (int j=0;j&lt;m;j++)
+120 {
+121 if (a[i][j]==&#39;S&#39; &amp;&amp; (i+j)%2==((dx+dy)%2+t%2)%2){
+122 dfs(0,i,j);
+123 }
+124 }
+125 }
+126 puts(success==true?&quot;YES&quot;:&quot;NO&quot;);
+127  
+128 }
+129 return 0;
+130 }
+</code></pre><p>注意：</p>
+<ol>
+<li>标注为石头的当前层在递归结束返回该层后要记得还原，否则再往上返回时的棋局和之前便不一样了。</li>
+<li>success的目标是在找到正确答案后立即返回，不进行接下来的循环。</li>
+<li>或者改为return bool的形式</li>
+</ol>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 using namespace std;
+ 4 /*
+ 5 1. 起点终点位置不固定，需要先求出来
+ 6 2. 坐标和的奇偶性：每走一步奇偶性会产生变化
+ 7 */
+ 8 int n,m,t;
+ 9 char a[10][10];
+10 int path[4][2]=
+11 {
+12 0,1,1,0,0,-1,-1,0
+13 };
+14 bool success;
+15 bool dfs(int ct,int i,int j)
+16 {
+17 if (a[i][j]==&#39;D&#39;)
+18 {
+19 if (ct==t)
+20 return true;
+21 else return false;
+22 }
+23 if (i&gt;=n||j&gt;=m||i&lt;0||j&lt;0) return false;
+24 if (a[i][j]==&#39;X&#39;) return false;
+25  
+26 for (int k=0;k&lt;4;k++)
+27 {
+28 a[i][j]=&#39;X&#39;;
+29 success = dfs(ct+1,i+path[k][0],j+path[k][1]);
+30 a[i][j]=&#39;.&#39;;
+31 if (success) return true;
+32 }
+33 }
+34 int main ()
+35 {
+36 int dx,dy;
+37 while (scanf(&quot;%d%d%d&quot;,&amp;n,&amp;m,&amp;t)!=EOF){
+38 if (n==0&amp;&amp;m==0&amp;&amp;t==0) break;
+39 success = false;
+40 for (int i=0;i&lt;n;i++) scanf(&quot;%s&quot;,a[i]);
+41 for (int i=0;i&lt;n;i++)
+42 {
+43 for (int j=0;j&lt;m;j++)
+44 {
+45 if (a[i][j]==&#39;D&#39;) {dx=i;dy=j;}
+46 }
+47 }
+48 for (int i=0;i&lt;n;i++)
+49 {
+50 for (int j=0;j&lt;m;j++)
+51 {
+52 if (a[i][j]==&#39;S&#39; &amp;&amp; (i+j)%2==((dx+dy)%2+t%2)%2){
+53 dfs(0,i,j);
+54 }
+55 }
+56 }
+57 puts(success==true?&quot;YES&quot;:&quot;NO&quot;);
+58  
+59 }
+60 return 0;
+61 }
+</code></pre><h3 id="hdu-1016-prime-ring-problem"><a href="#hdu-1016-prime-ring-problem" class="headerlink" title="hdu 1016 prime ring problem"></a>hdu 1016 prime ring problem</h3><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;vector&gt;
+ 4 #include &lt;string&gt;
+ 5 #include &lt;string.h&gt;
+ 6  
+ 7 using namespace std;
+ 8 int n;
+ 9 int a[21];
+10 bool prime[41];// 1-40是所有加和可能出现的素数
+11 vector&lt;int&gt; ans;
+12 bool visited[21];
+13 void init()
+14 {
+15 memset(prime,false,sizeof(prime));
+16 for (int i=2;i&lt;=41;i++)
+17 {
+18 if (prime[i] == true) continue;// 非素数为true
+19 for (int j=i*i;j&lt;=41;j+=i)
+20 prime[j]=true;
+21 }
+22 }
+23 void print(int num)
+24 {
+25 // 检查最后一个数和1是否组成素数
+26 int i;
+27 if (!prime[1+num])
+28 {
+29 for (i=0;i&lt;ans.size()-1;i++) cout &lt;&lt; ans[i] &lt;&lt; &quot; &quot;;
+30 cout &lt;&lt; ans[i] &lt;&lt;endl;
+31 }
+32 return;
+33 }
+34 void dfs(int num,int cnt)
+35 {
+36 if (cnt==n)
+37 {
+38 print(num);
+39 return;
+40 }
+41 // num是当前环上的数字，cnt 是1-n个数已经安顿了几个？
+42 for (int i=2;i&lt;=n;i++)
+43 {
+44 if (num==i) continue; // 当前数字
+45 if (visited[i]) continue; // 已经使用过的数字
+46 if (prime[i+num]) continue;//和为非素数
+47 ans.push_back(i);
+48 visited[i]=true;
+49 dfs(i,cnt+1);
+50 visited[i]=false;
+51 ans.pop_back();
+52 }
+53 }
+54 int main()
+55 {
+56 int casei=0;
+57 init();// prime中2-41间的素数均标记为false
+58 while (cin&gt;&gt;n)
+59 {
+60 ans.clear();
+61 printf(&quot;Case %d:\n&quot;,++casei);
+62 memset(visited,false,sizeof(visited));
+63 ans.push_back(1);
+64 visited[1]=true;
+65 dfs(1,1);
+66 printf(&quot;\n&quot;);
+67 }
+68 return 0;
+69 }
+</code></pre><ol>
+<li>素数筛代码要熟练写出</li>
+</ol>
+<h4 id="Oil-Deposits"><a href="#Oil-Deposits" class="headerlink" title="Oil Deposits"></a>Oil Deposits</h4><p>Problem Description</p>
+<p>The GeoSurvComp geologic survey company is responsible for detecting<br>underground oil deposits. GeoSurvComp works with one large rectangular region<br>of land at a time, and creates a grid that divides the land into numerous<br>square plots. It then analyzes each plot separately, using sensing equipment<br>to determine whether or not the plot contains oil. A plot containing oil is<br>called a pocket. If two pockets are adjacent, then they are part of the same<br>oil deposit. Oil deposits can be quite large and may contain numerous pockets.<br>Your job is to determine how many different oil deposits are contained in a<br>grid.</p>
+<p>Input</p>
+<p>The input file contains one or more grids. Each grid begins with a line<br>containing m and n, the number of rows and columns in the grid, separated by a<br>single space. If m = 0 it signals the end of the input; otherwise 1 &lt;= m &lt;=<br>100 and 1 &lt;= n &lt;= 100. Following this are m lines of n characters each (not<br>counting the end-of-line characters). Each character corresponds to one plot,<br>and is either *’, representing the absence of oil, or@’, representing an oil<br>pocket.</p>
+<p>Output</p>
+<p>For each grid, output the number of distinct oil deposits. Two different<br>pockets are part of the same oil deposit if they are adjacent horizontally,<br>vertically, or diagonally. An oil deposit will not contain more than 100<br>pockets.</p>
+<p>Sample Input</p>
+<p>1 1</p>
+<p>*</p>
+<p>3 5</p>
+<p>@@*</p>
+<p>@</p>
+<p>@@*</p>
+<p>1 8</p>
+<p>@<em>*@</em></p>
+<p>5 5</p>
+<p>**@</p>
+<p>@@@</p>
+<p>@*@</p>
+<p>@@*@</p>
+<p>@**@</p>
+<p>0 0</p>
+<p>Sample Output</p>
+<p>0</p>
+<p>1</p>
+<p>2</p>
+<p>2</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;vector&gt;
+ 4 #include &lt;string&gt;
+ 5 #include &lt;string.h&gt;
+ 6 /*
+ 7 相连的@代表一片油田，求油田总个数
+ 8  
+ 9 */
+10 using namespace std;
+11 int m,n,cnt;
+12 char maze[101][101];
+13 int go[8][2]=
+14 {
+15 -1,0,
+16 -1,1,
+17 0,1,
+18 1,1,
+19 1,0,
+20 1,-1,
+21 0,-1,
+22 -1,-1
+23 };
+24 void dfs(int x,int y)
+25 {
+26 maze[x][y]=&#39;*&#39;;
+27 for (int i=0;i&lt;8;i++)
+28 {
+29 int newx = go[i][0]+x;
+30 int newy = go[i][1]+y;
+31 if (maze[newx][newy]!=&#39;@&#39;)
+32 continue;
+33 if (newx&lt;0||newy&lt;0||newx&gt;m||newy&gt;n)
+34 continue;
+35 dfs(newx,newy);
+36 }
+37  
+38 }
+39 int main()
+40 {
+41  
+42 while (cin&gt;&gt;m&gt;&gt;n)
+43 {
+44 if (m==0&amp;&amp;n==0) break;
+45 for (int i=0;i&lt;m;i++)
+46 {
+47 for (int j=0;j&lt;n;j++)
+48 {
+49 cin&gt;&gt;maze[i][j];
+50 }
+51 }
+52 cnt=0;
+53 for (int i=0;i&lt;m;i++)
+54 {
+55 for (int j=0;j&lt;n;j++)
+56 {
+57 if (maze[i][j]==&#39;@&#39;)
+58 {
+59 dfs(i,j);
+60 cnt++;
+61 }
+62  
+63 }
+64 }
+65 cout &lt;&lt; cnt &lt;&lt; endl;
+66 }
+67 return 0;
+68 }
+</code></pre><h3 id="rescue"><a href="#rescue" class="headerlink" title="rescue"></a>rescue</h3><p>求最短的路径，可以找到深搜所有的路径并求最小值，但更好地方法是用bfs求解。</p>
+<p>dfs的做法，本地OK但超时。</p>
+<pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;stdio.h&gt;
+  3 #include &lt;vector&gt;
+  4 #include &lt;string&gt;
+  5 #include &lt;string.h&gt;
+  6 /*
+  7 如何求最短的路径？？
+  8  
+  9 */
+ 10 using namespace std;
+ 11 int m,n,mtime;
+ 12 char maze[201][201];
+ 13 int go[4][2]=
+ 14 {
+ 15 -1,0,
+ 16 0,1,
+ 17 1,0,
+ 18 0,-1
+ 19 };
+ 20 struct node
+ 21 {
+ 22 int x,y,time;
+ 23 }a,r;
+ 24 void dfs(node cur)
+ 25 {
+ 26 char c=maze[cur.x][cur.y];
+ 27 for (int i=0;i&lt;4;i++)
+ 28 {
+ 29 node t;
+ 30 t.x=go[i][0]+cur.x;
+ 31 t.y=go[i][1]+cur.y;
+ 32 t.time=cur.time+1;
+ 33  
+ 34 if (t.x&lt;0||t.y&lt;0||t.x&gt;m||t.y&gt;n) continue;
+ 35 if (maze[t.x][t.y]==&#39;#&#39;) continue;
+ 36 if (maze[t.x][t.y]==&#39;x&#39;) {t.time++;maze[t.x][t.y]=&#39;.&#39;;}
+ 37 if (maze[t.x][t.y]==&#39;a&#39;)
+ 38 {
+ 39 a.time=t.time+1;
+ 40 if (a.time&lt;mtime)
+ 41 {
+ 42 mtime=a.time;
+ 43 return;
+ 44 }
+ 45 }
+ 46 maze[cur.x][cur.y]=&#39;#&#39;;
+ 47 dfs(t);
+ 48 maze[cur.x][cur.y]=c;
+ 49 }
+ 50 }
+ 51 int main()
+ 52 {
+ 53  
+ 54 while (cin&gt;&gt;m&gt;&gt;n)
+ 55 {
+ 56 for (int i=0;i&lt;m;i++)
+ 57 {
+ 58 for (int j=0;j&lt;n;j++)
+ 59 {
+ 60 cin&gt;&gt;maze[i][j];
+ 61 if (maze[i][j]==&#39;r&#39;)
+ 62 {
+ 63 r.x=i;r.y=j;r.time=0;
+ 64 }
+ 65 }
+ 66 }
+ 67 mtime=9999;
+ 68 dfs(r);
+ 69 cout&lt;&lt;mtime&lt;&lt;endl;
+ 70  
+ 71 }
+ 72 return 0;
+ 73 }
+ 74  
+ 75 BFS+优先队列：
+ 76 #include &lt;iostream&gt;
+ 77 #include &lt;stdio.h&gt;
+ 78 #include &lt;queue&gt;
+ 79  
+ 80 /*
+ 81 如何求最短的路径？？
+ 82 题意：X代表卫兵，a代表终点，r代表起始点，.代表路，#代表墙
+ 83  
+ 84 路花费一秒，x花费两秒
+ 85  
+ 86 问到达终点的最少时间
+ 87 */
+ 88 using namespace std;
+ 89 int m,n,xx,yy;
+ 90 char maze[201][201];
+ 91 int go[4][2]=
+ 92 {
+ 93 -1,0,
+ 94 0,1,
+ 95 1,0,
+ 96 0,-1
+ 97 };
+ 98 struct node
+ 99 {
+100 int x,y,time;
+101 /* bool operator&lt; (const node &amp;a)const
+102 {
+103 return time &gt; a.time;
+104 }
+105 */
+106 }a,r;
+107 bool operator &lt; (node c,node d)
+108 {
+109 return c.time &gt; d.time;
+110 }
+111 void bfs()
+112 {
+113 priority_queue&lt;node&gt; q; //默认大顶堆
+114 q.push(r);
+115 maze[r.x][r.y]=&#39;#&#39;;
+116 node t,newt;
+117 while (!q.empty())
+118 {
+119 t=q.top();q.pop();
+120 //--------------------!!!!!---------------------
+121 maze[t.x][t.y]=&#39;#&#39;;
+122 //至关重要的一句！目的是让走过的路不要再重复
+123 //--------------------!!!!!---------------------
+124 for (int i=0;i&lt;4;i++)
+125 {
+126 xx=t.x+go[i][0];
+127 yy=t.y+go[i][1];
+128 newt.x=xx;
+129 newt.y=yy;
+130 newt.time=t.time+1;
+131 if (xx&lt;0||yy&lt;0||xx&gt;=m||yy&gt;=n||(maze[xx][yy]==&#39;#&#39;)) continue;
+132 if (maze[xx][yy]==&#39;x&#39;)
+133 {
+134 newt.time++;
+135 }
+136 else
+137 if (maze[xx][yy]==&#39;a&#39;)
+138 {
+139 printf(&quot;%d\n&quot;,newt.time);
+140 return;
+141 }
+142 q.push(newt);
+143 // maze[xx][yy]=&#39;#&#39;; 这句话加在这里就会出错：不能把它放进去的时候就变路
+144 }
+145 }
+146 printf(&quot;Poor ANGEL has to stay in the prison all his life.\n&quot;);
+147  
+148 }
+149  
+150 int main()
+151 {
+152  
+153 while (scanf(&quot;%d%d&quot;,&amp;m,&amp;n)!=EOF)
+154 {
+155 for (int i=0;i&lt;m;i++)
+156 {
+157 for (int j=0;j&lt;n;j++)
+158 {
+159 cin&gt;&gt;maze[i][j];
+160 if (maze[i][j]==&#39;r&#39;)
+161 {
+162 r.x=i;r.y=j;r.time=0;
+163 }
+164 }
+165 }
+166 bfs();
+167  
+168 }
+169 return 0;
+170 }
+</code></pre><p>关于优先队列：</p>
+<p>默认大顶堆，也就是队首为最大值。队列按照从大到小的顺序排列。如果需要从小到大排序：</p>
+<p>两种方式：</p>
+<ol>
+<li>结构体内运算符重载，记住括号右侧const必须要加不然会报错</li>
+<li>结构体外运算符重载</li>
+<li>cmp结构体内运算符重载</li>
+<li>友元函数</li>
+</ol>
+<p>以结构体Time为例：</p>
+<pre><code>struct Time{
+int start, end;
+};
+</code></pre><p>使用优先队列时，如果需要对Time中的start从小到大排序，有两种方法：</p>
+<p>priority_queue<time> pq;</time></p>
+<p>一.在结构体外重载结构体小于运算符：</p>
+<pre><code>bool operator &lt;(const Time&amp; a,const Time&amp; b){
+return a.start &gt; b.start;
+} //这里以大于重载小于是因为默认情况下，优先队列是以大的作为队首，这样一反，就可以再默认情况下使得小的作为队首
+</code></pre><p>二.直接在结构体中重载小于运算符：</p>
+<pre><code>struct Time{
+int start, end;
+bool operator &lt; (const Time&amp; t)const{
+return start &gt; t.start;
+}
+};
+</code></pre><p>// 第二个const的作用：（我已经百度了无数遍了），const函数，不能修改成员变量，括号内的const表示不能修改参数变量</p>
+<p>三.直接在cmp中重载小于运算符：</p>
+<pre><code>struct cmp
+{
+bool operator &lt;(Time t1, Time t2)
+{
+return t1.start &gt; t2.start;
+}
+};
+priority_queue&lt;Time,vector&lt;Time&gt; , cmp &gt; q; 调用形式
+</code></pre><p>四.友元函数</p>
+<p>在Time结构体中定义友元函数,省去了const的麻烦</p>
+<pre><code>friend bool operator&lt; (Time f1, Time f2)
+{
+return f1.start &lt; f2.start;
+}
+</code></pre><p>什么是友元函数？</p>
+<ul>
+<li>友元函数不属于类的成员函数，需要在类外实现函数主题，不需要加类限定</li>
+<li>友元函数可以访问类的私有成员但必须通过类对象形参的方式使用</li>
+</ul>
+<p>小顶堆：priority_queue<time,vector<time>,greater<time></time></time,vector<time></p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/21/下雨日有悟/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          下雨日有悟
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/21/codeforces/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">codeforces</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

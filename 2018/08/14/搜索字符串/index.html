@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>搜索字符串 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="题目源地址 Description搜索字符串 Input输入两个字符串a,b（字符串长度不超过1000） Output输出在a中出现b的次数（每个结果占一行） Sample Inputabcdefsdabcbacbbc abc aabbaabbaabbaa abbaa Sample Output2 3        1 #include &amp;lt;stdio.h&amp;gt;  2 #include &amp;l">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搜索字符串">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/搜索字符串/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题目源地址 Description搜索字符串 Input输入两个字符串a,b（字符串长度不超过1000） Output输出在a中出现b的次数（每个结果占一行） Sample Inputabcdefsdabcbacbbc abc aabbaabbaabbaa abbaa Sample Output2 3        1 #include &amp;lt;stdio.h&amp;gt;  2 #include &amp;l">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:30.553Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="搜索字符串">
+<meta name="twitter:description" content="题目源地址 Description搜索字符串 Input输入两个字符串a,b（字符串长度不超过1000） Output输出在a中出现b的次数（每个结果占一行） Sample Inputabcdefsdabcbacbbc abc aabbaabbaabbaa abbaa Sample Output2 3        1 #include &amp;lt;stdio.h&amp;gt;  2 #include &amp;l">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-搜索字符串" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      搜索字符串
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/搜索字符串/" class="article-date">
+  <time datetime="2018-08-14T01:22:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://acm.nefu.edu.cn/JudgeOnline/problemShow.php?problem_id=275" target="_blank" rel="noopener">题目源地址</a></p>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><pre><code>搜索字符串
+</code></pre><h3 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h3><pre><code>输入两个字符串a,b（字符串长度不超过1000）
+</code></pre><h3 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h3><pre><code>输出在a中出现b的次数（每个结果占一行）
+</code></pre><h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input"></a>Sample Input</h3><pre><code>abcdefsdabcbacbbc
+abc
+aabbaabbaabbaa
+abbaa
+</code></pre><h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output"></a>Sample Output</h3><pre><code>2
+3  
+
+
+
+
+ 1 #include &lt;stdio.h&gt;
+ 2 #include &lt;stdlib.h&gt;
+ 3 #include &lt;string.h&gt;
+ 4 
+ 5 #define MAX 1010
+ 6 
+ 7 int main()
+ 8 {
+ 9     char a[MAX],b[MAX];
+10     while(gets(a)!=NULL)
+11     {
+12         gets(b);
+13         int sum=0,i=0,j=0;
+14         int lena,lenb;
+15         lena=strlen(a);
+16         lenb=strlen(b);
+17         while(i&lt;lena)
+18         {
+19             if(a[i]==b[j])
+20             {
+21                 i++;
+22                 j++;
+23             }
+24             else
+25             {
+26                 i=i-j+1;
+27                 j=0;
+28             }
+29             if(j&gt;=lenb)
+30             {
+31                 sum++;
+32                 i=i-j+1;
+33                 j=0;
+34             }
+35         }
+36         printf(&quot;%d\n&quot;,sum);
+37     }
+38 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/14/蟠桃记 -数字序列-Fibonacci Again/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          蟠桃记 -数字序列-Fibonacci Again
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/14/统计good/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">统计good</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

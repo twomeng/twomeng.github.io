@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>慕课网-安卓攻城狮视频学习及练习（三） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="arrayadapter+simpleadapter  1  public class MainActivity extends Activity  {  2   3     private ListView list;//视图，即为电视屏幕  4     private ArrayAdapter&amp;lt;String&amp;gt; arradapter;//数据适配器，适用于数组+集合，即为无线  5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="慕课网-安卓攻城狮视频学习及练习（三）">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/慕课网-安卓攻城狮视频学习及练习（三）/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="arrayadapter+simpleadapter  1  public class MainActivity extends Activity  {  2   3     private ListView list;//视图，即为电视屏幕  4     private ArrayAdapter&amp;lt;String&amp;gt; arradapter;//数据适配器，适用于数组+集合，即为无线  5">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20170213131609790?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170222102109114?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170222102125547?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170222114542820?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170222114556276?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170222115640227?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170222203059414?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170222204046856?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170222205918425?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170222210048114?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170222211630103?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170222213031926?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170222214729528?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170222215413265?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-09-20T01:27:30.242Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="慕课网-安卓攻城狮视频学习及练习（三）">
+<meta name="twitter:description" content="arrayadapter+simpleadapter  1  public class MainActivity extends Activity  {  2   3     private ListView list;//视图，即为电视屏幕  4     private ArrayAdapter&amp;lt;String&amp;gt; arradapter;//数据适配器，适用于数组+集合，即为无线  5">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170213131609790?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-慕课网-安卓攻城狮视频学习及练习（三）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      慕课网-安卓攻城狮视频学习及练习（三）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/慕课网-安卓攻城狮视频学习及练习（三）/" class="article-date">
+  <time datetime="2018-08-14T01:56:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>arrayadapter+simpleadapter</strong></p>
+<pre><code> 1  public class MainActivity extends Activity  {
+ 2 
+ 3     private ListView list;//视图，即为电视屏幕
+ 4     private ArrayAdapter&lt;String&gt; arradapter;//数据适配器，适用于数组+集合，即为无线
+ 5     private SimpleAdapter simadapter;
+ 6     private List&lt;Map&lt;String, Object&gt;&gt; datalist;
+ 7     @Override
+ 8     protected void onCreate(Bundle savedInstanceState) {
+ 9         super.onCreate(savedInstanceState);
+10         setContentView(R.layout.activity_main);
+11 
+12         list =(ListView)findViewById(R.id.listView1);//数组形式的数据源，即为电视台
+13     //1.新建一个数据适配器
+14 //.SimpleAdapter(Context context, List&lt;? extends Map&lt;String, ?&gt;&gt; data, int resource, String[] from, int[] to)
+15     //2.适配器加载适配源
+16     String [] arrdata={&quot;mook1&quot;,&quot;i&quot;,&quot;like&quot;,&quot;u&quot;};
+17     arradapter=new ArrayAdapter&lt;String&gt;(this, android.R.layout.simple_list_item_1, arrdata);
+18 
+19     datalist=new ArrayList&lt;Map&lt;String,Object&gt;&gt;();
+20     simadapter=new SimpleAdapter(this, getdata(), R.layout.item, new String[]{&quot;pic&quot;,&quot;text&quot;}, new int[]{R.id.pic,R.id.text});
+21         //3.视图加载适配器
+22         //list.setAdapter(arradapter);
+23         list.setAdapter(simadapter);
+24 
+25     }
+26     private List&lt;Map&lt;String, Object&gt;&gt; getdata(){
+27         for (int i=0;i&lt;20;i++){
+28             Map&lt;String , Object&gt; map=new HashMap&lt;String, Object&gt;();
+29             map.put(&quot;pic&quot;, R.drawable.ic_launcher);
+30             map.put(&quot;text&quot;, &quot;mook&quot;+i);
+31             datalist.add(map);
+32         }
+33         return datalist;
+34     }
+35 
+36 }
+</code></pre><p><strong>spinner</strong></p>
+<p><img src="http://img.blog.csdn.net/20170213131609790?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<pre><code> 1  public class MainActivity extends Activity  {
+ 2    private TextView text1,text2,text3;
+ 3    private EditText edit;
+ 4    private Spinner spin;
+ 5    private ArrayAdapter&lt;String&gt; arr_adapter;
+ 6     @Override
+ 7     protected void onCreate(Bundle savedInstanceState) {
+ 8         super.onCreate(savedInstanceState);
+ 9         setContentView(R.layout.activity_main);
+10 
+11         text1=(TextView)findViewById(R.id.textView1);
+12         text2=(TextView)findViewById(R.id.textView2);
+13         text3=(TextView)findViewById(R.id.textView3);
+14 
+15 
+16         spin=(Spinner)findViewById(R.id.spinner);
+17         edit=(EditText)findViewById(R.id.editText1);
+18 
+19         //1、新建适配器 2、适配器加载数据源 3、视图加载适配器
+20         String[] data=new String[]{&quot;小学&quot;,&quot;初中&quot;,&quot;高中&quot;,&quot;本科&quot;,&quot;研究生&quot;};
+21         arr_adapter=new ArrayAdapter&lt;String&gt;(this, android.R.layout.simple_spinner_item, data);
+22         arr_adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+23         spin.setAdapter(arr_adapter);
+24 
+25         spin.setOnItemSelectedListener(listener);
+26 
+27 
+28     }
+29     private Spinner.OnItemSelectedListener listener= 
+30             new Spinner.OnItemSelectedListener() {
+31 
+32                 @Override
+33                 public void onItemSelected(AdapterView&lt;?&gt; parent, View view, int position, long id) {
+34                     // TODO Auto-generated method stub
+35                      String s1=edit.getText().toString();
+36                      String s2=spin.getSelectedItem().toString();
+37 
+38                      text3.setText(s1+&quot;的学历：&quot;+s2);
+39                 }
+40 
+41                 @Override
+42                 public void onNothingSelected(AdapterView&lt;?&gt; parent) {
+43                     // TODO Auto-generated method stub
+44 
+45                 }
+46             };
+47 
+48 
+49 }
+</code></pre><p>Android攻城狮的第一门课（入门篇）<br>第5章 认识按钮Button以及ImageButton<br>text属性内容放置在value-string.xml中<br><img src="http://img.blog.csdn.net/20170222102109114?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><img src="http://img.blog.csdn.net/20170222102125547?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>加注释快捷键：<br>ctrl+/ //注释<br>ctrl+shift+/ /**/注释</p>
+<p>监听三种：</p>
+<pre><code> 1 public class MainActivity extends Activity implements OnClickListener{
+ 2 
+ 3 
+ 4     private Button btn;
+ 5     @Override
+ 6     protected void onCreate(Bundle savedInstanceState) {
+ 7         super.onCreate(savedInstanceState);
+ 8         setContentView(R.layout.activity_main);
+ 9 
+10         btn=(Button)findViewById(R.id.button1);
+11         /*监听的三种方式
+12          * 1、匿名内部类
+13          * 2、外部类
+14          * 3.接口
+15         */
+16 
+17     /* 1
+18      * btn.setOnClickListener(new OnClickListener() {
+19 
+20         @Override
+21         public void onClick(View v) {
+22             // TODO 自动生成的方法存根
+23             Log.i(&quot;tag&quot;, &quot;匿名内部类&quot;);
+24             //Toast.makeText(MainActivity.this, &quot;匿名&quot;, Toast.LENGTH_LONG);
+25     }
+26     });*/
+27 
+28         //btn.setOnClickListener(listener);
+29         btn.setOnClickListener(this);
+30     }
+31     /*2
+32      * OnClickListener listener =new OnClickListener() {
+33 
+34         @Override
+35         public void onClick(View v) {
+36             // TODO 自动生成的方法存根
+37             Log.i(&quot;tag&quot;, &quot;匿名内部类&quot;);
+38             Toast.makeText(MainActivity.this, &quot;匿名&quot;, Toast.LENGTH_LONG);
+39         }
+40     };*/
+41     @Override
+42     public void onClick(View v) {
+43         // TODO 自动生成的方法存根
+44         Log.i(&quot;tag&quot;, &quot;匿名内部类&quot;);
+45 
+46     }
+47 
+48 
+49 
+50 
+51 
+52 
+53 
+54 
+55 }
+</code></pre><p>textview实现跑马灯效果</p>
+<pre><code> 1 &lt;com.example.meng.marqueettext
+ 2         android:id=&quot;@+id/textView2&quot;
+ 3         android:layout_width=&quot;wrap_content&quot;
+ 4         android:layout_height=&quot;wrap_content&quot;
+ 5         android:singleLine=&quot;true&quot;//单行
+ 6         android:ellipsize=&quot;marquee&quot;//去掉省略号
+ 7         android:focusable=&quot;true&quot;//使其循环
+ 8         android:marqueeRepeatLimit=&quot;marquee_forever&quot;
+ 9         //无限制循环
+10         android:focusableInTouchMode=&quot;true&quot;
+11         android:text=&quot;@string/text_name&quot;/&gt;
+12 
+13 
+14     &lt;com.example.meng.marqueettext
+15         android:id=&quot;@+id/textView1&quot;
+16         android:layout_marginTop=&quot;10dp&quot;
+17         android:layout_width=&quot;wrap_content&quot;
+18         android:layout_height=&quot;wrap_content&quot;
+19         android:singleLine=&quot;true&quot;
+20         android:ellipsize=&quot;marquee&quot;
+21         android:focusable=&quot;true&quot;
+22         android:marqueeRepeatLimit=&quot;marquee_forever&quot;
+23         android:focusableInTouchMode=&quot;true&quot;
+24         android:text=&quot;@string/text_name&quot;/&gt;
+</code></pre><p><img src="http://img.blog.csdn.net/20170222114542820?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170222114556276?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>step1：textview增加若干属性,即可实现一个textview的跑马灯效果<br>step2 : 复制一个textview，两个的情况下必须建立新的类marquee，继承textview，三个构造方法+isfucused方法return<br>TRUE<br>step3：包名+类名代替textview</p>
+<p><img src="http://img.blog.csdn.net/20170222115640227?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>动态匹配功能：显示的下拉列表，使用arrayadapter</p>
+<pre><code> 1 private AutoCompleteTextView act;
+ 2     private ArrayAdapter&lt;String&gt; arr_adapter;
+ 3     @Override
+ 4     protected void onCreate(Bundle savedInstanceState) {
+ 5         super.onCreate(savedInstanceState);
+ 6         setContentView(R.layout.activity_main);
+ 7         act=(AutoCompleteTextView) findViewById(R.id.autoCompleteTextView1);
+ 8         String[] resource={&quot;beijing1&quot;,&quot;beijing2&quot;,&quot;beijing3&quot;,&quot;shanghai1&quot;,&quot;shanghai2&quot;};
+ 9         arr_adapter =new ArrayAdapter&lt;String&gt;(this, android.R.layout.simple_list_item_1, 
+10                 resource);
+11         act.setAdapter(arr_adapter);
+12     }
+</code></pre><p>注意两条属性：<br>提示<br>输入几个字母开始提示</p>
+<pre><code>1  android:hint=&quot;请输入你要搜索的关键词&quot;
+2         android:completionThreshold=&quot;3&quot; 
+</code></pre><p><img src="http://img.blog.csdn.net/20170222203059414?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>与autocompletetextview不同的是，可以用逗号作为分隔符，进行多选。</p>
+<pre><code> 1 private ArrayAdapter&lt;String&gt; arr_adapter;
+ 2     private MultiAutoCompleteTextView mct;
+ 3     @Override
+ 4     protected void onCreate(Bundle savedInstanceState) {
+ 5         super.onCreate(savedInstanceState);
+ 6         setContentView(R.layout.activity_main);
+ 7 
+ 8         mct=(MultiAutoCompleteTextView) findViewById(R.id.multiAutoCompleteTextView1);
+ 9 
+10 
+11         String[] resource={&quot;beijing1&quot;,&quot;beijing2&quot;,&quot;beijing3&quot;,&quot;shanghai1&quot;,&quot;shanghai2&quot;};
+12         arr_adapter =new ArrayAdapter&lt;String&gt;(this, android.R.layout.simple_list_item_1, 
+13                 resource);
+14 
+15         mct.setAdapter(arr_adapter);
+16 mct.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+17 
+18     }
+</code></pre><p><img src="http://img.blog.csdn.net/20170222204046856?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<pre><code> 1 private ToggleButton tb;
+ 2     private ImageView iv;
+ 3     @Override
+ 4     protected void onCreate(Bundle savedInstanceState) {
+ 5         super.onCreate(savedInstanceState);
+ 6         setContentView(R.layout.activity_main);
+ 7 
+ 8         tb=(ToggleButton) findViewById(R.id.toggleButton1);
+ 9         iv=(ImageView) findViewById(R.id.imageView3);
+10 
+11         tb.setOnCheckedChangeListener(this);
+12     }
+13     @Override
+14     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+15         //当tb被点击时，执行当前的方法
+16         //第一个参数检测是哪个tb被点击了，第二个参数判断当前tb的状态
+17         iv.setBackgroundResource(isChecked?R.drawable.open:R.drawable.close);
+18 
+19     }
+</code></pre><p><img src="http://img.blog.csdn.net/20170222205918425?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><img src="http://img.blog.csdn.net/20170222210048114?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<pre><code> 1 private CheckBox cb;
+ 2     @Override
+ 3     protected void onCreate(Bundle savedInstanceState) {
+ 4         super.onCreate(savedInstanceState);
+ 5         setContentView(R.layout.activity_main);
+ 6 
+ 7         cb=(CheckBox) findViewById(R.id.checkBox1);
+ 8         cb.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+ 9 
+10             @Override
+11             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+12                 // 匿名内部类实现监听，通过该方法来监听CheckBox是否被选中
+13                 //ischecked参数可以判断当前的cb是否被选中
+14                 if (isChecked) {
+15             String text=        cb.getText().toString();
+16             Log.i(&quot;tag&quot;, text);//在控制台的日志中显示text
+17                 }
+18 
+19             }
+20         });
+</code></pre><p><img src="http://img.blog.csdn.net/20170222211630103?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<pre><code> 1 public class MainActivity extends Activity implements  android.widget.RadioGroup.OnCheckedChangeListener {
+ 2 
+ 3     private RadioGroup rg;
+ 4     @Override
+ 5     protected void onCreate(Bundle savedInstanceState) {
+ 6         super.onCreate(savedInstanceState);
+ 7         setContentView(R.layout.activity_main);
+ 8     rg=(RadioGroup) findViewById(R.id.radioGroup1); 
+ 9     rg.setOnCheckedChangeListener(this);
+10 
+11 
+12     }
+13 
+14     @Override
+15     public void onCheckedChanged(RadioGroup group, int checkedId) {
+16         switch (checkedId) {
+17         case R.id.radio1:
+18             Log.i(&quot;tag&quot;, &quot;men&quot;);
+19             break;
+20         case R.id.radio2:
+21             Log.i(&quot;tag&quot;, &quot;women&quot;);
+22             break;
+23         default:
+24             break;
+25         }
+26 
+27     }
+28 
+29 
+30 
+31 }
+</code></pre><p>使用接口时，继承的是android.widget.RadioGroup.OnCheckedChangeListener<br>若直接写oncheckedchangelistener,必须要导入对应的包。<br>radiogroup是单选，可以用switch语句</p>
+<p><img src="http://img.blog.csdn.net/20170222213031926?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>gravity决定其子类控件的属性<br>写在线性布局中。</p>
+<pre><code> 1 &lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+ 2     xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+ 3     android:layout_width=&quot;match_parent&quot;
+ 4     android:layout_height=&quot;match_parent&quot;
+ 5     android:gravity=&quot;bottom|center_horizontal&quot;
+ 6      &gt;
+ 7 
+ 8     &lt;Button
+ 9         android:id=&quot;@+id/button1&quot;
+10         android:layout_width=&quot;wrap_content&quot;
+11         android:layout_height=&quot;wrap_content&quot;
+12         android:text=&quot;Button&quot; /&gt;
+13 
+14 &lt;/LinearLayout&gt;
+</code></pre><p><img src="http://img.blog.csdn.net/20170222214729528?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>layout_gravity决定的是当前父类控件的位置。</p>
+<pre><code> 1 &lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+ 2     xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+ 3     android:layout_width=&quot;match_parent&quot;
+ 4     android:layout_height=&quot;match_parent&quot;
+ 5 
+ 6      &gt;
+ 7 
+ 8     &lt;Button
+ 9         android:id=&quot;@+id/button1&quot;
+10         android:layout_width=&quot;wrap_content&quot;
+11         android:layout_height=&quot;wrap_content&quot;
+12         android:text=&quot;Button&quot; 
+13         android:layout_gravity=&quot;center_horizontal|center&quot;/&gt;
+14 
+15 &lt;/LinearLayout&gt;
+</code></pre><p>界面的布局，往往需要两种属性共同控制，父类和子类。<br>如果父类和子类中的某些属性相悖，当然是听爸爸的啦~</p>
+<p>layout_weight 子类控件在父类控件中所占比例。</p>
+<pre><code> 1 &lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+ 2     xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+ 3     android:layout_width=&quot;match_parent&quot;
+ 4     android:layout_height=&quot;match_parent&quot;
+ 5     android:orientation=&quot;vertical&quot;
+ 6      &gt;
+ 7 
+ 8     &lt;Button
+ 9         android:id=&quot;@+id/button2&quot;
+10         android:layout_width=&quot;fill_parent&quot;
+11         android:layout_height=&quot;wrap_content&quot;
+12         android:text=&quot;Button&quot;
+13         android:layout_weight=&quot;1&quot; /&gt;
+14 
+15     &lt;Button
+16         android:id=&quot;@+id/button1&quot;
+17         android:layout_width=&quot;fill_parent&quot;
+18         android:layout_height=&quot;wrap_content&quot;
+19         android:text=&quot;Button&quot; 
+20         android:layout_weight=&quot;1&quot;
+21        /&gt;
+22 
+23 &lt;/LinearLayout&gt;
+</code></pre><p><img src="http://img.blog.csdn.net/20170222215413265?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/14/慕课网-安卓攻城狮视频学习及练习（四）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          慕课网-安卓攻城狮视频学习及练习（四）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/14/慕课网-安卓攻城狮视频学习及练习（二）/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">慕课网-安卓攻城狮视频学习及练习（二）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

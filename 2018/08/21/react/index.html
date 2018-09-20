@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>react | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="CodePen : CodePen is a social development environmentfor front-end designers and developers.It’s the best place to build and deploya website, show off your work, build test cases, and findinspiration.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react">
+<meta property="og:url" content="http://yoursite.com/2018/08/21/react/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="CodePen : CodePen is a social development environmentfor front-end designers and developers.It’s the best place to build and deploya website, show off your work, build test cases, and findinspiration.">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20171201200730614?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20171201200655031?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-09-20T01:27:28.744Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="react">
+<meta name="twitter:description" content="CodePen : CodePen is a social development environmentfor front-end designers and developers.It’s the best place to build and deploya website, show off your work, build test cases, and findinspiration.">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20171201200730614?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-react" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      react
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/21/react/" class="article-date">
+  <time datetime="2018-08-20T17:12:00.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://codepen.io/" target="_blank" rel="noopener">CodePen</a> : CodePen is a social development environment<br>for front-end designers and developers.It’s the best place to build and deploy<br>a website, show off your work, build test cases, and find<br>inspiration.可以看到并修改别人写的前端项目，里面有很酷炫的前端技术。</p>
+<h4 id="如何查看react-js所有的历史版本"><a href="#如何查看react-js所有的历史版本" class="headerlink" title="如何查看react.js所有的历史版本"></a>如何查看react.js所有的历史版本</h4><p><a href="https://reactjs.org/blog/all.html/" target="_blank" rel="noopener">react.js官方网站</a></p>
+<p><a href="https://cdnjs.com/libraries/react/" target="_blank" rel="noopener">直接引用</a></p>
+<p><a href="https://github.com/facebook/react/commits/master" target="_blank" rel="noopener">github的commit</a></p>
+<p><a href="http://babeljs.io/learn-es2015/" target="_blank" rel="noopener">ES2015文档</a></p>
+<p><a href="https://docs.npmjs.com/" target="_blank" rel="noopener">npm</a></p>
+<p><a href="http://nodejs.cn/download/" target="_blank" rel="noopener">node.js</a></p>
+<p>按照react官方网站上面的文档一步步进行：<br>1. 运行一个Hello world在本地文件和本地编译器上</p>
+<pre><code> 1 &lt;!DOCTYPE html&gt;
+ 2 &lt;html&gt;
+ 3   &lt;head&gt;
+ 4     &lt;meta charset=&quot;UTF-8&quot; /&gt;
+ 5     &lt;title&gt;Hello World&lt;/title&gt;
+ 6     &lt;script src=&quot;https://unpkg.com/react@16/umd/react.development.js&quot;&gt;&lt;/script&gt;
+ 7     &lt;script src=&quot;https://unpkg.com/react-dom@16/umd/react-dom.development.js&quot;&gt;&lt;/script&gt;
+ 8     &lt;script src=&quot;https://unpkg.com/babel-standalone@6.15.0/babel.min.js&quot;&gt;&lt;/script&gt;
+ 9   &lt;/head&gt;
+10   &lt;body&gt;
+11     &lt;div id=&quot;root&quot;&gt;&lt;/div&gt;
+12     &lt;script type=&quot;text/babel&quot;&gt;
+13 
+14       ReactDOM.render(
+15         &lt;h1&gt;Hello, world!&lt;/h1&gt;,
+16         document.getElementById(&#39;root&#39;)
+17       );
+18 
+19     &lt;/script&gt;
+20   &lt;/body&gt;
+21 &lt;/html&gt;
+</code></pre><p>我们可以看到，通过script外部JS文件的引入，包括在CodePen上显示的HelloWorld代码，他的主要”引擎”是Javascript，通过其语法将H5的内容展示出来。</p>
+<ol>
+<li>安装开发环境<br>使用npm、npx来安装环境，只需要通过终端输入几个简单的命令就可以啦~那么npm和npx究竟是什么呢？</li>
+</ol>
+<p><a href="http://www.jianshu.com/p/cc4ab46eca2f" target="_blank" rel="noopener">npm是什么</a><br><a href="http://blog.csdn.net/whh181/article/details/78363544?readlog" target="_blank" rel="noopener">npx是什么</a><br><a href="https://www.npmjs.com/" target="_blank" rel="noopener">npm官网</a></p>
+<p>使用npm或者npx在控制台中输入命令即可：<br><img src="http://img.blog.csdn.net/20171201200730614?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20171201200655031?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><a href="https://www.cnblogs.com/-walker/p/6056529.html" target="_blank" rel="noopener">webpack是什么</a></p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/21/大学生创新项目认真投一篇中文核心的坎坷故事/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          大学生创新项目认真投一篇中文核心的坎坷故事
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/21/word2vec/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">word2vec</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

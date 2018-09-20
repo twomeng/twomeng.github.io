@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Python 爬虫 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Requests urllib的升级版本打包了全部功能并简化了使用方法beautifulsoup 是一个可以从HTML或XML文件中提取数据的Python库.LXML 一个HTML解析包 用于辅助beautifulsoup解析网页 urllib2用一个Request对象来映射你提出的HTTP请求。在它最简单的使用形式中你将用你要请求的地址创建一个Request对象，通过调用urlopen并传入Re">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 爬虫">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/Python 爬虫/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Requests urllib的升级版本打包了全部功能并简化了使用方法beautifulsoup 是一个可以从HTML或XML文件中提取数据的Python库.LXML 一个HTML解析包 用于辅助beautifulsoup解析网页 urllib2用一个Request对象来映射你提出的HTTP请求。在它最简单的使用形式中你将用你要请求的地址创建一个Request对象，通过调用urlopen并传入Re">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20170519130915683?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170519131007739?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170519210926266?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-09-20T01:27:29.052Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python 爬虫">
+<meta name="twitter:description" content="Requests urllib的升级版本打包了全部功能并简化了使用方法beautifulsoup 是一个可以从HTML或XML文件中提取数据的Python库.LXML 一个HTML解析包 用于辅助beautifulsoup解析网页 urllib2用一个Request对象来映射你提出的HTTP请求。在它最简单的使用形式中你将用你要请求的地址创建一个Request对象，通过调用urlopen并传入Re">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170519130915683?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-Python 爬虫" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Python 爬虫
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/Python 爬虫/" class="article-date">
+  <time datetime="2018-08-14T02:54:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Requests urllib的升级版本打包了全部功能并简化了使用方法<br>beautifulsoup 是一个可以从HTML或XML文件中提取数据的Python库.<br>LXML 一个HTML解析包 用于辅助beautifulsoup解析网页</p>
+<p>urllib2用一个Request对象来映射你提出的HTTP请求。<br>在它最简单的使用形式中你将用你要请求的地址创建一个Request对象，<br>通过调用urlopen并传入Request对象，将返回一个相关请求response对象，<br>这个应答对象如同一个文件对象，所以你可以在Response中调用.read()。</p>
+<p><strong>百度贴吧小爬虫</strong><br>目的：输入带分页的地址，去掉最后面的数字，设置一下起始页数和终点页数。<br>功能：下载对应页码内的所有页面并存储为html文件。</p>
+<pre><code> 1 import urllib2
+ 2 import string 
+ 3 
+ 4 def baidu_tieba(url,begin_page,end_page):
+ 5     for i in range(begin_page,end_page):
+ 6         sName = string.zfill(i,5)+&#39;.html&#39;
+ 7         print &#39;is downloading &#39; + str(i) +&#39; page and restore it as &#39;+ sName + &#39;......&#39;
+ 8         f=open(sName,&#39;w+&#39;)
+ 9         m=urllib2.urlopen(url+str(i)).read()
+10         f.write(m)
+11         f.close()
+12 
+13 bdurl = &quot;http://tieba.baidu.com/p/4989517604?pn=&quot;
+14 begin_page = 1
+15 end_page = 5
+16 
+17 baidu_tieba(bdurl,begin_page,end_page)
+</code></pre><p>查看workspace，我们可以看到<br><img src="http://img.blog.csdn.net/20170519130915683?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><img src="http://img.blog.csdn.net/20170519131007739?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>这样一个一个的页面就被我们保存到本地啦！！真的很简单很开心啊！！！</p>
+<p><strong>re模块</strong><br>使用re的一般步骤是：<br>Step1：先将正则表达式的字符串形式编译为Pattern实例。<br>Step2：然后使用Pattern实例处理文本并获得匹配结果（一个Match实例）。<br>Step3：最后使用Match实例获得信息，进行其他的操作。</p>
+<p>用户代理 User Agent，是指浏览器,它的信息包括硬件平台、系统软件、应用软件和用户个人偏好。<br>如何查看chrome的用户代理信息？<br>在地址栏中输入：chrome://version/ 即可显示全部信息</p>
+<pre><code>1 用户代理    Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36
+
+
+
+
+
+出现 SyntaxError: Non-ASCII character &#39;\xef&#39; in file hello.py on line 10, but no encoding declared; see &lt;http://python.org/dev/peps/pep-0263/&gt; for details问题时很明显是编码的问题，那么就在.py文件头添加一句
+
+
+#coding:utf-8
+</code></pre><p>便可以解决问题。</p>
+<p>小技能：f12+fn 快速调出审查元素</p>
+<p><strong>糗事百科</strong></p>
+<pre><code> 1  # coding:utf-8
+ 2 import urllib2
+ 3 import urllib
+ 4 import re
+ 5 page = 1 
+ 6 url = &#39;http://www.qiushibaike.com/hot/page/&#39;+str(page)
+ 7 user_agent = &#39;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36&#39;
+ 8 headers = {&#39;User-Agent&#39; : user_agent}
+ 9 try:
+10     request = urllib2.Request(url,headers = headers)
+11     response = urllib2.urlopen(request)
+12     content  = response.read()
+13     pattern = re.compile(&#39;h2&gt;(.*?)&lt;/h2.*?content&quot;&gt;(.*?)&lt;/.*?number&quot;&gt;(.*?)&lt;/&#39;,re.S)
+14     items = re.findall(pattern,content)
+15     for item in items:
+16         print item[1],item[2]
+17 
+18 except urllib2.URLError,e:
+19     if hasattr(e,&quot;code&quot;):
+20         print e.code
+21     if hasattr(e,&quot;reason&quot;):
+22         print e.reason
+23 
+24 # 打印出第一页的html code,这里使用headers是伪装成浏览器，防止被封，有的网站需要这样的
+25 # 措施，否则会报出httplib.BadStatusLine: &#39;&#39;这样的错误，有的则没有被封的风险。
+26 
+27 #2.提取某一页的所有段子
+28 #1）.*? 是一个固定的搭配，.和*代表可以匹配任意无限多个字符，加上？表示使用非贪婪模式进行匹配，也就是我们会尽可能短地做匹配，以后我们还会大量用到 .*? 的搭配。
+29 
+30 #2）(.*?)代表一个分组，在这个正则表达式中我们匹配了三个分组，在后面的遍历item中，item[0]就代表第一个(.*?)所指代的内容，item[1]就代表第二个(.*?)所指代的内容，以此类推。
+31 
+32 #3）re.S 标志代表在匹配时为点任意匹配模式，点 . 也可以代表换行符。
+33 #这样我们便获得了发布内容 点赞数
+</code></pre><p><strong>Quotes 一个hin简单的网站！</strong><br>经过一天的摸鱼之旅之后终于要开始学习scrapy框架啦，毕竟干写爬虫和用框架写一定是不一样的。<br>看了一些基础scrapy教程之后爬了一个结构很简单的网站，但是还没有保存，其中有些东西还不是很懂。</p>
+<pre><code> 1 import scrapy 
+ 2 
+ 3 
+ 4 class Myspider(scrapy.Spider):
+ 5 
+ 6     name = &#39;hello&#39;
+ 7 
+ 8     def start_requests(self):
+ 9        urls=[
+10        &#39;http://quotes.toscrape.com/page/1/&#39;,
+11        &#39;http://quotes.toscrape.com/page/2/&#39;,
+12        ]
+13        for url in urls:
+14            yield scrapy.Request(url=url,callback=self.parse) 
+15 
+16 
+17     def parse(self, response):
+18         # page = response.url.split(&quot;/&quot;)[-2]
+19         # filename = &#39;quotes-%s.html&#39; % page
+20         # with open(filename,&#39;wb&#39;) as f:
+21         #     f.write(response.body)
+22         # self.log(&#39;Saved file %s&#39; % filename)
+23         content = response.xpath(&quot;.//div[@class=&#39;quote&#39;]/span[1]/text()&quot;).extract()
+24         for i in content: 
+25             print i 
+</code></pre><p><img src="http://img.blog.csdn.net/20170519210926266?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>上面的一个引号便是一条条的quote啦，超级简单啦~</p>
+<p>2017/5/20 愉快的节日~心情很好所以想学一下Ｍysql在python中的应用。<br>1）#!/usr/bin/python<br>是用来说明脚本语言是Python的。是要用/usr/bin下面的程序（工具）python，这个解释器，来解释python脚本，来运行python脚本的。</p>
+<p>2）#- _- coding: utf-8 -_ -<br>是用来指定文件编码为utf-8的。</p>
+<p>我搜索了一下”# - _- coding:utf-8 -_ -<br>为什么要这样的格式？”，有人在下面回复说：”大概是颜文字？”萌到我了！其实应该是Emacs处理编码的方式。在sublime里面我们输入#<br>coding:urf-8也是没有问题的啦~</p>
+<p><strong>连接mysql数据库</strong></p>
+<ul>
+<li><p>到mysql5.7/bin/下输入，以进入数据库：</p>
+</li>
+<li><p>1 mysql -hlocalhost -uroot -p</p>
+</li>
+</ul>
+<p>显示数据库内容：</p>
+<ul>
+<li>1 SHOW DATABASES;</li>
+</ul>
+<p>创建数据库:</p>
+<ul>
+<li>1 CREATE DATABASE testdb;</li>
+</ul>
+<p>创建一个’testuser’的测试用户，并予以相应的权限：</p>
+<ul>
+<li>1 CREATE USER ‘testuser’@’localhost’ IDENTIFIED BY ‘test623’;</li>
+</ul>
+<p>使用数据库：</p>
+<ul>
+<li>1 mysql&gt; USE testdb;</li>
+</ul>
+<p>grant 权限 on 数据库对象 to 用户，赋予权限给用户</p>
+<ul>
+<li>1 mysql&gt; GRANT ALL ON testdb.* TO ‘testuser’@’localhost’;</li>
+</ul>
+<p>退出</p>
+<pre><code> 1 mysql&gt; quit;
+ 2 #!user/bin/python
+ 3 # coding:utf-8
+ 4 # print mysql version
+ 5 import MySQLdb as mdb
+ 6 import sys
+ 7 con = None
+ 8 try:
+ 9     con = mdb.connect(&#39;localhost&#39;,&#39;testuser&#39;,&#39;test623&#39;,&#39;testdb&#39;)
+10     # 主机名 用户名 密码 数据库
+11     cur = con.cursor()
+12     # 创建游标
+13     cur.execute(&quot;SELECT VERSION()&quot;)
+14     data = cur.fetchone()
+15     print &quot;database version：%s &quot; %data
+16 except mdb.Error,e:
+17     print &quot;error %d: %s&quot; %(e.args[0],e.args[1])
+18 finally:
+19     if con:
+20         con.close()
+</code></pre><p>便打印出数据库的版本：</p>
+<pre><code>1 database version：5.7.17-log
+</code></pre><p>2.新建表并插入数据<br>我们先来看看SQL建表语句</p>
+<pre><code> 1 create table userinfo 
+ 2 
+ 3 ( 
+ 4   id int primary key identity,--identity每次自动加1
+ 5   name char(20), 
+ 6   age int check(age&gt;10), 
+ 7   sex char(2) 
+ 8 )
+ 9 
+10 --插入
+11 insert into userinfo(name,age,sex) values(&#39;张三&#39;,24,&#39;男&#39;)
+</code></pre><p>tip:运行python时每次弹出”IndentationError: unindent does not match any outer<br>indentation level”就说明tab and blank又混用啦！不得不说这一点真麻烦呢。</p>
+<pre><code> 1 # coding: utf-8
+ 2 import MySQLdb as mdb
+ 3 import sys
+ 4 
+ 5 con = mdb.connect(&#39;localhost&#39;, &#39;testuser&#39;, &#39;test623&#39;, &#39;testdb&#39;);
+ 6 with con:
+ 7     cur = con.cursor()
+ 8     cur.execute(&quot;CREATE TABLE IF NOT EXISTS Writers(Id INT PRIMARY KEY AUTO_INCREMENT, Name VARCHAR(25))&quot;)
+ 9     cur.execute(&quot;INSERT INTO Writers(Name) VALUES(&#39;Jack London&#39;)&quot;)
+10     cur.execute(&quot;INSERT INTO Writers(Name) VALUES(&#39;Honore de Balzac&#39;)&quot;)
+11     cur.execute(&quot;INSERT INTO Writers(Name) VALUES(&#39;Lion Feuchtwanger&#39;)&quot;)
+12     cur.execute(&quot;INSERT INTO Writers(Name) VALUES(&#39;Emile Zola&#39;)&quot;)
+13     cur.execute(&quot;INSERT INTO Writers(Name) VALUES(&#39;Truman Capote&#39;)&quot;)
+</code></pre><p>３.提取表中数据</p>
+<pre><code> 1 # coding: utf-8
+ 2 import MySQLdb as mdb
+ 3 import sys
+ 4 
+ 5 con = mdb.connect(&#39;localhost&#39;, &#39;testuser&#39;, &#39;test623&#39;, &#39;testdb&#39;);
+ 6 with con:
+ 7     cur = con.cursor()
+ 8     cur.execute(&quot;SELECT * FROM Writers&quot;)
+ 9     rows = cur.fetchall()
+10     #get all the data from the table and put it in a list
+11     for row in rows:
+12         print row
+13 C:\python\workspace&gt;python haha.py
+14 (1L, &#39;Jack London&#39;)
+15 (2L, &#39;Honore de Balzac&#39;)
+16 (3L, &#39;Lion Feuchtwanger&#39;)
+17 (4L, &#39;Emile Zola&#39;)
+18 (5L, &#39;Truman Capote&#39;)
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/14/python 入门学习/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          python 入门学习
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/14/数据结构实验报告（六）/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">数据结构实验报告（六）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

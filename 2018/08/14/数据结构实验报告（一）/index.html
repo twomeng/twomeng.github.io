@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数据结构实验报告（一） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="实验报告一 顺序表和链表（1）实验内容1．随机产生或键盘输入一组元素，建立一个带头结点的单向链表（无序）。2．遍历单向链表。3．把单向链表中元素逆置（不允许申请新的结点空间）。4．在单向链表中删除所有的偶数元素结点。5．编写在非递减有序链表中插入一个元素使链表元素仍有序的函数，并利用该函数建立一个非递减有序单向链表。6．利用算法5建立两个非递减有序单向链表，然后合并成一个非递增链表。7．利用算法5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构实验报告（一）">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/数据结构实验报告（一）/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="实验报告一 顺序表和链表（1）实验内容1．随机产生或键盘输入一组元素，建立一个带头结点的单向链表（无序）。2．遍历单向链表。3．把单向链表中元素逆置（不允许申请新的结点空间）。4．在单向链表中删除所有的偶数元素结点。5．编写在非递减有序链表中插入一个元素使链表元素仍有序的函数，并利用该函数建立一个非递减有序单向链表。6．利用算法5建立两个非递减有序单向链表，然后合并成一个非递增链表。7．利用算法5">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20170412134515893?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170412134541692?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170412134531801?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170412134549567?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170412134557677?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170412134605271?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-09-20T01:27:29.465Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构实验报告（一）">
+<meta name="twitter:description" content="实验报告一 顺序表和链表（1）实验内容1．随机产生或键盘输入一组元素，建立一个带头结点的单向链表（无序）。2．遍历单向链表。3．把单向链表中元素逆置（不允许申请新的结点空间）。4．在单向链表中删除所有的偶数元素结点。5．编写在非递减有序链表中插入一个元素使链表元素仍有序的函数，并利用该函数建立一个非递减有序单向链表。6．利用算法5建立两个非递减有序单向链表，然后合并成一个非递增链表。7．利用算法5">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170412134515893?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-数据结构实验报告（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据结构实验报告（一）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/数据结构实验报告（一）/" class="article-date">
+  <time datetime="2018-08-14T02:43:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>实验报告一 顺序表和链表<br>（1）实验内容<br>1．随机产生或键盘输入一组元素，建立一个带头结点的单向链表（无序）。<br>2．遍历单向链表。<br>3．把单向链表中元素逆置（不允许申请新的结点空间）。<br>4．在单向链表中删除所有的偶数元素结点。<br>5．编写在非递减有序链表中插入一个元素使链表元素仍有序的函数，并利用该函数建立一个非递减有序单向链表。<br>6．利用算法5建立两个非递减有序单向链表，然后合并成一个非递增链表。<br>7．利用算法5建立两个非递减有序单向链表，然后合并成一个非递减链表。<br>8．利用算法1建立的链表，实现将其分解成两个链表，其中一个全部为奇数，另一个全部为偶数（尽量利用已知的存储空间）。  </p>
+<ul>
+<li>9．采用单向链表实现一元多项式的存储并实现两个多项式相加并输出结果。<br>10．在主函数中设计一个简单的菜单，分别调试上述算法。<br>*11．综合训练：利用链表实现一个班级学生信息管理（数据录入、插入、删除、排序、查找等，并能够实现将数据存储到文件中）</li>
+</ul>
+<pre><code>  1 1）顺序表实现基本操作
+  2 #include &lt;iostream&gt;
+  3 #include &lt;stdio.h&gt;
+  4 #include &lt;stdlib.h&gt;
+  5 #define MaxSize 10
+  6 using namespace std;
+  7 typedef int Elemtype;
+  8 //抽象化元素类型，到时候可根据需要将int修改成其他的基本数据类型
+  9 typedef struct {
+ 10 Elemtype data[MaxSize];
+ 11 int length;
+ 12 }Sqlist;
+ 13 //1.构造新的顺序表L
+ 14 //这种创建方法在逻辑上是不对的，因为数组的长度已经规定，不能无限制地输入数据元素
+ 15 Sqlist createSqlist(){
+ 16 Sqlist l;//length此时不为0，而是随机分配的一个数字
+ 17 int x;
+ 18 scanf (&quot;%d&quot;,&amp;x);
+ 19 int i=0;
+ 20 l.length=0;
+ 21 while (x!=-999){
+ 22     l.data[i]=x;
+ 23     l.length++;
+ 24     i++;
+ 25     scanf(&quot;%d&quot;,&amp;x);//勿忘重新读入数据
+ 26 }
+ 27 return l;
+ 28 }
+ 29 void displaySqlist(Sqlist &amp;l){//加不加引用的区别？？
+ 30 for (int i=0;i&lt;l.length;i++){
+ 31     printf(&quot;%d &quot;,l.data[i]);
+ 32 }
+ 33 printf(&quot;\n&quot;);
+ 34 }
+ 35 //初始化顺序表
+ 36 void InitSqlist(Sqlist &amp;l){
+ 37  l.length=0;
+ 38 }
+ 39 //插入：在第i个元素之前
+ 40 void InsertSqlist(Sqlist &amp;l,int i,Elemtype e){
+ 41 //1.判断I的位置是否合理
+ 42 if (i&lt;1||i&gt;l.length+1)//可以插在最后一个位置
+ 43     printf(&quot;positon error&quot;);
+ 44 for (int j=l.length;j&gt;i-1;j--){
+ 45     l.data[j]=l.data[j-1];
+ 46 }
+ 47 l.data[i-1]=e;
+ 48 l.length++;
+ 49 }
+ 50 
+ 51 void readitemSqlist(Sqlist &amp;l){
+ 52 int x;
+ 53 scanf (&quot;%d&quot;,&amp;x);
+ 54 int i=0;
+ 55 while (x!=-999&amp;&amp;l.length&lt;=MaxSize){
+ 56     l.data[i]=x;
+ 57     i++;
+ 58     scanf (&quot;%d&quot;,&amp;x);
+ 59     l.length++;
+ 60 }
+ 61 }
+ 62 //有返回值的插入方法
+ 63 int InsertSqlist2(Sqlist &amp;l,int i,Elemtype e){
+ 64 //1.判断I的位置是否合理
+ 65 if (i&lt;1||i&gt;l.length+1){
+ 66    printf(&quot;positon error&quot;);
+ 67    return 0;
+ 68 }
+ 69 
+ 70 for (int j=l.length;j&gt;i-1;j--){
+ 71     l.data[j]=l.data[j-1];
+ 72 }
+ 73 l.data[i-1]=e;
+ 74 l.length++;
+ 75 return 1;
+ 76 }
+ 77 int deleteSqlist (Sqlist &amp;l,int i,Elemtype &amp;e){
+ 78 //删除i之前的元素，回收到e中
+ 79 if (i&lt;1||i&gt;l.length){
+ 80     printf(&quot;positon error&quot;);
+ 81     return 0;
+ 82 }
+ 83 e=l.data[i-1];
+ 84 for (int j=i-1;j&lt;l.length-1;j++){
+ 85     l.data[j]=l.data[j+1];
+ 86 }
+ 87 l.length--;
+ 88 return 1;
+ 89 }
+ 90 int locateSqlist (Sqlist &amp;l,Elemtype e){
+ 91 for (int i=0;i&lt;l.length;i++){
+ 92     if (l.data[i]==e)
+ 93         return i+1;//返回的是序号
+ 94 }
+ 95 printf(&quot;can not find it !&quot;);
+ 96 return 0;
+ 97 //另一种做法
+ 98 //int i=l.length;
+ 99 //while (i&gt;=0&amp;&amp;l.data[i]!=x) i--;
+100 //return i+1;
+101 //if (i==-1)
+102 //return 0;
+103 }
+104 int main()
+105 {
+106    Sqlist l;
+107    InitSqlist(l);
+108    readitemSqlist(l);
+109    displaySqlist(l);
+110    Elemtype e=5;
+111    int i=locateSqlist(l,e);
+112    printf(&quot;%d&quot;,i);
+113 
+114 }
+115 2）单链表实现基本操作
+116 #include &lt;iostream&gt;
+117 #include &lt;stdio.h&gt;
+118 #include &lt;stdlib.h&gt;
+119 using namespace std;
+120 
+121 
+122     typedef int Elemtype;
+123     typedef struct node
+124     {
+125         Elemtype data;
+126         struct node *next;
+127     } node,*linklist;
+128     linklist creatlinklist()
+129     {
+130         //尾插法建立单链表
+131         linklist l,p,q;
+132         l=(linklist)malloc(sizeof(node));
+133         p=l;
+134         int x;
+135         scanf(&quot;%d&quot;,&amp;x);
+136         while (x!=-999)
+137         {
+138             q=(linklist)malloc(sizeof(node));
+139             q-&gt;data=x;
+140             p-&gt;next=q;
+141             q-&gt;next=NULL;
+142             p=q;
+143             scanf(&quot;%d&quot;,&amp;x);
+144         }
+145         return l;
+146     }
+147     void displaylinklist(linklist l)
+148     {
+149         linklist p=l-&gt;next;
+150         while (p!=NULL)
+151         {
+152             printf(&quot;%d &quot;,p-&gt;data);
+153             p=p-&gt;next;
+154         }
+155         printf(&quot;\n&quot;);
+156     }
+157     void nizhilinklist(linklist &amp;l)
+158     {
+159         linklist p,q;//p指向后面结点，q指向当前结点
+160         q=l;
+161         p=l-&gt;next;
+162         l-&gt;next=NULL;//解放头结点
+163         while(p!=NULL)
+164         {
+165             q=p;//q指向即将头插法的结点
+166             p=p-&gt;next;//保存后面的结点首地址；
+167             q-&gt;next=l-&gt;next;
+168             l-&gt; next=q;
+169         }
+170 
+171     }
+172     void deletelinklist(linklist &amp;l)
+173     {
+174         linklist p=l;
+175         //p指向待删除元素的前面的位置，必须要从L开始，不然第一个元素无法删除
+176         while (p!=NULL)
+177         {
+178             if(p-&gt;next==NULL)//如果最后一个元素是奇数要特别对待
+179                 break;
+180             if (p-&gt;next-&gt;data%2==0)
+181             {
+182                 p-&gt;next=p-&gt;next-&gt;next;
+183             }
+184             p=p-&gt;next;
+185 
+186         }
+187     }
+188     void insertlinklist(linklist &amp;l)
+189     {
+190          Elemtype x;
+191         scanf(&quot;%d&quot;,&amp;x);
+192         linklist p;
+193         linklist q;
+194         p=l;
+195         while (p-&gt;next!=NULL&amp;&amp;p-&gt;next-&gt;data &lt; x)
+196         {
+197         p=p-&gt;next;
+198         }
+199         if (p-&gt;next!=NULL){
+200             q=(linklist )malloc(sizeof(node));
+201             q-&gt;data=x;
+202             q-&gt;next=p-&gt;next;
+203             p-&gt;next=q;
+204         }
+205         if (p-&gt;next==NULL)
+206         {
+207             p-&gt;next=q;
+208             q-&gt;next=NULL;
+209         }
+210     }
+211     void mergelinklist(linklist &amp;la,linklist &amp;lb,linklist &amp;lc){
+212     //假设la与lb为非递减有序单向链表
+213     lc=la;
+214     linklist pa=la-&gt;next,pb=lb-&gt;next,pc=lc;
+215     lc-&gt;next=NULL;
+216     while (pa!=NULL&amp;&amp;pb!=NULL){
+217         if (pa-&gt;data &gt; pb-&gt;data){
+218          pc-&gt;next=pb;
+219          pc=pb;
+220          pb=pb-&gt;next;
+221     }
+222      if (pa-&gt;data &lt;= pb-&gt;data){
+223          pc-&gt;next=pa;
+224          pc=pa;
+225          pa=pa-&gt;next;
+226     }
+227 
+228     }
+229     if (pa!=NULL)
+230         pc-&gt;next=pa;
+231     if (pb!=NULL)
+232         pc-&gt;next=pb;
+233         free(lb);
+234         //free(la)??
+235         //这里判断条件如果用==，那么while循环出来的一定都满足该条件，所以要用不等于
+236 
+237 
+238 
+239     }
+240     void mergenizhilinklist(linklist &amp;la,linklist &amp;lb,linklist &amp;lc){
+241     mergelinklist(la,lb,lc);
+242     nizhilinklist(lc);
+243     }
+244     linklist dividelinklist(linklist &amp;l){
+245     linklist h=(linklist)malloc(sizeof(node));
+246     h-&gt;next=NULL;
+247     linklist p=l,q=h;
+248     while(p!=NULL){
+249             if(p-&gt;next==NULL)
+250             break;//最后为偶数
+251         if (p-&gt;next-&gt;data%2!=0){
+252             q-&gt;next=p-&gt;next;
+253             q=p-&gt;next;
+254             p-&gt;next=q-&gt;next;
+255             p=p-&gt;next;
+256         }
+257         p=p-&gt;next;
+258     }
+259     q-&gt;next=NULL;
+260     return h;
+261     //这里或许可以用头插法建立？？
+262 
+263     }
+264    //实现一元多项式
+265 typedef struct {
+266 float conf;
+267 int expn;
+268 }Elemtype;
+269 
+270 typedef struct pnode{
+271 Elemtype data;
+272 struct pnode *next;
+273 }pnode,*linklist;
+274 
+275 linklist creatPolylist(){
+276 linklist l=(linklist )malloc(sizeof(pnode));
+277 linklist p=l,q;
+278 float con;
+279 int exp;
+280 scanf (&quot;%f %d&quot;,&amp;con,&amp;exp);
+281 
+282 while (exp!=-1){
+283     q=(linklist )malloc(sizeof(pnode));
+284     (q-&gt;data).conf=con;
+285     (q-&gt;data).expn=exp;
+286     p-&gt;next=q;
+287     p=q;
+288     scanf (&quot;%f %d&quot;,&amp;con,&amp;exp);
+289 }
+290 p-&gt;next=NULL;
+291 return l ;
+292 }
+293 void displayPoly(linklist &amp;l){
+294 linklist p=l-&gt;next;
+295 while (p!=NULL){
+296     printf(&quot;(%.2f %d)&quot;,((p-&gt;data).conf),((p-&gt;data).expn));
+297     p=p-&gt;next;
+298 }
+299 printf(&quot;\n&quot;);
+300 }
+301 void addPoly(linklist &amp;la,linklist &amp;lb){
+302 linklist pa=la,pb=lb,qa,qb;
+303 qa=pa-&gt;next;
+304 qb=pb-&gt;next;
+305 int sum;
+306 while (qa!=NULL&amp;&amp;qb!=NULL){
+307 if (qa-&gt;data.expn &lt; qb-&gt;data.expn){
+308 pa=qa;
+309 qa=qa-&gt;next;
+310 }else if(qa-&gt;data.expn = qb-&gt;data.expn){
+311 sum=qa-&gt;data.conf + qb-&gt;data.conf;
+312 if (sum!=0){
+313 qa-&gt;data.conf=sum;
+314 pa=qa;
+315 qa=qa-&gt;next;
+316 pb=qb-&gt;next;
+317 free(qb);
+318 qb=qb-&gt;next;//释放B链表中的重复系数结点，这样不占用任何多余空间。
+319 }else {
+320     pa=qa-&gt;next;
+321     pb=qb-&gt;next;
+322     free(qa);
+323     free(qb);
+324     qa=pa-&gt;next;
+325     qb=pb-&gt;next;//两个结点都要释放
+326 
+327 }
+328 }else {
+329 pa-&gt;next=qb;
+330 qb-&gt;next=qa;
+331 pa=qb;
+332 qb=qb-&gt;next;//在la链表中插入B中的一个结点，仍旧保持Pa为Qa的前驱，qb后移
+333 }
+334 }
+335 if(qb!=NULL)
+336 qa-&gt;next=qb;
+337 }
+</code></pre><p><img src="http://img.blog.csdn.net/20170412134515893?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170412134541692?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170412134531801?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170412134549567?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170412134557677?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170412134605271?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/14/数据结构实验报告（二）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          数据结构实验报告（二）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/14/Java基础之排序/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Java基础之排序</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

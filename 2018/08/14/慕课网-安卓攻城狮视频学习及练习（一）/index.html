@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>慕课网-安卓攻城狮视频学习及练习（一） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="初学安卓，次次卡在button的事件监听处。这次要一鼓作气，把这个处理点击事件的机制看得赤裸裸！   1 public void onCreate(Bundle savedInstanceState) {  2         super.onCreate(savedInstanceState);  3         setContentView(R.layout.activity_main);">
+<meta property="og:type" content="article">
+<meta property="og:title" content="慕课网-安卓攻城狮视频学习及练习（一）">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/慕课网-安卓攻城狮视频学习及练习（一）/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="初学安卓，次次卡在button的事件监听处。这次要一鼓作气，把这个处理点击事件的机制看得赤裸裸！   1 public void onCreate(Bundle savedInstanceState) {  2         super.onCreate(savedInstanceState);  3         setContentView(R.layout.activity_main);">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20170106143432372?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170107141307938?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170108082225453?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170108083023092?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170108084811018?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170108090231544?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170108105032358?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170108123801799?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170108123825002?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170108130730046?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170108131326424?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170108144626559?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170108150321188?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170108155328569?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-09-20T01:27:30.391Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="慕课网-安卓攻城狮视频学习及练习（一）">
+<meta name="twitter:description" content="初学安卓，次次卡在button的事件监听处。这次要一鼓作气，把这个处理点击事件的机制看得赤裸裸！   1 public void onCreate(Bundle savedInstanceState) {  2         super.onCreate(savedInstanceState);  3         setContentView(R.layout.activity_main);">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170106143432372?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-慕课网-安卓攻城狮视频学习及练习（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      慕课网-安卓攻城狮视频学习及练习（一）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/慕课网-安卓攻城狮视频学习及练习（一）/" class="article-date">
+  <time datetime="2018-08-14T01:51:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>初学安卓，次次卡在button的事件监听处。这次要一鼓作气，把这个处理点击事件的机制看得赤裸裸！</p>
+<p><img src="http://img.blog.csdn.net/20170106143432372?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
+<pre><code> 1 public void onCreate(Bundle savedInstanceState) {
+ 2         super.onCreate(savedInstanceState);
+ 3         setContentView(R.layout.activity_main);
+ 4         btndo=(Button)findViewById(R.id.button1);
+ 5         txtShow=(TextView)findViewById(R.id.textView1);
+ 6         btndo.setOnClickListener(btndoListener);
+ 7 
+ 8     }
+ 9 
+10 private Button.OnClickListener btndoListener=new
+11 Button.OnClickListener(){
+12     public void onClick (View v){
+13         txtShow.setText(&quot;你按到我了！&quot;);
+14     }
+15 };
+</code></pre><p>匿名内部类：</p>
+<pre><code>public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        btndo=(Button)findViewById(R.id.button1);
+        txtShow=(TextView)findViewById(R.id.textView1);
+        btndo.setOnClickListener(new OnClickListener(){
+            public void onClick (View v){
+                txtShow.setText(&quot;你按到我了！&quot;);
+            }
+            });
+
+    }
+</code></pre><p>英里转换器</p>
+<pre><code> 1 private Button btndo;
+ 2     private TextView txtShow;
+ 3     private EditText editdo;
+ 4     @Override
+ 5     public void onCreate(Bundle savedInstanceState) {
+ 6         super.onCreate(savedInstanceState);
+ 7         setContentView(R.layout.activity_main);
+ 8         btndo=(Button)findViewById(R.id.button1);
+ 9         txtShow=(TextView)findViewById(R.id.textView2);
+10         editdo=(EditText)findViewById(R.id.editView1);
+11         btndo.setOnClickListener(new OnClickListener(){
+12             public void onClick (View v){
+13                 int miles=Integer.parseInt(editdo.getText().toString());
+14                 double km =1.61*(double)miles;
+15                 txtShow.setText(&quot;时速&quot;+km+&quot;公里&quot;);
+16             }
+17             });
+18 
+19 
+20     }
+</code></pre><p>多按钮共享事件 switch的应用</p>
+<pre><code> 1 public void onCreate(Bundle savedInstanceState) {
+ 2         super.onCreate(savedInstanceState);
+ 3         setContentView(R.layout.activity_main);
+ 4         bt1=(Button)findViewById(R.id.button1);
+ 5         bt2=(Button)findViewById(R.id.button2);
+ 6         bt3=(Button)findViewById(R.id.button3);
+ 7         text1=(TextView)findViewById(R.id.textView1);
+ 8 
+ 9         bt1.setOnClickListener(myListener);
+10         bt2.setOnClickListener(myListener);
+11         bt3.setOnClickListener(myListener);
+12 
+13     }       
+14             private Button.OnClickListener myListener=new 
+15                     Button.OnClickListener(){
+16 
+17                 public void onClick(View v){
+18                     String s=text1.getText().toString();
+19                     switch(v.getId()){
+20                     case R.id.button1:
+21                     text1.setText(s+&quot;0&quot;);
+22                     break;
+23 
+24                     case R.id.button2:
+25                     {text1.setText(s+&quot;1&quot;);
+26                     break;
+27                     }
+28                     case R.id.button3:
+29                     {text1.setText(s+&quot;2&quot;);
+30                     break;
+31                     }
+32                     }
+33                 }
+34 
+35             };
+</code></pre><p>tablelayout</p>
+<pre><code> 1 public class MainActivity extends Activity {
+ 2         private EditText edit1;
+ 3         private Button b1,b2,b3,b4,b5,b6;
+ 4     @Override
+ 5     public void onCreate(Bundle savedInstanceState) {
+ 6 
+ 7         super.onCreate(savedInstanceState);
+ 8         setContentView(R.layout.activity_main);
+ 9         edit1=(EditText)findViewById(R.id.editText1);
+10         b1=(Button)findViewById(R.id.button1);
+11         b2=(Button)findViewById(R.id.button2);
+12         b3=(Button)findViewById(R.id.button3);
+13         b4=(Button)findViewById(R.id.button4);
+14         b5=(Button)findViewById(R.id.button5);
+15         b6=(Button)findViewById(R.id.button6);
+16      b1.setOnClickListener(listener);
+17      b2.setOnClickListener(listener);
+18      b3.setOnClickListener(listener);
+19      b4.setOnClickListener(listener);
+20      b5.setOnClickListener(listener);
+21      b6.setOnClickListener(listener);
+22 
+23 
+24     }       
+25 
+26     private Button.OnClickListener listener =new 
+27             Button.OnClickListener() {
+28 
+29                 @Override
+30                 public void onClick(View v) {
+31                     // TODO Auto-generated method stub
+32                     switch (v.getId()) {
+33                     case R.id.button1:
+34                         displayATM(&quot;1&quot;);
+35                         break;
+36                     case R.id.button2:
+37                         displayATM(&quot;2&quot;);
+38                         break;
+39                     case R.id.button3:
+40                         displayATM(&quot;3&quot;);
+41                         break;
+42                     case R.id.button4:
+43                         displayATM(&quot;4&quot;);
+44                         break;
+45                     case R.id.button5:
+46                         displayATM(&quot;5&quot;);
+47                         break;
+48                     case R.id.button6:
+49                         displayATM(&quot;6&quot;);
+50                         break;
+51 
+52                     default:
+53                         break;
+54                     }
+55                 }
+56             };
+57             private void displayATM(String s){
+58                 String str=edit1.getText().toString();
+59                 edit1.setText(str+s);
+60             }
+</code></pre><p><img src="http://img.blog.csdn.net/20170107141307938?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><strong>4.2</strong>toast 弹出消息</p>
+<pre><code> 1 public void onCreate(Bundle savedInstanceState) {
+ 2 
+ 3         super.onCreate(savedInstanceState);
+ 4         setContentView(R.layout.activity_main);
+ 5         edit1=(EditText)findViewById(R.id.editText1);
+ 6         b1=(Button)findViewById(R.id.button1);
+ 7         b2=(Button)findViewById(R.id.button2);
+ 8         b3=(Button)findViewById(R.id.button3);
+ 9         b4=(Button)findViewById(R.id.button4);
+10         b5=(Button)findViewById(R.id.button5);
+11         b6=(Button)findViewById(R.id.button6);
+12         b7=(Button)findViewById(R.id.button7);
+13         b8=(Button)findViewById(R.id.button8);
+14 
+15      b1.setOnClickListener(listener);
+16      b2.setOnClickListener(listener);
+17      b3.setOnClickListener(listener);
+18      b4.setOnClickListener(listener);
+19      b5.setOnClickListener(listener);
+20      b6.setOnClickListener(listener);
+21      b7.setOnClickListener(listener);
+22      b8.setOnClickListener(listener);
+23 
+24 
+25 
+26     }       
+27 
+28     private Button.OnClickListener listener =new 
+29             Button.OnClickListener() {
+30 
+31                 @Override
+32                 public void onClick(View v) {
+33                     // TODO Auto-generated method stub
+34                     switch (v.getId()) {
+35                     case R.id.button1:
+36                         displayATM(&quot;1&quot;);
+37                         break;
+38                     case R.id.button2:
+39                         displayATM(&quot;2&quot;);
+40                         break;
+41                     case R.id.button3:
+42                         displayATM(&quot;3&quot;);
+43                         break;
+44                     case R.id.button4:
+45                         displayATM(&quot;4&quot;);
+46                         break;
+47                     case R.id.button5:
+48                         displayATM(&quot;5&quot;);
+49                         break;
+50                     case R.id.button6:
+51                         displayATM(&quot;6&quot;);
+52                         break;
+53                     case R.id.button7:{
+54                         String str=edit1.getText().toString();
+55                         if (str.length()&gt;0){
+56                             str=str.substring(0,str.length()-1);
+57                             edit1.setText(str);
+58                         }
+59                     }
+60                     case R.id.button8:{
+61                          String str=edit1.getText().toString();
+62                         if (str.equals(&quot;667788&quot;)){
+63                             Toast toast =Toast.makeText(MainActivity.this, &quot;密码正确，欢迎使用提款功能&quot;, Toast.LENGTH_LONG);
+64                         toast.show();   
+65                         }
+66                         else{
+67                             Toast toast =Toast.makeText(MainActivity.this, &quot;密码错误，请重新输入&quot;, Toast.LENGTH_LONG);
+68                             toast.show();
+69                         }
+70 
+71                     }
+72                     default:
+73                         break;
+74                     }
+75                 }
+76             };
+77             private void displayATM(String s){
+78                 String str=edit1.getText().toString();
+79                 edit1.setText(str+s);
+80             }
+</code></pre><p><img src="http://img.blog.csdn.net/20170108082225453?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>2)消息提示中央呈现</p>
+<pre><code> 1 case R.id.button8:{
+ 2                          String str=edit1.getText().toString();
+ 3                         if (str.equals(&quot;123456&quot;)){
+ 4                             Toast toast =Toast.makeText(MainActivity.this, &quot;密码正确，欢迎使用提款功能&quot;, Toast.LENGTH_LONG);
+ 5                         toast.show();   
+ 6                         toast.setGravity(Gravity.CENTER, 0, 0);
+ 7                         }
+ 8                         else{
+ 9                             Toast toast =Toast.makeText(MainActivity.this, &quot;密码错误，请重新输入&quot;, Toast.LENGTH_LONG);
+10                             toast.show();
+11                             toast.setGravity(Gravity.CENTER, 0, 0);
+12 
+13                         }
+14 
+15                     }
+</code></pre><p><img src="http://img.blog.csdn.net/20170108083023092?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>4.3 alertdialog对话框</p>
+<pre><code>1 case R.id.button9:{
+2                         new AlertDialog.Builder(MainActivity.this)
+3                         .setTitle(&quot;确认窗口&quot;)
+4                         .setIcon(R.drawable.ic_launcher)
+5                         .setMessage(&quot;确定要结束程序？&quot;)
+6                         .show();
+7                     }
+</code></pre><p><img src="http://img.blog.csdn.net/20170108084811018?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>2）加入交互按钮</p>
+<pre><code> 1 case R.id.button9:{
+ 2                         new AlertDialog.Builder(MainActivity.this)
+ 3                         .setTitle(&quot;确认窗口&quot;)
+ 4                         .setIcon(R.drawable.ic_launcher)
+ 5                         .setMessage(&quot;确定要结束程序？&quot;)
+ 6                         .setPositiveButton(&quot;确定&quot;, new  DialogInterface.OnClickListener() {
+ 7 
+ 8                             public void onClick(DialogInterface dialog, int which) {
+ 9 
+10                                 finish();
+11                             }
+12                         })
+13                         .setNegativeButton(&quot;取消&quot;, new  DialogInterface.OnClickListener() {
+14 
+15                             public void onClick(DialogInterface dialog, int which) {
+16 
+17 
+18                             }
+19                         })
+20                         .show();
+21                         break;
+22                     }
+</code></pre><p><img src="http://img.blog.csdn.net/20170108090231544?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><strong>一道练习题</strong></p>
+<pre><code>  1  package com.twomeng.meng;
+  2 
+  3 import android.R.raw;
+  4 import android.app.Activity;
+  5 import android.app.AlertDialog;
+  6 import android.content.DialogInterface;
+  7 import android.location.GpsStatus.Listener;
+  8 import android.os.Bundle;
+  9 import android.view.View;
+ 10 import android.view.View.OnClickListener;
+ 11 import android.widget.Button;
+ 12 import android.widget.EditText;
+ 13 import android.view.Gravity;
+ 14 import android.view.Menu;
+ 15 import android.view.MenuItem;
+ 16 import android.widget.TextView;
+ 17 import android.widget.Toast;
+ 18 public class MainActivity extends Activity {
+ 19         private Button b1,b2,b3,b4;
+ 20     @Override
+ 21     public void onCreate(Bundle savedInstanceState) {
+ 22 
+ 23         super.onCreate(savedInstanceState);
+ 24         setContentView(R.layout.activity_main);
+ 25         b1=(Button)findViewById(R.id.button1);
+ 26         b2=(Button)findViewById(R.id.button2);
+ 27         b3=(Button)findViewById(R.id.button3);
+ 28         b4=(Button)findViewById(R.id.button4);
+ 29 
+ 30 b1.setOnClickListener(Listener);
+ 31 b2.setOnClickListener(Listener);
+ 32 b3.setOnClickListener(Listener);
+ 33 b4.setOnClickListener(Listener);
+ 34     }       
+ 35 
+ 36     private Button.OnClickListener Listener=
+ 37             new OnClickListener() {
+ 38 
+ 39                 @Override
+ 40                 public void onClick(View v) {
+ 41 
+ 42                     switch (v.getId()) {
+ 43                     case R.id.button1:
+ 44                         new AlertDialog.Builder(MainActivity.this)
+ 45                         .setTitle(&quot;确认窗口&quot;)
+ 46                         .setIcon(R.drawable.ic_launcher)
+ 47                         .setMessage(&quot;你按了button1，按确定关闭对话框&quot;)
+ 48                         .setPositiveButton(&quot;确定&quot;, new DialogInterface.OnClickListener() {
+ 49 
+ 50                             @Override
+ 51                             public void onClick(DialogInterface dialog, int which) {
+ 52                                 finish();
+ 53 
+ 54                             }
+ 55                         })
+ 56                         .show();
+ 57                         break;
+ 58                     case R.id.button2:new AlertDialog.Builder(MainActivity.this)
+ 59                     .setTitle(&quot;确认窗口&quot;)
+ 60                     .setIcon(R.drawable.ic_launcher)
+ 61                     .setMessage(&quot;你按了button2，按确定关闭对话框&quot;)
+ 62                     .setPositiveButton(&quot;确定&quot;, new DialogInterface.OnClickListener() {
+ 63 
+ 64                         @Override
+ 65                         public void onClick(DialogInterface dialog, int which) {
+ 66                             finish();
+ 67 
+ 68                         }
+ 69                     })
+ 70                     .show();
+ 71                         break;
+ 72                     case R.id.button3:
+ 73                         new AlertDialog.Builder(MainActivity.this)
+ 74                         .setTitle(&quot;确认窗口&quot;)
+ 75                         .setIcon(R.drawable.ic_launcher)
+ 76                         .setMessage(&quot;你按了button3，按确定关闭对话框&quot;)
+ 77                         .setPositiveButton(&quot;确定&quot;, new DialogInterface.OnClickListener() {
+ 78 
+ 79                             @Override
+ 80                             public void onClick(DialogInterface dialog, int which) {
+ 81                                 finish();
+ 82 
+ 83                             }
+ 84                         })
+ 85                         .show();
+ 86                         break;
+ 87 
+ 88                     case R.id.button4:
+ 89                         new AlertDialog.Builder(MainActivity.this)
+ 90                         .setTitle(&quot;确认窗口&quot;)
+ 91                         .setIcon(R.drawable.ic_launcher)
+ 92                         .setMessage(&quot;你按了button4，按确定关闭对话框&quot;)
+ 93                         .setPositiveButton(&quot;确定&quot;, new DialogInterface.OnClickListener() {
+ 94 
+ 95                             @Override
+ 96                             public void onClick(DialogInterface dialog, int which) {
+ 97                                 finish();
+ 98 
+ 99                             }
+100                         })
+101                         .show();
+102                         break;
+103                     }
+104                 }
+105             };
+106 
+107     @Override
+108     public boolean onCreateOptionsMenu(Menu menu) {
+109         // Inflate the menu; this adds items to the action bar if it is present.
+110         getMenuInflater().inflate(R.menu.main, menu);
+111         return true;
+112     }
+113 
+114     @Override
+115     public boolean onOptionsItemSelected(MenuItem item) {
+116         // Handle action bar item clicks here. The action bar will
+117         // automatically handle clicks on the Home/Up button, so long
+118         // as you specify a parent activity in AndroidManifest.xml.
+119         int id = item.getItemId();
+120         if (id == R.id.action_settings) {
+121             return true;
+122         }
+123         return super.onOptionsItemSelected(item);
+124     }
+125 }
+</code></pre><p><img src="http://img.blog.csdn.net/20170108105032358?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><strong>第五章 单选、复选和下拉列表</strong></p>
+<pre><code> 1  private TextView text1;
+ 2     private CheckBox check1,check2,check3;
+ 3 
+ 4     public void onCreate(Bundle savedInstanceState) {
+ 5 
+ 6         super.onCreate(savedInstanceState);
+ 7         setContentView(R.layout.activity_main);
+ 8         text1=(TextView)findViewById(R.id.textView1);
+ 9         check1=(CheckBox)findViewById(R.id.check1);
+10         check2=(CheckBox)findViewById(R.id.check2);
+11         check3=(CheckBox)findViewById(R.id.check3);
+12 
+13         check1.setOnCheckedChangeListener(listener);
+14         check2.setOnCheckedChangeListener(listener);
+15         check3.setOnCheckedChangeListener(listener);
+16 
+17     }
+18     private CheckBox.OnCheckedChangeListener listener =
+19             new CheckBox.OnCheckedChangeListener() {
+20 
+21                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+22                 int n=0;
+23                 String s=&quot;&quot;;
+24                 String s1=&quot;&quot;,s2=&quot;&quot;,s3=&quot;&quot;;
+25                 if (check1.isChecked()){
+26                     n++;
+27                     s1=check1.getText().toString()+&quot; &quot;;
+28                 }
+29                 else{
+30                     s1=&quot;&quot;;
+31                 }
+32                 if (check2.isChecked()){
+33                     n++;
+34                     s2=check2.getText().toString()+&quot; &quot;;
+35                 }
+36                 else{
+37                     s2=&quot;&quot;;
+38                 }
+39                 if (check3.isChecked()){
+40                     n++;
+41                     s3=check3.getText().toString()+&quot; &quot;;
+42                 }
+43                 else{
+44                     s3=&quot;&quot;;
+45                 }
+46                 s=s1+s2+s3;
+47                 text1.setText(&quot;最喜欢的球类有：&quot;+s+&quot;共&quot;+n+&quot;项&quot;);
+48 
+49                 }
+50             };
+</code></pre><p><img src="http://img.blog.csdn.net/20170108123801799?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>2）水平的复选框</p>
+<pre><code> 1 &lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+ 2     xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+ 3     android:layout_width=&quot;match_parent&quot;
+ 4     android:layout_height=&quot;match_parent&quot;
+ 5     android:orientation=&quot;vertical&quot; &gt;
+ 6 
+ 7     &lt;TextView
+ 8         android:layout_width=&quot;fill_parent&quot;
+ 9         android:layout_height=&quot;wrap_content&quot;
+10         android:text=&quot;我最喜欢的球类运动&quot;
+11         android:textSize=&quot;20sp&quot; /&gt;
+12 &lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+13     xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+14     android:layout_width=&quot;wrap_content&quot;
+15     android:layout_height=&quot;wrap_content&quot;
+16     android:orientation=&quot;horizontal&quot; &gt;
+17     &lt;CheckBox
+18         android:id=&quot;@+id/check1&quot;
+19         android:layout_width=&quot;fill_parent&quot;
+20         android:layout_height=&quot;wrap_content&quot;
+21         android:text=&quot;篮球&quot;
+22         android:textSize=&quot;20sp&quot; /&gt;
+23 
+24     &lt;CheckBox
+25         android:id=&quot;@+id/check2&quot;
+26         android:layout_width=&quot;fill_parent&quot;
+27         android:layout_height=&quot;wrap_content&quot;
+28         android:text=&quot;足球&quot;
+29         android:textSize=&quot;20sp&quot; /&gt;
+30 
+31     &lt;CheckBox
+32         android:id=&quot;@+id/check3&quot;
+33         android:layout_width=&quot;fill_parent&quot;
+34         android:layout_height=&quot;wrap_content&quot;
+35         android:text=&quot;棒球&quot;
+36         android:textSize=&quot;20sp&quot; /&gt;
+37 &lt;/LinearLayout&gt;
+38     &lt;TextView
+39         android:id=&quot;@+id/textView1&quot;
+40         android:layout_width=&quot;fill_parent&quot;
+41         android:layout_height=&quot;wrap_content&quot;
+42         android:text=&quot;显示消息&quot;
+43         android:textSize=&quot;20sp&quot; /&gt;
+44 
+45 &lt;/LinearLayout&gt;
+</code></pre><p><img src="http://img.blog.csdn.net/20170108123825002?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>5.2 radiobutton radiogroup单选列表</p>
+<pre><code> 1 private TextView text1;
+ 2     private RadioGroup group;
+ 3     private RadioButton button1,button2,button3;
+ 4     public void onCreate(Bundle savedInstanceState) {
+ 5         super.onCreate(savedInstanceState);
+ 6         setContentView(R.layout.activity_main);
+ 7         text1=(TextView)findViewById(R.id.textView1);
+ 8         group=(RadioGroup)findViewById(R.id.radioGroup1);
+ 9         button1=(RadioButton)findViewById(R.id.radio0);
+10         button2=(RadioButton)findViewById(R.id.radio1);
+11         button3=(RadioButton)findViewById(R.id.radio2);
+12         group.setOnCheckedChangeListener(listener);
+13 
+14     }
+15     private RadioGroup.OnCheckedChangeListener listener=
+16             new RadioGroup.OnCheckedChangeListener() {
+17 
+18                 public void onCheckedChanged(RadioGroup group, int checkedId) {
+19 int p=group.indexOfChild((RadioButton)findViewById(checkedId));
+20 int count=group.getChildCount();
+21 if(checkedId==R.id.radio0)
+22     text1.setText(count+&quot;项球类中，最喜欢第&quot;+(p+1)+&quot;项 &quot;+button1.getText());
+23 if(checkedId==R.id.radio1)
+24     text1.setText(count+&quot;项球类中，最喜欢第&quot;+(p+1)+&quot;项 &quot;+button2.getText());
+25 if(checkedId==R.id.radio2)
+26     text1.setText(count+&quot;项球类中，最喜欢第&quot;+(p+1)+&quot;项 &quot;+button3.getText());
+27                 }
+28             };
+</code></pre><p><img src="http://img.blog.csdn.net/20170108130730046?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>2）水平单选框</p>
+<pre><code> 1 &lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+ 2     xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+ 3     android:layout_width=&quot;match_parent&quot;
+ 4     android:layout_height=&quot;match_parent&quot;
+ 5     android:orientation=&quot;vertical&quot; &gt;
+ 6 
+ 7     &lt;TextView
+ 8         android:layout_width=&quot;fill_parent&quot;
+ 9         android:layout_height=&quot;wrap_content&quot;
+10         android:text=&quot;我最喜欢的球类运动&quot;
+11         android:textSize=&quot;20sp&quot; /&gt;
+12 &lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+13     xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+14     android:layout_width=&quot;wrap_content&quot;
+15     android:layout_height=&quot;wrap_content&quot;
+16     android:orientation=&quot;horizontal&quot; &gt;
+17     &lt;RadioGroup android:orientation=&quot;horizontal&quot;
+18         android:id=&quot;@+id/radioGroup1&quot;
+19         android:layout_width=&quot;fill_parent&quot;
+20         android:layout_height=&quot;wrap_content&quot; &gt;
+21 
+22         &lt;RadioButton
+23             android:id=&quot;@+id/radio0&quot;
+24             android:layout_width=&quot;fill_parent&quot;
+25             android:layout_height=&quot;wrap_content&quot;
+26             android:text=&quot;篮球&quot; /&gt;
+27 
+28         &lt;RadioButton
+29             android:id=&quot;@+id/radio1&quot;
+30             android:text=&quot;足球&quot;
+31             android:layout_width=&quot;fill_parent&quot;
+32             android:layout_height=&quot;wrap_content&quot;
+33              /&gt;
+34 
+35         &lt;RadioButton
+36             android:id=&quot;@+id/radio2&quot;
+37             android:text=&quot;棒球&quot;
+38             android:layout_width=&quot;fill_parent&quot;
+39             android:layout_height=&quot;wrap_content&quot;
+40             /&gt;
+41     &lt;/RadioGroup&gt;
+42 &lt;/LinearLayout&gt;
+43 
+44     &lt;TextView
+45         android:id=&quot;@+id/textView1&quot;
+46         android:layout_width=&quot;fill_parent&quot;
+47         android:layout_height=&quot;wrap_content&quot;
+48         android:text=&quot;显示消息&quot;
+49         android:textSize=&quot;20sp&quot; /&gt;
+50 
+51 &lt;/LinearLayout&gt;
+</code></pre><p><img src="http://img.blog.csdn.net/20170108131326424?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><strong>5.3 spinner 下拉式列表</strong></p>
+<pre><code> package com.twomeng.meng;
+
+import org.apache.http.conn.BasicEofSensorWatcher;
+
+import android.R.raw;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.location.GpsStatus.Listener;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
+public class MainActivity extends Activity {
+
+    private TextView text1;
+    private Spinner spinner;
+    String[] Balls=new String[]{&quot;篮球&quot;,&quot;足球&quot;,&quot;棒球&quot;,&quot;其他&quot;};
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        text1=(TextView)findViewById(R.id.textView1);
+        spinner=(Spinner)findViewById(R.id.spinner1);
+
+        spinner=(Spinner)findViewById(R.id.spinner1);
+        ArrayAdapter&lt;String&gt; adapterballs=new ArrayAdapter&lt;String&gt;
+        (this, android.R.layout.simple_spinner_item,Balls);
+
+        adapterballs.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner.setAdapter(adapterballs);
+
+        spinner.setOnItemSelectedListener(listener);
+    }
+
+
+            private Spinner.OnItemSelectedListener listener =
+                    new Spinner.OnItemSelectedListener() {
+
+                    public void onItemSelected(AdapterView&lt;?&gt; parent,View v,int position,long id ){
+                        String string=parent.getSelectedItem().toString();
+                        text1.setText(string);
+
+                    }
+                    public void onNothingSelected(AdapterView&lt;?&gt; parent ){
+
+                        }
+                    };
+
+}
+</code></pre><p><img src="http://img.blog.csdn.net/20170108144626559?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><strong>练习</strong></p>
+<pre><code> 1  package com.twomeng.meng;
+ 2 
+ 3 import org.apache.http.conn.BasicEofSensorWatcher;
+ 4 
+ 5 import android.R.raw;
+ 6 import android.app.Activity;
+ 7 import android.app.AlertDialog;
+ 8 import android.content.DialogInterface;
+ 9 import android.location.GpsStatus.Listener;
+10 import android.os.Bundle;
+11 import android.view.View;
+12 import android.view.View.OnClickListener;
+13 import android.widget.Adapter;
+14 import android.widget.AdapterView;
+15 import android.widget.AdapterView.OnItemSelectedListener;
+16 import android.widget.ArrayAdapter;
+17 import android.widget.Button;
+18 import android.widget.CheckBox;
+19 import android.widget.CompoundButton;
+20 import android.widget.CompoundButton.OnCheckedChangeListener;
+21 import android.widget.EditText;
+22 import android.widget.RadioButton;
+23 import android.widget.RadioGroup;
+24 import android.widget.Spinner;
+25 import android.view.Gravity;
+26 import android.view.Menu;
+27 import android.view.MenuItem;
+28 import android.widget.TextView;
+29 import android.widget.Toast;
+30 public class MainActivity extends Activity {
+31 
+32     private TextView textView;
+33     private CheckBox check1,check2,check3;
+34 
+35 
+36     public void onCreate(Bundle savedInstanceState) {
+37         super.onCreate(savedInstanceState);
+38         setContentView(R.layout.activity_main);
+39         textView=(TextView)findViewById(R.id.textView2);
+40         check1=(CheckBox)findViewById(R.id.checkBox1);
+41         check2=(CheckBox)findViewById(R.id.checkBox2);
+42         check3=(CheckBox)findViewById(R.id.checkBox3);
+43 
+44         check1.setOnCheckedChangeListener(listener);
+45         check2.setOnCheckedChangeListener(listener);
+46         check3.setOnCheckedChangeListener(listener);
+47 
+48     }
+49     private CheckBox.OnCheckedChangeListener listener=
+50             new OnCheckedChangeListener() {
+51 
+52                 @Override
+53                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+54                     int n=0;
+55                     String string;
+56                     String s1,s2,s3;
+57                     if (check1.isChecked()){
+58                         n++;
+59                         s1=check1.getText().toString();
+60 
+61                     }
+62                     else
+63                         s1=&quot; &quot;;
+64                     if (check2.isChecked()){
+65                         n++;
+66                         s2=check2.getText().toString();
+67 
+68                     }
+69                     else
+70                         s2=&quot; &quot;;
+71                     if (check3.isChecked()){
+72                         n++;
+73                         s3=check3.getText().toString();
+74 
+75                     }
+76                     else
+77                         s3=&quot; &quot;;
+78 
+79                     string=s1+s2+s3;
+80                     textView.setText(&quot;最喜欢的程序语言有：&quot;+string+&quot;共&quot;+n+&quot;种&quot;);
+81                 }
+82             };
+83 
+84 
+85 
+86 }
+</code></pre><p><img src="http://img.blog.csdn.net/20170108150321188?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<pre><code> 1 package com.twomeng.meng;
+ 2 
+ 3 import org.apache.http.conn.BasicEofSensorWatcher;
+ 4 
+ 5 import android.R.raw;
+ 6 import android.app.Activity;
+ 7 import android.app.AlertDialog;
+ 8 import android.content.DialogInterface;
+ 9 import android.location.GpsStatus.Listener;
+10 import android.os.Bundle;
+11 import android.view.View;
+12 import android.view.View.OnClickListener;
+13 import android.widget.Adapter;
+14 import android.widget.AdapterView;
+15 import android.widget.AdapterView.OnItemSelectedListener;
+16 import android.widget.ArrayAdapter;
+17 import android.widget.Button;
+18 import android.widget.CheckBox;
+19 import android.widget.CompoundButton;
+20 import android.widget.CompoundButton.OnCheckedChangeListener;
+21 import android.widget.EditText;
+22 import android.widget.RadioButton;
+23 import android.widget.RadioGroup;
+24 import android.widget.Spinner;
+25 import android.view.Gravity;
+26 import android.view.Menu;
+27 import android.view.MenuItem;
+28 import android.widget.TextView;
+29 import android.widget.Toast;
+30 public class MainActivity extends Activity {
+31 
+32     private TextView textView;
+33     private RadioGroup group;
+34     private RadioButton b1,b2,b3,b4;
+35     private EditText editText;
+36 
+37     public void onCreate(Bundle savedInstanceState) {
+38         super.onCreate(savedInstanceState);
+39         setContentView(R.layout.activity_main);
+40         textView=(TextView)findViewById(R.id.textView2);
+41         editText=(EditText)findViewById(R.id.editText1);
+42         b1=(RadioButton)findViewById(R.id.radio0);
+43         b2=(RadioButton)findViewById(R.id.radio1);
+44         b3=(RadioButton)findViewById(R.id.radio2);
+45         b4=(RadioButton)findViewById(R.id.radio3);
+46         group=(RadioGroup)findViewById(R.id.radioGroup1);
+47         group.setOnCheckedChangeListener(listener);
+48 
+49     }
+50     private RadioGroup.OnCheckedChangeListener listener=
+51             new RadioGroup.OnCheckedChangeListener() {
+52 
+53                 public void onCheckedChanged(RadioGroup group, int checkedId) {
+54                 if (checkedId==R.id.radio0){
+55                     String string=editText.getText().toString();
+56                     textView.setText(string+&quot; 你的血型为 &quot;+b1.getText());
+57                 }
+58                 if (checkedId==R.id.radio1){
+59                     String string=editText.getText().toString();
+60                     textView.setText(string+&quot; 你的血型为 &quot;+b2.getText());
+61                 }
+62                 if (checkedId==R.id.radio2){
+63                     String string=editText.getText().toString();
+64                     textView.setText(string+&quot; 你的血型为 &quot;+b3.getText());
+65                 }
+66                 if (checkedId==R.id.radio3){
+67                     String string=editText.getText().toString();
+68                     textView.setText(string+&quot; 你的血型为 &quot;+b4.getText());
+69                 }
+70                 }
+71             };
+72 
+73 }
+</code></pre><p><img src="http://img.blog.csdn.net/20170108155328569?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/14/慕课网-安卓攻城狮视频学习及练习（二）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          慕课网-安卓攻城狮视频学习及练习（二）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/14/高精度运算/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">高精度运算</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

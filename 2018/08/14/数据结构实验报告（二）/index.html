@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>数据结构实验报告（二） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="实验二 栈、队列 （1）实验内容1．采用链式存储实现栈的初始化、入栈、出栈操作。2．采用顺序存储实现栈的初始化、入栈、出栈操作。3．采用链式存储实现队列的初始化、入队、出队操作。4．采用顺序存储实现循环队列的初始化、入队、出队操作。5．在主函数中设计一个简单的菜单，分别测试上述算法。*6．综合训练:1)利用栈实现表达式求值算法。2)利用栈实现迷宫求解。   1 #include &amp;lt;iostr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构实验报告（二）">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/数据结构实验报告（二）/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="实验二 栈、队列 （1）实验内容1．采用链式存储实现栈的初始化、入栈、出栈操作。2．采用顺序存储实现栈的初始化、入栈、出栈操作。3．采用链式存储实现队列的初始化、入队、出队操作。4．采用顺序存储实现循环队列的初始化、入队、出队操作。5．在主函数中设计一个简单的菜单，分别测试上述算法。*6．综合训练:1)利用栈实现表达式求值算法。2)利用栈实现迷宫求解。   1 #include &amp;lt;iostr">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20170412155219442?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170412155228772?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-09-20T01:27:29.499Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构实验报告（二）">
+<meta name="twitter:description" content="实验二 栈、队列 （1）实验内容1．采用链式存储实现栈的初始化、入栈、出栈操作。2．采用顺序存储实现栈的初始化、入栈、出栈操作。3．采用链式存储实现队列的初始化、入队、出队操作。4．采用顺序存储实现循环队列的初始化、入队、出队操作。5．在主函数中设计一个简单的菜单，分别测试上述算法。*6．综合训练:1)利用栈实现表达式求值算法。2)利用栈实现迷宫求解。   1 #include &amp;lt;iostr">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170412155219442?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-数据结构实验报告（二）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      数据结构实验报告（二）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/数据结构实验报告（二）/" class="article-date">
+  <time datetime="2018-08-14T02:43:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>实验二 栈、队列</p>
+<p>（1）实验内容<br>1．采用链式存储实现栈的初始化、入栈、出栈操作。<br>2．采用顺序存储实现栈的初始化、入栈、出栈操作。<br>3．采用链式存储实现队列的初始化、入队、出队操作。<br>4．采用顺序存储实现循环队列的初始化、入队、出队操作。<br>5．在主函数中设计一个简单的菜单，分别测试上述算法。<br>*6．综合训练:1)利用栈实现表达式求值算法。<br>2)利用栈实现迷宫求解。</p>
+<pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;stdio.h&gt;
+  3 #include &lt;stdlib.h&gt;
+  4 #define MAXSIZE 100
+  5 #define OVERFLOW -2
+  6 using namespace std;
+  7 //顺序栈
+  8 typedef int Elemtype;
+  9 typedef struct {
+ 10 Elemtype elem[MAXSIZE];
+ 11 int top;
+ 12 }SeqStack;
+ 13 void initSeqStack(SeqStack &amp;s){
+ 14 s.top=-1;
+ 15 }
+ 16 int stackEmpty(SeqStack &amp;s){
+ 17 if (s.top==-1)
+ 18 return 1;
+ 19 return 0;//或者返回 表达式的真值return s.top==-1;
+ 20 }
+ 21 int push(SeqStack &amp;s,Elemtype e){
+ 22 if (s.top&gt;=MAXSIZE-1)
+ 23 return 0;
+ 24 else {
+ 25 s.top++;
+ 26 s.elem[s.top]=e;
+ 27 return 1;
+ 28 }
+ 29 }
+ 30 int pop(SeqStack &amp;s,Elemtype &amp;e){
+ 31 if (s.top==-1)
+ 32 return 0;
+ 33 else {
+ 34 e=s.elem[s.top];
+ 35 s.top--;
+ 36 return 1;
+ 37 }
+ 38 }
+ 39 int gettop(SeqStack &amp;s,Elemtype &amp;e){
+ 40 if (s.top==-1)
+ 41 return 0;
+ 42 else {
+ 43 e=s.elem[s.top];
+ 44 return 1;
+ 45 }
+ 46 }
+ 47 void display(SeqStack &amp;s){
+ 48 for (int i=0;i&lt;=s.top;i++){
+ 49 cout&lt;&lt;s.elem[i]&lt;&lt;&quot; &quot;;
+ 50 }
+ 51 cout&lt;&lt;endl;
+ 52 }
+ 53 
+ 54 //链栈
+ 55 typedef struct node {
+ 56 Elemtype data;
+ 57 struct node *next;
+ 58 }node,*linkstack;
+ 59 void initLinkstack(linkstack &amp;top){
+ 60 top=NULL;//无头节点的链栈
+ 61 }
+ 62 int linkstackEmpty(linkstack &amp;top){
+ 63 return top==NULL;
+ 64 }
+ 65 int linkstackPush(linkstack &amp;top,Elemtype e){
+ 66 linkstack p=(linkstack )malloc (sizeof(node));
+ 67 if (!p) exit(OVERFLOW);
+ 68 p-&gt;data=e;
+ 69 p-&gt;next=top;
+ 70 top=p;
+ 71 return 1;
+ 72 }
+ 73 int linkstackPop(linkstack &amp;top,Elemtype &amp;e){
+ 74 e=top-&gt;data;
+ 75 linkstack p=top;
+ 76 top=top-&gt;next;
+ 77 free(p);
+ 78 return 1;
+ 79 }
+ 80 void getTop(linkstack &amp;top,Elemtype &amp;E){
+ 81 E=top-&gt;data;
+ 82 }
+ 83 void displaylinkstack(linkstack &amp;top){
+ 84 linkstack p=top;
+ 85 while (p){
+ 86 printf (&quot;%d &quot;,p-&gt;data);
+ 87 p=p-&gt;next;
+ 88 }
+ 89 printf (&quot;\n&quot;);
+ 90 }
+ 91 //顺序循环队列
+ 92 typedef int Elemtype;
+ 93 typedef struct{
+ 94 Elemtype data[MAXSIZE];
+ 95 int rear,front;
+ 96 }Seqqueue;
+ 97 void initSeqqueue(Seqqueue &amp;q){
+ 98 q.rear=q.front=-1;
+ 99 }
+100 int emptySeqqueue(Seqqueue &amp;q){
+101 return q.rear==q.front;
+102 }
+103 int enSeqqueue(Seqqueue &amp;q,Elemtype e){
+104     //先判断是否队满
+105     if ((q.rear+1)%MAXSIZE==q.front){
+106     printf (&quot;full!\n&quot;);
+107     return 0;
+108     }
+109     q.rear=(q.rear+1)%MAXSIZE;
+110     q.data[q.rear]=e;
+111     return 1;
+112 }
+113 int deSeqqueue(Seqqueue &amp;q,Elemtype &amp;e){
+114 if (emptySeqqueue(q)){
+115 printf (&quot;null!\n&quot;);
+116 return 0;
+117 }
+118 q.front=(q.front+1)%MAXSIZE;
+119 e=q.data[q.front];
+120 return 1;
+121 }
+122 Elemtype getFront(Seqqueue &amp;q){
+123 if (emptySeqqueue(q)){
+124 printf (&quot;null!\n&quot;);
+125 }
+126 else {
+127 Elemtype e;
+128 q.front=(q.front+1)%MAXSIZE;
+129 e=q.data[q.front];
+130 return e;
+131 }
+132 }
+133 int length(Seqqueue &amp;q){
+134 return (q.rear-q.front+MAXSIZE)%MAXSIZE;
+135 }
+136 void display(Seqqueue &amp;q){
+137 if (emptySeqqueue(q)){
+138 printf (&quot;null!\n&quot;);
+139 }
+140 else {
+141 int i=(1+q.front)%MAXSIZE;
+142 for (int j=0;j&lt;length(q);j++){
+143 printf (&quot;%d &quot;,q.data[i]);
+144 i++;
+145 }
+146 printf (&quot;\n&quot;);
+147 }
+148 }
+149 
+150 
+151 //链队列
+152 typedef int Elemtype;
+153 typedef struct qnode {
+154 Elemtype data;
+155 struct qnode *next;
+156 }qnode,*Queueptr;
+157 typedef struct {
+158 Queueptr front ;
+159 Queueptr rear;
+160 }linkQueue;
+161 int  initQueue(linkQueue &amp;q){
+162 Queueptr lq=(Queueptr)malloc(sizeof(qnode));
+163 if (!lq) exit(OVERFLOW);
+164 lq-&gt;next=NULL;
+165 q.front=q.rear=lq;
+166 }
+167 int isempty(linkQueue q){
+168 return q.front==q.rear;
+169 }
+170 int enterQueue(linkQueue &amp;q,Elemtype e){
+171 Queueptr p=(Queueptr)malloc(sizeof(qnode));
+172 if (!p) exit(OVERFLOW);
+173 p-&gt;data=e;
+174 p-&gt;next=q.rear-&gt;next;
+175 q.rear-&gt;next=p;
+176 q.rear=p;
+177 return 1;
+178 }
+179 int deQueue(linkQueue &amp;q,Elemtype &amp;e){
+180     //出队依旧要判空，入队不需要判满了
+181     if (q.rear==q.front){
+182     printf(&quot;null\n&quot;);
+183     return 0;
+184     }
+185 Queueptr p=q.front-&gt;next;
+186 e=p-&gt;data;
+187 q.front-&gt;next=p-&gt;next;
+188 //这里要特别注意如果链表中唯一的元素要出队，尾指针必须要重新指向头结点，不然丢失该指针了
+189 if (q.front-&gt;next==NULL){//或者q.rear==p;
+190 q.rear=q.front;
+191 }
+192 free(p);
+193 return 1;
+194 }
+195 void display(linkQueue &amp;q){
+196 Queueptr p=q.front-&gt;next;
+197 while (p){
+198 cout&lt;&lt;p-&gt;data&lt;&lt;&quot; &quot;;
+199 p=p-&gt;next;
+200 }
+201 cout&lt;&lt;endl;
+202 }
+203 int main()
+204 {
+205     SeqStack s;
+206     Elemtype e;
+207     linkstack top;
+208     Seqqueue q;
+209     linkQueue Q;
+210 
+211     cout&lt;&lt;&quot;---------------------------------------------------&quot;&lt;&lt;endl;
+212     cout&lt;&lt;&quot;1.采用顺序存储实现栈的初始化、入栈、出栈操作&quot;&lt;&lt;endl;
+213     cout&lt;&lt;&quot;2.采用链式存储实现栈的初始化、入栈、出栈操作&quot;&lt;&lt;endl;
+214     cout&lt;&lt;&quot;3.采用顺序存储实现队列的初始化、入队、出队操作&quot;&lt;&lt;endl;
+215     cout&lt;&lt;&quot;4.采用链式存储实现循环队列的初始化、入队、出队操作&quot;&lt;&lt;endl;
+216     cout&lt;&lt;&quot;---------------------------------------------------&quot;&lt;&lt;endl;
+217     int x,i;
+218     cout&lt;&lt;&quot;请输入您的选择！&quot;&lt;&lt;endl;
+219     while (cin&gt;&gt;x){
+220     switch(x){
+221     case 1:{
+222     initSeqStack(s);
+223     cout&lt;&lt;&quot;初始化顺序栈成功！&quot;&lt;&lt;endl;
+224     cout&lt;&lt;&quot;请输入压栈的内容！&quot;&lt;&lt;endl;
+225     cin&gt;&gt;i;
+226     while (i!=-999){
+227     push(s,i);
+228     cin&gt;&gt;i;
+229     }
+230     cout&lt;&lt;&quot;压栈成功！显示栈内数字！&quot;&lt;&lt;endl;
+231     display(s);
+232     cout&lt;&lt;&quot;获取栈顶元素！&quot;&lt;&lt;endl;
+233     gettop(s,e);
+234     printf (&quot;%d\n&quot;,e);
+235     cout&lt;&lt;&quot;弹栈！&quot;&lt;&lt;endl;
+236     while (s.top&gt;0){
+237     pop(s,e);
+238     cout&lt;&lt;&quot;弹出元素：&quot;&lt;&lt;e&lt;&lt;&quot; &quot;;
+239     }
+240     cout&lt;&lt;endl;
+241     cout&lt;&lt;&quot;显示栈内数字！&quot;&lt;&lt;endl;
+242     display(s);
+243     break;
+244     }
+245     case 2:
+246     initLinkstack(top);
+247     cout&lt;&lt;&quot;初始化链栈成功！&quot;&lt;&lt;endl;
+248     cout&lt;&lt;&quot;请输入压栈的内容！&quot;&lt;&lt;endl;
+249     cin&gt;&gt;i;
+250     while (i!=-999){
+251     linkstackPush(top,i);
+252     cin&gt;&gt;i;
+253     }
+254 
+255     cout&lt;&lt;&quot;压栈成功！显示栈内数字！&quot;&lt;&lt;endl;
+256     displaylinkstack(top);
+257     cout&lt;&lt;&quot;获取栈顶元素！&quot;&lt;&lt;endl;
+258     getTop(top,e);
+259     printf (&quot;%d\n&quot;,e);
+260     while (top){
+261     linkstackPop(top,e);
+262     cout&lt;&lt;&quot;弹出元素：&quot;&lt;&lt;e&lt;&lt;&quot; &quot;;
+263     }
+264     cout&lt;&lt;endl;
+265     cout&lt;&lt;&quot;显示栈内数字！&quot;&lt;&lt;endl;
+266     displaylinkstack(top);
+267     break;
+268     case 3:
+269     initSeqqueue(q);
+270     cout&lt;&lt;&quot;初始化顺序队列成功！&quot;&lt;&lt;endl;
+271     cout&lt;&lt;&quot;请输入进队的内容！&quot;&lt;&lt;endl;
+272     cin&gt;&gt;i;
+273     while (i!=-999){
+274     enSeqqueue(q,i);
+275     cin&gt;&gt;i;
+276     }
+277     cout&lt;&lt;&quot;进队成功！显示队内数字！&quot;&lt;&lt;endl;
+278     display(q);
+279     cout&lt;&lt;&quot;返回队头元素！&quot;&lt;&lt;endl;
+280     e=getFront(q);
+281     cout&lt;&lt;e&lt;&lt;endl;
+282     while (!emptySeqqueue(q)){
+283     deSeqqueue(q,e);
+284     cout&lt;&lt;&quot;出队元素&quot;&lt;&lt;e&lt;&lt;&quot; &quot;;
+285     }
+286     cout&lt;&lt;endl;
+287     cout&lt;&lt;&quot;显示队内数字&quot;&lt;&lt;endl;
+288     display(q);
+289     break;
+290     case 4:
+291     initQueue(Q);
+292     cout&lt;&lt;&quot;初始化链队列成功！&quot;&lt;&lt;endl;
+293     cout&lt;&lt;&quot;请输入进队的内容！&quot;&lt;&lt;endl;
+294     cin&gt;&gt;i;
+295     while (i!=-999){
+296     enterQueue(Q,i);
+297     cin&gt;&gt;i;
+298     }
+299     cout&lt;&lt;&quot;进队成功！显示队内数字！&quot;&lt;&lt;endl;
+300     display(Q);
+301 
+302     while (!isempty(Q)){
+303     deQueue(Q,e);
+304     cout&lt;&lt;&quot;出队元素&quot;&lt;&lt;e&lt;&lt;&quot; &quot;;
+305     }
+306     cout&lt;&lt;endl;
+307     cout&lt;&lt;&quot;显示队内数字&quot;&lt;&lt;endl;
+308     display(Q);
+309     break;
+310     }
+311     cout&lt;&lt;&quot;请输入您的选择！&quot;&lt;&lt;endl;
+312     }
+313 
+314     return 0;
+315 }
+</code></pre><p><img src="http://img.blog.csdn.net/20170412155219442?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170412155228772?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/14/数据结构实验报告（三）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          数据结构实验报告（三）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/14/数据结构实验报告（一）/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">数据结构实验报告（一）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

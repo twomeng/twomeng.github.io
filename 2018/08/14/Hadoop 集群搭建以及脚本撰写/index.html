@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hadoop 集群搭建以及脚本撰写 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="sudo adduser hadoop sudo 创建Hadoop用户首先按 ctrl+alt+t 打开终端窗口，输入如下命令创建新用户 : sudo useradd -m hadoop -s /bin/bash      这条命令创建了可以登陆的 hadoop 用户，并使用 /bin/bash 作为 shell。  接着使用如下命令设置密码，可简单设置为 hadoop，按提示输入两次密码： 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop 集群搭建以及脚本撰写">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/Hadoop 集群搭建以及脚本撰写/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="sudo adduser hadoop sudo 创建Hadoop用户首先按 ctrl+alt+t 打开终端窗口，输入如下命令创建新用户 : sudo useradd -m hadoop -s /bin/bash      这条命令创建了可以登陆的 hadoop 用户，并使用 /bin/bash 作为 shell。  接着使用如下命令设置密码，可简单设置为 hadoop，按提示输入两次密码： 1">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20170603141958330?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170603142318772?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170603142457806?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170603160614537?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170603165700184?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170604111236815?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-09-20T01:27:28.906Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hadoop 集群搭建以及脚本撰写">
+<meta name="twitter:description" content="sudo adduser hadoop sudo 创建Hadoop用户首先按 ctrl+alt+t 打开终端窗口，输入如下命令创建新用户 : sudo useradd -m hadoop -s /bin/bash      这条命令创建了可以登陆的 hadoop 用户，并使用 /bin/bash 作为 shell。  接着使用如下命令设置密码，可简单设置为 hadoop，按提示输入两次密码： 1">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170603141958330?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-Hadoop 集群搭建以及脚本撰写" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Hadoop 集群搭建以及脚本撰写
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/Hadoop 集群搭建以及脚本撰写/" class="article-date">
+  <time datetime="2018-08-14T03:07:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>sudo adduser hadoop sudo
+</code></pre><h2 id="创建Hadoop用户"><a href="#创建Hadoop用户" class="headerlink" title="创建Hadoop用户"></a>创建Hadoop用户</h2><p>首先按 ctrl+alt+t 打开终端窗口，输入如下命令创建新用户 :</p>
+<pre><code>sudo useradd -m hadoop -s /bin/bash
+
+
+
+
+
+这条命令创建了可以登陆的 hadoop 用户，并使用 /bin/bash 作为 shell。 
+</code></pre><p>接着使用如下命令设置密码，可简单设置为 hadoop，按提示输入两次密码：</p>
+<pre><code>1 sudo passwd hadoop
+
+
+
+
+
+可为 hadoop 用户增加管理员权限，方便部署，避免一些对新手来说比较棘手的权限问题：
+
+
+最后注销当前用户（点击屏幕右上角的齿轮，选择注销），在登陆界面使用刚创建的 hadoop 用户进行登陆。
+</code></pre><h2 id="更新apt"><a href="#更新apt" class="headerlink" title="更新apt"></a>更新apt</h2><p>用 hadoop 用户登录后，我们先更新一下 apt，后续我们使用 apt 安装软件，如果没更新可能有一些软件安装不了。按 ctrl+alt+t<br>打开终端窗口，执行如下命令：</p>
+<pre><code>sudo apt-get update
+
+
+
+
+
+然鹅很讨人厌的是，终端提示：
+
+
+hadoop 不在 sudoers 文件中。此事将被报告。
+
+
+
+
+
+一通儿百度之后，解释为：sudo命令可以让你以root身份执行命令，来完成一些我们这个帐号完成不了的任务。 
+</code></pre><p>其实并非所有用户都能够执行sudo，因为有权限的用户都在/etc/sudoers中。<br>解决方法为：<br>首先，su - 进入root权限<br>然后，我们可以通过编辑器来打开/etc/sudoers，或者直接使用命令visudo来搞定这件事情。<br>打开sudoers后，像如下那样加上自己的帐号保存后就可以了。</p>
+<pre><code>User privilege specification  
+root        ALL=(ALL:ALL) ALL  
+hadoop  ALL=(ALL:ALL) ALL  #此行为添加行
+</code></pre><p>然鹅又整出幺蛾子了，在hadoop用户中一旦输入任何与sudo有关的需要root权限的命令，就开始提示我：</p>
+<pre><code>hadoop 不在 sudoers 文件中。此事将被报告。
+
+
+
+
+
+！！这不就变成死循环了么，解决该问题的过程中又出现了该问题。但是其实是我傻，只需要切换到原来的用户中，通过vim编辑器修改sudoers只读文件，再切回到hadoop用户即可。
+</code></pre><p>在原用户中：</p>
+<pre><code>$ sudo su 
+# cd /etc
+# cat sudoers //打开文件，发现只有一行root ALL=(ALL:ALL) ALL 于是安装了一下vim
+# vim sudoers //修改成上面那样子
+</code></pre><p>vim 中的操作：</p>
+<pre><code>hadoop  ALL=(ALL:ALL) ALL  //此行为添加行，因为是只读文件，不能通过gedit编辑器来直接修改，还需要root权限才能搞动它。同时会各种提示&quot;确定要修改只读文件么？&quot;哎呀忽略它就好。
+按ESC+:wq! //注意这里要+！才能强制修改只读文件的内容，到这里文件就修改好啦！不放心的话可以再cat sudoers查看一下文件权限是否已经修改成功
+</code></pre><p>现在我们切回hadoop用户，输入</p>
+<pre><code>$ sudo su
+</code></pre><p>发现没有问题啦！<br>继续输入：</p>
+<pre><code>#　sudo apt-get update 
+</code></pre><p>完成apt的更新。</p>
+<h2 id="安装SSH、配置SSH无密码登陆"><a href="#安装SSH、配置SSH无密码登陆" class="headerlink" title="安装SSH、配置SSH无密码登陆"></a>安装SSH、配置SSH无密码登陆</h2><p>集群、单节点模式都需要用到 SSH 登陆（类似于远程登陆，你可以登录某台 Linux 主机，并且在上面运行命令），Ubuntu 默认已安装了 SSH<br>client，此外还需要安装 SSH server：</p>
+<pre><code>$ sudo apt-get install openssh-server
+
+
+
+
+
+安装后，可以使用如下命令登陆本机：
+
+
+ssh localhost
+</code></pre><p>终端询问：are u sure u want to continue connecting ,输入yes</p>
+<p><img src="http://img.blog.csdn.net/20170603141958330?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>但这样登陆是需要每次输入密码的，我们需要配置成SSH无密码登陆比较方便。</p>
+<p>首先退出刚才的 ssh，就回到了我们原先的终端窗口，然后利用 ssh-keygen 生成密钥，并将密钥加入到授权中：</p>
+<pre><code>$ exit                           # 退出刚才的 ssh localhost,提示注销
+                                 # Connection to localhost closed.
+$ cd ~/.ssh/                     # 若没有该目录，请先执行一次ssh localhost
+$ ssh-keygen -t rsa              # 会有提示，都按回车就可以
+</code></pre><p><strong>~的含义<br>在 Linux 系统中，~ 代表的是用户的主文件夹，即 “/home/用户名” 这个目录，如你的用户名为 hadoop，则 ~ 就代表<br>“/home/hadoop/“。 此外，命令中的 # 后面的文字是注释。</strong><br>显示：<br><img src="http://img.blog.csdn.net/20170603142318772?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>最后：</p>
+<pre><code>$ cat ./id_rsa.pub &gt;&gt; ./authorized_keys  # 加入授权
+
+
+
+
+
+此时再输入：
+
+
+ssh localhost
+
+
+
+
+
+便无需输入密码了： 
+</code></pre><p><img src="http://img.blog.csdn.net/20170603142457806?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h2 id="安装Java环境"><a href="#安装Java环境" class="headerlink" title="安装Java环境"></a>安装Java环境</h2><p>安装JDK的过程看似非常简单，但是没有考虑到我是在当前hadoop用户下安装，结果这个用户又跟在上一步骤一样给我整出了若干幺蛾子。。还好最后成功解决了问题，谢天谢地。。</p>
+<p><strong>1、解压源码包</strong><br>通过终端在/usr/lib 目录下新建jdk文件夹，命令行：</p>
+<pre><code>sudo mkdir /usr/lib/jdk
+
+
+
+
+
+然后将下载到压缩包拷贝到Java文件夹中，命令行： 
+</code></pre><p>进入jdk源码包所在目录</p>
+<pre><code>cp jdk-8u131-linux-x64.tar.gz /usr/lib/jdk
+
+
+
+
+
+然后进入java目录，命令行：
+
+
+cd /usr/lib/jdk
+
+
+
+
+
+解压压缩包，命令行：
+
+
+sudo tar xvf jdk-8u131-linux-x64.tar.gz
+</code></pre><p>然后可以把压缩包删除，命令行：</p>
+<pre><code>sudo rm jdk-8u131-linux-x64.tar.gz
+</code></pre><p><strong>2、设置jdk环境变量</strong></p>
+<p>这里采用全局设置方法，它是是所有用户的共用的环境变量。用vim编辑器或者是gedit都可以。</p>
+<pre><code>$sudo gedit ~/.bashrc
+
+
+
+
+
+打开之后在末尾添加
+
+
+export JAVA_HOME=/usr/lib/jdk/jdk1.8.0_131  #此为jdk在步骤1中安装的路径
+export JRE_HOME=${JAVA_HOME}/jre  
+export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib  
+export PATH=${JAVA_HOME}/bin:$PATH
+</code></pre><p>请记住，在上述添加过程中，等号两侧不要加入空格，不然会出现”不是有效的标识符”，因为source /etc/profile<br>时不能识别多余到空格，会理解为是路径一部分。点击保存，关闭gedit。</p>
+<p><strong>3.配置默认JDK版本</strong><br>步骤三须知：如果是在原来的root用户下，不需要这一步直接就出来步骤四的安装结果了。但是我的hadoop用户选手2号实在是不给力，偏偏给出这样子的提示：</p>
+<pre><code>程序 &#39;java&#39; 已包含在下列软件包中：
+
+
+ * default-jre
+ * gcj-4.9-jre-headless
+ * gcj-5-jre-headless
+ * openjdk-8-jre-headless
+ * gcj-4.8-jre-headless
+ * openjdk-9-jre-headless
+</code></pre><p>这让我白白浪费了一两个小时去解决这个问题呀。因为看到有的博客通过如下命令：</p>
+<pre><code>$ sudo apt-get install openjdk-9-jre openjdk-9-jdk
+
+
+
+
+
+安装openjdk,而不是oracle家的jdk。这里请自行百度两者区别，对我来说安装openjdk的命令貌似更简洁，于是我便开始apt-get install openjdk,但很遗憾的是报出乱七八糟的E：无法解析域名错误，于是我就找到了相关解决方法：&lt;http://www.linuxdiyf.com/linux/504.html&gt;。但是朋友们，这错误是越搞越多啊！
+</code></pre><p>就在我准备放弃这一阶段时，转机出现了，感谢下面的博客：<br><a href="http://blog.csdn.net/vicky__rain/article/details/53539437" target="_blank" rel="noopener">http://blog.csdn.net/vicky__rain/article/details/53539437</a><br>于是我便转移到了root用户，离开我们的hadoop选手二号，在niumeng用户选手一号中没有任何问题，我便照着博客中写的如下的四行代码：</p>
+<pre><code>sudo update-alternatives  --install /usr/bin/java  java  /usr/lib/jdk/jdk1.8.0_131/bin/java 300
+sudo update-alternatives  --install /usr/bin/javac  javac  /usr/lib/jdk/jdk1.8.0_131/bin/javac 300
+sudo update-alternatives  --install /usr/bin/jar  jar  /usr/lib/jdk/jdk1.8.0_131/bin/jar 300
+sudo update-alternatives  --config   java
+</code></pre><p>检查：</p>
+<pre><code>sudo update-alternatives  --config   java
+</code></pre><p>终于！成功了！！！这件事情告诉我们一个道理：一条死胡同走不通的时候，不妨试一试下一条死胡同。</p>
+<p><strong>4、检验是否安装成功</strong><br>在终端输入如下命令</p>
+<pre><code>java -version
+
+
+
+
+
+看看是否安装成功 
+</code></pre><p><img src="http://img.blog.csdn.net/20170603160614537?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h2 id="安装hadoop３-0-0-alpha3"><a href="#安装hadoop３-0-0-alpha3" class="headerlink" title="安装hadoop３.0.0-alpha3"></a>安装hadoop３.0.0-alpha3</h2><p>将压缩包（hadoop-3.0.0-alpha3.tar.gz）放在”下载”目录下，然后输入命令：</p>
+<pre><code>cd ~/下载
+
+
+
+
+
+进入下载目录，然后输入命令：
+
+
+sudo tar -zxf hadoop-3.0.0-alpha3.tar.gz -C /usr/local
+
+
+
+
+
+这样就将文件解压到&quot;/usr/local&quot;路径下，进入该路径：
+
+
+cd /usr/local/
+
+
+
+
+
+然后将文件夹名改名为&quot;hadoop&quot;：
+
+
+sudo mv ./hadoop-3.0.0/ ./hadoop
+
+
+
+
+
+最后修改文件权限：
+
+
+sudo chown -R hadoop:hadoop ./hadoop
+
+
+
+
+
+输入命令查看hadoop是否可用：
+
+
+/hadoop/bin/hadoop version
+
+
+
+
+
+如果配置正确此时应该出现hadoop 的版本信息，但是很气人地是提示： 
+</code></pre><p><strong>Error:JAVA_HOME is not set and could not be found</strong><br>那好吧，我深吸一口气，既然如此，那就继续搞吧。<br>百度了一下解决方案：<br><a href="http://www.cnblogs.com/codeOfLife/p/5940642.html" target="_blank" rel="noopener">http://www.cnblogs.com/codeOfLife/p/5940642.html</a><br>庆幸地发现输入export的时候我的JAVA_HOME环境变量貌似是我第一遍配置时的信息，果然通过：</p>
+<pre><code>gedit ~/.bashrc
+
+
+
+
+
+发现我的环境变量莫名其妙地不好了，吓得我赶紧重新配置了一小下下。再次输入
+
+
+$ cd /usr/local/hadoop
+$ ./bin/hadoop version
+</code></pre><p>注意这里因为已经进到了/usr/local/hadoop文件级中， ./bin/hadoop version便是指的相对路径，它的绝对路径是：<br>/usr/local/hadoop /bin/hadoop version</p>
+<p>终于成功啦！</p>
+<p><img src="http://img.blog.csdn.net/20170603165700184?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>-<br>因为hadoop3的网上教程比较少，所以我们决定安装hadoop2.7.3,故要先删除原来的hadoop文件夹，然后如法炮制地安装即可。</p>
+<pre><code>$ cd /usr/local
+$ sudo rm -rf hadoop
+$ ls 
+</code></pre><p>即成功删除。</p>
+<p>补充知识：</p>
+<p>Hadoop的集群主要由 NameNode,DataNode,Secondary<br>NameNode,JobTracker,TaskTracker组成.如下图所示:<br><img src="http://img.blog.csdn.net/20170604111236815?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>NameNode中记录了文件是如何被拆分成block以及这些block都存储到了那些DateNode节点.NameNode同时保存了文件系统运行的状态信息.<br>DataNode中存储的是被拆分的blocks.Secondary<br>NameNode帮助NameNode收集文件系统运行的状态信息.JobTracker当有任务提交到Hadoop集群的时候负责Job的运行,负责调度多个TaskTracker.TaskTracker负责某一个map或者reduce任务.</p>
+<p>创建目录<br>hadoop dfs -mkdir /home<br>上传文件或目录到hdfs<br>hadoop dfs -put hello /<br>hadoop dfs -put hellodir/ /<br>查看目录<br>hadoop dfs -ls /<br>创建一个空文件<br>hadoop dfs -touchz /361way<br>删除一个文件<br>hadoop dfs -rm /361way<br>删除一个目录<br>hadoop dfs -rmr /home<br>重命名<br>hadoop dfs -mv /hello1 /hello2<br>查看文件<br>hadoop dfs -cat /hello<br>将制定目录下的所有内容merge成一个文件，下载到本地<br>hadoop dfs -getmerge /hellodir wa<br>使用du文件和目录大小<br>hadoop dfs -du /<br>将目录拷贝到本地<br>hadoop dfs -copyToLocal /home localdir<br>查看dfs的情况<br>hadoop dfsadmin -report<br>查看正在跑的Java程序<br>jps<br>上面就是Linux使用hadoop dfs命令的方法介绍了，hadoop dfs命令组合各种参数能够实现多种操作，你可以选择一条命令只需看看。</p>
+<p>到此，单机集群安装已经完成，经过单机实例测试和伪分布式的实例测试之后（在此省略，请看 <a href="http://www.powerxing.com/install-
+hadoop/" target="_blank" rel="noopener">http://www.powerxing.com/install-
+hadoop/</a>），我们要尝试着搭建集群了。</p>
+<h2 id="硬件环境："><a href="#硬件环境：" class="headerlink" title="硬件环境："></a>硬件环境：</h2><p>五台机器，连接电源线，连接网线到交换机，一台显示器，一个kvm。通过启动盘安装Ubuntu-16.04.02，删除硬盘内所有内容安装。</p>
+<p>_tips_ :(学长教的！)<br>安装时如若想节约安装时间，不至于浪费一个下午来安装。可以制作两个启动盘，流水式操作安装。安装一个的时候，点击完所有需要点击的步骤之后，拔掉显示器接头，同时插到另一台机器上，插另一个U盘。过一会回来检查一下刚才那台机器是否安装成功。</p>
+<p>注意：<br>在安装时有两个需要特别注意，用户名和机器名，这里统一：<br>用户名：hadoop<br>机器名：依次为master0 ，master1， slave0， slave1， slave2<br>密码：hadoop<br>如果手速太快搞错了，没关系，安装成功之后通过</p>
+<pre><code>vim /etc/hostsname
+
+
+
+
+
+也可以修改主机名 
+</code></pre><p>通过创建新用户可以修改用户名。</p>
+<h2 id="我们的脚本工作步骤"><a href="#我们的脚本工作步骤" class="headerlink" title="我们的脚本工作步骤"></a>我们的脚本工作步骤</h2><p>因为这里有五台机器，一台一台手动配置总是不太显示的哈。所以这个时候便需要脚本来替我们干活啦！</p>
+<p><strong>脚本是什么？</strong></p>
+<p>linux shell 编程是什么：<br>shell是一个命令处理器（command<br>processor）——是一个读入并解释你输入的命令的程序。除了是一个命令中断器以外，shell还是一个程序设计语言。你可以编写shell可以解释的程序（被称为源程序），这些源程序可以包含shell程序设计命令等等。shell除了解释命令以外，还有其他工作，它也可以配置和编程。shell拥有自己的语言允许用户编写程序并以一种复杂方式运行。shell编程语言具有许多常用的编程语言的特征，例如：循环和控制结构等。用户可以生成像其他应用程序一样复杂的shell程序。<br>补充说明：简单的说 ： shell<br>是一个交互性命令解释器。shell独立于操作系统，这种设计让用户可以灵活选择适合自己的shell。shell让你在命令行键入命令，经过shell解释后传送给操作系统（内核）执行。</p>
+<p><strong>脚本学习阶段</strong></p>
+<p>视频信息：<br><a href="https://ke.qq.com/teacher/407021204" target="_blank" rel="noopener">https://ke.qq.com/teacher/407021204</a><br>中的linux下shell编程从入门到精通（完整版）</p>
+<p>下面罗列一下用得比较多的东西：<br>概念：<br>1）<br>_shell是什么:_<br>shell是操作系统的最外层（所以叫shell嘛），是一门用C语言编写的程序。shell可以合并编程语言以控制进程和文件，以及启动和控制其他的程序。shell通过提示您输入，向操作系统解释该输入，然后处理来自操作系统的结果。简单来说，shell就是一个用户和操作系统之间的一个命令解释器。shell是用户和linux操作系统之间沟通的桥梁。用户可以输入命令执行，又可以利用shell脚本编程去运行。</p>
+<p>_关系：_<br>kernel （内核）- shell（夹在中间的命令解释器） - utilities (使用者-用户)</p>
+<p>_常见的shell语言：_<br>sh bash ksh csh ,最常见的是bash(Bourne again shell)，linux系统中集成了bash。</p>
+<p>_tip:_<br>chmod +x filename.sh 改变文件的属性（读写权限）<br>./ filename.sh 表示当前目录下的文件</p>
+<p>_例子：_<br>下面我们从经典的”hello world”入手，看一看最简单的Shell脚本的模样。</p>
+<pre><code>#!/bin/sh
+#print hello world in the console window
+a = &quot;hello world&quot; #赋值
+echo $a # $为取值符号  
+</code></pre><p>如果出现混淆的情况，可以使用花括号来区分。</p>
+<p>_echo命令介绍：_<br>功能说明：显示文字。<br>语 法：echo [-ne][字符串] / echo [-help][-version]<br>补充说明：echo会将输入的字符串送往标准输出。输出的字符串间以空白字符隔开, 并在最后加上换行号。</p>
+<p>_tip:_<br>Shell Script是一种弱类型语言，使用变量的时候无需首先声明其类型。新的变量会在本地数据区分配内存进行存储，这个变量归当前的Shell所有，任何子进<br>程都不能访问本地变量。这些变量与环境变量不同，环境变量被存储在另一内存区，叫做用户环境区，这块内存中的变量可以被子进程访问。</p>
+<ol>
+<li>本地数据区：变量 set :显示本地数据区和用户环境区的变量和取值 unset:删除指定变量当前取值，该值被认为NULL</li>
+<li>用户环境区：环境变量 env:显示用户环境区中的变量和取值<br>export :用于将本地数据区中的变量转移到用户环境区</li>
+</ol>
+<p>_流程控制语句：_<br>if …;then<br>…<br>elif …;then<br>…<br>else<br>…<br>fi<br>fi 为if语句块的结束，是一个特殊的命令，称为空命令，不做任何事。</p>
+<p>_条件判断语句：_<br>第三行中的[]表示条件测试，常用的条件测试有下面几种：<br>[ -f “file”]判断file”]判断 file是否是一个文件<br>[ a−lt3]判断a−lt3]判断 a的值是否小于3，同样-gt和-le分别表示大于或小于等于<br>[ -x “file”]判断file”]判断 file是否存在且有可执行权限，同样-r测试文件可读性<br>[ -n “a”]判断变量a”]判断变量 a是否有值，测试空串用-z<br>[ “a”=”a”=” b” ] 判断a和a和 b的取值是否相等<br>[ cond1 -a cond2 ] 判断cond1和cond2是否同时成立，-o表示cond1和cond2有一成立</p>
+<p>要注意条件测试部分中的空格。在方括号的两侧都有空格，在-f、-lt、=等符号两侧同样也有空格。如果没有这些空格，Shell解释脚本的时候就会出错。</p>
+<p>_参数：_</p>
+<pre><code>$ # 表示包括$0在内的命令行参数的个数。在Shell中，脚本名称本身是$0，剩下的依次是$0、$1、$2…、${10}、${11}，等等。$*表示整个参数列表，不包括$0，也就是说不包括文件名的参数列表。
+
+
+
+
+
+_here 文档：_
+</code></pre><p>Shell Script编程中被称为Here文档，Here文档用于将多行文本传递给某一命令<br>Here文档的格式是以&lt;&lt;开始，后跟一个字符串，在 Here文档结束的时候，这个字符串同样也要出现，表示文档结束</p>
+<p>_while 语句：_<br>while [ cond1 ] &amp;&amp; { || } [ cond2 ] …; do<br>…<br>done<br>for var in …; do<br>…<br>done<br>for (( cond1; cond2; cond3 )) do<br>…<br>done<br>until [ cond1 ] &amp;&amp; { || } [ cond2 ] …; do<br>…<br>done</p>
+<p><strong>脚本实战阶段</strong></p>
+<p>脚本功能：<br>1. 实现master机器ssh免密登录到其他机器<br>2. 实现master机器的jdk+hadoop安装以及环境变量的配置<br>3. master发送jdk+hadoop给slave机器并协助他们环境配置<br>4. 测试hadoop是否安装成功</p>
+<p>脚本1：auto_2.sh + slave_use.sh<br>实现思路：<br>我们的客户机通过xshell等远程登录工具来登录一台master机器，运行auto_2.sh脚本，根据相应提示输入欲远程连接的机器的IP地址和登录密码，然后master开始产生公钥并加入授权文件，至此，master可以无密码登录到本机；master节点给slave节点发送公钥以及第二个脚本文件slave_use.sh，然后ssh<br>到slave,手动输入”bash<br>slave_use.sh”即可开始运行slave_use.sh，内容为如果没有.ssh文件夹则创建，然后把公钥追缴到授权文件中，输入”exit”即回到auto_2.sh脚本，继续询问：是否还需要免密登录其他机器。</p>
+<pre><code>#!/bin/bash 
+#author niumeng 
+#auto_2.sh
+# ssh 远程服务器
+#ssh hadoop@&quot;$remote_ip&quot;
+
+# expect 自动输入密码登录master节点，现在客户机操作的是master
+#expect &lt;&lt;EOF
+#spawn ssh hadoop@&quot;$remote_ip&quot;
+#expect &quot;password:&quot;
+#send &quot;hadoop\r&quot; 
+#expect &quot;*Last login*&quot; 
+#interact 
+#EOF
+
+# 如果我们有xshell,直接使用xshell模拟终端登录master，不用ssh远程登录
+
+
+    echo &quot;-------------欢迎操作远程登录脚本：$0-------------&quot;
+
+x=1
+user=hadoop
+
+while [ ${x} -eq 1 ]
+
+do
+    echo &quot;请输入您要远程登录的服务器相关信息：）&quot;
+        echo &quot;登录服务器ip:&quot;
+    read remote_ip
+    echo &quot;登录服务器pwd:&quot;
+    read remote_Password
+
+# 1.master 节点创建公钥
+# 如果没有该目录，创建该目录
+
+    if [ ! -d /home/$USER/.ssh ];then
+    mkdir ~/.ssh 
+    fi
+
+    cd ~/.ssh
+# 删除之前生成的公钥
+
+    if [ -f ./id_rsa ];then
+    rm -rf ./id_rsa
+    fi
+    if [ -f ./id_rsa.pub ];then
+    rm -rf ./id_rsa.pub
+    fi
+
+
+    ssh-keygen -t rsa 
+# 生成公钥
+    echo &quot;master节点生成公钥成功！：）&quot;
+
+#----------------------------------------------
+#2. master 节点无密码SSH localhost 
+    cat ./id_rsa.pub &gt;&gt; ./authorized_keys
+# 测试登录本机    
+#expect &lt;&lt;EOF
+#set timeout -1
+#spawn ssh localhost
+#expect { 
+#&quot;yes/no&quot; { send &quot;yes\r&quot; }
+#&quot;password:&quot; { send &quot;hadoop\n&quot; }
+# }
+#expect eof 
+#EOF
+
+        if  [ $? -eq 0 ];then 
+    echo &quot;追加授权文件成功！&quot;
+    else 
+    echo &quot;追加授权文件失败！请查找原因！ &quot;
+    fi
+
+#3.将本机密钥发送给slave节点
+scp ./id_rsa.pub $user@$remote_ip:/home/$user
+# 可用expect省略输入密码部分
+
+if  [ $? -eq 0 ];then 
+    echo &quot;发送密钥成功！&quot;
+    else 
+    echo &quot;发送密钥失败！请查找原因！ &quot;
+    fi
+
+
+
+
+
+#4.把slave节点需要执行的命令文件发送到slave
+
+scp ~/slave_use.sh $user@$remote_ip:/home/$user
+
+if  [ $? -eq 0 ];then 
+    echo &quot;发送slave_use.sh成功！&quot;
+    else 
+    echo &quot;发送slave_use.sh失败！请查找原因！ &quot;
+    fi
+
+#5.ssh node 
+# 此处可改进为expect自动登录
+ssh $user@$remote_ip
+
+#6.end
+echo &quot;本台服务器已经成功实现免密登录功能！您是否要继续登录其他机器？&quot;
+read -p &quot;yes请输入1/no请输入0：&quot; x
+
+done 
+
+
+# 如果报错：sign_and_send_pubkey: signing failed: agent refused operation
+#执行如下两条语句则可以成功运行！
+
+eval &quot;$(ssh-agent -s)&quot;
+ssh-add
+
+
+#!/bin/bash 
+#author niumeng 
+#slave_use.sh
+# 已经把id_rsa.pub公钥发送到服务器的~/
+
+#在slave上，将公钥加入授权
+user=hadoop
+    if [ ! -f ~/.ssh ];then 
+    mkdir /home/$user/.ssh 
+    echo &quot;在slave节点上创建.ssh文件夹成功！&quot;
+    fi 
+
+    cat /home/$user/id_rsa.pub &gt;&gt; /home/$user/.ssh/authorized_keys 
+    if [ $? -eq 0 ];then 
+    echo &quot;公钥加入slave节点授权文件&quot;
+    else 
+    echo &quot;加入授权文件失败！请查找原因！&quot;
+    fi
+</code></pre><p>脚本2：<br>目的：在master和slave节点上安装JDK+hadoop，并完成环境变量的配置；以及hadoop配置文件的设置。</p>
+<p>step1:<br>auto_install.sh:从客户机上向五台机器上发送JDK+HADOOP的安装包，以及在节点上运行的脚本文件slave_use_install，以及环境变量的配置内容（这个是用来cat追加的，应该可以写到脚本里）</p>
+<h2 id="auto-install-sh"><a href="#auto-install-sh" class="headerlink" title="auto_install.sh"></a>auto_install.sh</h2><pre><code>#!/bin/bash 
+#author niumeng 
+#auto install jdk and hadoop as well as path 
+
+
+x=1
+
+while [ $x -eq 1]
+do
+echo &quot;----------欢迎来到远程安装JDK + hadoop 的脚本：$0----------&quot;
+echo &quot;请输入您要远程登录的服务器相关信息：）&quot;
+echo &quot;登录服务器ip:&quot; 
+read remote_ip
+echo &quot;登录服务器pwd:&quot; 
+read remote_Password
+
+user=hadoop
+#step1:进入~/下载,把本地的jdk+hadoop+enviroment.sh+slave_use_install.sh发送到远程登录机器的下载目录下
+scp ~/下载/jdk-8u131-linux-x64.tar.gz $user@$remote_ip:/home/$user/下载
+scp ~/下载/hadoop-2.7.3.tar.gz $user@$remote_ip:/home/$user/下载
+scp ~/下载/environment.sh $user@$remote_ip:/home/$user/下载
+scp ~/slave_use_install.sh $user@remote_ip:/home/$user/下载
+
+if [ $? -eq 0 ];then 
+    echo &quot;发送两个压缩包成功！&quot;
+else 
+    echo &quot;发送失败！请查找原因！&quot;
+fi 
+
+echo &quot;是否还要继续发送文件到其他节点？yes:1/no:0&quot;
+read x
+done 
+</code></pre><p>完善：如何用循环直接把四个文件传送给五台机器？</p>
+<h2 id="environment-sh"><a href="#environment-sh" class="headerlink" title="environment.sh"></a>environment.sh</h2><pre><code>export JAVA_HOME=/usr/lib/jdk/jdk1.8.0_131  
+export JRE_HOME=${JAVA_HOME}/jre  
+export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib  
+export PATH=${JAVA_HOME}/bin:$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin
+</code></pre><h2 id="slave-install-use-sh"><a href="#slave-install-use-sh" class="headerlink" title="slave_install_use.sh"></a>slave_install_use.sh</h2><pre><code>#!/bin/bash
+#author niumeng 
+#used in slave node to install jdk and hadoop as well as path
+
+echo &quot;------欢迎来到slave节点，安装jdk+hadoop:$0-----&quot;
+
+#1.安装jdk
+if [ ! -d /usr/lib/jdk ];then
+sudo mkdir /usr/lib/jdk
+fi
+if [ $? -eq 0];then
+echo &quot;mkdir success!&quot;
+else
+echo &quot;mkdir failure!&quot;
+fi
+
+sudo cp ~/下载/jdk-8u131-linux-x64.tar.gz /usr/lib/jdk
+cd /usr/lib/jdk
+sudo tar -xvf jdk-8u131-linux-x64.tar.gz
+if [ $? -eq 0 ];then
+        echo &quot;解压JDK包成功！&quot;
+else
+        echo &quot;解压失败！请查找原因！&quot;
+fi
+#2.追加环境变量配置文件到.bashrc
+cat ~/下载/environment.sh &gt;&gt; ~/.bashrc
+if [ $? -eq 0 ];then
+        echo &quot;环境变量配置成功！&quot;
+else
+        echo &quot;环境变量配置失败！请查找原因！&quot;
+fi
+#3.检验是否安装成功
+java -version
+if [ $? -eq 0 ];then
+        echo &quot;java install成功！&quot;
+else
+        echo &quot;java install失败！请查找原因！&quot;
+fi
+
+#4.安装hadoop
+cd ~/下载
+sudo tar -zxf hadoop-2.7.3.tar.gz -C /usr/local
+cd /usr/local/
+sudo mv ./hadoop-2.7.3/ ./hadoop
+sudo chown -R hadoop:hadoop ./hadoop
+
+
+#5.检查hadoop是否可用
+
+cd /usr/local/hadoop/bin
+
+hadoop version
+
+if [ $? -eq 0 ];then
+        echo &quot;hadoop install成功！&quot;
+else
+        echo &quot;hadoop install失败！请查找原因！&quot;
+fi
+</code></pre><p>step2:<br>至此，hadoop已经安装成功，我们需要对配置文件进行配置，现在首先ssh到master0节点，然后在master0节点之上进行配置文件的更改，再压缩hadoop压缩包并发送到其他四个节点机器上，在依次进入其余四台机器上运行一个shell脚本并安装该配置文件。</p>
+<h2 id="auto-3-sh"><a href="#auto-3-sh" class="headerlink" title="auto_3.sh"></a>auto_3.sh</h2><pre><code>#!/bin/bash 
+#author niumeng 
+# hadoop 配置文件，我们xshell或者ssh到一台master上，bash该文件
+
+
+echo &quot;----------欢迎来到hadoop配置文件脚本：$0----------&quot;
+
+#1.slaves文件配置
+#用slave.sh文件直接覆盖原文件
+cat ~/slave.sh &gt; /usr/local/hadoop/etc/hadoop/slaves
+
+if [ $? -eq 0 ];then
+    echo &quot;success!&quot;
+else 
+    echo &quot;failure!please check out your shell!&quot;
+fi 
+
+# 2. core-site.xml
+# 删除最后两行configuration  
+sed &#39;N;$!P;$!D;$d&#39;  /usr/local/hadoop/etc/hadoop/core-site.xml
+if [ $? -eq 0 ];then
+    echo &quot;success!&quot;
+else 
+    echo &quot;failure!please check out your shell!&quot;
+fi 
+# 追加配置文件到末尾
+# 首先取出机器名,赋值给变量machinename
+while read line
+do
+   machinename=&quot;$line&quot;
+done&lt;/etc/hostname
+echo &quot;机器名为：$machinename&quot;
+
+# 使用here document 来追加
+cat &lt;&lt; EOF &gt;&gt; core-site.xml
+&lt;configuration&gt;
+    &lt;property&gt;
+        &lt;name&gt;fs.defaultFS&lt;/name&gt;
+        &lt;value&gt;hdfs://$machinename:9000&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;
+        &lt;value&gt;file:/usr/local/hadoop/tmp&lt;/value&gt;
+        &lt;description&gt;Abase for other temporary directories.&lt;/description&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+EOF
+
+if [ $? -eq 0 ];then
+    echo &quot;cat core-site success!&quot;
+else 
+    echo &quot;cat core-site failure!please check out your shell!&quot;
+fi 
+
+# 3. hdfs-site.xml 
+# 删除最后两行configuration  
+sed &#39;N;$!P;$!D;$d&#39;  /usr/local/hadoop/etc/hadoop/hdfs-site.xml
+if [ $? -eq 0 ];then
+    echo &quot;success!&quot;
+else 
+    echo &quot;failure!please check out your shell!&quot;
+fi 
+# 追加配置文件到末尾
+cat &lt;&lt; EOF &gt;&gt; hdfs-site.xml
+&lt;configuration&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.namenode.secondary.http-address&lt;/name&gt;
+        &lt;value&gt;$machinename:50090&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.replication&lt;/name&gt;
+        &lt;value&gt;1&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;
+        &lt;value&gt;file:/usr/local/hadoop/tmp/dfs/name&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;
+        &lt;value&gt;file:/usr/local/hadoop/tmp/dfs/data&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+EOF
+if [ $? -eq 0 ];then
+    echo &quot;cat hdfs-site.xml success!&quot;
+else 
+    echo &quot;cat hdfs-site.xml failure!please check out your shell!&quot;
+fi 
+#4.mapred-site.xml 
+# 重命名 默认文件名问mapred-site.xml.template
+
+if [ -f mapred-site.xml.template ];then
+mv mapred-site.xml.template mapred-site.xml
+echo &quot;change name successfully!&quot;
+fi
+
+# 删除最后两行configuration  
+sed &#39;N;$!P;$!D;$d&#39;  /usr/local/hadoop/etc/hadoop/mapred-site.xml
+if [ $? -eq 0 ];then
+    echo &quot;success!&quot;
+else 
+    echo &quot;failure!please check out your shell!&quot;
+fi 
+# 追加配置文件到末尾
+cat &lt;&lt; EOF &gt;&gt; mapred-site.xml
+&lt;configuration&gt;
+    &lt;property&gt;
+        &lt;name&gt;mapreduce.framework.name&lt;/name&gt;
+        &lt;value&gt;yarn&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;mapreduce.jobhistory.address&lt;/name&gt;
+        &lt;value&gt;$machinename:10020&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;mapreduce.jobhistory.webapp.address&lt;/name&gt;
+        &lt;value&gt;$machinename:19888&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+EOF
+
+if [ $? -eq 0 ];then
+    echo &quot;cat mapred-site.xml success!&quot;
+else 
+    echo &quot;cat mapred-site.xml failure!please check out your shell!&quot;
+fi 
+#5.yarn.site.xml 
+
+# 删除最后两行configuration  
+sed &#39;N;$!P;$!D;$d&#39;  /usr/local/hadoop/etc/hadoop/yarn-site.xml
+if [ $? -eq 0 ];then
+    echo &quot;success!&quot;
+else 
+    echo &quot;failure!please check out your shell!&quot;
+fi 
+# 追加配置文件到末尾
+cat &lt;&lt; EOF &gt;&gt; yarn-site.xml
+&lt;configuration&gt;
+    &lt;property&gt;
+        &lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;
+        &lt;value&gt;$machinename&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;
+        &lt;value&gt;mapreduce_shuffle&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+EOF
+
+if [ $? -eq 0 ];then
+    echo &quot;cat yarn-site.xml success!&quot;
+else 
+    echo &quot;cat yarn-site.xml failure!please check out your shell!&quot;
+fi 
+
+echo &quot;until now we have already finished the configuration of hadoop files :)&quot;
+
+# end 将master节点上的/user/local/hadoop文件夹复制到各个节点上
+#　如果跑过分布式，先删除临时文件
+if [ -f /usr/local/hadoop/tmp ];then
+    sudo rm -rf ./tmp
+    sudo rm -rf ./logs/*
+    echo &quot;delete successfully&quot;
+fi 
+
+
+tar -zcf ~/hadoop.master.tar.gz /usr/local/hadoop
+cd ~ 
+
+user=hadoop
+x=1;
+while [ $x -eq 1]
+do
+# 输入复制节点的信息
+echo &quot;请输入您要复制文件的slave节点ip地址：&quot;
+read remote_slave_ip
+echo &quot;请输入您要复制文件的slave节点密码：&quot;
+read remote_pwd
+# 先压缩再复制,把hadoop文件夹复制到~/
+
+scp ./hadoop.master.tar.gz $user@$remote_slave_ip:/home/hadoop
+
+if [ $? -eq 0 ];then
+    echo &quot;scp tar.gz successfully&quot;
+else 
+    echo &quot;scp tar.gz failure!please check out !&quot;
+fi 
+#把节点使用脚本放到下载中
+scp ~/slave_use_3.sh $user@remote_slave_ip:/home/hadoop/下载
+if [ $? -eq 0 ];then
+    echo &quot;scp slave_use_3.sh successfully&quot;
+else 
+    echo &quot;scp slave_use_3.sh failure!please check out !&quot;
+fi 
+
+echo &quot;是否还有下一台slave机器需要拷贝文件？yes:1/no：0&quot;
+read $x
+done 
+
+echo &quot;恭喜您已经成功配置好了所有hadoop文件并给slave节点安装成功！HAVE A NICE DAY:)&quot;
+</code></pre><h2 id="slave-sh"><a href="#slave-sh" class="headerlink" title="slave.sh"></a>slave.sh</h2><p>注意：有几个slave节点都要添加进去</p>
+<pre><code>slave2
+</code></pre><p>思考：如何不用这个.sh脚本，直接添加进去？</p>
+<p>至此，master0机器上的已经配置好的hadoop文件夹已经打包好并传送给其余节点了，现在我们需要ssh每台机器上并解压该压缩包</p>
+<h2 id="slave-use-3-sh"><a href="#slave-use-3-sh" class="headerlink" title="slave_use_3.sh"></a>slave_use_3.sh</h2><pre><code>#!/bin/bash
+#author niumeng 
+# 配置hadoop文件完成之后需要把压缩包传送给各个slave节点，此脚本为在各个节点之上解压压缩包的文件
+
+echo &quot;------------欢迎来到slave节点配置hadoop文件的脚本：$0---------&quot;
+# 删除旧文件（如果存在）
+if [ ! -d /usr/local/hadoop]
+sudo rm -r /usr/local/hadoop
+sudo tar -zxf ~/hadoop.master.tar.gz -C /usr/local
+sudo chown -R hadoop:hadoop /usr/local/hadoop
+
+if [ $? -eq 0 ];then 
+    echo &quot;tar success ! &quot;
+else 
+    echo &quot;tar failure! &quot;
+fi 
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/14/台式机+笔记本的扩展模式+远程登录设置/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          台式机+笔记本的扩展模式+远程登录设置
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/14/Python 入门学习（三）/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Python 入门学习（三）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

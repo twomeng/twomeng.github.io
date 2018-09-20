@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>搜索+DP专题（背包问题、N个数选K个使平方和最大且和为X、divide by three, multiple by two、全排列、组合、N皇后、jugs、掉石头迷宫、斐波那契、最大连续子序列和、最长上升子序列、非常可乐、导弹拦截系统：最长不降子序列） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="机试-搜索专题深搜堆和栈的区别：https://www.cnblogs.com/myblesh/archive/2012/03/14/2396409.html定义全局变量或者自己malloc，栈的空间是有限的。 背包问题 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;stdio.h&amp;gt;  3 #include &amp;lt;stdlib.h&amp;gt;  4 #">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搜索+DP专题（背包问题、N个数选K个使平方和最大且和为X、divide by three, multiple by two、全排列、组合、N皇后、jugs、掉石头迷宫、斐波那契、最大连续子序列和、最长上升子序列、非常可乐、导弹拦截系统：最长不降子序列）">
+<meta property="og:url" content="http://yoursite.com/2018/08/21/搜索+DP专题（背包问题、N个数选K个使平方和最大且和为X、divide by three, multiple by two、全排列、组合、N皇后、jugs、掉石头迷宫、斐波那契、最大连续子序列和、最长上升子序列、非常可乐、导弹拦截系统：最长不降子序列）/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="机试-搜索专题深搜堆和栈的区别：https://www.cnblogs.com/myblesh/archive/2012/03/14/2396409.html定义全局变量或者自己malloc，栈的空间是有限的。 背包问题 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;stdio.h&amp;gt;  3 #include &amp;lt;stdlib.h&amp;gt;  4 #">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:27.374Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="搜索+DP专题（背包问题、N个数选K个使平方和最大且和为X、divide by three, multiple by two、全排列、组合、N皇后、jugs、掉石头迷宫、斐波那契、最大连续子序列和、最长上升子序列、非常可乐、导弹拦截系统：最长不降子序列）">
+<meta name="twitter:description" content="机试-搜索专题深搜堆和栈的区别：https://www.cnblogs.com/myblesh/archive/2012/03/14/2396409.html定义全局变量或者自己malloc，栈的空间是有限的。 背包问题 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;stdio.h&amp;gt;  3 #include &amp;lt;stdlib.h&amp;gt;  4 #">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-搜索+DP专题（背包问题、N个数选K个使平方和最大且和为X、divide by three, multiple by two、全排列、组合、N皇后、jugs、掉石头迷宫、斐波那契、最大连续子序列和、最长上升子序列、非常可乐、导弹拦截系统：最长不降子序列）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      搜索+DP专题（背包问题、N个数选K个使平方和最大且和为X、divide by three, multiple by two、全排列、组合、N皇后、jugs、掉石头迷宫、斐波那契、最大连续子序列和、最长上升子序列、非常可乐、导弹拦截系统：最长不降子序列）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/21/搜索+DP专题（背包问题、N个数选K个使平方和最大且和为X、divide by three, multiple by two、全排列、组合、N皇后、jugs、掉石头迷宫、斐波那契、最大连续子序列和、最长上升子序列、非常可乐、导弹拦截系统：最长不降子序列）/" class="article-date">
+  <time datetime="2018-08-20T18:05:00.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="机试-搜索专题"><a href="#机试-搜索专题" class="headerlink" title="机试-搜索专题"></a>机试-搜索专题</h3><h4 id="深搜"><a href="#深搜" class="headerlink" title="深搜"></a>深搜</h4><p>堆和栈的区别：<br><a href="https://www.cnblogs.com/myblesh/archive/2012/03/14/2396409.html" target="_blank" rel="noopener">https://www.cnblogs.com/myblesh/archive/2012/03/14/2396409.html</a><br>定义全局变量或者自己malloc，栈的空间是有限的。</p>
+<h5 id="背包问题"><a href="#背包问题" class="headerlink" title="背包问题"></a>背包问题</h5><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;stack&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;string&gt;
+ 8 #include &lt;string.h&gt;
+ 9 #include &lt;algorithm&gt;
+10 #include &lt;math.h&gt;
+11 using namespace std;
+12 // 输出背包问题的最佳方案
+13 const int maxn = 20000;
+14 int n,v;
+15 int w[maxn];
+16 int c[maxn];
+17 vector&lt;int&gt; tmp,ans;
+18 int maxc;
+19 void dfs(int i,int sumw,int sumc)
+20 {
+21     if (i == n)
+22     {
+23         if (sumc &gt; maxc)
+24         {
+25             maxc = sumc;
+26             ans = tmp; // the way of vector assign
+27         }
+28         return ;
+29     }
+30     if (sumw+w[i] &lt;= v)
+31     {
+32        tmp.push_back(i);
+33        dfs(i+1,sumw+w[i],sumc+c[i]);
+34        tmp.pop_back();
+35     }
+36     dfs(i+1,sumw,sumc);
+37 }
+38 int main()
+39 {
+40     while (cin&gt;&gt;n&gt;&gt;v)
+41     {
+42         for (int i=0;i&lt;n;i++)
+43             cin &gt;&gt; w[i];
+44         for (int i=0;i&lt;n;i++)
+45             cin &gt;&gt; c[i];
+46         dfs(0,0,0);
+47         for (int i=0;i&lt;ans.size();i++)
+48             cout &lt;&lt; ans[i] &lt;&lt; &#39; &#39;;
+49         cout &lt;&lt; endl;
+50         cout &lt;&lt; maxc &lt;&lt; endl;
+51 
+52     }
+53 
+54 
+55     return 0 ;
+56 }
+</code></pre><h4 id="N个数选K个使平方和最大且和为X"><a href="#N个数选K个使平方和最大且和为X" class="headerlink" title="N个数选K个使平方和最大且和为X"></a>N个数选K个使平方和最大且和为X</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;stack&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;string&gt;
+ 8 #include &lt;string.h&gt;
+ 9 #include &lt;algorithm&gt;
+10 #include &lt;math.h&gt;
+11 using namespace std;
+12 // 从N个数中选择K个数，使和为x的基础上平方和最大
+13 const int maxn = 2000;
+14 int n,k,x;
+15 int maxsum;
+16 vector&lt;int&gt; tmp,ans;
+17 int a[maxn];
+18 void dfs(int i,int num,int sum,int psum)
+19 {
+20     // i 代表第i个被选择的数,num代表一共挑选的数的个数，sum为其和，psum为平方和
+21     if (i==n)
+22     {
+23         if (psum &gt; maxsum &amp;&amp; num == k &amp;&amp; sum == x)
+24         {
+25             maxsum = psum;
+26             ans = tmp;
+27         }
+28         return ;
+29     }
+30     dfs(i+1,num,sum,psum);
+31     if (sum+a[i]&lt;=x)
+32     {
+33         tmp.push_back(a[i]);
+34         dfs(i+1,num+1,sum+a[i],psum+a[i]*a[i]);
+35         tmp.pop_back();
+36     }
+37 }
+38 int main()
+39 {
+40     while (cin&gt;&gt;n&gt;&gt;k&gt;&gt;x)
+41     {
+42         maxsum = 0;
+43         for (int i=0;i&lt;n;i++)
+44             cin &gt;&gt; a[i];
+45         dfs(0,0,0,0);
+46         for (int i=0;i&lt;ans.size();i++)
+47             cout &lt;&lt; ans[i] &lt;&lt; &#39; &#39;;
+48         cout &lt;&lt; endl;
+49         cout &lt;&lt; maxsum &lt;&lt; endl;
+50     }
+51 
+52 
+53     return 0 ;
+54 }
+55 // 1.127s
+56 void dfs(int i,int num,int sum,int psum)
+57 {
+58     // K个并且和为X时才判断
+59     if (num == k &amp;&amp; sum == x)
+60     {
+61         if (sum &gt; maxsum)
+62         {
+63             maxsum = sum;
+64             ans = tmp;
+65         }
+66         return ;
+67     }
+68     // 其他情况直接return 
+69     if (i&gt;n-1 || num &gt; k || sum&gt;x)
+70         return ;
+71     if (a[i]+sum &lt;= x)
+72     {
+73         tmp.push_back(i);
+74         dfs(i+1,num+1,sum+a[i],psum+a[i]*a[i]);
+75         tmp.pop_back();
+76     }
+77     dfs(i+1,num,sum,psum);
+78 }
+</code></pre><h4 id="codeforces-round-479-D-divide-by-three-multiple-by-two"><a href="#codeforces-round-479-D-divide-by-three-multiple-by-two" class="headerlink" title="codeforces round 479 D divide by three, multiple by two"></a>codeforces round 479 D divide by three, multiple by two</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;stack&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;string&gt;
+ 8 #include &lt;string.h&gt;
+ 9 #include &lt;algorithm&gt;
+10 #include &lt;math.h&gt;
+11 using namespace std;
+12 
+13 
+14 int n;
+15 long long a[101];
+16 bool visited[101];
+17 long long f[101];
+18 
+19 bool dfs(int &amp;k)
+20 {
+21     if (k==n)
+22         return true;
+23     long long x = f[k-1];
+24     for (int i=0;i&lt;n;i++)
+25     {
+26         if (visited[i])
+27             continue;
+28         if ((a[i] == x/3 &amp;&amp; (x%3==0)) || a[i] == x*2)
+29         {
+30             f[k++] = a[i];
+31             visited[i] = true;
+32             if (dfs(k)) return true;
+33             visited[i] = false;
+34             k--;
+35         }
+36     }
+37     return false;
+38 }
+39 int main()
+40 {
+41 
+42     int k;
+43     while (cin&gt;&gt;n)
+44     {
+45         for (int i=0;i&lt;n;i++)
+46         {
+47            cin &gt;&gt; a[i];visited[i] = false;
+48         }
+49         k = 0;
+50         for(int i=0;i&lt;n;i++)
+51         {
+52             visited[i] = true;
+53             f[k++] =  a[i];
+54             if (dfs(k)) break; // 只要找到一组就直接break，不用继续循环了
+55             visited[i] = false;
+56             k--;
+57         }
+58         for (int i=0;i&lt;n;i++)
+59             cout &lt;&lt; f[i] &lt;&lt;&#39; &#39;;
+60         cout &lt;&lt; endl;
+61 
+62 
+63 
+64     }
+65 
+66     return 0 ;
+67 }
+</code></pre><blockquote>
+<p>return true / false / break 是为了在找到正确答案后立即输出而不是继续循环到末尾</p>
+</blockquote>
+<h4 id="解法2"><a href="#解法2" class="headerlink" title="解法2"></a>解法2</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;stack&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;string&gt;
+ 8 #include &lt;string.h&gt;
+ 9 #include &lt;algorithm&gt;
+10 #include &lt;math.h&gt;
+11 using namespace std;
+12 
+13 // divide by three, multiple by two
+14 int n;
+15 long long a[101];// 8B 2^64 = 1024^6 = e^18
+16 vector&lt;long long &gt;ans;
+17 bool flag,visited[101] ;
+18 void dfs(int i,int sum) // i: the i th number ; sum:selected number
+19 {
+20     if (sum==n)
+21     { 
+22         for (int i=0;i&lt;n-1;i++)
+23             cout &lt;&lt; ans[i] &lt;&lt; &#39; &#39;;
+24         cout &lt;&lt; ans[n-1]&lt;&lt;endl;
+25         flag = true;
+26         return ;
+27     }
+28 
+29     //4 8 6 3 12 9
+30     for (int j=0;j&lt;n;j++)
+31     {
+32         if (i!=j &amp;&amp; !visited[j])
+33         {
+34             if ((a[j]==a[i]/3 &amp;&amp; a[i]%3==0) || a[j] == a[i]*2 )
+35             {
+36                 ans.push_back(a[j]);visited[j]=true;
+37                 dfs(j,sum+1);
+38                 if (!flag)
+39                 {
+40                   ans.pop_back();visited[j] = false;
+41                 }
+42             }
+43         }
+44     }
+45 }
+46 int main()
+47 {
+48    while (cin&gt;&gt;n)
+49    {
+50        for (int i=0;i&lt;n;i++)
+51        {
+52          cin &gt;&gt; a[i];visited[i]=false;
+53        }
+54 
+55         ans.clear();
+56         flag = false;
+57        for (int i=0;i&lt;n;i++)
+58        {
+59            ans.push_back(a[i]);visited[i]=true;
+60            dfs(i,1);
+61            ans.pop_back();visited[i] = false;
+62        }
+63 
+64    }
+65 
+66 
+67 
+68     return 0 ;
+69 }
+</code></pre><h4 id="全排列"><a href="#全排列" class="headerlink" title="全排列"></a>全排列</h4><ul>
+<li>10 min</li>
+</ul>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;stack&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;string&gt;
+ 8 #include &lt;string.h&gt;
+ 9 #include &lt;algorithm&gt;
+10 #include &lt;math.h&gt;
+11 using namespace std;
+12 // 全排列
+13 int n,sum;
+14 bool visited[101];
+15 vector&lt;int&gt; ans;
+16 void dfs(int sum)
+17 {
+18     if (sum == n)
+19     {
+20         for (int i=0;i&lt;n-1;i++)
+21             cout &lt;&lt; ans[i] &lt;&lt;&quot; &quot;;
+22         cout &lt;&lt; ans[n-1] &lt;&lt; endl;
+23         return;
+24     }
+25     for (int i=1;i&lt;=n;i++)
+26     {
+27         if (!visited[i])
+28         {
+29            visited[i]= true;
+30            ans.push_back(i);
+31            dfs(sum+1);
+32            visited[i]= false;
+33            ans.pop_back();
+34         }
+35     }
+36 }
+37 int main()
+38 {
+39    while  (cin&gt;&gt;n)
+40    {
+41        for (int i=1;i&lt;=n;i++)
+42        {
+43            visited[i] = false;
+44        }
+45        ans.clear();
+46        dfs(0); // 选择0个元素
+47    }
+48 
+49 
+50     return 0 ;
+51 }
+</code></pre><h4 id="组合-递归"><a href="#组合-递归" class="headerlink" title="组合 递归"></a>组合 递归</h4><ul>
+<li>15min</li>
+</ul>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;stack&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;string&gt;
+ 8 #include &lt;string.h&gt;
+ 9 #include &lt;algorithm&gt;
+10 #include &lt;math.h&gt;
+11 using namespace std;
+12 // 递归 求组合
+13 int n,r,num; // num:selected numbers
+14 vector&lt;int &gt; ans;
+15 void dfs(int i,int num)
+16 {
+17     // 判断第I个数是否要被选择
+18     if (i == n)
+19     {
+20         if (num == r)
+21         {
+22             for (int i=0;i&lt;r-1;i++)
+23             cout &lt;&lt; ans[i] &lt;&lt;&quot; &quot;;
+24             cout &lt;&lt; ans[r-1] &lt;&lt; endl;
+25         }
+26         return;
+27     }
+28     ans.push_back(i+1);
+29     dfs(i+1,num+1);
+30     ans.pop_back();
+31 
+32     dfs(i+1,num);
+33 }
+34 int main()
+35 {
+36    while  (cin&gt;&gt;n&gt;&gt;r)
+37    {
+38        ans.clear();
+39        dfs(0,0);//
+40    }
+41 
+42 
+43     return 0 ;
+44 }
+</code></pre><h4 id="组合-非递归"><a href="#组合-非递归" class="headerlink" title="组合 非递归"></a>组合 非递归</h4><pre><code> 1 #define _CRT_SECURE_NO_WARNINGS
+ 2 #include &lt;algorithm&gt;
+ 3 #include &lt;iostream&gt;
+ 4 #include &lt;iomanip&gt;
+ 5 #include &lt;cstring&gt;
+ 6 #include &lt;vector&gt;
+ 7 #include &lt;string&gt;
+ 8 #include &lt;queue&gt;
+ 9 #include &lt;stack&gt;
+10 #include &lt;map&gt;
+11 #include &lt;set&gt;
+12 
+13 using namespace std;
+14 
+15 void permutation(int n, int m)
+16 {
+17     vector&lt;int&gt; combine;
+18     stack&lt;int&gt; buf;
+19     bool pop = false;
+20     int top;
+21 
+22     buf.push(1);
+23     combine.push_back(1);
+24 
+25     while (buf.size())
+26     {
+27         if (combine.size() == m)
+28         {
+29             for (int i = 0; i &lt; m; ++i)
+30             {
+31                 printf(&quot;%d&quot;, combine[i]);
+32                 if (i != m - 1)
+33                     printf(&quot; &quot;);
+34             }
+35             printf(&quot;\n&quot;);
+36             pop = true;
+37         }
+38 
+39         top = buf.top() + 1;
+40         if (top == n + 1)
+41         {
+42             pop = true;
+43             buf.pop();
+44             combine.pop_back();
+45             continue;
+46         }
+47 
+48         if (pop)
+49         {
+50             buf.pop();
+51             combine.pop_back();
+52             pop = false;
+53         }
+54 
+55         if (top &lt;= n)
+56         {
+57             buf.push(top);
+58             combine.push_back(top);
+59         }
+60     }
+61 
+62 }
+63 
+64 int main()
+65 {
+66 #ifdef _DEBUG
+67     freopen(&quot;data.txt&quot;, &quot;r+&quot;, stdin);
+68 #endif // _DEBUG
+69 
+70     int n, m, PS = 0;
+71 
+72     while (cin &gt;&gt; n &gt;&gt; m)
+73     {
+74         permutation(n, m);
+75     }
+76 
+77 
+78 
+79     return 0;
+80 }
+</code></pre><h4 id="组合数-判断素数"><a href="#组合数-判断素数" class="headerlink" title="组合数+判断素数"></a>组合数+判断素数</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;stack&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;string&gt;
+ 8 #include &lt;string.h&gt;
+ 9 #include &lt;algorithm&gt;
+10 #include &lt;math.h&gt;
+11 using namespace std;
+12 // 递归 求组合
+13 int n,k,num,ans,ans_num; // num:selected numbers
+14 int a[21];
+15 bool visited[21];
+16 
+17 bool isSu(int x)
+18 {
+19     for (int i=2;i&lt;sqrt(x)+1;i++)
+20     {
+21         if (x%i == 0)
+22         {
+23            return false;
+24         }
+25     }
+26     return true;
+27 
+28 }
+29 void dfs(int i,int num)
+30 {
+31     // 判断第I个数是否要被选择
+32     if (i == n)
+33     {
+34         if (num == k &amp;&amp; isSu(ans))
+35         {
+36          ans_num++;
+37         }
+38         return;
+39     }
+40     if (num+1 &lt;= k )
+41     {
+42         ans += a[i+1];
+43         dfs(i+1,num+1);
+44         ans -= a[i+1];
+45     }
+46     dfs(i+1,num);
+47 }
+48 int main()
+49 {
+50    while  (cin&gt;&gt;n&gt;&gt;k)
+51    {
+52        for (int i=1;i&lt;=n;i++)
+53        {
+54           cin &gt;&gt; a[i]; visited[i]=  false;
+55        }
+56        ans = 0;ans_num = 0;
+57        dfs(0,0);
+58        cout &lt;&lt; ans_num &lt;&lt; endl;
+59    }
+60 
+61 
+62     return 0 ;
+63 }
+</code></pre><h4 id="N皇后"><a href="#N皇后" class="headerlink" title="N皇后"></a>N皇后</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;stack&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;string&gt;
+ 8 #include &lt;string.h&gt;
+ 9 #include &lt;algorithm&gt;
+10 #include &lt;math.h&gt;
+11 using namespace std;
+12 // N皇后问题
+13 int n,num;
+14 bool visited[11];
+15 vector&lt;int&gt; ans;
+16 bool flag = false;
+17 bool isok(int i,int j)
+18 {
+19     // 判断第I行皇后能否放在J个列
+20     // 1. 不可能同一行，因为I从1-n
+21     // 2. 同一列
+22     if (visited[j])
+23         return false;
+24     // 3. 对角线
+25     // i,j / k, l |i-k| = |k-l| 时两个点在对角线上
+26     for (int k = 1;k&lt;i;k++)
+27     {
+28         if (abs(k-i) == abs(ans[k-1]-j))
+29             return false;
+30     }
+31     return true;
+32 }
+33 void dfs(int i)
+34 {
+35     if (i==n)
+36     {
+37         flag = true;
+38         for (int j=0;j&lt;n-1;j++)
+39             cout &lt;&lt; ans[j] &lt;&lt; &quot; &quot;;
+40         cout &lt;&lt; ans[n-1] &lt;&lt; endl;
+41         return ;
+42     }
+43     for (int j=1;j&lt;=n;j++)
+44     { // j : column
+45         if (isok(i+1,j))
+46         {
+47             visited[j] = true;
+48             ans.push_back(j);
+49             dfs(i+1);
+50             visited[j] = false;
+51             ans.pop_back();
+52         }
+53 
+54     }
+55 }
+56 int main()
+57 {
+58    while  (cin&gt;&gt;n)
+59    {
+60        ans.clear();
+61        for (int i=0;i&lt;=n;i++)
+62         visited[i] = false;
+63        dfs(0);
+64        if (!flag)
+65         cout&lt;&lt;&quot;no solute!&quot; &lt;&lt;endl;
+66    }
+67 
+68 
+69     return 0 ;
+70 }
+</code></pre><h4 id="迷宫"><a href="#迷宫" class="headerlink" title="迷宫"></a>迷宫</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;stack&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;string&gt;
+ 8 #include &lt;string.h&gt;
+ 9 #include &lt;algorithm&gt;
+10 #include &lt;math.h&gt;
+11 using namespace std;
+12 // 走迷宫
+13 int n,m;
+14 int a[101][16];
+15 struct point
+16 {
+17     int x,y;
+18 };
+19 point s,e,t;
+20 
+21 vector&lt;point&gt; ans;
+22 void print()
+23 {
+24     for (int i=0;i&lt;ans.size()-1;i++)
+25     {
+26         cout &lt;&lt; &quot;(&quot;&lt;&lt;ans[i].x&lt;&lt;&quot;,&quot;&lt;&lt;ans[i].y&lt;&lt;&quot;)-&gt;&quot;;
+27     }
+28     cout &lt;&lt; &quot;(&quot;&lt;&lt;ans[ans.size()-1].x&lt;&lt;&quot;,&quot;&lt;&lt;ans[ans.size()-1].y&lt;&lt;&quot;)&quot;&lt;&lt;endl;
+29 }
+30 int dir[4][2] = {
+31 0,-1,
+32 -1,0,
+33 0,1,
+34 1,0
+35 };
+36 void dfs(point p)
+37 { // p：当前位置
+38     if (p.x == e.x &amp;&amp; p.y == e.y)
+39     {
+40         print();
+41         return;
+42     }
+43     if (p.x&lt;1 || p.x &gt; n || p.y &lt; 1 || p.y &gt; m)
+44         return ; // meet border return
+45     if (a[p.x][p.y] == 0)
+46         return ; // meet wall return
+47     for (int i=0;i&lt;4;i++)
+48     {
+49         t = p;
+50         // 四个方向即四个分支可以深搜
+51         t.x = p.x+dir[i][0];
+52         t.y = p.y+dir[i][1];
+53         // 已经访问过的点再往下深搜的过程中不会再次访问，可以设为wall
+54         a[p.x][p.y] = 0;
+55         ans.push_back(t);
+56         dfs(t);
+57         a[p.x][p.y] = 1;
+58         ans.pop_back();
+59 
+60     }
+61 
+62 }
+63 int main()
+64 {
+65 
+66     while (cin&gt;&gt;n&gt;&gt;m)
+67     {
+68         for (int i=1;i&lt;=n;i++)
+69         {
+70             for (int j=1;j&lt;=m;j++)
+71             {
+72                 cin &gt;&gt; a[i][j];
+73             }
+74         }
+75         ans.clear();
+76         cin &gt;&gt; s.x &gt;&gt; s.y;
+77         cin &gt;&gt; e.x &gt;&gt; e.y;
+78         ans.push_back(s);
+79         dfs(s);
+80 
+81 
+82     }
+83 
+84 
+85     return 0 ;
+86 }
+</code></pre><ul>
+<li>本地运行正确但提交不正确</li>
+</ul>
+<h4 id="jugs"><a href="#jugs" class="headerlink" title="jugs"></a>jugs</h4><pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;stdio.h&gt;
+  3 #include &lt;stdlib.h&gt;
+  4 #include &lt;vector&gt;
+  5 #include &lt;stack&gt;
+  6 #include &lt;map&gt;
+  7 #include &lt;string&gt;
+  8 #include &lt;string.h&gt;
+  9 #include &lt;algorithm&gt;
+ 10 #include &lt;math.h&gt;
+ 11 #include &lt;queue&gt;
+ 12 using namespace std;
+ 13 int ca,cb,n;
+ 14 struct node
+ 15 {
+ 16     int x,y;
+ 17     struct node *parent;
+ 18     string word;
+ 19 }s,e,tmp,cur;
+ 20 queue&lt;node&gt; q;
+ 21 vector&lt;string&gt; w;
+ 22 int main()
+ 23 {
+ 24     while (cin&gt;&gt;ca&gt;&gt;cb&gt;&gt;n)
+ 25     {
+ 26         while (!q.empty())
+ 27             q.pop();
+ 28         w.clear();
+ 29         s.x = 0;s.y = 0;s.parent = NULL;
+ 30         e.y = n;
+ 31         q.push(s);
+ 32         while (!q.empty())
+ 33         {
+ 34             cur = q.front();
+ 35             q.pop();
+ 36             // ÅÐ¶ÏÊÇ*ñÎª×iÖÕÌ¬
+ 37             if (cur.y == e.y)
+ 38             {
+ 39                 string t = &quot;success&quot;;
+ 40                 w.push_back(t);
+ 41                 struct node *p;p=&amp;cur;
+ 42               while (p-&gt;parent!=NULL)
+ 43               {
+ 44                  w.push_back(p-&gt;word);
+ 45                  p = p-&gt;parent;
+ 46               }
+ 47               for (int i = w.size()-1;i&gt;=0;i--)
+ 48               {
+ 49                   cout &lt;&lt; w[i] &lt;&lt; endl;
+ 50               }
+ 51             }
+ 52 
+ 53 
+ 54             if (cur.x &lt; ca)
+ 55             {
+ 56                 tmp = cur;
+ 57                 // A is not full
+ 58                 tmp.x = ca;
+ 59                 tmp.word = &quot;fill A&quot;;
+ 60                 tmp.parent = &amp;cur;
+ 61                 q.push(tmp);
+ 62             }
+ 63 
+ 64             if (cur.y &lt; cb)
+ 65             {
+ 66                 tmp = cur;
+ 67                 // B is not full
+ 68                 tmp.y = cb;
+ 69                 tmp.word = &quot;fill B&quot;;
+ 70                 tmp.parent = &amp;cur;
+ 71                 q.push(tmp);
+ 72             }
+ 73 
+ 74             if (cur.x &gt; 0)
+ 75             {
+ 76                 tmp = cur;
+ 77                 // A is not empty
+ 78                 tmp.x = 0;
+ 79                 tmp.word = &quot;empty A&quot;;
+ 80                 tmp.parent = &amp;cur;
+ 81                 q.push(tmp);
+ 82             }
+ 83 
+ 84             if (cur.y &gt; 0)
+ 85             {
+ 86                 tmp = cur;
+ 87                 // B is not empty
+ 88                 tmp.y = 0;
+ 89                 tmp.word = &quot;empty B&quot;;
+ 90                 tmp.parent = &amp;cur;
+ 91                 q.push(tmp);
+ 92             }
+ 93 
+ 94             if (cur.x &gt; 0 &amp;&amp; cur.y &lt; ca)
+ 95             {
+ 96                 tmp = cur;
+ 97                 if (cur.x &gt;= cb-cur.y) // x more than capacity of B
+ 98                 {
+ 99                     tmp.y = cb;
+100                     tmp.x = cur.x - cb + cur.y;
+101                 }
+102                 else
+103                 {
+104                     tmp.y = cur.x+cur.y;
+105                     tmp.x = 0;
+106                 }
+107                 tmp.word = &quot;pour A B&quot;;
+108                 tmp.parent = &amp;cur;
+109                 q.push(tmp);
+110             }
+111 
+112             if (cur.y &gt; 0 &amp;&amp; cur.x &lt; ca)
+113             {
+114                 tmp = cur;
+115                 // B have water and A has place to hold
+116                 if (cur.y &gt;= ca-cur.x) // y more than capacity of A
+117                 {
+118                     tmp.x = ca;
+119                     tmp.y = cur.y - ca + cur.x;
+120                 }
+121                 else
+122                 {
+123                     tmp.x = cur.x+cur.y;
+124                     tmp.y = 0;
+125                 }
+126                 tmp.parent = &amp;cur;
+127                 tmp.word = &quot;pour B A&quot;;
+128                 q.push(tmp);
+129             }
+130         }
+131     }
+132     return 0 ;
+133 }
+</code></pre><ul>
+<li>char 型迷宫定义成int型导致爆莫名奇妙的错误。</li>
+</ul>
+<h4 id="掉石头迷宫"><a href="#掉石头迷宫" class="headerlink" title="掉石头迷宫"></a>掉石头迷宫</h4><p>应该是迷宫状态更新的问题。 1.5小时</p>
+<pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;stdio.h&gt;
+  3 #include &lt;stdlib.h&gt;
+  4 #include &lt;vector&gt;
+  5 #include &lt;stack&gt;
+  6 #include &lt;map&gt;
+  7 #include &lt;string&gt;
+  8 #include &lt;string.h&gt;
+  9 #include &lt;algorithm&gt;
+ 10 #include &lt;math.h&gt;
+ 11 #include &lt;queue&gt;
+ 12 using namespace std;
+ 13 // 掉石头迷宫问题
+ 14 int t1;
+ 15 char a[9][9],t[9][9];
+ 16 struct point
+ 17 {
+ 18     int x,y,t;
+ 19 }s,e,tmp,cur;
+ 20 vector&lt;point&gt; stone;
+ 21 queue&lt;point&gt; q;
+ 22 void printa(char a[9][9])
+ 23 {
+ 24    for (int i=1;i&lt;=8;i++)
+ 25         {
+ 26             for (int j=1;j&lt;=8;j++)
+ 27                 cout &lt;&lt; a[i][j] &lt;&lt; &quot; &quot;;
+ 28             cout &lt;&lt; endl;
+ 29         }
+ 30 }
+ 31 void flush(char a[9][9]) // 石头状态刷新一次
+ 32 {
+ 33   /*  int x1,y1;
+ 34     for (int i=0;i&lt;stone.size();i++)
+ 35     {
+ 36         x1 = stone[i].x;
+ 37         y1 = stone[i].y;
+ 38         a[x1][y1] = &#39;.&#39;;
+ 39         if (x1+1 &lt;=8) // 超出边界的石头则删除了
+ 40             a[x1+1][y1] = &#39;S&#39;;
+ 41     }
+ 42 
+ 43     */
+ 44     for (int i=1;i&lt;9;i++)
+ 45     {
+ 46         for (int j=1;j&lt;9;j++)
+ 47         {
+ 48             if (a[i][j] == &#39;S&#39;)
+ 49             {
+ 50                a[i+1][j] = &#39;S&#39;;
+ 51                a[i][j] = &#39;.&#39;;
+ 52             }
+ 53         }
+ 54     }
+ 55 
+ 56 }
+ 57 int dir[9][2] =
+ 58 {
+ 59 -1,0,
+ 60 -1,1,
+ 61 0,1,
+ 62 1,1,
+ 63 1,0,
+ 64 1,-1,
+ 65 0,-1,
+ 66 -1,-1,
+ 67 0,0
+ 68 };
+ 69 bool judge(point tmp)
+ 70 {
+ 71     if (tmp.x &lt; 1 || tmp.y &gt;8 || tmp.y &lt; 1 || tmp.y &gt; 8)
+ 72         return false;
+ 73     if (a[tmp.x][tmp.y] == &#39;S&#39; || t[tmp.x][tmp.y] == &#39;S&#39;) // 移动后所在位置有石头或移动后石头下落砸到自己
+ 74         return false;
+ 75     return true;
+ 76 }
+ 77 int main()
+ 78 {
+ 79     cin &gt;&gt; t1;
+ 80     bool flag;
+ 81     while (t1--)
+ 82     {
+ 83         flag = false;
+ 84         // 输入迷宫
+ 85         for (int i=1;i&lt;=8;i++)
+ 86         {
+ 87             for (int j=1;j&lt;=8;j++)
+ 88             {
+ 89                cin &gt;&gt; a[i][j]; t[i][j] = a[i][j];
+ 90             }
+ 91         }
+ 92 
+ 93         /* 存石头位置
+ 94         stone.clear();
+ 95         for (int i=1;i&lt;9;i++)
+ 96         {
+ 97             for (int j=1;j&lt;9;j++)
+ 98             {
+ 99                 if (a[i][j] == &#39;S&#39;)
+100                 {
+101                    tmp.x = i;tmp.y = j;
+102                    stone.push_back(tmp);
+103                 }
+104             }
+105         }
+106         */
+107         // 清空队列
+108         while (!q.empty())
+109             q.pop();
+110         // 初始化队列
+111         s.x = 8;s.y = 1;e.x = 1;e.y = 8;s.t = 0;
+112         q.push(s);
+113         while (!q.empty())
+114         {
+115             cur = q.front();q.pop();
+116             if (cur.x == e.x &amp;&amp; cur.y == e.y)
+117             {
+118                 flag = true;
+119                 break;
+120             }
+121             flush(t);  // t是移动后的a
+122             printa(t);
+123             for (int i=0;i&lt;9;i++)
+124             {
+125                 tmp = cur;
+126                 tmp.x += dir[i][0];
+127                 tmp.y += dir[i][1];
+128                 tmp.t ++;
+129                 if (judge(tmp))
+130                 {
+131                     q.push(tmp);
+132                 }
+133             }
+134             flush(a);//a t 同步了
+135             printa(a);
+136 
+137         }
+138         if (flag)
+139             cout &lt;&lt; &quot;Yes&quot; &lt;&lt; endl;
+140         else
+141             cout &lt;&lt; &quot;No&quot; &lt;&lt; endl;
+142         getchar();
+143     }
+144     return 0 ;
+145 }
+</code></pre><h3 id="DP"><a href="#DP" class="headerlink" title="DP"></a>DP</h3><h4 id="斐波那契"><a href="#斐波那契" class="headerlink" title="斐波那契"></a>斐波那契</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;stack&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;string&gt;
+ 8 #include &lt;string.h&gt;
+ 9 #include &lt;algorithm&gt;
+10 #include &lt;math.h&gt;
+11 #include &lt;queue&gt;
+12 using namespace std;
+13 
+14 int fib(int n)
+15 {
+16     if (n==1 || n==2)
+17         return 1;
+18     else
+19         return fib(n-1)+fib(n-2);
+20 }
+21 int main()
+22 {
+23     int n;
+24     while (cin &gt;&gt; n)
+25     {
+26         cout &lt;&lt; fib(n) &lt;&lt; endl;
+27     }
+28     return 0 ;
+29 }
+</code></pre><ul>
+<li>n &lt;= 30 最简单的递归，内存超限： 大量的重复的计算</li>
+<li>方法：通过空间的损耗来提高计算的速度，一维数组DP记录每个数的数值，未计算过则设置为-1。</li>
+<li><strong>记忆化搜索</strong> 每个数仅算一遍</li>
+</ul>
+<pre><code> 1 #include  &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;stack&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;string&gt;
+ 8 #include &lt;string.h&gt;
+ 9 #include &lt;algorithm&gt;
+10 #include &lt;math.h&gt;
+11 #include &lt;queue&gt;
+12 using namespace std;
+13 
+14 int dp[32];
+15 int fib(int n)
+16 {
+17     if (n==1 || n==2) // 递归边界
+18     {
+19        return 1;
+20     }
+21     if (dp[n]!=-1)
+22         return dp[n]; // 先判断我们的缓存里面有没有，有的话直接取出否则递归计算
+23     else
+24     {
+25         dp[n] = fib(n-1)+fib(n-2);
+26         return dp[n];
+27     }
+28 
+29 }
+30 int main()
+31 {
+32     int n;
+33     while (cin &gt;&gt; n)
+34     {
+35         for (int i=0;i&lt;32;i++) dp[i] = -1;
+36         cout &lt;&lt; fib(n) &lt;&lt; endl;
+37     }
+38     return 0 ;
+39 }
+</code></pre><h4 id="最大连续子序列和"><a href="#最大连续子序列和" class="headerlink" title="最大连续子序列和"></a>最大连续子序列和</h4><p>？？？？？？？？？？？？？？？？？ 如何输出最大连续的子序列呢？</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;stack&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;string&gt;
+ 8 #include &lt;string.h&gt;
+ 9 #include &lt;algorithm&gt;
+10 #include &lt;math.h&gt;
+11 #include &lt;queue&gt;
+12 using namespace std;
+13 
+14 int dp[32];
+15 bool flag[32];
+16 int a[10001];
+17 int main()
+18 {
+19     int n;
+20     while (cin &gt;&gt; n)
+21     {
+22         for (int i=0;i&lt;n;i++) 
+23         {cin &gt;&gt; a[i];flag[i] = false;}
+24         dp[0] = a[0];
+25 
+26         for (int i=1;i&lt;n;i++)
+27         {
+28             dp[i] = max(a[i],dp[i-1]+a[i]);
+29         }
+30 
+31 
+32 
+33 
+34     }
+35     return 0 ;
+36 }
+
+
+
+
+
+ 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;stack&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;string&gt;
+ 8 #include &lt;string.h&gt;
+ 9 #include &lt;algorithm&gt;
+10 #include &lt;math.h&gt;
+11 #include &lt;queue&gt;
+12 using namespace std;
+13 
+14 int dp[32];
+15 bool flag[32][32];
+16 int a[10001];
+17 int main()
+18 {
+19     int n;
+20     while (cin &gt;&gt; n)
+21     {
+22         for (int i=0;i&lt;n;i++)
+23         {cin &gt;&gt; a[i];}
+24         for (int i=0;i&lt;32;i++)
+25         {
+26             for (int j=0;j&lt;32;j++)
+27                 flag[i][j] = false;
+28         }
+29         dp[0] = a[0]; flag[0][0] = true;
+30 
+31         for (int i=1;i&lt;n;i++)
+32         {
+33             dp[i] = max(a[i],dp[i-1]+a[i]);
+34             if (dp[i] == a[i])
+35             {
+36                 flag[i][i] = true;
+37             }
+38             else
+39             {
+40                 for (int x=0;x&lt;i;x++)
+41                     flag[i][x] = flag[i-1][x];
+42                 flag[i][i] = true;
+43             }
+44         }
+45         int k = 0;
+46         int max = dp[0];
+47         for (int i=1;i&lt;n;i++)
+48         {
+49             if (dp[i] &gt; max)
+50             {
+51                 max = dp[i]; k = i;
+52             }
+53         }
+54         for (int i=0;i&lt;n;i++)
+55         {
+56             if (flag[k][i])
+57                 cout &lt;&lt; a[i] &lt;&lt;&quot; &quot;;
+58         }
+59 
+60 
+61 
+62 
+63 
+64     }
+65     return 0 ;
+66 }
+</code></pre><ul>
+<li>运行错误？ 还是格式错误？</li>
+</ul>
+<h4 id="最长上升子序列"><a href="#最长上升子序列" class="headerlink" title="最长上升子序列"></a>最长上升子序列</h4><p><a href="http://codeup.cn/problem.php?cid=100000627&amp;pid=0" target="_blank" rel="noopener">http://codeup.cn/problem.php?cid=100000627&amp;pid=0</a></p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;stack&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;string&gt;
+ 8 #include &lt;string.h&gt;
+ 9 #include &lt;algorithm&gt;
+10 #include &lt;math.h&gt;
+11 #include &lt;queue&gt;
+12 using namespace std;
+13 
+14 
+15 int main()
+16 {
+17     int n;
+18     int dp[32];
+19     int a[10001];
+20     while (cin &gt;&gt; n)
+21     {
+22         for (int i=0;i&lt;n;i++)
+23         {cin &gt;&gt; a[i];dp[i] = 1;}
+24 
+25 
+26         for (int i=1;i&lt;n;i++)
+27         {
+28             for (int j=0;j&lt;i;j++)
+29             {
+30                 if (a[j] &lt; a[i])
+31                 {
+32                     dp[i] = max(dp[i],dp[j]+1);
+33                 }
+34             }
+35         }
+36         sort(dp,dp+n);
+37         cout &lt;&lt; dp[n-1] &lt;&lt; endl;
+38 
+39 
+40     }
+41     return 0 ;
+42 }
+
+
+
+
+
+
+
+ 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;stack&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;string&gt;
+ 8 #include &lt;string.h&gt;
+ 9 #include &lt;algorithm&gt;
+10 #include &lt;math.h&gt;
+11 #include &lt;queue&gt;
+12 using namespace std;
+13 
+14 const int maxn = 200001;
+15 int a[maxn];
+16 int n;
+17 int dp[maxn];
+18 int main()
+19 {
+20     while (cin&gt;&gt;n)
+21     {
+22         for (int i=0;i&lt;n;i++)
+23              cin &gt;&gt; a[i];
+24         dp[0] = 1;
+25         int ans = 0; // 最大dp值的下标
+26         for (int i=1;i&lt;n;i++)
+27         {
+28             for (int j=0;j&lt;i;j++)
+29             {
+30                 if (a[j] == a[i]-1)
+31                 {
+32                     dp[i] = max(dp[i],dp[j]+1); // 找到最大的
+33                 }
+34             }
+35             if (dp[i] &gt; dp[ans])
+36             {
+37                 ans = i;
+38             }
+39         }
+40         cout &lt;&lt; dp[ans] &lt;&lt; endl;
+41         vector&lt;int&gt; p;p.clear();
+42         for (int i = ans,j=0;i&gt;=0;i--)
+43         {
+44             if (a[i] == a[ans]-j)
+45             {
+46                p.push_back(i);j++;
+47             }
+48 
+49         }
+50         for (int i=p.size()-1;i&gt;0;i--)
+51             cout &lt;&lt; p[i]+1 &lt;&lt;&quot; &quot;;
+52         cout &lt;&lt; p[0]+1 &lt;&lt; endl;
+53 
+54     }
+55 
+56     return 0 ;
+57 }
+</code></pre><p>time limited 超时了！</p>
+<p>用map存储：</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;stack&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;string&gt;
+ 8 #include &lt;string.h&gt;
+ 9 #include &lt;algorithm&gt;
+10 #include &lt;math.h&gt;
+11 #include &lt;queue&gt;
+12 using namespace std;
+13 
+14 const int maxn = 200001;
+15 int a[maxn];
+16 int n;
+17 int dp[maxn];
+18 map&lt;int,int&gt; m;
+19 int main()
+20 {
+21     while (cin&gt;&gt;n)
+22     {
+23         m.clear();
+24         for (int i=0;i&lt;=n;i++)
+25             m[i] = 0;
+26         for (int i=1;i&lt;=n;i++)
+27         {
+28             cin &gt;&gt; a[i];
+29             m[a[i]] = m[a[i]-1]+1;
+30         }
+31         int ans = 0,k=0;
+32         map&lt;int,int&gt;::iterator it;
+33         for (it = m.begin();it !=m.end();it++)
+34         {
+35             if (it-&gt;second &gt; ans)
+36             {
+37                 ans = it-&gt;second;
+38                 k = it-&gt;first;
+39             }
+40         }
+41         int pos = k - ans + 1;
+42         cout &lt;&lt; ans &lt;&lt; endl;
+43         for (int i=1;i&lt;=n&amp;&amp;pos &lt;= k;i++ )
+44         {
+45             if (a[i] == pos)
+46             {
+47                 cout &lt;&lt; i &lt;&lt;&quot; &quot;;
+48                 pos++;
+49             }
+50         }
+51 
+52 
+53 
+54     }
+55 
+56     return 0 ;
+57 }
+</code></pre><h4 id="非常可乐"><a href="#非常可乐" class="headerlink" title="非常可乐"></a>非常可乐</h4><pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;stdio.h&gt;
+  3 #include &lt;stdlib.h&gt;
+  4 #include &lt;vector&gt;
+  5 #include &lt;stack&gt;
+  6 #include &lt;map&gt;
+  7 #include &lt;string&gt;
+  8 #include &lt;string.h&gt;
+  9 #include &lt;algorithm&gt;
+ 10 #include &lt;math.h&gt;
+ 11 #include &lt;queue&gt;
+ 12 using namespace std;
+ 13 
+ 14 int coco,n,m;
+ 15 struct status
+ 16 {
+ 17     int a,b,c,d;
+ 18 }s,cur,tmp;
+ 19 queue&lt;status&gt; q;
+ 20 const int maxn = 101;
+ 21 int v[maxn][maxn][maxn];
+ 22 void pour(int a,int b,int c,int d)
+ 23 {
+ 24     if (!v[a][b][c])
+ 25     {
+ 26         v[a][b][c] = 1;
+ 27         tmp.a = a;
+ 28         tmp.b = b;
+ 29         tmp.c = c;
+ 30         tmp.d = d+1; // 未出现的状态才倒水，并加入队列
+ 31         q.push(tmp);
+ 32     }
+ 33 }
+ 34 int bfs(int a,int b,int c,int d) // d为倒水次数,a,b,c为杯中可乐量
+ 35 {
+ 36     while (!q.empty()) q.pop();
+ 37     s.a = coco;s.b = s.c = s.d = 0; // 初始状态
+ 38     q.push(s);
+ 39     v[coco][0][0] = 1; // 该状态已入队过，为防止重复入队
+ 40     while (!q.empty())
+ 41     {
+ 42         cur = q.front();q.pop();
+ 43         if ((cur.a == coco/2 &amp;&amp; cur.b == coco/2 )||(cur.a == coco/2 &amp;&amp; cur.c == coco/2 ) || (cur.b == coco/2 &amp;&amp; cur.c == coco/2 ) )
+ 44             return cur.d;
+ 45         //s-&gt;n:
+ 46         if (cur.a &gt; 0 &amp;&amp; cur.b &lt; n) // a has coco and b is not full
+ 47             pour(cur.a - n + cur.b, n, cur.c, cur.d);
+ 48         //s-&gt;m;
+ 49         if ( cur.a &gt; 0 &amp;&amp; cur.c &lt; m)
+ 50             pour(cur.a - m + cur.c, cur.b, m, cur.d);
+ 51         //n-&gt;s;
+ 52         if (cur.b &gt; 0 &amp;&amp; cur.a &lt; coco)
+ 53             pour(cur.a + cur.b, 0, cur.c, cur.d);
+ 54         //m-&gt;s;
+ 55         if (cur.c &gt; 0 &amp;&amp; cur.a &lt; coco )
+ 56             pour(cur.a + cur.c, cur.b, 0, cur.d);
+ 57         //n-&gt;m
+ 58         if (cur.b &gt; 0 &amp;&amp; cur.c &lt; m)
+ 59         {
+ 60           if(cur.b &gt; m - cur.c)
+ 61             pour(cur.a, cur.b - m + cur.c, m, cur.d);
+ 62           else
+ 63             pour(cur.a, 0, cur.b + cur.c, cur.d);
+ 64         }
+ 65 
+ 66         //m-&gt;n
+ 67         if (cur.c &gt; 0 &amp;&amp; cur.b &lt; n)
+ 68         {
+ 69             if(cur.c &gt; n - cur.b)
+ 70                 pour(cur.a, n, cur.c - n + cur.b, cur.d);
+ 71             else
+ 72                 pour(cur.a, cur.b + cur.c, 0, cur.d);
+ 73         }
+ 74 
+ 75     }
+ 76     return 0;
+ 77 }
+ 78 int main()
+ 79 {
+ 80     int ans;
+ 81     while (cin&gt;&gt;coco&gt;&gt;n&gt;&gt;m)
+ 82     {
+ 83         memset(v,0,sizeof(int)*maxn*maxn*maxn);
+ 84         if (coco==0)
+ 85             break;
+ 86         if (coco%2 == 1)
+ 87         {
+ 88             cout&lt;&lt; &quot;NO&quot; &lt;&lt; endl;continue;
+ 89         }
+ 90         ans = bfs(coco,0,0,0);
+ 91         if ( ans &gt; 0)
+ 92         {
+ 93             cout &lt;&lt; ans &lt;&lt; endl;
+ 94         }
+ 95         else
+ 96             cout&lt;&lt; &quot;NO&quot; &lt;&lt; endl;
+ 97     }
+ 98 
+ 99 
+100     return 0 ;
+101 }
+</code></pre><h4 id="导弹拦截系统：最长不降子序列"><a href="#导弹拦截系统：最长不降子序列" class="headerlink" title="导弹拦截系统：最长不降子序列"></a>导弹拦截系统：最长不降子序列</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;stack&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;string&gt;
+ 8 #include &lt;string.h&gt;
+ 9 #include &lt;algorithm&gt;
+10 #include &lt;math.h&gt;
+11 #include &lt;queue&gt;
+12 using namespace std;
+13 
+14 const int maxn = 1001;
+15 int main()
+16 {
+17     int n;
+18     int a[maxn];
+19     int dp[maxn]; // 以I为结尾的不降子序列的长度
+20     while (cin&gt;&gt;n)
+21     {
+22         for (int i=0;i&lt;n;i++)
+23         {
+24            cin &gt;&gt; a[i]; dp[i] = 1;
+25         }
+26         int ans = 1;
+27         for (int i=1;i&lt;n;i++)
+28         {
+29             for (int j=0;j&lt;i;j++)
+30             {
+31                 if (a[j] &lt; a[i])
+32                 {
+33                     dp[i] = max(dp[j]+1,dp[i]);
+34                 }
+35             }
+36             if (dp[i] &gt; ans)
+37                 ans = dp[i];
+38         }
+39         cout &lt;&lt;ans&lt;&lt; endl;
+40 
+41 
+42 
+43     }
+44     return 0 ;
+45 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/21/贪心算法（Fatmouse’Trade、今年暑假不AC）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          贪心算法（Fatmouse’Trade、今年暑假不AC）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/21/计算机考研机试指南（九）——搜索（百鸡问题、ABC、胜利大逃亡、迷宫问题、C翻转、旋转矩阵、字符串匹配、）/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">计算机考研机试指南（九）——搜索（百鸡问题、ABC、胜利大逃亡、迷宫问题、C翻转、旋转矩阵、字符串匹配、）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

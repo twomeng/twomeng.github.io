@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>codeblocks应用之debug | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一个偶然的机会，我发现了codeblocks这款IDE，因为它主要用于开发c/c++，所以没有visualstudio那么臃肿，感觉比较快捷，好用。但是其资料多为英文，本着利人利己的初衷，我决定挑选一些开发中必须使用的功能，将官方文档译为中文，以便查阅。本篇主要介绍此IDE的debug应用。本文基于的环境为windowsxp  codeblocks10.05。 1.   经常使用visualstu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="codeblocks应用之debug">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/codeblocks应用之debug/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一个偶然的机会，我发现了codeblocks这款IDE，因为它主要用于开发c/c++，所以没有visualstudio那么臃肿，感觉比较快捷，好用。但是其资料多为英文，本着利人利己的初衷，我决定挑选一些开发中必须使用的功能，将官方文档译为中文，以便查阅。本篇主要介绍此IDE的debug应用。本文基于的环境为windowsxp  codeblocks10.05。 1.   经常使用visualstu">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://wiki.codeblocks.org/images/1/14/DbgProjBuildOpt.png">
+<meta property="og:image" content="http://wiki.codeblocks.org/images/c/cf/DbgWatchWindow.png">
+<meta property="og:image" content="http://wiki.codeblocks.org/images/f/f0/Save_watch.png">
+<meta property="og:image" content="http://wiki.codeblocks.org/images/3/39/DWCB_watches_01.png">
+<meta property="og:image" content="http://wiki.codeblocks.org/images/a/a5/DbgSetWatchVar.png">
+<meta property="og:image" content="http://wiki.codeblocks.org/images/3/3b/DbgWithCBExp.png">
+<meta property="og:updated_time" content="2018-09-20T01:27:29.807Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="codeblocks应用之debug">
+<meta name="twitter:description" content="一个偶然的机会，我发现了codeblocks这款IDE，因为它主要用于开发c/c++，所以没有visualstudio那么臃肿，感觉比较快捷，好用。但是其资料多为英文，本着利人利己的初衷，我决定挑选一些开发中必须使用的功能，将官方文档译为中文，以便查阅。本篇主要介绍此IDE的debug应用。本文基于的环境为windowsxp  codeblocks10.05。 1.   经常使用visualstu">
+<meta name="twitter:image" content="http://wiki.codeblocks.org/images/1/14/DbgProjBuildOpt.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-codeblocks应用之debug" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      codeblocks应用之debug
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/codeblocks应用之debug/" class="article-date">
+  <time datetime="2018-08-14T02:27:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一个偶然的机会，我发现了codeblocks这款IDE，因为它主要用于开发c/c++，所以没有visual<br>studio那么臃肿，感觉比较快捷，好用。但是其资料多为英文，本着利人利己的初衷，我决定挑选一些开发中必须使用的功能，将官方文档译为中文，以便查阅。本篇主要介绍此IDE的debug应用。本文基于的环境为windowsxp</p>
+<ul>
+<li><p>codeblocks10.05。</p>
+<p>1.   经常使用visual<br>studio编译器的可能不怎么关注编译参数，而codeblocks使用的是gnu的gcc编译器，所以如果希望生成可调试的程序，需要加入命令参数-g，这个选项说明生成的可执行文件中含有调试标记（比如源文件中的某行代码对应了哪几条汇编指令），同时要确保一定不能选中-<br>s选项，这个选项用来清除可执行文件中所有的调试标记。具体操作如下：</p>
+</li>
+</ul>
+<p>菜单中 Project =&gt; Build Options</p>
+<p><img src="http://wiki.codeblocks.org/images/1/14/DbgProjBuildOpt.png" alt=""></p>
+<p>2.    既然是debug，就需要在调试中对变量的值进行观察，这时需要打开IDE的watch窗口，打开方式如下：</p>
+<p>菜单中debug=&gt; Debugging windows=&gt;watches</p>
+<p>如图：</p>
+<p><img src="http://wiki.codeblocks.org/images/c/cf/DbgWatchWindow.png" alt=""></p>
+<p>当以debug方式运行程序时候会出现下面的窗口：</p>
+<p><img src="http://wiki.codeblocks.org/images/f/f0/Save_watch.png" alt=""></p>
+<p>注意1：红色框圈出的两个选项可以讲当前的watch列表保存起来，也可以重新将已保存的watch列表重新加载进来。</p>
+<p>注意2：在进行debug时，在”call<br>stack”调试窗口中（调出的方式同调出watch窗口）双击一个栈帧（frame），但是在watch窗口中相对应的信息不会更新，如果需要观察特定栈帧的相应信息，需要在”call<br>stack”窗口中在需要观察的栈帧那一行上右击，然后选择”Switch to this frame”。操作如下图：</p>
+<p><img src="http://wiki.codeblocks.org/images/3/39/DWCB_watches_01.png" alt="">  </p>
+<ol>
+<li>设置断点，调试程序需要设置断点，然后在watch窗口中进行观察变量的变化。设置断点是很重要的一环</li>
+</ol>
+<p>设置断点的方式：</p>
+<p>(1)将鼠标定位于需要设置断点的那一行，然后点击菜单中的 Debug =&gt; Toggle Breakpoint</p>
+<p>(2)在需要加入断点的那一行中右击，然后选择Toggle Breakpoint或者按F5快捷键</p>
+<p>这样就可以开始调试运行了</p>
+<ol>
+<li>点击菜单中的Debug=&gt;start或者按F8</li>
+</ol>
+<p>运行断点处停止，如果想观察某个变量，先要拖动鼠标选中这个变量，然后右击，就会有有watch+变量名这一菜单项，单击它就可以在watch窗口中加入此变量了</p>
+<p>如图：</p>
+<p><img src="http://wiki.codeblocks.org/images/a/a5/DbgSetWatchVar.png" alt=""></p>
+<p>注意：</p>
+<p>如果使用的是codeblocks8.02版本，其中使用的编译器和调试器版本为 MinGW 和 gdb<br>6.7，则如果在c++构造函数中设置断点，调试器将不能工作，一下是一些小技巧。</p>
+<p>设置在构造函数和析构函数中的断点在GDB<br>6.7以及更低的版本中是不能工作的，但是如果在构造函数开始有成员函数的调用，可以将断点设在成员函数中，然后调用完成员函数就可以通过next<br>step（F7）继续观察构造函数调用。例如：</p>
+<p><img src="http://wiki.codeblocks.org/images/3/3b/DbgWithCBExp.png" alt=""></p>
+<p>需要观察构造函数MyClass调用，可以先设置一个成员函数DebugCtorDtor，讲断点设在22行，然后开始debug，程序会停在断点处，按F7，程序执行13行，就可以查看构造函数的调用情况了。</p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/14/严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（一）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（一）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/14/react 入门资料/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">react 入门资料</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

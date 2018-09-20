@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>JavaWeb 小试牛刀（一） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="2）使用Javabean来处理 1、建立user类，封装数据。  1 package com.po;  2 //用户类  3 public class users {  4 private String username;  5 private String password;  6 public users(){}  7 public String getUsername() {  8">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaWeb 小试牛刀（一）">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/JavaWeb 小试牛刀（一）/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="2）使用Javabean来处理 1、建立user类，封装数据。  1 package com.po;  2 //用户类  3 public class users {  4 private String username;  5 private String password;  6 public users(){}  7 public String getUsername() {  8">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20170316205945829?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170316205956475?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170316210004392?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170316210012413?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170316210020267?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170316231132941?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-09-20T01:27:29.915Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaWeb 小试牛刀（一）">
+<meta name="twitter:description" content="2）使用Javabean来处理 1、建立user类，封装数据。  1 package com.po;  2 //用户类  3 public class users {  4 private String username;  5 private String password;  6 public users(){}  7 public String getUsername() {  8">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170316205945829?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-JavaWeb 小试牛刀（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JavaWeb 小试牛刀（一）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/JavaWeb 小试牛刀（一）/" class="article-date">
+  <time datetime="2018-08-14T02:12:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="http://img.blog.csdn.net/20170316205945829?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170316205956475?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170316210004392?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170316210012413?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170316210020267?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>2）使用Javabean来处理</p>
+<p>1、建立user类，封装数据。</p>
+<pre><code> 1 package com.po;
+ 2 //用户类
+ 3 public class users {
+ 4 private String username;
+ 5 private String password;
+ 6 public users(){}
+ 7 public String getUsername() {
+ 8     return username;
+ 9 }
+10 public void setUsername(String username) {
+11     this.username = username;
+12 }
+13 public String getPassword() {
+14     return password;
+15 }
+16 public void setPassword(String password) {
+17     this.password = password;
+18 }
+19 
+20 }
+</code></pre><p>2、建立userdao类，实现对用户登录的逻辑判断</p>
+<pre><code> 1 package com.dao;
+ 2 
+ 3 import com.po.users;
+ 4 
+ 5 //用户的业务逻辑类
+ 6 public class usersdao {
+ 7 public boolean userslogin (users u){
+ 8     if (u.getUsername().equals(&quot;admin&quot;)&amp;&amp;u.getPassword().equals(&quot;admin&quot;)){
+ 9         return true;
+10     }else
+11         return false;
+12 }
+13 }
+</code></pre><p>3、在login界面中，建立Javabean两个，设置表单属性匹配完成后，对原来的if语句进行修改。</p>
+<pre><code> 1 &lt;body&gt;
+ 2 &lt;jsp:useBean id=&quot;loginuser&quot; class=&quot;com.po.users&quot; scope=&quot;page&quot;&gt;&lt;/jsp:useBean&gt;
+ 3 &lt;jsp:useBean id=&quot;usersdao&quot; class=&quot;com.dao.usersdao&quot; scope=&quot;page&quot;&gt;&lt;/jsp:useBean&gt;
+ 4 &lt;jsp:setProperty property=&quot;*&quot; name=&quot;loginuser&quot;/&gt;
+ 5 
+ 6 &lt;%
+ 7 request.setCharacterEncoding(&quot;utf-8&quot;);
+ 8 
+ 9 if (usersdao.userslogin(loginuser)){
+10     String submit=request.getParameter(&quot;submit&quot;);
+11     if (submit!=null)
+12     {
+13         session.setAttribute(&quot;sessionname&quot;,loginuser.getUsername());
+14     }
+15     //request.getRequestDispatcher(&quot;success.jsp&quot;).forward(request, response);
+16     response.sendRedirect(&quot;success.jsp&quot;);  
+17 
+18 
+19 }
+20 else{
+21     response.sendRedirect(&quot;failure.jsp&quot;);
+22 
+23 }
+24 %&gt;
+25 &lt;/body&gt;
+</code></pre><p>3）cookie实现登录和保存用户名</p>
+<pre><code> 1 &lt;body&gt;
+ 2 &lt;%
+ 3 Cookie a[]=request.getCookies();
+ 4 for (int i=0;i&lt;a.length;i++){
+ 5     String user=a[i].getName();
+ 6     if (user.equals(&quot;cookieid&quot;)){
+ 7         String name=a[i].getValue();
+ 8         session.setAttribute(&quot;sessionname&quot;, name);
+ 9         response.sendRedirect(&quot;success.jsp&quot;);
+10     }
+11 }
+12 %&gt;
+13 &lt;Center&gt;
+14 
+15 &lt;form method=&quot;post&quot; action=&quot;login.jsp&quot;&gt;
+16 &lt;label for=&quot;username&quot;&gt;用户名：&lt;/label&gt;
+17 &lt;input type=&quot;text&quot; name=&quot;username&quot;&gt;&lt;br&gt;&lt;br&gt;
+18 &lt;label for=&quot;password&quot;&gt;密码：&lt;/label&gt;
+19 &lt;input type=&quot;password&quot; name=&quot;password&quot;&gt;&lt;br&gt;&lt;br&gt;
+20 不保存用户名：&lt;input type=&quot;radio&quot; name=&quot;myrad&quot; value=&quot;0&quot;&gt;
+21 保存用户名：&lt;input type=&quot;radio&quot; name=&quot;myrad&quot; value=&quot;60&quot;&gt;一分钟
+22 &lt;input type=&quot;radio&quot; name=&quot;myrad&quot; value=&quot;3600&quot;&gt;一小时
+23 &lt;input type=&quot;radio&quot; name=&quot;myrad&quot; value=&quot;86400&quot;&gt;一天
+24 &lt;input type=&quot;radio&quot; name=&quot;myrad&quot; value=&quot;604800&quot;&gt;一周
+25 &lt;input type=&quot;radio&quot; name=&quot;myrad&quot; value=&quot;2592000&quot;&gt;一月
+26 &lt;input type=&quot;radio&quot; name=&quot;myrad&quot; value=&quot;31536000&quot;&gt;一年&lt;br&gt;&lt;br&gt;
+27 &lt;input type=&quot;submit&quot; name=&quot;submit&quot; value=&quot;提交&quot;&gt;
+28 
+29 &lt;/form&gt;
+30 
+31 &lt;/Center&gt;
+32 &lt;/body&gt;
+33 &lt;/html&gt;
+34 &lt;body&gt;
+35 &lt;%
+36 request.setCharacterEncoding(&quot;utf-8&quot;);
+37 String name=request.getParameter(&quot;username&quot;);
+38 String pw=request.getParameter(&quot;password&quot;);
+39 if (name!=null&amp;&amp;pw!=null&amp;&amp;name.equals(&quot;admin&quot;)&amp;&amp;pw.equals(&quot;123456&quot;)){
+40     session.setAttribute(&quot;sessionname&quot;, name);
+41     String ch=request.getParameter(&quot;myrad&quot;);
+42     if (ch!=null){//如果选择了单选button
+43         int time=Integer.parseInt(ch);
+44         if (time&gt;0){//如果选择的是保存用户名
+45             //存入cookie
+46             Cookie cc=new Cookie(&quot;cookieid&quot;,name);//把name存入cookie
+47             cc.setMaxAge(time);
+48             response.addCookie(cc);
+49         }       
+50     }
+51     response.sendRedirect(&quot;success.jsp&quot;);
+52 }
+53 else
+54     response.sendRedirect(&quot;index.jsp&quot;);
+55 %&gt;
+56 &lt;/body&gt;
+</code></pre><p><img src="http://img.blog.csdn.net/20170316231132941?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/14/JavaWeb 小试牛刀（二）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          JavaWeb 小试牛刀（二）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/14/MATLAB在数学建模中的应用（三）/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">MATLAB在数学建模中的应用（三）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

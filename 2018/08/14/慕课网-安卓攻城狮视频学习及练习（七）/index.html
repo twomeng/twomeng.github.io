@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>慕课网-安卓攻城狮视频学习及练习（七） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="进度条制定ProgressBar显示风格： 1 style=&amp;quot;?android:attr/prgressBarStyleLarge&amp;quot; 大环形进度条 2  3 style=&amp;quot;?android:attr/prgressBarStyleSmall&amp;quot; 小环形进度条 4  5 style=&amp;quot;?android:attr/prgressBarStyleHoriz">
+<meta property="og:type" content="article">
+<meta property="og:title" content="慕课网-安卓攻城狮视频学习及练习（七）">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/慕课网-安卓攻城狮视频学习及练习（七）/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="进度条制定ProgressBar显示风格： 1 style=&amp;quot;?android:attr/prgressBarStyleLarge&amp;quot; 大环形进度条 2  3 style=&amp;quot;?android:attr/prgressBarStyleSmall&amp;quot; 小环形进度条 4  5 style=&amp;quot;?android:attr/prgressBarStyleHoriz">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20170226180919653?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170226180927147?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170226191404759?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170226193908856?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170227111233292?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170227111211245?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170227111241198?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170227111249597?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170227111258628?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170227111307042?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170227111316894?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170227111325894?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170227115344028?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170227115352248?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170227152909824?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170227152920316?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170227153012481?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170303104431930?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170303104441270?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170303104454005?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170303104503837?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170306192342724?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-09-20T01:27:30.119Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="慕课网-安卓攻城狮视频学习及练习（七）">
+<meta name="twitter:description" content="进度条制定ProgressBar显示风格： 1 style=&amp;quot;?android:attr/prgressBarStyleLarge&amp;quot; 大环形进度条 2  3 style=&amp;quot;?android:attr/prgressBarStyleSmall&amp;quot; 小环形进度条 4  5 style=&amp;quot;?android:attr/prgressBarStyleHoriz">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170226180919653?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-慕课网-安卓攻城狮视频学习及练习（七）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      慕课网-安卓攻城狮视频学习及练习（七）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/慕课网-安卓攻城狮视频学习及练习（七）/" class="article-date">
+  <time datetime="2018-08-14T02:02:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>进度条</strong><br>制定ProgressBar显示风格：</p>
+<pre><code>1 style=&quot;?android:attr/prgressBarStyleLarge&quot; 大环形进度条
+2 
+3 style=&quot;?android:attr/prgressBarStyleSmall&quot; 小环形进度条
+4 
+5 style=&quot;?android:attr/prgressBarStyleHorizontal&quot; 水平进度条
+</code></pre><p>ProgressBar的分类：</p>
+<p>（1）可以精确显示进度（可以显示刻度或者百分比）</p>
+<p>（2）不可以精确显示进度（一直转啊转，类似于一个过场动画）</p>
+<p><strong>在标题栏中显示两种进度条</strong><br>启用窗口特征。</p>
+<pre><code> 1 protected void onCreate(Bundle savedInstanceState) {
+ 2     // TODO Auto-generated method stub
+ 3     super.onCreate(savedInstanceState);
+ 4 
+ 5     requestWindowFeature(Window.FEATURE_PROGRESS);
+ 6     requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+ 7 
+ 8     setContentView(R.layout.factivity);
+ 9     //设置两种进度条可见
+10     setProgressBarVisibility(true);
+11     setProgressBarIndeterminateVisibility(true);
+12     setProgress(9999);//max=10000
+13 
+14 }
+15 
+16 }
+</code></pre><p><img src="http://img.blog.csdn.net/20170226180919653?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><img src="http://img.blog.csdn.net/20170226180927147?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><strong>普通的进度条</strong><br><img src="http://img.blog.csdn.net/20170226191404759?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<pre><code> 1  public class FActivity extends Activity implements OnClickListener{
+ 2     private ProgressBar progress;
+ 3     private Button btn1,btn2,btn3;
+ 4     private TextView txt;
+ 5     @Override
+ 6 protected void onCreate(Bundle savedInstanceState) {
+ 7     // TODO Auto-generated method stub
+ 8     super.onCreate(savedInstanceState);
+ 9     setContentView(R.layout.factivity);
+10 
+11     progress=(ProgressBar) findViewById(R.id.progressBar4);
+12     btn1=(Button) findViewById(R.id.button1);
+13     btn2=(Button) findViewById(R.id.button2);
+14     btn3=(Button) findViewById(R.id.button3);
+15     txt=(TextView) findViewById(R.id.textView1);
+16 
+17     show();
+18 
+19     btn1.setOnClickListener(this);
+20     btn2.setOnClickListener(this);
+21     btn3.setOnClickListener(this);
+22 
+23 
+24 
+25 }
+26     @Override
+27     public void onClick(View v) {
+28         switch (v.getId()) {
+29 case R.id.button1:
+30     progress.incrementProgressBy(10);
+31     progress.incrementSecondaryProgressBy(10);
+32     show();
+33             break;
+34 case R.id.button2:
+35     progress.incrementProgressBy(-10);
+36     progress.incrementSecondaryProgressBy(-10);
+37     show();
+38             break;
+39 case R.id.button3:
+40     progress.setProgress(50);
+41     progress.setProgress(80);
+42     show();
+43             break;
+44 
+45 
+46         default:
+47             break;
+48         }
+49 
+50     }
+51 private void show(){
+52     //将初始化的进度条显示出来
+53         int first=progress.getProgress();
+54         int second=progress.getSecondaryProgress();
+55         int max=progress.getMax();
+56         txt.setText(&quot;第一进度条：&quot;+(int)first/(float)max*100+&quot;% 第二进度条&quot;+(int)second/(float)max*100+&quot;%&quot;);
+57         //不用float的话int/int为零。
+58 }
+59 
+60 
+61 }
+</code></pre><p><strong>对话框形式进度条</strong><br><img src="http://img.blog.csdn.net/20170226193908856?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<pre><code> 1  public class FActivity extends Activity implements OnClickListener{
+ 2     private Button btn;
+ 3     private  ProgressDialog pro_dialog;
+ 4     @Override
+ 5 protected void onCreate(Bundle savedInstanceState) {
+ 6     // TODO Auto-generated method stub
+ 7     super.onCreate(savedInstanceState);
+ 8     setContentView(R.layout.factivity);
+ 9 
+10     btn=(Button) findViewById(R.id.button1);
+11     //progressdialog并没有组件
+12 
+13     btn.setOnClickListener(this);
+14 }
+15     @Override
+16     public void onClick(View v) {
+17         pro_dialog=new ProgressDialog(this);
+18         pro_dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+19         pro_dialog.setTitle(&quot;进度条对话框&quot;);
+20         pro_dialog.setMessage(&quot;进度条：&quot;);
+21         pro_dialog.setIcon(R.drawable.clock);
+22 
+23         //进度条属性
+24         pro_dialog.setMax(100);
+25         pro_dialog.incrementProgressBy(50);//初始化增长到的进度
+26         pro_dialog.setIndeterminate(false);//明确显示进度
+27 
+28         //设置按钮
+29         pro_dialog.setButton(DialogInterface.BUTTON_POSITIVE, &quot;确定&quot;, new DialogInterface.OnClickListener() {
+30 
+31             @Override
+32             public void onClick(DialogInterface dialog, int which) {
+33                 Toast.makeText(FActivity.this, &quot;welcome&quot;, Toast.LENGTH_SHORT);
+34 
+35             }
+36         });
+37         pro_dialog.setCancelable(true);//确保能够返回原来界面
+38         pro_dialog.show();//对话框与吐司一样需要.show();
+39     }
+40 
+41 }
+</code></pre><p><strong>webview</strong><br>通过Intent调用系统浏览器<br>Uri uri=Uri.parse(“<a href="http://www.baidu.com/" target="_blank" rel="noopener">http://www.baidu.com</a>“);<br>//必须加<a href="http://否则报错" target="_blank" rel="noopener">http://否则报错</a><br>Intent intent=new Intent(Intent.ACTION_VIEW, uri);<br>startActivity(intent);</p>
+<p><img src="http://img.blog.csdn.net/20170227111233292?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170227111211245?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170227111241198?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><img src="http://img.blog.csdn.net/20170227111249597?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170227111258628?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170227111307042?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><img src="http://img.blog.csdn.net/20170227111316894?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170227111325894?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><strong>fragment</strong><br><img src="http://img.blog.csdn.net/20170227115344028?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170227115352248?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>activity为房子，fragment就是其中的房间摆设。<br><img src="http://img.blog.csdn.net/20170227152909824?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170227152920316?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><strong>动态加载</strong><br>处理Fragment事务：<br>1) 根据用户的交互情况，对Fragment进行添加、移除、替换，以及执行其他动作，提交给Activity的每一套变化被称作一个事务。<br>2）动态加载不用在layout中声明fragment的标签，直接用代码就可以操作。<br><img src="http://img.blog.csdn.net/20170227153012481?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<pre><code> 1 public class FActivity extends Activity {
+ 2   private RadioGroup radio;
+ 3     @Override
+ 4 protected void onCreate(Bundle savedInstanceState) {
+ 5     // TODO Auto-generated method stub
+ 6 super.onCreate(savedInstanceState);
+ 7 setContentView(R.layout.factivity);
+ 8 
+ 9 radio=(RadioGroup) findViewById(R.id.radioGroup1);
+10 radio.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+11 
+12     @Override
+13     public void onCheckedChanged(RadioGroup group, int checkedId) {
+14         switch (checkedId) {
+15         case R.id.radio0:
+16             //一按静态加载按钮就跳转到sactivity
+17             Intent intent =new Intent(FActivity.this,SActivity.class);
+18             startActivity(intent);
+19             break;
+20 case R.id.radio1:
+21      myfragment2 myfragment2=new myfragment2();
+22 
+23         FragmentManager fragmentManager=getFragmentManager(); //获取FragmentManager对象
+24         FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();//开启事务
+25 
+26         fragmentTransaction.add(R.id.frame, myfragment2);//在当前layout下增添Fragment
+27         fragmentTransaction.addToBackStack(null);
+28         fragmentTransaction.commit();
+29 
+30             break;
+31 case R.id.radio2:
+32     break;
+33 case R.id.radio3:
+34 
+35     break;
+36 
+37         default:
+38             break;
+39         }
+40 
+41     }
+42 });
+43 
+44 
+45 }
+46 
+47 
+48 
+49 }
+50 public class myfragment extends Fragment{
+51 //fragment的子类
+52     @Override
+53     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+54         View view =inflater.inflate(R.layout.item, container, false);   
+55         return view;
+56 }
+57 }
+</code></pre><p><strong>viewpager</strong></p>
+<p><img src="http://img.blog.csdn.net/20170303104431930?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170303104441270?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170303104454005?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170303104503837?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<pre><code> 1  public class FActivity extends Activity {
+ 2     private ViewPager viewpager;
+ 3     private List&lt;View&gt; viewlist;
+ 4 
+ 5     @Override
+ 6 protected void onCreate(Bundle savedInstanceState) {
+ 7     // TODO Auto-generated method stub
+ 8 super.onCreate(savedInstanceState);
+ 9 setContentView(R.layout.factivity);
+10 
+11 viewpager=(ViewFlipper) findViewById(R.id.pager);
+12 //新建数据源,把view作为对象，存储到viewlist中作为viewpager的数据源
+13 //使用inflate（）方法：把布局文件转化为view对象
+14 View view1=View.inflate(this, R.layout.view1, null);
+15 View view2=View.inflate(this, R.layout.view2, null);
+16 View view3=View.inflate(this, R.layout.view3, null);
+17 View view4=View.inflate(this, R.layout.view4, null);
+18 viewlist.add(view1);
+19 viewlist.add(view2);
+20 viewlist.add(view3);
+21 viewlist.add(view4);
+22 //新建适配器pageradapter的子类，mypageradapter
+23 Mypageradapter adapter =new Mypageradapter(viewlist);
+24 
+25 //布局文件加载适配器
+26 viewpager.setadapter(adapter);
+27 
+28 
+29 }
+30 
+31 
+32 
+33 }
+</code></pre><p><strong>viewflipper</strong><br>1、ViewFlipper介绍：<br>android系统自带的一个多页面管理控件，它可以实现子界面的自动切换。<br>2、为ViewFlipper加入View:<br>1)、静态导入：在layout布局文件中直接导入<br>2)、动态导入：addView（）方法：<br>flipper=(ViewFlipper) findViewById(R.id.filpper);<br>flipper.addView(getImageView(R.drawable.pic1));<br>flipper.addView(getImageView(R.drawable.pic2));<br>flipper.addView(getImageView(R.drawable.pic3));<br>flipper.addView(getImageView(R.drawable.pic4));</p>
+<p>3、ViewFlipper常用的方法：<br>1）、SetInAnimation：设置View进入屏幕时候使用的动画<br>2）、setOutAnimation：设置View退出屏幕时候使用的动画<br>3）、showNext：调用该函数来显示ViewFlipper里面的下一个View<br>4）、showPrevious：调用该函数来显示ViewFlipper里面的上一个View<br>5）、setFilpInterval：设置View之间切换的时间间隔<br>6）、startFlipping：使用上面设置的时间间隔来开始切换所有的View，切换会循环进行<br>7）、stopFlipping：停止View切换</p>
+<p><strong>scrollview</strong><br>1)<br>1、ScrollView介绍：<br>滚动视图是指当拥有很多内容，屏幕显示不完时，需要通过滚动来显示完整的视图</p>
+<p>2、ScrollView的种类：<br>HorizontalScrollView：水平滚动视图<br>ScrollView：垂直滚动视图</p>
+<p>2）、隐藏ScrollView<br>（1）标签属性：<br>android：scrollbars=”none”<br>（2）代码设置：<br>setHorizontalScrollBarEnabled（false）；隐藏横向ScrollView<br>setVerticalScrollBarEnabled（false）；隐藏纵向</p>
+<p>3) tip:<br>tv.setText(getResources().getString(R.string.content)); 获取string下面的资源</p>
+<p>4)<br>“ScrollView监听事件”<br>1.使用事件OnTouchListener。<br>2.使用传入的视图view获取以下属性值。</p>
+<pre><code> 1 /* 
+ 2 * view.getHeight() 获取视图的总高度 
+ 3 * view.getMeasuredHeight() 获取视图在当前屏幕所占的高度 
+ 4 * view.getScrollY() 获取视图已经滑动的Y轴的高度 
+ 5 * 所以。滑倒底部的公式可以使用 
+ 6 * 视图的总高度&lt;=视图在当前屏幕所占的高度+视图已经滑动的Y轴的高度 
+ 7 * */
+ 8 
+ 9 public class MainActivity extends Activity {
+10       private TextView txt;
+11       private ScrollView sv;
+12 
+13         @Override
+14     protected void onCreate(Bundle savedInstanceState) {
+15         // TODO Auto-generated method stub
+16     super.onCreate(savedInstanceState);
+17     setContentView(R.layout.activity_main);
+18 
+19     txt=(TextView) findViewById(R.id.textView1);
+20     txt.setText(getResources().getString(R.string.content));
+21     sv=(ScrollView) findViewById(R.id.scrollview);
+22     sv.setOnTouchListener(new OnTouchListener() {
+23 
+24         @Override
+25         public boolean onTouch(View v, MotionEvent event) {
+26             switch (event.getAction()) {
+27             case MotionEvent.ACTION_MOVE:
+28                 if (sv.getChildAt(0).getMeasuredHeight()&lt;=sv.getHeight()+sv.getScrollY())
+29                 {
+30                     Log.i(&quot;Main&quot;, &quot;haha&quot;);
+31                     txt.append(getResources().getString(R.string.content));
+32                 }
+33                 break;
+34 
+35             default:
+36                 break;
+37             }
+38             return false;
+39         }
+40     });
+41 
+42     }
+43 
+44 
+45 
+46 
+47 
+48 
+49 }
+</code></pre><p>“ScrollView”动态定位（不使用手滑动）<br>使用两个方法。ScrollTo(int x,int y)和ScrollBy(int x,int y)</p>
+<p>区别如下：  </p>
+<ul>
+<li>scrollTo表示将视图滑动到某一个地方。   </li>
+<li>scrollBy 表示将视图想某个地方滑动多少，相对前一个位置</li>
+</ul>
+<p>可通过源码看出区别：<br>scrollBy源码：</p>
+<pre><code> 1 public void scrollBy(int x, int y) { 
+ 2 scrollTo(mScrollX + x, mScrollY + y); 
+ 3 }
+ 4 
+ 5 
+ 6         @Override
+ 7         public void onClick(View v) {
+ 8             switch (v.getId()) {
+ 9             case R.id.upbutton:
+10                 sv.scrollBy(0, -30);
+11                 break;
+12             case R.id.downbutton:
+13                 sv.scrollBy(0, 30);
+14                 break;
+15             default:
+16                 break;
+17             }
+18 
+19         }
+</code></pre><p><strong>seekbar</strong></p>
+<p>14-1 使用SeekBar制作可拖动的进度条：</p>
+<p>1、SeekBar介绍：<br>听歌的时候，我们常常喜欢快进或者退回某一时间段，听歌的时候，我们喜欢控件音量大小来听歌。SeekBar可以通过滑块的位置来标识数值，而且拖动条允许用户拖动滑块来改变进度值的大小。</p>
+<p>2、SeekBar的主要属性和方法：<br>1）、setMax —-设置SeekBar的最大数值<br>2）、setProgress —-设置SeekBar当前的数值<br>3）、setSecondaryProgress —-设置SeekBar的第二数值，即当前拖动条推荐的数值</p>
+<p>3、SeekBar的事件：<br>由于拖动条可以被用户控制。所以需要对其进行事件监听，这就需要实现SeekBar.OnSeekBarChangeListener接口。此接口共需要监听三个事件，分别是：<br>1）、数值改变 （onProgressChanged）<br>2）、开始拖动（onStarTrackingTouch）<br>3）、停止拖动（onStopTrackingTouch）</p>
+<pre><code> 1 public class MainActivity extends Activity implements OnSeekBarChangeListener{
+ 2       private TextView txt1,txt2;
+ 3      private SeekBar seek;
+ 4 
+ 5         @Override
+ 6     protected void onCreate(Bundle savedInstanceState) {
+ 7         // TODO Auto-generated method stub
+ 8     super.onCreate(savedInstanceState);
+ 9 
+10     setContentView(R.layout.activity_main);
+11 
+12     txt1=(TextView) findViewById(R.id.textView1);
+13     txt2=(TextView) findViewById(R.id.textView2);
+14     seek=(SeekBar) findViewById(R.id.seekbar);
+15     seek.setOnSeekBarChangeListener(this);
+16 
+17     }
+18 
+19         @Override
+20         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+21             //进度条改变
+22             txt1.setText(&quot;正在拖动&quot;);
+23 
+24             txt2.setText(progress);
+25         }
+26 
+27         @Override
+28         public void onStartTrackingTouch(SeekBar seekBar) {
+29             // 正在拖动
+30             txt1.setText(&quot;开始拖动&quot;);
+31         }
+32 
+33         @Override
+34         public void onStopTrackingTouch(SeekBar seekBar) {
+35             // 停止拖动
+36             txt1.setText(&quot;停止拖动&quot;);
+37 
+38         }
+39 
+40 }
+</code></pre><p>注意：settext里面不能只有参数progress</p>
+<p>3、自定义SeekBar进度条：<br>android：progressDrawable = “@drawable/seekbar_img” （改变进度条的样式）</p>
+<p>android: thumb = “@drawable/thumb” （改变滑块的样式）</p>
+<p><strong>布局</strong><br>总结：Android常用布局样式：</p>
+<p>（1）LinearLayout（线性布局）：<br>特点：线性的 垂直的 水平的</p>
+<p>（2）RelativeLayout（相对布局）：<br>特点：最灵活的</p>
+<p>（3）TableLayout（表格布局）：<br>特点：使用GridView代替</p>
+<p>（4）AbsoluteLayout（绝对布局）：不建议使用在自己的项目中</p>
+<p>（5）FrameLayout（帧布局）：<br>特点：布局叠加时使用<br><img src="http://img.blog.csdn.net/20170306192342724?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/14/MATLAB在数学建模中的应用/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          MATLAB在数学建模中的应用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/14/慕课网-安卓攻城狮视频学习及练习（六）/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">慕课网-安卓攻城狮视频学习及练习（六）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

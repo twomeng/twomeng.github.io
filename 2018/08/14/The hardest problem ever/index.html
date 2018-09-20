@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>The hardest problem ever | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="题目源地址 DescriptionJulius Caesar生活在一个危险而又充斥着阴谋的时代。Caesar面对的最难的情况关系着他的存亡。为了让自己生存，他决心去创造第一种加密方法之一。这个加密方法听起来是这样的令人难以置信，没有一个人可以指出它（的原文）除非知道它怎样工作。 你是Caesar军队的一个分队长。你的工作是破译Caesar送来的信息并汇报给你的上级。 密码很简单，每一个字母对应着一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The hardest problem ever">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/The hardest problem ever/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题目源地址 DescriptionJulius Caesar生活在一个危险而又充斥着阴谋的时代。Caesar面对的最难的情况关系着他的存亡。为了让自己生存，他决心去创造第一种加密方法之一。这个加密方法听起来是这样的令人难以置信，没有一个人可以指出它（的原文）除非知道它怎样工作。 你是Caesar军队的一个分队长。你的工作是破译Caesar送来的信息并汇报给你的上级。 密码很简单，每一个字母对应着一">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:30.587Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="The hardest problem ever">
+<meta name="twitter:description" content="题目源地址 DescriptionJulius Caesar生活在一个危险而又充斥着阴谋的时代。Caesar面对的最难的情况关系着他的存亡。为了让自己生存，他决心去创造第一种加密方法之一。这个加密方法听起来是这样的令人难以置信，没有一个人可以指出它（的原文）除非知道它怎样工作。 你是Caesar军队的一个分队长。你的工作是破译Caesar送来的信息并汇报给你的上级。 密码很简单，每一个字母对应着一">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-The hardest problem ever" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      The hardest problem ever
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/The hardest problem ever/" class="article-date">
+  <time datetime="2018-08-14T01:14:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://acm.nefu.edu.cn/JudgeOnline/problemShow.php?problem_id=60" target="_blank" rel="noopener">题目源地址</a></p>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><pre><code>Julius Caesar生活在一个危险而又充斥着阴谋的时代。Caesar面对的最难的情况关系着他的存亡。为了让自己生存，他决心去创造第一种加密方法之一。这个加密方法听起来是这样的令人难以置信，没有一个人可以指出它（的原文）除非知道它怎样工作。
+你是Caesar军队的一个分队长。你的工作是破译Caesar送来的信息并汇报给你的上级。
+密码很简单，每一个字母对应着一个明文，你将明文向右五步来得到安全的信息。（比如，假如那个字母是&#39;A&#39;，密文就是&#39;F&#39;）当你将Caesar的信息中找出明文后，你要反过来做：
+加密文本
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z 
+明文文本 
+V W X Y Z A B C D E F G H I J K L M N O P Q R S T U 
+密文中只有字母被切换了，非字母的字符应该保持不变，所有的字母都是大写的。
+</code></pre><h3 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h3><pre><code>这个问题的输入包括一系列（非空）最多100个数据。每一个数据的格式会按照以下格式，并且在不同组数据间不会有空行分隔。所有的字符都是大写的。
+一个单独的测试数据包括三个部分：
+1. 开始行：单独的一行&quot;START&quot; 。
+2. 加密的信息：单独的一行，由1~200个字符组成来自Caesar的一行信息。
+3. 结束行：单独的一行&quot;END&quot; 。
+最后一组测试数据结束会跟着单独的一行&quot;ENDOFINPUT&quot;。
+</code></pre><h3 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h3><pre><code>对每一个测试数据只会有一行输出。它是Caesar的原文。
+</code></pre><h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input"></a>Sample Input</h3><pre><code>START
+NS BFW, JAJSYX TK NRUTYFSHJ FWJ YMJ WJXZQT TK YWNANFQ HFZXJX
+END
+START
+N BTZQI WFYMJW GJ KNWXY NS F QNYYQJ NGJWNFS ANQQFLJ YMFS XJHTSI NS WTRJ
+END
+START
+IFSLJW PSTBX KZQQ BJQQ YMFY HFJXFW NX RTWJ IFSLJWTZX YMFS MJ
+END
+ENDOFINPUT
+</code></pre><h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output"></a>Sample Output</h3><pre><code>IN WAR, EVENTS OF IMPORTANCE ARE THE RESULT OF TRIVIAL CAUSES
+I WOULD RATHER BE FIRST IN A LITTLE IBERIAN VILLAGE THAN SECOND IN ROME
+DANGER KNOWS FULL WELL THAT CAESAR IS MORE DANGEROUS THAN HE  
+
+
+
+
+
+ 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;algorithm&gt;
+ 4 #include &lt;string.h&gt;
+ 5 using namespace std;
+ 6 
+ 7 int main()
+ 8 {
+ 9     char a[100],b[100];
+10     int i,j,k;
+11     while (gets(a))
+12     {
+13         if (strcmp(a,&quot;START&quot;)==0)
+14 
+15             memset(b,0,sizeof(b));//只满足这一个条件便只执行这一个语句，然后就跳出条件语句进入第12行；
+16 
+17         else
+18 
+19             if (strcmp(a,&quot;END&quot;)==0)
+20 
+21                 printf (&quot;%s&quot;,b);
+22 
+23             else
+24 
+25                 if (strcmp(a,&quot;ENDOFINPUT&quot;)==0)
+26                 break;
+27                 else
+28                 {
+29                     k=strlen(a);
+30                     j=0;
+31                     for (i=0;i&lt;k;i++)
+32                     {
+33                         if (a[i]&gt;&#39;Z&#39;||a[i]&lt;&#39;A&#39;)
+34                         {b[j]=a[i];
+35                         j++;}
+36                         else
+37                             if (a[i]+21&gt;90)
+38                             {
+39                                b[j]=a[i]-5;
+40                                j++;
+41 
+42                             }
+43                             else
+44                             {
+45                                 b[j]=a[i]+21;//想不通就找具体的数据代入；
+46                                 j++;
+47                             }
+48 
+49 
+50 
+51                     }
+52 
+53                 }
+54 
+55     }
+56 
+57     return 0;
+58 }
+</code></pre><p>1.输入情况有四种，不必设四个字符数组，只需要用一个gets（） 对输入内容进行判断即可。</p>
+<p>2.每次开始的时候，b数组必须为零，不然输出B字符串的时候后面会有乱码。</p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/14/让气球飞吧/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          让气球飞吧
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/14/两倍问题/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">两倍问题</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

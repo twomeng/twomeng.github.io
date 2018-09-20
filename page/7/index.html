@@ -1,0 +1,1938 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/7/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/14/严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（一）/">严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（一）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（一）/" class="article-date">
+  <time datetime="2018-08-14T02:29:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这里用的是严蔚敏版《数据结构<br>（C语言版）》和《数据结构题集》，深感自己的代码写得又渣又无力，打算把这本书好好琢磨透彻，里面的算法和模板都实现一遍，题目也都做一遍。最终能够做到举一反三、熟之又熟地运用数据结构来解决实际问题。<br>题集 2.10 2.11</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdlib.h&gt;
+ 3 #include &lt;stdio.h&gt;
+ 4 #define LIST_INIT_SIZE 100
+ 5 #define LISTINCREMENT 10
+ 6 using namespace std;
+ 7 //1 从顺序表A中删除第I个元素后面的K个元素
+ 8 typedef int Elemtype;
+ 9 typedef struct {
+10 Elemtype *elem;
+11 int length;
+12 int listsize;
+13 } Sqlist;
+14 
+15 int InitList_Sq(Sqlist &amp;l){
+16  l.elem=(Elemtype *)malloc(sizeof(Elemtype)*LIST_INIT_SIZE);//calloc(list_initsize,sizeof(elemtype))??
+17  //calloc and malloc &#39;s diffence;
+18  if (!l.elem) return 0;
+19  l.length=0;
+20  l.listsize=LIST_INIT_SIZE;
+21  return 1;
+22 }
+23 int readSqlist(Sqlist &amp;l){
+24 int x;
+25 scanf (&quot;%d&quot;,&amp;x);
+26 int i=0;
+27 while(x!=-999&amp;&amp;i&lt;LIST_INIT_SIZE){
+28 l.elem[i]=x;
+29 i++;
+30 scanf (&quot;%d&quot;,&amp;x);
+31 l.length++;
+32 }
+33 return 1;
+34 }
+35 int displaySqlist(Sqlist &amp;l){
+36 int i=0;
+37 while (i&lt;l.length){
+38 printf(&quot;%d &quot;,l.elem[i]);
+39 i++;
+40 }
+41 printf(&quot;\n&quot;);
+42 return 1;
+43 }
+44 
+45 int DeleteList_Sq(Sqlist &amp;a,int i,int k){
+46 if (i&lt;0||i&gt;a.length||k&lt;0||k&gt;a.length-i)
+47 return 0;
+48 else {
+49 if (a.length-i-k&gt;=k){
+50 for (int j=0;j&lt;k;j++){
+51 a.elem[j+i]=a.elem[k+i+j];
+52 }a.length=a.length-k;
+53 }else {
+54 for (int j=0;j&lt;a.length-i-k;j++){
+55 a.elem[j+i]=a.elem[k+i+j];
+56 }a.length=a.length-k;
+57 }
+58 return 1;
+59 }
+60 }
+61 int InsertOrderedList_Sq(Sqlist &amp;va,int x){
+62 int i=0;
+63 while (va.elem[i]&lt;x&amp;&amp;i&lt;va.length){
+64 i++;
+65 }
+66 if (i==va.length){
+67 va.elem[va.length]=x;
+68 va.length++;
+69 }
+70 if (va.elem[i]&gt;=x){
+71 for (int j=va.length;j&gt;i;j--){
+72 va.elem[j]=va.elem[j-1];
+73 }
+74 va.elem[i]=x;
+75 va.length++;
+76 //一种更简便的方法
+77 //if (va.length==va.listsize)
+78 //return 0;//overflow
+79 //for (int j=va.length;j&gt;0,x&lt;va.elem[j-1];j--)
+80 //va.elem[j]=va.elem[j-1];
+81 //va.elem[j]=x;
+82 //va.length++;
+83 //}
+84 return 1;
+85 }
+86 
+87 int main()
+88 {
+89    Sqlist l;
+90    InitList_Sq(l);
+91    readSqlist(l);
+92    displaySqlist(l);
+93    DeleteList_Sq(l,2,5);
+94    displaySqlist(l);
+95 
+96     return 0;
+97 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-codeblocks应用之debug" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/14/codeblocks应用之debug/">codeblocks应用之debug</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/codeblocks应用之debug/" class="article-date">
+  <time datetime="2018-08-14T02:27:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一个偶然的机会，我发现了codeblocks这款IDE，因为它主要用于开发c/c++，所以没有visual<br>studio那么臃肿，感觉比较快捷，好用。但是其资料多为英文，本着利人利己的初衷，我决定挑选一些开发中必须使用的功能，将官方文档译为中文，以便查阅。本篇主要介绍此IDE的debug应用。本文基于的环境为windowsxp</p>
+<ul>
+<li><p>codeblocks10.05。</p>
+<p>1.   经常使用visual<br>studio编译器的可能不怎么关注编译参数，而codeblocks使用的是gnu的gcc编译器，所以如果希望生成可调试的程序，需要加入命令参数-g，这个选项说明生成的可执行文件中含有调试标记（比如源文件中的某行代码对应了哪几条汇编指令），同时要确保一定不能选中-<br>s选项，这个选项用来清除可执行文件中所有的调试标记。具体操作如下：</p>
+</li>
+</ul>
+<p>菜单中 Project =&gt; Build Options</p>
+<p><img src="http://wiki.codeblocks.org/images/1/14/DbgProjBuildOpt.png" alt=""></p>
+<p>2.    既然是debug，就需要在调试中对变量的值进行观察，这时需要打开IDE的watch窗口，打开方式如下：</p>
+<p>菜单中debug=&gt; Debugging windows=&gt;watches</p>
+<p>如图：</p>
+<p><img src="http://wiki.codeblocks.org/images/c/cf/DbgWatchWindow.png" alt=""></p>
+<p>当以debug方式运行程序时候会出现下面的窗口：</p>
+<p><img src="http://wiki.codeblocks.org/images/f/f0/Save_watch.png" alt=""></p>
+<p>注意1：红色框圈出的两个选项可以讲当前的watch列表保存起来，也可以重新将已保存的watch列表重新加载进来。</p>
+<p>注意2：在进行debug时，在”call<br>stack”调试窗口中（调出的方式同调出watch窗口）双击一个栈帧（frame），但是在watch窗口中相对应的信息不会更新，如果需要观察特定栈帧的相应信息，需要在”call<br>stack”窗口中在需要观察的栈帧那一行上右击，然后选择”Switch to this frame”。操作如下图：</p>
+<p><img src="http://wiki.codeblocks.org/images/3/39/DWCB_watches_01.png" alt="">  </p>
+<ol>
+<li>设置断点，调试程序需要设置断点，然后在watch窗口中进行观察变量的变化。设置断点是很重要的一环</li>
+</ol>
+<p>设置断点的方式：</p>
+<p>(1)将鼠标定位于需要设置断点的那一行，然后点击菜单中的 Debug =&gt; Toggle Breakpoint</p>
+<p>(2)在需要加入断点的那一行中右击，然后选择Toggle Breakpoint或者按F5快捷键</p>
+<p>这样就可以开始调试运行了</p>
+<ol>
+<li>点击菜单中的Debug=&gt;start或者按F8</li>
+</ol>
+<p>运行断点处停止，如果想观察某个变量，先要拖动鼠标选中这个变量，然后右击，就会有有watch+变量名这一菜单项，单击它就可以在watch窗口中加入此变量了</p>
+<p>如图：</p>
+<p><img src="http://wiki.codeblocks.org/images/a/a5/DbgSetWatchVar.png" alt=""></p>
+<p>注意：</p>
+<p>如果使用的是codeblocks8.02版本，其中使用的编译器和调试器版本为 MinGW 和 gdb<br>6.7，则如果在c++构造函数中设置断点，调试器将不能工作，一下是一些小技巧。</p>
+<p>设置在构造函数和析构函数中的断点在GDB<br>6.7以及更低的版本中是不能工作的，但是如果在构造函数开始有成员函数的调用，可以将断点设在成员函数中，然后调用完成员函数就可以通过next<br>step（F7）继续观察构造函数调用。例如：</p>
+<p><img src="http://wiki.codeblocks.org/images/3/3b/DbgWithCBExp.png" alt=""></p>
+<p>需要观察构造函数MyClass调用，可以先设置一个成员函数DebugCtorDtor，讲断点设在22行，然后开始debug，程序会停在断点处，按F7，程序执行13行，就可以查看构造函数的调用情况了。</p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-react 入门资料" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/14/react 入门资料/">react 入门资料</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/react 入门资料/" class="article-date">
+  <time datetime="2018-08-14T02:15:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://codepen.io/" target="_blank" rel="noopener">CodePen</a> : CodePen is a social development environment<br>for front-end designers and developers.It’s the best place to build and deploy<br>a website, show off your work, build test cases, and find<br>inspiration.可以看到并修改别人写的前端项目，里面有很酷炫的前端技术。</p>
+<h4 id="如何查看react-js所有的历史版本"><a href="#如何查看react-js所有的历史版本" class="headerlink" title="如何查看react.js所有的历史版本"></a>如何查看react.js所有的历史版本</h4><p><a href="https://reactjs.org/blog/all.html/" target="_blank" rel="noopener">react.js官方网站</a></p>
+<p><a href="https://cdnjs.com/libraries/react/" target="_blank" rel="noopener">直接引用</a></p>
+<p><a href="https://github.com/facebook/react/commits/master" target="_blank" rel="noopener">github的commit</a></p>
+<p><a href="http://babeljs.io/learn-es2015/" target="_blank" rel="noopener">ES2015文档</a></p>
+<p><a href="https://docs.npmjs.com/" target="_blank" rel="noopener">npm</a></p>
+<p><a href="http://nodejs.cn/download/" target="_blank" rel="noopener">node.js</a></p>
+<p>按照react官方网站上面的文档一步步进行：<br>1. 运行一个Hello world在本地文件和本地编译器上</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot; /&gt;
+    &lt;title&gt;Hello World&lt;/title&gt;
+    &lt;script src=&quot;https://unpkg.com/react@16/umd/react.development.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://unpkg.com/react-dom@16/umd/react-dom.development.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://unpkg.com/babel-standalone@6.15.0/babel.min.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;root&quot;&gt;&lt;/div&gt;
+    &lt;script type=&quot;text/babel&quot;&gt;
+
+      ReactDOM.render(
+        &lt;h1&gt;Hello, world!&lt;/h1&gt;,
+        document.getElementById(&#39;root&#39;)
+      );
+
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p>我们可以看到，通过script外部JS文件的引入，包括在CodePen上显示的HelloWorld代码，他的主要”引擎”是Javascript，通过其语法将H5的内容展示出来。</p>
+<ol>
+<li>安装开发环境<br>使用npm、npx来安装环境，只需要通过终端输入几个简单的命令就可以啦~那么npm和npx究竟是什么呢？</li>
+</ol>
+<p><a href="http://www.jianshu.com/p/cc4ab46eca2f" target="_blank" rel="noopener">npm是什么</a><br><a href="http://blog.csdn.net/whh181/article/details/78363544?readlog" target="_blank" rel="noopener">npx是什么</a><br><a href="https://www.npmjs.com/" target="_blank" rel="noopener">npm官网</a></p>
+<p>使用npm或者npx在控制台中输入命令即可：<br><img src="http://img.blog.csdn.net/20171201200730614?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20171201200655031?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><a href="https://www.cnblogs.com/-walker/p/6056529.html" target="_blank" rel="noopener">webpack是什么</a></p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-JavaWeb 小试牛刀（二）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/14/JavaWeb 小试牛刀（二）/">JavaWeb 小试牛刀（二）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/JavaWeb 小试牛刀（二）/" class="article-date">
+  <time datetime="2018-08-14T02:13:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="http://img.blog.csdn.net/20170318144923477?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<pre><code> 1 &lt;body&gt;
+ 2 &lt;center&gt;
+ 3 &lt;img alt=&quot;myimg&quot; src=&quot;fruit3.jpg&quot;&gt;&lt;/img&gt;
+ 4  &lt;form method=&quot;post&quot; action=&quot;servlet/first&quot;&gt;
+ 5 &lt;table&gt;
+ 6 &lt;tr&gt;
+ 7 &lt;td&gt;用户名：&lt;/td&gt;
+ 8 &lt;td&gt;&lt;input type=&quot;text&quot; name=&quot;username&quot;&gt;&lt;/td&gt;
+ 9 &lt;/tr&gt;
+10 
+11 &lt;tr&gt;
+12 &lt;td&gt;密码：&lt;/td&gt;
+13 &lt;td&gt;&lt;input type=&quot;password&quot; name=&quot;password&quot;&gt;&lt;/td&gt;
+14 &lt;/tr&gt;
+15 
+16 
+17 &lt;tr&gt;
+18 &lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;提交&quot; name=&quot;submit&quot;&gt;&lt;/td&gt;
+19 &lt;/tr&gt;
+20 &lt;/table&gt;
+21 &lt;/form&gt; 
+22 &lt;/center&gt;
+23 &lt;/body&gt;
+24 &lt;body&gt;
+25 &lt;center&gt;
+26 &lt;h1&gt;恭喜你登录成功！&lt;/h1&gt;
+27 &lt;jsp:useBean id=&quot;userbean&quot; class=&quot;entity.users&quot; scope=&quot;session&quot;&gt;&lt;/jsp:useBean&gt;
+28 
+29 &lt;form method=&quot;post&quot; &gt;
+30 &lt;table&gt;
+31 &lt;tr&gt;
+32 &lt;td&gt;用户名：&lt;/td&gt;
+33 &lt;td&gt;&lt;jsp:getProperty name=&quot;userbean&quot; property=&quot;username&quot;&gt;&lt;/jsp:getProperty&gt;&lt;/td&gt;
+34 &lt;/tr&gt;
+35 
+36 &lt;tr&gt;
+37 &lt;td&gt;密码：&lt;/td&gt;
+38 &lt;td&gt;&lt;jsp:getProperty name=&quot;userbean&quot; property=&quot;password&quot;&gt;&lt;/jsp:getProperty&gt;&lt;/td&gt;
+39 &lt;/tr&gt;
+40 
+41 &lt;tr&gt;
+42 &lt;td&gt;&lt;/td&gt;
+43 &lt;/tr&gt;
+44 &lt;/table&gt;
+45 &lt;/form&gt;
+46 &lt;/center&gt;
+47 &lt;/body&gt;
+48 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+49         request.setCharacterEncoding(&quot;utf-8&quot;);
+50         response.setContentType(&quot;text/html;charset=GBK&quot;);
+51         PrintWriter out=response.getWriter();
+52         users u =new users();   
+53         String name=&quot;&quot;;
+54         String password=&quot;&quot;;
+55 
+56         name=request.getParameter(&quot;username&quot;);
+57         password=request.getParameter(&quot;password&quot;);
+58         u.setUsername(name);
+59         u.setPassword(password);
+60         request.getSession().setAttribute(&quot;userbean&quot;, u);//session也可以添加对象
+61         //request.getRequestDispatcher(&quot;../success.jsp&quot;).forward(request, response);
+62 
+63 
+64         try{
+65             RequestDispatcher rDispatcher=request.getRequestDispatcher(&quot;../success.jsp&quot;);
+66             rDispatcher.forward(request, response);
+67             out.println(&quot;终于他妈没有异常了&quot;);
+68 
+69         }
+70         catch(Exception ex){
+71 
+72             out.println(&quot;出现异常！&quot;);
+73             ex.printStackTrace();
+74 
+75         }
+76 
+77 
+78 
+79 
+80 
+81 
+82     }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-JavaWeb 小试牛刀（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/14/JavaWeb 小试牛刀（一）/">JavaWeb 小试牛刀（一）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/JavaWeb 小试牛刀（一）/" class="article-date">
+  <time datetime="2018-08-14T02:12:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="http://img.blog.csdn.net/20170316205945829?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170316205956475?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170316210004392?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170316210012413?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170316210020267?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>2）使用Javabean来处理</p>
+<p>1、建立user类，封装数据。</p>
+<pre><code> 1 package com.po;
+ 2 //用户类
+ 3 public class users {
+ 4 private String username;
+ 5 private String password;
+ 6 public users(){}
+ 7 public String getUsername() {
+ 8     return username;
+ 9 }
+10 public void setUsername(String username) {
+11     this.username = username;
+12 }
+13 public String getPassword() {
+14     return password;
+15 }
+16 public void setPassword(String password) {
+17     this.password = password;
+18 }
+19 
+20 }
+</code></pre><p>2、建立userdao类，实现对用户登录的逻辑判断</p>
+<pre><code> 1 package com.dao;
+ 2 
+ 3 import com.po.users;
+ 4 
+ 5 //用户的业务逻辑类
+ 6 public class usersdao {
+ 7 public boolean userslogin (users u){
+ 8     if (u.getUsername().equals(&quot;admin&quot;)&amp;&amp;u.getPassword().equals(&quot;admin&quot;)){
+ 9         return true;
+10     }else
+11         return false;
+12 }
+13 }
+</code></pre><p>3、在login界面中，建立Javabean两个，设置表单属性匹配完成后，对原来的if语句进行修改。</p>
+<pre><code> 1 &lt;body&gt;
+ 2 &lt;jsp:useBean id=&quot;loginuser&quot; class=&quot;com.po.users&quot; scope=&quot;page&quot;&gt;&lt;/jsp:useBean&gt;
+ 3 &lt;jsp:useBean id=&quot;usersdao&quot; class=&quot;com.dao.usersdao&quot; scope=&quot;page&quot;&gt;&lt;/jsp:useBean&gt;
+ 4 &lt;jsp:setProperty property=&quot;*&quot; name=&quot;loginuser&quot;/&gt;
+ 5 
+ 6 &lt;%
+ 7 request.setCharacterEncoding(&quot;utf-8&quot;);
+ 8 
+ 9 if (usersdao.userslogin(loginuser)){
+10     String submit=request.getParameter(&quot;submit&quot;);
+11     if (submit!=null)
+12     {
+13         session.setAttribute(&quot;sessionname&quot;,loginuser.getUsername());
+14     }
+15     //request.getRequestDispatcher(&quot;success.jsp&quot;).forward(request, response);
+16     response.sendRedirect(&quot;success.jsp&quot;);  
+17 
+18 
+19 }
+20 else{
+21     response.sendRedirect(&quot;failure.jsp&quot;);
+22 
+23 }
+24 %&gt;
+25 &lt;/body&gt;
+</code></pre><p>3）cookie实现登录和保存用户名</p>
+<pre><code> 1 &lt;body&gt;
+ 2 &lt;%
+ 3 Cookie a[]=request.getCookies();
+ 4 for (int i=0;i&lt;a.length;i++){
+ 5     String user=a[i].getName();
+ 6     if (user.equals(&quot;cookieid&quot;)){
+ 7         String name=a[i].getValue();
+ 8         session.setAttribute(&quot;sessionname&quot;, name);
+ 9         response.sendRedirect(&quot;success.jsp&quot;);
+10     }
+11 }
+12 %&gt;
+13 &lt;Center&gt;
+14 
+15 &lt;form method=&quot;post&quot; action=&quot;login.jsp&quot;&gt;
+16 &lt;label for=&quot;username&quot;&gt;用户名：&lt;/label&gt;
+17 &lt;input type=&quot;text&quot; name=&quot;username&quot;&gt;&lt;br&gt;&lt;br&gt;
+18 &lt;label for=&quot;password&quot;&gt;密码：&lt;/label&gt;
+19 &lt;input type=&quot;password&quot; name=&quot;password&quot;&gt;&lt;br&gt;&lt;br&gt;
+20 不保存用户名：&lt;input type=&quot;radio&quot; name=&quot;myrad&quot; value=&quot;0&quot;&gt;
+21 保存用户名：&lt;input type=&quot;radio&quot; name=&quot;myrad&quot; value=&quot;60&quot;&gt;一分钟
+22 &lt;input type=&quot;radio&quot; name=&quot;myrad&quot; value=&quot;3600&quot;&gt;一小时
+23 &lt;input type=&quot;radio&quot; name=&quot;myrad&quot; value=&quot;86400&quot;&gt;一天
+24 &lt;input type=&quot;radio&quot; name=&quot;myrad&quot; value=&quot;604800&quot;&gt;一周
+25 &lt;input type=&quot;radio&quot; name=&quot;myrad&quot; value=&quot;2592000&quot;&gt;一月
+26 &lt;input type=&quot;radio&quot; name=&quot;myrad&quot; value=&quot;31536000&quot;&gt;一年&lt;br&gt;&lt;br&gt;
+27 &lt;input type=&quot;submit&quot; name=&quot;submit&quot; value=&quot;提交&quot;&gt;
+28 
+29 &lt;/form&gt;
+30 
+31 &lt;/Center&gt;
+32 &lt;/body&gt;
+33 &lt;/html&gt;
+34 &lt;body&gt;
+35 &lt;%
+36 request.setCharacterEncoding(&quot;utf-8&quot;);
+37 String name=request.getParameter(&quot;username&quot;);
+38 String pw=request.getParameter(&quot;password&quot;);
+39 if (name!=null&amp;&amp;pw!=null&amp;&amp;name.equals(&quot;admin&quot;)&amp;&amp;pw.equals(&quot;123456&quot;)){
+40     session.setAttribute(&quot;sessionname&quot;, name);
+41     String ch=request.getParameter(&quot;myrad&quot;);
+42     if (ch!=null){//如果选择了单选button
+43         int time=Integer.parseInt(ch);
+44         if (time&gt;0){//如果选择的是保存用户名
+45             //存入cookie
+46             Cookie cc=new Cookie(&quot;cookieid&quot;,name);//把name存入cookie
+47             cc.setMaxAge(time);
+48             response.addCookie(cc);
+49         }       
+50     }
+51     response.sendRedirect(&quot;success.jsp&quot;);
+52 }
+53 else
+54     response.sendRedirect(&quot;index.jsp&quot;);
+55 %&gt;
+56 &lt;/body&gt;
+</code></pre><p><img src="http://img.blog.csdn.net/20170316231132941?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-MATLAB在数学建模中的应用（三）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/14/MATLAB在数学建模中的应用（三）/">MATLAB在数学建模中的应用（三）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/MATLAB在数学建模中的应用（三）/" class="article-date">
+  <time datetime="2018-08-14T02:10:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>optimset函数</strong></p>
+<p>功能：创建或编辑优化选项参数结构。<br>语法：</p>
+<pre><code>1 options = optimset(&#39;param1&#39;,value1,&#39;param2&#39;,value2,…) 
+2 options = optimset 
+3 options = optimset(oldopts,&#39;param1&#39;,value1,…) 
+</code></pre><p>描述：<br>options = optimset(‘param1’,value1,’param2’,value2,…)<br>创建一个称为options的优化选项参数，其中指定的参数具有指定值。所有未指定的参数都设置为空矩阵[]（将参数设置为[]表示当options传递给优化函数时给参数赋缺省值）。赋值时只要输入参数前面的字母就行了。</p>
+<p>optimset函数没有输入输出变量时，将显示一张完整的带有有效值的参数列表。</p>
+<p>options = optimset (with no input arguments) 创建一个选项结构options，其中所有的元素被设置为[]。</p>
+<p>eg 2.7</p>
+<pre><code> 1 function f= fun1(x)
+ 2 f=x(1)^2+x(2)^2+8;
+ 3 end
+ 4 function [g,h]=fun2(x)
+ 5 g=-x(1)^2-x(2)^2;
+ 6 h=-x(1)-x(2)^2+2;
+ 7 end
+ 8 
+ 9 %命令以及函数调用
+10 options=optimset;
+11 [x,y]=fmincon(&#39;fun1&#39;,rand(2,1),[],[],[],[],zeros(2,1),[],...
+12     &#39;fun2&#39;,options)
+13 x =
+14 
+15     0.5000
+16     1.2247
+17 
+18 
+19 y =
+20 
+21     9.7500
+</code></pre><p>eg 2.8</p>
+<pre><code> 1 function f= fun1(x)
+ 2 f=-(sqrt(x(1))+sqrt(x(2))+sqrt(x(3))+sqrt(x(4)));
+ 3 end
+ 4 function [g,h]=fun2(x)
+ 5 g(1)=x(1)-400;
+ 6 g(2)=1.1*x(1)+x(2)-440;
+ 7 g(3)=1.21*x(1)+1.1*x(2)+x(3)-484;
+ 8 g(4)=1.331*x(1)+1.21*x(2)+1.1*x(3)+x(4)-532.4;
+ 9 h=0;
+10 end
+11 
+12 x0=[1;1;1;1];
+13 %options=optimset;
+14 [x,y]=fmincon(&#39;fun1&#39;,x0,[],[],[],[],zeros(4,1),[],...
+15     &#39;fun2&#39;)
+16 x =
+17 
+18    1.0e+02 *
+19 
+20    0.861883268508773
+21    1.042878554277346
+22    1.261883183737369
+23    1.526878812873891
+24 
+25 
+26 y =
+27 
+28  -43.085960574428569
+</code></pre><p>罚函数法：<br>eg 2.10<br>1)普通方法</p>
+<pre><code> 1 function f= fun1(x)
+ 2 f=x(1)^2+x(2)^2+8;
+ 3 end
+ 4 function [g,h]=fun2(x)
+ 5 g=-x(1)^2+x(2);
+ 6 h=-x(1)-x(2)^2+2;
+ 7 end
+ 8 
+ 9 [x,y]=fmincon(&#39;fun1&#39;,rand(2,1),[],[],[],[],zeros(2,1),[],...
+10     &#39;fun2
+11 x =
+12 
+13    1.000001999995532
+14    0.999999000001734
+15 
+16 
+17 y =
+18 
+19   10.000001999999531
+</code></pre><p>2）罚函数</p>
+<pre><code> 1 function g= fun1(x)
+ 2 M=50000;
+ 3 f=x(1)^2+x(2)^2+8;%产生的中间函数
+ 4 g=f-M*min(x(1),0)-M*min(x(2),0)-M*min(x(1)^2-x(2),0)+...
+ 5     M*abs(-x(1)-x(2)^2+2);
+ 6 end
+ 7 [x,y]=fminunc(&#39;fun1&#39;,rand(2,1))
+ 8 x =
+ 9 
+10    0.508134596752331
+11    1.221419421512379
+12 
+13 
+14 y =
+15 
+16      4.817068272095967e+04
+</code></pre><p><strong>rand( ‘state’,sum(clock))</strong><br>作用是定义一个随时间变化的初值x_0。</p>
+<p><strong>tic和toc</strong><br>用来记录matlab命令执行的时间。<br>tic用来保存当前时间，而后使用toc来记录程序完成时间。<br>两者往往结合使用，用法如下：<br>tic<br>operations<br>toc<br>显示时间单位：秒。</p>
+<p><strong>y = floor(x)</strong><br>函数将x中元素取整，值y为不大于本身的最小整数。</p>
+<p><strong>ceil</strong><br>是向离它最近的大整数取整</p>
+<p><strong>云模型</strong></p>
+<pre><code> 1 N= 1500;
+ 2 Y=[9.5 10.3 10.1 8.1
+ 3     10.3 9.7 10.4 10.1
+ 4     10.6 8.6 9.2 10
+ 5     10.5 10.4 10.1 10.1 
+ 6     10.9 9.8 10 10.1
+ 7     10.6 9.8 9.7 10
+ 8     10.4 10.5 10.6 10.3
+ 9     10.1 10.2 10.8 8.4
+10     9.3 10.2 9.6 10
+11     10.5 10 10.7 9.9]&#39;;
+12 
+13 for i=1:size(Y,1)
+14     subplot(size(Y,1)/2,2,i);
+15     [x,y,Ex,En,He]=cloud_transform(Y(i,:),N);
+16     plot(x,y,&#39;r.&#39;);
+17     xlabel(&#39;射击成绩分布/环&#39;);
+18     ylabel(&#39;确定度&#39;);
+19     title(strcat(&#39;第&#39;,num2str(i),&#39;人射击云模型还原图&#39;));
+20     axis([8,12,0,1]);
+21 end
+22 function [x,y,Ex,En,He]= cloud_transform(y,n)
+23 Ex=mean(y);%y是一个向量，代表每一个人的射击数据
+24 En=mean(abs(y-Ex)).*sqrt(pi/2);%向量
+25 He=sqrt(var(y)-En.^2);%向量
+26 for q=1:n
+27     Enn=randn(1).*He+En;
+28     %randn(1)产生一个随数，但He为向量
+29     x(q)=randn(1).*Enn+Ex;
+30     y(q)=exp(-(x(q)-Ex).^2./(2.*Enn.^2));
+31 end
+32 x;
+33 y;
+
+
+
+
+
+![这里写图片描述](http://img.blog.csdn.net/20170112111316631?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+</code></pre><p><strong>logistic模型</strong></p>
+<pre><code> 1  syms a b;
+ 2 c=[a b]&#39;;
+ 3 A=[174 179 183 189 207 234 220.5 256 270 285];
+ 4 B=cumsum(A);
+ 5 n=length(A);
+ 6 for i=1:(n-1)
+ 7     C(i)=(B(i)+B(i+1))/2;
+ 8 end
+ 9 D=A;
+10 D(1)=[];
+11 D=D&#39;;
+12 E=[-C;ones(1,n-1)];
+13 c=inv(E*E&#39;)*E*D;
+14 c=c&#39;;
+15 a=c(1);b=c(2);
+16 %计算待定参数a,b的值
+17 F=[];F(1)=A(1);
+18 for i=2:(n+10)
+19     F(i)=(A(1)-b/a)/exp(a*(i-1))+b/a;
+20 end
+21 G=[];G(1)=A(1);
+22 for i=2:(n+10)
+23     G(i)=F(i)-F(i-1);%为预测出来的20组数据
+24 end
+25 t1=1995:2004;
+26 t2=1995:2014;
+27 G;a,b
+28 plot(t1,A,&#39;o&#39;,t2,G)
+
+
+
+
+
+![这里写图片描述](http://img.blog.csdn.net/20170112114149481?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+</code></pre><p><strong>归一化函数mapminmax</strong><br>[pn,ps]=mapminmax(P)或=mapstd(P) %P是输入向量，pn,ps是什么？<br>pn表示你归一化后的返回数据<br>ps是进行归一化时所用的参数。<br>下面的实例更能帮助理解：</p>
+<pre><code> 1 x=[100,200,300,400]; 
+ 2 [pn,px]=mapminmax(x)； 
+ 3 pn = 
+ 4 -1.0000 -0.3333 0.3333 1.0000 
+ 5 px = 
+ 6 name: &#39;mapminmax&#39; 
+ 7 xrows: 1 
+ 8 xmax: 400 
+ 9 xmin: 100 
+10 xrange: 300 
+11 yrows: 1 
+12 ymax: 1 
+13 ymin: -1 
+14 yrange: 2 
+15 no_change: 0 
+16 gain: 0.0067 
+17 xoffset: 100
+</code></pre><p><strong>figure</strong><br>是建立图形的意思，系统自动从1，2，3，4…来建立图形，数字代表第几幅图形，figure(1)，figure(2)就是第一第二副图的意思，在建立图形的时候，您注意一下它的标题就是figure1或figure2等等，对应到程序中就是您的例子语句<br>一般建立新图只需要一个figure就行，系统自动建立新图，可以简单一点，当然要加上也可以。</p>
+<p><strong>subplot(m,n,k)</strong><br>多子图，就是一张图中有好多小图，也是有标号的<br>subplot(‘Position’,[left bottom width height])<br>m表示画几行<br>n表示画几列<br>k表示现在画的是第几幅图</p>
+<p><strong>基于MATLAB工具箱公路运量预测 P137 源代码</strong></p>
+<pre><code> 1  clc;
+ 2 p=[sqrs;sqjdcs;sqglmj];
+ 3 t=[glkyl;glhyl];
+ 4 [pn,input_str]=mapminmax(p);
+ 5 [tn,output_str]=mapminmax(t);
+ 6 net=newff(pn,tn,[3,7,2],{&#39;purelin&#39;,&#39;logsig&#39;,&#39;purelin&#39;}); %建立模型，并用梯度下降法训练．
+ 7 net.trainParam.show=10;             
+ 8 net.trainParam.Lr=0.05;                 %学习速度为0.05
+ 9 net.trainParam.epochs=5000;           %最大训练轮回为50000次
+10 net.trainParam.goal=0.65*10^(-3);   
+11 net.divideFcn=&#39;&#39;;   
+12 net=train(net,pn,tn);                   %开始训练，其中pn,tn分别为输入输出样本
+13 %利用原始数据对BP网络仿真
+14 an=sim(net,pn);           %用训练好的模型进行仿真
+15 a=mapminmax(&#39;reverse&#39;,an,output_str); % 把仿真得到的数据还原为原始的数量级
+16 x=1990:2009;
+17 newk=a(1,:);
+18 newh=a(2,:);
+19 figure(2);
+20 subplot(2,1,1);
+21 plot(x,newk,&#39;r-o&#39;,x,glkyl,&#39;b--+&#39;);
+22 legend(&#39;网络输出客运量&#39;,&#39;实际客运量&#39;);
+23 xlabel(&#39;年份&#39;);
+24 ylabel(&#39;客运量/万人&#39;);
+25 title(&#39;运用工具箱客运量学习和测试对比图&#39;);
+26 subplot(2,1,2);
+27 plot(x,newh,&#39;r-o&#39;,x,glhyl,&#39;b--+&#39;);
+28 legend(&#39;网络输出货运量&#39;,&#39;实际货运量&#39;);
+29 xlabel(&#39;年份&#39;);
+30 ylabel(&#39;货运量/万人&#39;);
+31 title(&#39;运用工具箱货运量学习和测试对比图&#39;);
+32 
+33 pnew=[73.39 75.55
+34     3.9635 4.0975
+35     0.9880 1.0268];
+36 pnewn=mapminmax(&#39;apply&#39;,pnew,input_str);
+37 anewn=sim(set,pnewn);
+38 anew=mapminmax(&#39;reverse&#39;,anewn,output_str);
+</code></pre><p>但是不造为毛，出错 haha (line 21)</p>
+<pre><code>1 plot(x,newk,&#39;r-o&#39;,x,glkyl,&#39;b-+&#39;);
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-MATLAB在数学建模中的应用（二）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/14/MATLAB在数学建模中的应用（二）/">MATLAB在数学建模中的应用（二）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/MATLAB在数学建模中的应用（二）/" class="article-date">
+  <time datetime="2018-08-14T02:08:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>size（）</strong> ：获取矩阵的行数和列数<br>（1）s=size(A),<br>当只有一个输出参数时，返回一个行向量，该行向量的第一个元素为矩阵的行数，第二个元素是矩阵的列数。</p>
+<p>（2）[r,c]=size(A),</p>
+<p>（3）size(A,n)如果在size函数的输入参数中再添加一项n，并用1或2为n赋值，则 size将返回矩阵的行数或列数。其中<br><strong>r=size(A,1)该语句返回的是矩阵A的行数， c=size(A,2) 该语句返回的是矩阵A的列数。</strong><br>另外length()=max(size())。</p>
+<p><strong>subplot():</strong><br>作用：在一个绘图窗口中显示多个图形。</p>
+<p>基本调用格式为：subplot(m, n, k) 或 subplot(m n k)，其中m, n, k取值为1~9。<br>该函数表示将绘图窗口划分为m×n个子窗口（子图），并在第 <strong>k个子窗口中绘图</strong> 。<br>MATLAB软件提供了基本的曲线拟合函数的命令：<br><strong>多项式函数拟合：a=polyfit(xdata,ydata,n)</strong><br>其中n表示多项式的最高阶数，xdata，ydata为将要拟合的数据，它是用数组的方式输入．输出参数a为拟合多项式 y=a1xn+…+anx+a n+1的系数<br>。<br>多项式在x处的值y可用下面程序计算：<br><strong>y=polyval(a,x,m)</strong><br>线性：m=1, 二次：m=2, …<br>polyfit的输出是一个多项式系数的行向量。为了计算在xi数据点的多项式值，调用MATLAB的函数polyval。</p>
+<pre><code> 1 clf       %清空图形窗口
+ 2 x=[0 2 5 6 6.75 8.5 10.25 13.5];
+ 3 y=[5.25 6.2 7.2 7.5 8 8.7 10.1 13.5];
+ 4 [p,S]=polyfit(x,y,2); %z=polyfit(x,y,2)
+ 5 y2=polyval(p,x);
+ 6 subplot(1 2 1);  %subplot(1,2,1)，先绘制第一个图形
+ 7 plot(x,y,&#39;r+&#39;,&#39;LineWidth&#39;,1.5)
+ 8 title(&#39;plot1&#39;),xlabel(&#39;p&#39;),ylabel(&#39;S&#39;)
+ 9 
+10 subplot(1 2 2);%绘制第二个图形
+11 plot(x,y2,&#39;-.b*&#39;,&#39;LineWidth&#39;,1.0)
+12 title(&#39;plot2&#39;),xlabel(&#39;x&#39;),ylabel(&#39;y2&#39;)
+</code></pre><p><img src="http://img.blog.csdn.net/20170111110600538?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><strong>num2str():</strong><br>在matlab中，无论是内建函数还是工具箱函数， 2很常见， 这可能是因为2英文two和to发音相同。而2写起来也比较简单。<br>所以很多转换类函数都用2来命名而非to。比如number to string， 不是命名为numTostr而num2str。</p>
+<p>函数功能： 把数值转换成字符串</p>
+<p><strong>randn(n):</strong><br>返回n*n随机项的矩阵，randn(1)为产生一个随机数。</p>
+<p><strong>Logistic模型</strong><br>自然界中存在着一种事物的发展规律在其发展初期数量或规模增加得越来越快，到了一定时期其增长速度逐步慢下来，最终数量或规模不再增长，从而稳定在数量或规模的极限值处。</p>
+<p><strong>回归分析(regression analysis)</strong> ：<br>确定两种或两种以上变量间相互依赖的定量关系的一种统计分析方法。运用十分广泛，回归分析按照涉及的自变量的多少，分为回归和多重回归分析;按照自变量的多少，可分为一元回归分析和多元回归分析;按照自变量和因变量之间的关系类型，可分为线性回归分析和非线性回归分析。如果在回归分析中，只包括一个自变量和一个因变量，且二者的关系可用一条直线近似表示，这种回归分析称为一元线性回归分析。如果回归分析中包括两个或两个以上的自变量，且因变量和自变量之间是线性关系，则称为多重线性回归分析。</p>
+<p><strong>xlsread():</strong><br>从指定文件名夹读取，比如说num=xlsread(‘data.xls’),即从当前程序所在文件夹里，从A1单元格开始读取，读取data.xls文件，把数据返回给num。</p>
+<p><strong>regress():</strong><br>作用：一般多元回归分析<br>调用格式:<br>[b, bint, r, rint, stats] = regress(y,X,alpha) 或者<br>[b, bint, r, rint, stats] = regress(y,X) 此时，默认置信度alpha = 0.05。<br>这里，y是一个列向量，X是一个矩阵，其中第一列是全1向量( _这一点对于回归来说很重要，这一个全1列向量对应回归方程的常数项_<br>)，一般情况下，需要人工造一个全1列向量。</p>
+<p>b是回归系数，bint是回归系数的区间估计，r是残差，rint是置信区间，stats是用于检验回归模型的统计量，有三个数值：相关系数r^2，F值，与F对应的概率P，alpha是显著性水平(缺省的时候为0.05)。相关系数r^2越大，说明回归方程越显著。</p>
+<p><strong>Matlab中polyfit和regress</strong><br>表中是道琼斯工业指数（DJIA）和标准普尔500种股票指数（S&amp;P500）1988年至1997年对应股票的收益率资料：</p>
+<p><img src="http://img.blog.csdn.net/20170111121827731?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>1）ployfit</p>
+<pre><code> 1 x  = [16.0 31.7 -0.4 23.9 7.4 16.8 4.9 36.4 28.6 24.9];
+ 2 y = [16.6 31.5 -3.2 30.0 7.6 10.1 1.3 37.6 23.0 33.4];
+ 3 scatter(x,y,&#39;r*&#39;);
+ 4 
+ 5 %scatter(x,y)和plot(x,y,&#39;*&#39;)的效果一致就是根据x和y坐标绘制出所有点而已，而plot默认是将所有点按一定的顺序连接成一条多段线。
+ 6 
+ 7 xlabel(&#39;DJIA收益率（%）&#39;);
+ 8 ylabel(&#39;S&amp;P500收益率（%）&#39;);
+ 9  p = polyfit(x,y,1);%1表示一次函数
+10  hold on;
+11  xx = -5:1:40;
+12 yy = polyval(p,xx);
+13 plot(xx,yy,&#39;b-&#39;);%画出来的是光滑的曲线
+14  grid;
+15 title(&#39;回归分析表&#39;)
+16 hold off;
+17 [r,p,rlo,rup] = corrcorf(x,y)%相关分析
+18 
+19 &gt;&gt; [r,p,rlo,rup] = corrcoef(x,y)
+20 
+21 r =
+22 
+23     1.0000    0.9481
+24     0.9481    1.0000
+25 
+26 
+27 p =
+28 
+29     1.0000    0.0000
+30     0.0000    1.0000
+31 
+32 
+33 rlo =
+34 
+35     1.0000    0.7903
+36     0.7903    1.0000
+37 
+38 
+39 rup =
+40 
+41     1.0000    0.9880
+42     0.9880    1.0000
+43 
+44 &gt;&gt; [i,j] = find(p&lt;0.05);
+45 &gt;&gt; [i,j] = find(p&lt;0.05)
+46 
+47 i =
+48 
+49      2
+50      1
+51 
+52 
+53 j =
+54 
+55      1
+56      2
+57 
+58  %r(i,j)表示相关系数
+59  %P表示假设检验的P-value值，P-value值越小表示的相关性越显著。
+60  %一般以P &lt; 0.05 为显著， P&lt;0.01 为非常显著
+</code></pre><p><img src="http://img.blog.csdn.net/20170111121508538?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>附录：r(1,2) = r(2,1) = 0.9481便是相关系数，t = r*sqrt(n-2)/sqrt(1-r^2) = 8.4335，tα/2 =<br>2.31，则结果是显著的。</p>
+<p>rlo和rup是r在%95可信度下的置信区间。</p>
+<p>2）regress解决上题（easier）</p>
+<pre><code> 1 x  = [16.0 31.7 -0.4 23.9 7.4 16.8 4.9 36.4 28.6 24.9];
+ 2 y = [16.6 31.5 -3.2 30.0 7.6 10.1 1.3 37.6 23.0 33.4];
+ 3 
+ 4 scatter(x,y,&#39;r*&#39;);
+ 5 xlabel(&#39;DJIA收益率（%）&#39;);
+ 6 ylabel(&#39;S&amp;P500收益率（%）&#39;);
+ 7 
+ 8  Y = y&#39;;%把Y转化成列向量
+ 9  X = [ones(length(y),1),x&#39;];%构建常数项系数
+10 [b,bint,r,rint,stats]=regress(Y,X)
+11 %下面是返回值
+12 b =
+13 
+14    -2.5086
+15     1.1198
+16 
+17 
+18 bint =
+19 
+20    -9.3225    4.3052
+21     0.8137    1.4259
+22 
+23 
+24 r =
+25 
+26     1.1918
+27    -1.4891
+28    -0.2435
+29     5.7454
+30     1.8221
+31    -6.2040
+32    -1.6784
+33    -0.6522
+34    -6.5177
+35     8.0256
+36 
+37 
+38 rint =
+39 
+40   -10.0742   12.4578
+41   -11.9810    9.0029
+42    -9.6540    9.1671
+43    -4.3221   15.8128
+44    -8.7610   12.4052
+45   -16.1645    3.7565
+46   -11.9494    8.5926
+47   -10.4663    9.1620
+48   -15.8388    2.8034
+49    -0.7121   16.7633
+50 
+51 
+52 stats =
+53 
+54     0.8990   71.1816    0.0000   23.5811
+55 %ployval函数中第一个多项式系数（行向量）是按高到低，而regress中的b是从低到高，而且是个列向量，不可直
+56 
+57 %接bb = b&#39;,若是这样还需逆置（fliplr(bb)）,或者直接顺时针旋转90
+58 %B=rot90(A):矩阵B是矩阵A沿逆时针方向旋转90。得到的
+59 %B=rot90(A,k):矩阵B是矩阵A沿逆时针方向旋转k*90。得到的(要想顺时针旋转，k取-1)
+60 
+61 xx = -5:5:40;
+62 yy = polyval(rot90(b,-1));
+63 hold on;
+64 plot(xx,yy,&#39;r&#39;)
+65 grid
+</code></pre><p>这里的y是个定量的变量，可以用regress（）进行回归，但当y是一个定性的变量时需要用到logistic回归，《MATLAB在数学建模应用》p37。</p>
+<p><strong>3.3 主成分分析</strong><br>类型：一种处理高维数据的方法。<br>降维思想：在实际问题的研究中，往往会涉及众多有关的变量。但是，变量太多不但会增加计算的复杂性，而且也会给合理地分析问题和解释问题带来困难。一般说来，虽然每个变量都提供了一定的信息，但其重要性有所不同，而在很多情况下，变量间有一定的相关性，从而使得这些变量所提供的信息在一定程度上有所重叠。因而人们希望对这些变量加以”改造”，用为数极少的互补相关的新变量来反映原变量所提供的绝大部分信息，通过对新变量的分析达到解决问题的目的。</p>
+<p>15家企业+8项指标，为了选择综合实力最强的企业，进行降维处理的主成分分析。</p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-MATLAB在数学建模中的应用" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/14/MATLAB在数学建模中的应用/">MATLAB在数学建模中的应用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/MATLAB在数学建模中的应用/" class="article-date">
+  <time datetime="2018-08-14T02:06:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>接下来的三周都会研读《MATLAB在数学建模中的应用》这本书，在此把敲过的课本习题代码，以及更详细的代码注释Po出。<br>插值与拟合<br>1）指定函数的拟合</p>
+<pre><code> 1 x1=[0 0.4 1.2 2 2.8 3.6 4.4 5.2 6 7.2 8 9.2 10.4 ...
+ 2     11.6 12.4 13.6 14.4 15];
+ 3 x=x1.&#39;;
+ 4 y1=[1 0.85 0.29 -0.27 -0.53 -0.4 -0.12 0.17 ...
+ 5     0.28 0.15 -0.03 -0.15 -0.071 0.059...
+ 6     0.08 0.032 -0.015 -0.032];
+ 7 y=y1.&#39;;
+ 8 plot(x,y,&#39;r*&#39;);
+ 9 syms t %定义一个符号t
+10 f=fittype(&#39;a*cos(k*t)*exp(w*t)&#39;,&#39;independent&#39;,&#39;t&#39;,&#39;coefficients&#39;,{&#39;a&#39;,&#39;k&#39;,&#39;w&#39;} );
+11 %f为用户自定义的函数,independent代表T为独立变量，AKW为系数。此函数的目的为清晰定义出何为未知数，何为普通参数。
+12 cfun=fit(x,y,f);
+13 %fit()函数为拟合函数，给出一组测量数据+自定义的拟合函数即可拟合成一条拟合曲线
+14 xi=0:0.1:20;
+15 yi=cfun(xi);
+16 plot(x,y,&#39;r*&#39;,xi,yi,&#39;b-&#39;);
+</code></pre><p><img src="http://img.blog.csdn.net/20170109174147870?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>2）二维插值</p>
+<pre><code>1 [x,y]=meshgrid(1:10);%测量值构成的网络
+2 h=[100个数据];
+3 [xi,yi]=meshgrid(1:.1:10);%插值构成的网络
+4 hi=interp2=(x,y,h,xi,yi,&#39;spline&#39;);
+5 %x,y,h+interp2内部隐藏的算法=插值之后的网络三维图
+6 %xi,yi为一组插值的（x,y）,返回其对应的Z值
+7 surf(hi);
+8 xlable(&#39;x&#39;),ylable(&#39;y&#39;),zlable(&#39;h&#39;);
+</code></pre><p>线性规划与非线性规划和整数规划<br>1)p23 eg2.2</p>
+<pre><code> 1 c=[2;3;1];
+ 2 a=[1 4 2;3 2 0];
+ 3 b=[8;6];
+ 4 l=[0;0;0];%zeros(3,1)
+ 5 [x,y]=linprog(c,-a,-b,[],[],l)
+ 6 x =
+ 7 
+ 8     0.8066
+ 9     1.7900
+10     0.0166
+11 
+12 
+13 y =
+14 
+15     7.0000
+</code></pre><p>2)p23 eg2.3</p>
+<pre><code> 1 c=[-5;-4;-6];
+ 2 a=[1 -1 1;3 2 4;3 2 0];
+ 3 b=[20;42;30];
+ 4 l=[0;0;0];%zeros(3,1)
+ 5 [x,y]=linprog(c,a,b,[],[],l)
+ 6 x =
+ 7 
+ 8     0.0000
+ 9    15.0000
+10     3.0000
+11 
+12 
+13 y =
+14 
+15   -78.0000
+</code></pre><p>3)p24 eg2.4</p>
+<pre><code> 1 c=[2;3;-5];
+ 2 a=[2 -5 1];
+ 3 b=-10;
+ 4 l=[0;0;0];%zeros(3,1)
+ 5 aeq=[1 1 1];%为何这是行向量
+ 6 beq=7;
+ 7 [x,y]=linprog(-c,-a,b,aeq,beq,l)
+ 8 
+ 9 
+10 
+11 x =
+12 
+13     6.4286
+14     0.5714
+15     0.0000
+16 
+17 
+18 y =
+19 
+20   -14.5714
+</code></pre><p>4)p24 eg2.5</p>
+<pre><code> 1 c=[170.858;-17.725;41.258;2.218;131.818;-500000];
+ 2 a=[1 -0.17 -0.532 0 1 0;
+ 3     0 0.17 0.532 0 0 0;
+ 4     1 0.32 1 0 0 0;
+ 5     0 1 0 0 0 0;
+ 6     0 0 1 1 0 0;
+ 7     0 0 0 -1 -1 0];
+ 8 b=[0;888115;166805;521265.625;683400;-660000];
+ 9 aeq=[0 0 0 0 0 1];
+10 beq=1;
+11 l=zeros(6,1);
+12 [x,y]=linprog(-c,a,b,aeq,beq,l)
+13 
+14 
+15 
+16 
+17 x =
+18 
+19    1.0e+05 *
+20 
+21     0.0000
+22     1.7096
+23     1.1210
+24     5.7130
+25     0.8870
+26     0.0000
+27 
+28 
+29 y =
+30 
+31   -1.4054e+07
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-慕课网-安卓攻城狮视频学习及练习（七）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/14/慕课网-安卓攻城狮视频学习及练习（七）/">慕课网-安卓攻城狮视频学习及练习（七）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/慕课网-安卓攻城狮视频学习及练习（七）/" class="article-date">
+  <time datetime="2018-08-14T02:02:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>进度条</strong><br>制定ProgressBar显示风格：</p>
+<pre><code>1 style=&quot;?android:attr/prgressBarStyleLarge&quot; 大环形进度条
+2 
+3 style=&quot;?android:attr/prgressBarStyleSmall&quot; 小环形进度条
+4 
+5 style=&quot;?android:attr/prgressBarStyleHorizontal&quot; 水平进度条
+</code></pre><p>ProgressBar的分类：</p>
+<p>（1）可以精确显示进度（可以显示刻度或者百分比）</p>
+<p>（2）不可以精确显示进度（一直转啊转，类似于一个过场动画）</p>
+<p><strong>在标题栏中显示两种进度条</strong><br>启用窗口特征。</p>
+<pre><code> 1 protected void onCreate(Bundle savedInstanceState) {
+ 2     // TODO Auto-generated method stub
+ 3     super.onCreate(savedInstanceState);
+ 4 
+ 5     requestWindowFeature(Window.FEATURE_PROGRESS);
+ 6     requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+ 7 
+ 8     setContentView(R.layout.factivity);
+ 9     //设置两种进度条可见
+10     setProgressBarVisibility(true);
+11     setProgressBarIndeterminateVisibility(true);
+12     setProgress(9999);//max=10000
+13 
+14 }
+15 
+16 }
+</code></pre><p><img src="http://img.blog.csdn.net/20170226180919653?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><img src="http://img.blog.csdn.net/20170226180927147?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><strong>普通的进度条</strong><br><img src="http://img.blog.csdn.net/20170226191404759?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<pre><code> 1  public class FActivity extends Activity implements OnClickListener{
+ 2     private ProgressBar progress;
+ 3     private Button btn1,btn2,btn3;
+ 4     private TextView txt;
+ 5     @Override
+ 6 protected void onCreate(Bundle savedInstanceState) {
+ 7     // TODO Auto-generated method stub
+ 8     super.onCreate(savedInstanceState);
+ 9     setContentView(R.layout.factivity);
+10 
+11     progress=(ProgressBar) findViewById(R.id.progressBar4);
+12     btn1=(Button) findViewById(R.id.button1);
+13     btn2=(Button) findViewById(R.id.button2);
+14     btn3=(Button) findViewById(R.id.button3);
+15     txt=(TextView) findViewById(R.id.textView1);
+16 
+17     show();
+18 
+19     btn1.setOnClickListener(this);
+20     btn2.setOnClickListener(this);
+21     btn3.setOnClickListener(this);
+22 
+23 
+24 
+25 }
+26     @Override
+27     public void onClick(View v) {
+28         switch (v.getId()) {
+29 case R.id.button1:
+30     progress.incrementProgressBy(10);
+31     progress.incrementSecondaryProgressBy(10);
+32     show();
+33             break;
+34 case R.id.button2:
+35     progress.incrementProgressBy(-10);
+36     progress.incrementSecondaryProgressBy(-10);
+37     show();
+38             break;
+39 case R.id.button3:
+40     progress.setProgress(50);
+41     progress.setProgress(80);
+42     show();
+43             break;
+44 
+45 
+46         default:
+47             break;
+48         }
+49 
+50     }
+51 private void show(){
+52     //将初始化的进度条显示出来
+53         int first=progress.getProgress();
+54         int second=progress.getSecondaryProgress();
+55         int max=progress.getMax();
+56         txt.setText(&quot;第一进度条：&quot;+(int)first/(float)max*100+&quot;% 第二进度条&quot;+(int)second/(float)max*100+&quot;%&quot;);
+57         //不用float的话int/int为零。
+58 }
+59 
+60 
+61 }
+</code></pre><p><strong>对话框形式进度条</strong><br><img src="http://img.blog.csdn.net/20170226193908856?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<pre><code> 1  public class FActivity extends Activity implements OnClickListener{
+ 2     private Button btn;
+ 3     private  ProgressDialog pro_dialog;
+ 4     @Override
+ 5 protected void onCreate(Bundle savedInstanceState) {
+ 6     // TODO Auto-generated method stub
+ 7     super.onCreate(savedInstanceState);
+ 8     setContentView(R.layout.factivity);
+ 9 
+10     btn=(Button) findViewById(R.id.button1);
+11     //progressdialog并没有组件
+12 
+13     btn.setOnClickListener(this);
+14 }
+15     @Override
+16     public void onClick(View v) {
+17         pro_dialog=new ProgressDialog(this);
+18         pro_dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+19         pro_dialog.setTitle(&quot;进度条对话框&quot;);
+20         pro_dialog.setMessage(&quot;进度条：&quot;);
+21         pro_dialog.setIcon(R.drawable.clock);
+22 
+23         //进度条属性
+24         pro_dialog.setMax(100);
+25         pro_dialog.incrementProgressBy(50);//初始化增长到的进度
+26         pro_dialog.setIndeterminate(false);//明确显示进度
+27 
+28         //设置按钮
+29         pro_dialog.setButton(DialogInterface.BUTTON_POSITIVE, &quot;确定&quot;, new DialogInterface.OnClickListener() {
+30 
+31             @Override
+32             public void onClick(DialogInterface dialog, int which) {
+33                 Toast.makeText(FActivity.this, &quot;welcome&quot;, Toast.LENGTH_SHORT);
+34 
+35             }
+36         });
+37         pro_dialog.setCancelable(true);//确保能够返回原来界面
+38         pro_dialog.show();//对话框与吐司一样需要.show();
+39     }
+40 
+41 }
+</code></pre><p><strong>webview</strong><br>通过Intent调用系统浏览器<br>Uri uri=Uri.parse(“<a href="http://www.baidu.com/" target="_blank" rel="noopener">http://www.baidu.com</a>“);<br>//必须加<a href="http://否则报错" target="_blank" rel="noopener">http://否则报错</a><br>Intent intent=new Intent(Intent.ACTION_VIEW, uri);<br>startActivity(intent);</p>
+<p><img src="http://img.blog.csdn.net/20170227111233292?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170227111211245?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170227111241198?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><img src="http://img.blog.csdn.net/20170227111249597?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170227111258628?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170227111307042?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><img src="http://img.blog.csdn.net/20170227111316894?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170227111325894?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><strong>fragment</strong><br><img src="http://img.blog.csdn.net/20170227115344028?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170227115352248?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>activity为房子，fragment就是其中的房间摆设。<br><img src="http://img.blog.csdn.net/20170227152909824?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170227152920316?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><strong>动态加载</strong><br>处理Fragment事务：<br>1) 根据用户的交互情况，对Fragment进行添加、移除、替换，以及执行其他动作，提交给Activity的每一套变化被称作一个事务。<br>2）动态加载不用在layout中声明fragment的标签，直接用代码就可以操作。<br><img src="http://img.blog.csdn.net/20170227153012481?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<pre><code> 1 public class FActivity extends Activity {
+ 2   private RadioGroup radio;
+ 3     @Override
+ 4 protected void onCreate(Bundle savedInstanceState) {
+ 5     // TODO Auto-generated method stub
+ 6 super.onCreate(savedInstanceState);
+ 7 setContentView(R.layout.factivity);
+ 8 
+ 9 radio=(RadioGroup) findViewById(R.id.radioGroup1);
+10 radio.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+11 
+12     @Override
+13     public void onCheckedChanged(RadioGroup group, int checkedId) {
+14         switch (checkedId) {
+15         case R.id.radio0:
+16             //一按静态加载按钮就跳转到sactivity
+17             Intent intent =new Intent(FActivity.this,SActivity.class);
+18             startActivity(intent);
+19             break;
+20 case R.id.radio1:
+21      myfragment2 myfragment2=new myfragment2();
+22 
+23         FragmentManager fragmentManager=getFragmentManager(); //获取FragmentManager对象
+24         FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();//开启事务
+25 
+26         fragmentTransaction.add(R.id.frame, myfragment2);//在当前layout下增添Fragment
+27         fragmentTransaction.addToBackStack(null);
+28         fragmentTransaction.commit();
+29 
+30             break;
+31 case R.id.radio2:
+32     break;
+33 case R.id.radio3:
+34 
+35     break;
+36 
+37         default:
+38             break;
+39         }
+40 
+41     }
+42 });
+43 
+44 
+45 }
+46 
+47 
+48 
+49 }
+50 public class myfragment extends Fragment{
+51 //fragment的子类
+52     @Override
+53     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+54         View view =inflater.inflate(R.layout.item, container, false);   
+55         return view;
+56 }
+57 }
+</code></pre><p><strong>viewpager</strong></p>
+<p><img src="http://img.blog.csdn.net/20170303104431930?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170303104441270?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170303104454005?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170303104503837?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<pre><code> 1  public class FActivity extends Activity {
+ 2     private ViewPager viewpager;
+ 3     private List&lt;View&gt; viewlist;
+ 4 
+ 5     @Override
+ 6 protected void onCreate(Bundle savedInstanceState) {
+ 7     // TODO Auto-generated method stub
+ 8 super.onCreate(savedInstanceState);
+ 9 setContentView(R.layout.factivity);
+10 
+11 viewpager=(ViewFlipper) findViewById(R.id.pager);
+12 //新建数据源,把view作为对象，存储到viewlist中作为viewpager的数据源
+13 //使用inflate（）方法：把布局文件转化为view对象
+14 View view1=View.inflate(this, R.layout.view1, null);
+15 View view2=View.inflate(this, R.layout.view2, null);
+16 View view3=View.inflate(this, R.layout.view3, null);
+17 View view4=View.inflate(this, R.layout.view4, null);
+18 viewlist.add(view1);
+19 viewlist.add(view2);
+20 viewlist.add(view3);
+21 viewlist.add(view4);
+22 //新建适配器pageradapter的子类，mypageradapter
+23 Mypageradapter adapter =new Mypageradapter(viewlist);
+24 
+25 //布局文件加载适配器
+26 viewpager.setadapter(adapter);
+27 
+28 
+29 }
+30 
+31 
+32 
+33 }
+</code></pre><p><strong>viewflipper</strong><br>1、ViewFlipper介绍：<br>android系统自带的一个多页面管理控件，它可以实现子界面的自动切换。<br>2、为ViewFlipper加入View:<br>1)、静态导入：在layout布局文件中直接导入<br>2)、动态导入：addView（）方法：<br>flipper=(ViewFlipper) findViewById(R.id.filpper);<br>flipper.addView(getImageView(R.drawable.pic1));<br>flipper.addView(getImageView(R.drawable.pic2));<br>flipper.addView(getImageView(R.drawable.pic3));<br>flipper.addView(getImageView(R.drawable.pic4));</p>
+<p>3、ViewFlipper常用的方法：<br>1）、SetInAnimation：设置View进入屏幕时候使用的动画<br>2）、setOutAnimation：设置View退出屏幕时候使用的动画<br>3）、showNext：调用该函数来显示ViewFlipper里面的下一个View<br>4）、showPrevious：调用该函数来显示ViewFlipper里面的上一个View<br>5）、setFilpInterval：设置View之间切换的时间间隔<br>6）、startFlipping：使用上面设置的时间间隔来开始切换所有的View，切换会循环进行<br>7）、stopFlipping：停止View切换</p>
+<p><strong>scrollview</strong><br>1)<br>1、ScrollView介绍：<br>滚动视图是指当拥有很多内容，屏幕显示不完时，需要通过滚动来显示完整的视图</p>
+<p>2、ScrollView的种类：<br>HorizontalScrollView：水平滚动视图<br>ScrollView：垂直滚动视图</p>
+<p>2）、隐藏ScrollView<br>（1）标签属性：<br>android：scrollbars=”none”<br>（2）代码设置：<br>setHorizontalScrollBarEnabled（false）；隐藏横向ScrollView<br>setVerticalScrollBarEnabled（false）；隐藏纵向</p>
+<p>3) tip:<br>tv.setText(getResources().getString(R.string.content)); 获取string下面的资源</p>
+<p>4)<br>“ScrollView监听事件”<br>1.使用事件OnTouchListener。<br>2.使用传入的视图view获取以下属性值。</p>
+<pre><code> 1 /* 
+ 2 * view.getHeight() 获取视图的总高度 
+ 3 * view.getMeasuredHeight() 获取视图在当前屏幕所占的高度 
+ 4 * view.getScrollY() 获取视图已经滑动的Y轴的高度 
+ 5 * 所以。滑倒底部的公式可以使用 
+ 6 * 视图的总高度&lt;=视图在当前屏幕所占的高度+视图已经滑动的Y轴的高度 
+ 7 * */
+ 8 
+ 9 public class MainActivity extends Activity {
+10       private TextView txt;
+11       private ScrollView sv;
+12 
+13         @Override
+14     protected void onCreate(Bundle savedInstanceState) {
+15         // TODO Auto-generated method stub
+16     super.onCreate(savedInstanceState);
+17     setContentView(R.layout.activity_main);
+18 
+19     txt=(TextView) findViewById(R.id.textView1);
+20     txt.setText(getResources().getString(R.string.content));
+21     sv=(ScrollView) findViewById(R.id.scrollview);
+22     sv.setOnTouchListener(new OnTouchListener() {
+23 
+24         @Override
+25         public boolean onTouch(View v, MotionEvent event) {
+26             switch (event.getAction()) {
+27             case MotionEvent.ACTION_MOVE:
+28                 if (sv.getChildAt(0).getMeasuredHeight()&lt;=sv.getHeight()+sv.getScrollY())
+29                 {
+30                     Log.i(&quot;Main&quot;, &quot;haha&quot;);
+31                     txt.append(getResources().getString(R.string.content));
+32                 }
+33                 break;
+34 
+35             default:
+36                 break;
+37             }
+38             return false;
+39         }
+40     });
+41 
+42     }
+43 
+44 
+45 
+46 
+47 
+48 
+49 }
+</code></pre><p>“ScrollView”动态定位（不使用手滑动）<br>使用两个方法。ScrollTo(int x,int y)和ScrollBy(int x,int y)</p>
+<p>区别如下：  </p>
+<ul>
+<li>scrollTo表示将视图滑动到某一个地方。   </li>
+<li>scrollBy 表示将视图想某个地方滑动多少，相对前一个位置</li>
+</ul>
+<p>可通过源码看出区别：<br>scrollBy源码：</p>
+<pre><code> 1 public void scrollBy(int x, int y) { 
+ 2 scrollTo(mScrollX + x, mScrollY + y); 
+ 3 }
+ 4 
+ 5 
+ 6         @Override
+ 7         public void onClick(View v) {
+ 8             switch (v.getId()) {
+ 9             case R.id.upbutton:
+10                 sv.scrollBy(0, -30);
+11                 break;
+12             case R.id.downbutton:
+13                 sv.scrollBy(0, 30);
+14                 break;
+15             default:
+16                 break;
+17             }
+18 
+19         }
+</code></pre><p><strong>seekbar</strong></p>
+<p>14-1 使用SeekBar制作可拖动的进度条：</p>
+<p>1、SeekBar介绍：<br>听歌的时候，我们常常喜欢快进或者退回某一时间段，听歌的时候，我们喜欢控件音量大小来听歌。SeekBar可以通过滑块的位置来标识数值，而且拖动条允许用户拖动滑块来改变进度值的大小。</p>
+<p>2、SeekBar的主要属性和方法：<br>1）、setMax —-设置SeekBar的最大数值<br>2）、setProgress —-设置SeekBar当前的数值<br>3）、setSecondaryProgress —-设置SeekBar的第二数值，即当前拖动条推荐的数值</p>
+<p>3、SeekBar的事件：<br>由于拖动条可以被用户控制。所以需要对其进行事件监听，这就需要实现SeekBar.OnSeekBarChangeListener接口。此接口共需要监听三个事件，分别是：<br>1）、数值改变 （onProgressChanged）<br>2）、开始拖动（onStarTrackingTouch）<br>3）、停止拖动（onStopTrackingTouch）</p>
+<pre><code> 1 public class MainActivity extends Activity implements OnSeekBarChangeListener{
+ 2       private TextView txt1,txt2;
+ 3      private SeekBar seek;
+ 4 
+ 5         @Override
+ 6     protected void onCreate(Bundle savedInstanceState) {
+ 7         // TODO Auto-generated method stub
+ 8     super.onCreate(savedInstanceState);
+ 9 
+10     setContentView(R.layout.activity_main);
+11 
+12     txt1=(TextView) findViewById(R.id.textView1);
+13     txt2=(TextView) findViewById(R.id.textView2);
+14     seek=(SeekBar) findViewById(R.id.seekbar);
+15     seek.setOnSeekBarChangeListener(this);
+16 
+17     }
+18 
+19         @Override
+20         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+21             //进度条改变
+22             txt1.setText(&quot;正在拖动&quot;);
+23 
+24             txt2.setText(progress);
+25         }
+26 
+27         @Override
+28         public void onStartTrackingTouch(SeekBar seekBar) {
+29             // 正在拖动
+30             txt1.setText(&quot;开始拖动&quot;);
+31         }
+32 
+33         @Override
+34         public void onStopTrackingTouch(SeekBar seekBar) {
+35             // 停止拖动
+36             txt1.setText(&quot;停止拖动&quot;);
+37 
+38         }
+39 
+40 }
+</code></pre><p>注意：settext里面不能只有参数progress</p>
+<p>3、自定义SeekBar进度条：<br>android：progressDrawable = “@drawable/seekbar_img” （改变进度条的样式）</p>
+<p>android: thumb = “@drawable/thumb” （改变滑块的样式）</p>
+<p><strong>布局</strong><br>总结：Android常用布局样式：</p>
+<p>（1）LinearLayout（线性布局）：<br>特点：线性的 垂直的 水平的</p>
+<p>（2）RelativeLayout（相对布局）：<br>特点：最灵活的</p>
+<p>（3）TableLayout（表格布局）：<br>特点：使用GridView代替</p>
+<p>（4）AbsoluteLayout（绝对布局）：不建议使用在自己的项目中</p>
+<p>（5）FrameLayout（帧布局）：<br>特点：布局叠加时使用<br><img src="http://img.blog.csdn.net/20170306192342724?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-慕课网-安卓攻城狮视频学习及练习（六）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/14/慕课网-安卓攻城狮视频学习及练习（六）/">慕课网-安卓攻城狮视频学习及练习（六）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/慕课网-安卓攻城狮视频学习及练习（六）/" class="article-date">
+  <time datetime="2018-08-14T01:59:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>manifest</strong><br><img src="http://img.blog.csdn.net/20170225120325632?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br>A跳转B,在B的文件中用permission权限,然后A就无权跳转到B,如果在A中用uses-<br>permission把权限给了A,那么A就可以跳转到B了.可以通俗的说,permission给B了一把锁,A要进门,就要用uses-<br>permission得到一把钥匙.</p>
+<p><strong>onitemclicklister+onscrolllistner</strong><br><img src="http://img.blog.csdn.net/20170225131022254?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170225131032020?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<pre><code> 1  public class FActivity extends Activity implements OnItemClickListener,OnScrollListener{
+ 2     private ListView lv;
+ 3     private SimpleAdapter sim_adapter;
+ 4     private List&lt;Map&lt;String, Object&gt;&gt; datalist;
+ 5     @Override
+ 6 protected void onCreate(Bundle savedInstanceState) {
+ 7     // TODO Auto-generated method stub
+ 8     super.onCreate(savedInstanceState);
+ 9     setContentView(R.layout.factivity);
+10 
+11     lv=(ListView) findViewById(R.id.listView1);
+12     sim_adapter =new SimpleAdapter(this, getdata(), R.layout.item, new String[]{&quot;pic&quot;,&quot;text&quot;}, new int[]{R.id.imageView1,R.id.textView1});
+13 
+14     lv.setAdapter(sim_adapter);
+15     lv.setOnItemClickListener(this);
+16     lv.setOnScrollListener(this);
+17 
+18 }
+19 private List&lt;Map&lt;String, Object&gt;&gt; getdata(){
+20     datalist =new ArrayList&lt;Map&lt;String,Object&gt;&gt;();  
+21     for (int i=0;i&lt;10;i++)
+22     {
+23     Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();
+24     map.put(&quot;pic&quot;, R.drawable.ic_launcher);
+25     map.put(&quot;text&quot;, &quot;慕课网&quot;+i);
+26     datalist.add(map);
+27     }
+28   return datalist;
+29 }
+30 @Override
+31 public void onScrollStateChanged(AbsListView view, int scrollState) {
+32     switch (scrollState) {
+33     case SCROLL_STATE_FLING:
+34         Map&lt;String, Object&gt; map =new HashMap&lt;String, Object&gt;();
+35         map.put(&quot;pic&quot;, R.drawable.ic_launcher);
+36         map.put(&quot;text&quot;, &quot;增加item&quot;);
+37         datalist.add(map);
+38         sim_adapter.notifyDataSetChanged();
+39         break;
+40     case SCROLL_STATE_IDLE:
+41 
+42         break;
+43     case SCROLL_STATE_TOUCH_SCROLL:
+44 
+45         break;
+46 
+47     default:
+48         break;
+49     }
+50 
+51 }
+52 @Override
+53 public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+54     // TODO 自动生成的方法存根
+55 
+56 }
+57 
+58 @Override
+59 public void onItemClick(AdapterView&lt;?&gt; parent, View view, int position, long id) {
+60     String text=lv.getItemAtPosition(position)+&quot;&quot;;
+61     Toast.makeText(this, &quot;位置：&quot;+position+&quot;text=&quot;+text, Toast.LENGTH_SHORT)
+62     .show();
+63 
+64 }
+65 }
+</code></pre><p><strong>Picker:选择器<br>DatePicker日历选择器<br>Timepicker时间选择器</strong><br><img src="http://img.blog.csdn.net/20170225143338713?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<pre><code> 1 public class FActivity extends Activity {
+ 2     private TimePicker tp;
+ 3     private DatePicker dp;
+ 4     private Calendar cal;
+ 5     int year;
+ 6     int month;
+ 7     int day;
+ 8     int hour;
+ 9     int minute;
+10 
+11     @Override
+12 protected void onCreate(Bundle savedInstanceState) {
+13     // TODO Auto-generated method stub
+14     super.onCreate(savedInstanceState);
+15     setContentView(R.layout.factivity);
+16 
+17     cal=Calendar.getInstance();//生成日历类的对象实例
+18     year=cal.get(Calendar.YEAR);
+19     month=cal.get(Calendar.MONTH)+1;//注意唯一例外是month需要+1
+20     day=cal.get(Calendar.DAY_OF_MONTH);
+21     hour=cal.get(Calendar.HOUR_OF_DAY);
+22     minute=cal.get(Calendar.MINUTE);
+23     setTitle(year+&quot;-&quot;+month+&quot;-&quot;+day+&quot; &quot;+hour+&quot;:&quot;+minute);
+24 
+25     tp=(TimePicker) findViewById(R.id.timePicker1);
+26     dp=(DatePicker) findViewById(R.id.datePicker1);
+27     dp.init(year, Calendar.MONTH, day, new OnDateChangedListener() {
+28 
+29         @Override
+30         public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+31             setTitle(year+&quot;-&quot;+(monthOfYear+1)+&quot;-&quot;+dayOfMonth+&quot; &quot;+hour+&quot;:&quot;+minute);
+32 
+33 
+34         }
+35     });
+36     tp.setOnTimeChangedListener(new OnTimeChangedListener() {
+37 
+38         @Override
+39         public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+40 
+41             setTitle(year+&quot;-&quot;+month+&quot;-&quot;+day+&quot; &quot;+hourOfDay+&quot;:&quot;+minute);
+42         }
+43     });
+44 }
+45 
+46 
+47 }
+</code></pre><p>注意month的加减一问题。<br>datepicker需要用init（）方法，在方法中调用监听器，而时间选择器直接调用监听器。</p>
+<p><strong>dialog形式</strong><br><img src="http://img.blog.csdn.net/20170225144921237?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>匿名内部类实现。</p>
+<pre><code> 1 //参数callback是监听器
+ 2     new DatePickerDialog(this, new OnDateSetListener() {
+ 3 
+ 4         @Override
+ 5         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+ 6             setTitle(year+&quot;-&quot;+(monthOfYear+1)+&quot;-&quot;+dayOfMonth+&quot; &quot;+hour+&quot;:&quot;+minute);
+ 7 
+ 8         }
+ 9     }, year, cal.get(Calendar.MONTH), day).show();
+10 
+11     new  TimePickerDialog(this, new OnTimeSetListener() {
+12 
+13         @Override
+14         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+15             setTitle(year+&quot;-&quot;+month+&quot;-&quot;+day+&quot; &quot;+hourOfDay+&quot;:&quot;+minute);
+16 
+17         }
+18     }, hour, minute, true);
+19 }
+
+
+
+
+
+![这里写图片描述](http://img.blog.csdn.net/20170225145000160?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+</code></pre><p><strong>gridview</strong><br><img src="http://img.blog.csdn.net/20170225215433401?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<pre><code> 1  public class FActivity extends Activity implements OnItemClickListener{
+ 2     private GridView gv;
+ 3     private SimpleAdapter sim_adapter;
+ 4     private List&lt;Map&lt;String, Object&gt;&gt; datalist; 
+ 5     int[] iconid={R.drawable.calculate,R.drawable.calendar,R.drawable.clock,
+ 6             R.drawable.contact,R.drawable.message,R.drawable.money,R.drawable.notebook,
+ 7             R.drawable.rest,R.drawable.setting,R.drawable.studyhat,R.drawable.trashbox,
+ 8             R.drawable.weightscale};
+ 9     String[] iconname={&quot;calculate&quot;,&quot;calendar&quot;,&quot;clock&quot;,&quot;contact&quot;,&quot;message&quot;,&quot;money&quot;,
+10             &quot;notebook&quot;,&quot;rest&quot;,&quot;setting&quot;,&quot;studyhat&quot;,&quot;trashbox&quot;,&quot;weightscale&quot;};   
+11     @Override
+12 protected void onCreate(Bundle savedInstanceState) {
+13     // TODO Auto-generated method stub
+14     super.onCreate(savedInstanceState);
+15     setContentView(R.layout.factivity);
+16 
+17 
+18 datalist=new ArrayList&lt;Map&lt;String,Object&gt;&gt;();
+19 
+20     gv=(GridView) findViewById(R.id.gridView1);
+21     sim_adapter=new SimpleAdapter(this, getdata(), R.layout.item, new String[]{&quot;pic&quot;,&quot;text&quot;}, new int[]{R.id.imageView1,R.id.textView1});
+22     gv.setAdapter(sim_adapter);
+23 
+24     gv.setOnItemClickListener(this);
+25 }
+26 
+27 private List&lt;Map&lt;String, Object&gt;&gt; getdata() {
+28 
+29         for (int i=0;i&lt;iconid.length;i++){
+30             Map&lt;String, Object&gt; map=new HashMap&lt;String, Object&gt;();
+31             map.put(&quot;pic&quot;, iconid[i]);
+32             map.put(&quot;text&quot;, iconname[i]);
+33             datalist.add(map);
+34         }
+35 
+36 
+37         return datalist;
+38 
+39 
+40     }
+41 
+42 @Override
+43 public void onItemClick(AdapterView&lt;?&gt; parent, View view, int position, long id) {
+44     Toast.makeText(this, &quot;我是&quot;+iconname[position], Toast.LENGTH_SHORT).show();
+45 
+46 }
+47 
+48 
+49 
+50 
+51 }
+</code></pre><p><strong>spinner</strong></p>
+<pre><code> 1  public class FActivity extends Activity implements OnItemSelectedListener{
+ 2     private TextView txt;
+ 3     private Spinner spin;
+ 4     private List&lt;String&gt; list;
+ 5     private ArrayAdapter&lt;String&gt; arr_adapter;
+ 6     @Override
+ 7 protected void onCreate(Bundle savedInstanceState) {
+ 8     // TODO Auto-generated method stub
+ 9     super.onCreate(savedInstanceState);
+10     setContentView(R.layout.factivity);
+11 
+12     txt=(TextView) findViewById(R.id.textView1);
+13     spin=(Spinner) findViewById(R.id.spinner1);
+14     list=new ArrayList&lt;String&gt;();
+15     list.add(&quot;北京&quot;);
+16     list.add(&quot;上海&quot;);
+17     list.add(&quot;广州&quot;);
+18     list.add(&quot;深圳&quot;);
+19     arr_adapter=new ArrayAdapter&lt;String&gt;(this, android.R.layout.simple_spinner_item, list);
+20     arr_adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+21     spin.setAdapter(arr_adapter);
+22     spin.setOnItemSelectedListener(this);
+23 
+24 }
+25 
+26     @Override
+27     public void onItemSelected(AdapterView&lt;?&gt; parent, View view, int position, long id) {
+28     String cityname=arr_adapter.getItem(position);
+29 //  String name =list.get(position);
+30     txt.setText(&quot;我选择居住在：&quot;+cityname);
+31 
+32     }
+33     @Override
+34     public void onNothingSelected(AdapterView&lt;?&gt; parent) {
+35         // TODO 自动生成的方法存根
+36 
+37     }
+38 
+39 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+</article>
+
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
+    </nav>
+  
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

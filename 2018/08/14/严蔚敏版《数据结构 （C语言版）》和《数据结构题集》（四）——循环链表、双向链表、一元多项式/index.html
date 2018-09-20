@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（四）——循环链表、双向链表、一元多项式 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="单循环链表的实现  1 typedef  int Elemtype;  2 typedef struct node{  3 Elemtype data;  4 struct node *next;  5 }node,*linklist;  6   7 void createList_L(linklist &amp;amp;l){  8 l=(linklist )malloc(sizeof(node));">
+<meta property="og:type" content="article">
+<meta property="og:title" content="严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（四）——循环链表、双向链表、一元多项式">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（四）——循环链表、双向链表、一元多项式/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="单循环链表的实现  1 typedef  int Elemtype;  2 typedef struct node{  3 Elemtype data;  4 struct node *next;  5 }node,*linklist;  6   7 void createList_L(linklist &amp;amp;l){  8 l=(linklist )malloc(sizeof(node));">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20170404143534013?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-09-20T01:27:29.678Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（四）——循环链表、双向链表、一元多项式">
+<meta name="twitter:description" content="单循环链表的实现  1 typedef  int Elemtype;  2 typedef struct node{  3 Elemtype data;  4 struct node *next;  5 }node,*linklist;  6   7 void createList_L(linklist &amp;amp;l){  8 l=(linklist )malloc(sizeof(node));">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170404143534013?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（四）——循环链表、双向链表、一元多项式" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（四）——循环链表、双向链表、一元多项式
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（四）——循环链表、双向链表、一元多项式/" class="article-date">
+  <time datetime="2018-08-14T02:35:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>单循环链表的实现</strong></p>
+<pre><code> 1 typedef  int Elemtype;
+ 2 typedef struct node{
+ 3 Elemtype data;
+ 4 struct node *next;
+ 5 }node,*linklist;
+ 6 
+ 7 void createList_L(linklist &amp;l){
+ 8 l=(linklist )malloc(sizeof(node));
+ 9 linklist p=l,q;
+10 int x;
+11 scanf (&quot;%d&quot;,&amp;x);
+12 while (x!=-999){
+13 q=(linklist )malloc(sizeof(node));
+14 q-&gt;data=x;
+15 p-&gt;next=q;
+16 p=q;
+17 scanf (&quot;%d&quot;,&amp;x);
+18 }
+19 q-&gt;next=l;
+20 l=q;
+21 }
+22 
+23 void displayList_L(linklist &amp;l){
+24 linklist p=l-&gt;next-&gt;next;
+25 while (p!=l-&gt;next){//这里的头结点是l-&gt;next
+26 printf (&quot;%d &quot;,p-&gt;data);
+27 p=p-&gt;next;
+28 }
+29 printf (&quot;\n&quot;);
+30 }
+31 //把两个循环单链表合并成一个链表
+32 void merge(linklist &amp;la,linklist &amp;lb,linklist &amp;lc){
+33 linklist p=la-&gt;next,q=lb-&gt;next;
+34 la-&gt;next=q-&gt;next;
+35 lb-&gt;next=p;
+36 lc=lb;
+37 free(q);
+38 }
+</code></pre><p><strong>双向链表的基本实现</strong></p>
+<pre><code> 1 typedef  int Elemtype;
+ 2 typedef struct node{
+ 3 Elemtype data;
+ 4 struct node *next;
+ 5 struct node *prior;
+ 6 }node,*linklist;
+ 7 
+ 8 void createList_L(linklist &amp;l){
+ 9 l=(linklist )malloc(sizeof(node));
+10 linklist p=l,q;
+11 int x;
+12 scanf (&quot;%d&quot;,&amp;x);
+13 while (x!=-999){
+14 q=(linklist )malloc(sizeof(node));
+15 q-&gt;data=x;
+16 p-&gt;next=q;
+17 q-&gt;prior=p;
+18 p=q;
+19 scanf (&quot;%d&quot;,&amp;x);
+20 }
+21 q-&gt;next=NULL;
+22 l-&gt;prior=q;
+23 }
+24 
+25 void displayList_L(linklist &amp;l){
+26 linklist p=l-&gt;next;
+27 while (p!=NULL){//这里的头结点是l-&gt;next
+28 printf (&quot;%d &quot;,p-&gt;data);
+29 p=p-&gt;next;
+30 }
+31 printf (&quot;\n&quot;);
+32 }
+33 int listLength (linklist &amp;l){
+34 linklist p=l-&gt;next;
+35 int count=1;
+36 while (p){
+37 p=p-&gt;next;
+38 count ++;
+39 }return count;
+40 }
+41 int listInsert_dul(linklist &amp;l,int i,Elemtype e){
+42 if (i&lt;1||i&gt;listLength(l)+1)
+43 {
+44     printf (&quot;position error!\n&quot;);
+45     return 0;
+46 }
+47 linklist p=l,q;int j=0;
+48 while (p-&gt;next&amp;&amp;j&lt;i-1){
+49 p=p-&gt;next;j++;
+50 }
+51 q=(linklist )malloc(sizeof(node));
+52 q-&gt;data=e;
+53 q-&gt;prior=p;
+54 q-&gt;next=p-&gt;next;
+55 p-&gt;next-&gt;prior=q;
+56 p-&gt;next=q;
+57 return 1;
+58 }
+59 int listDelete_dul(linklist &amp;l,int i,Elemtype &amp;e){
+60 linklist p=l,q;int j=0;
+61 if (i&lt;1||i&gt;listLength(l))return 0;
+62 while (p-&gt;next&amp;&amp;j&lt;i-1){
+63 p=p-&gt;next;j++;
+64 }
+65 e=p-&gt;next-&gt;data;
+66 q=p-&gt;next;
+67 p-&gt;next=q-&gt;next;
+68 p-&gt;next-&gt;prior=p;
+69 free(q);
+70 return 1;
+71 }
+</code></pre><p><img src="http://img.blog.csdn.net/20170404143534013?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<pre><code> 1 DuLNode * Locate_DuList(DuLinkedList &amp;L,int x)//带freq域的双向循环链表上的查找
+ 2 {
+ 3   p=L.next;
+ 4   while(p.data!=x&amp;&amp;p!=L) p=p-&gt;next;
+ 5   if(p==L) return NULL; //没找到
+ 6   p-&gt;freq++;q=p-&gt;pre;
+ 7   while(q-&gt;freq&lt;=p-&gt;freq) q=q-&gt;pre; //查找插入位置
+ 8   if(q!=p-&gt;pre)
+ 9   {
+10     p-&gt;pre-&gt;next=p-&gt;next;p-&gt;next-&gt;pre=p-&gt;pre;
+11     q-&gt;next-&gt;pre=p;p-&gt;next=q-&gt;next;
+12     q-&gt;next=p;p-&gt;pre=q; //调整位置
+13   }
+14   return p;
+15 }//Locate_DuList 
+</code></pre><p>思路：首先找到X所在位置，并让p指向它；<br>因为是非递增链表，p-&gt;freq++之后只能往左移动，所以通过prior指针来寻找插入位置。注意这里要判断一下if(q!=p-&gt;pre),这样就不用移动了。找到位置之后进行双向链表的插入算法。</p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/14/严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（五）——栈和队列/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（五）——栈和队列
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/14/严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（三）——单链表/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">严蔚敏版《数据结构 （C语言版）》和《数据结构题集》（三）——单链表</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

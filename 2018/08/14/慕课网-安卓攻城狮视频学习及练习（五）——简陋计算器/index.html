@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>慕课网-安卓攻城狮视频学习及练习（五）——简陋计算器 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="简陋计算器   1  public class FActivity extends Activity implements OnClickListener{   2     Button btn_0;   3     Button btn_1;   4     Button btn_2;   5     Button btn_3;   6     Button btn_4;   7     But">
+<meta property="og:type" content="article">
+<meta property="og:title" content="慕课网-安卓攻城狮视频学习及练习（五）——简陋计算器">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/慕课网-安卓攻城狮视频学习及练习（五）——简陋计算器/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="简陋计算器   1  public class FActivity extends Activity implements OnClickListener{   2     Button btn_0;   3     Button btn_1;   4     Button btn_2;   5     Button btn_3;   6     Button btn_4;   7     But">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20170224223528347?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170224223551221?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170224223602174?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170224223612800?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="http://img.blog.csdn.net/20170224223624253?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-09-20T01:27:30.171Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="慕课网-安卓攻城狮视频学习及练习（五）——简陋计算器">
+<meta name="twitter:description" content="简陋计算器   1  public class FActivity extends Activity implements OnClickListener{   2     Button btn_0;   3     Button btn_1;   4     Button btn_2;   5     Button btn_3;   6     Button btn_4;   7     But">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170224223528347?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-慕课网-安卓攻城狮视频学习及练习（五）——简陋计算器" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      慕课网-安卓攻城狮视频学习及练习（五）——简陋计算器
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/慕课网-安卓攻城狮视频学习及练习（五）——简陋计算器/" class="article-date">
+  <time datetime="2018-08-14T01:58:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>简陋计算器</strong></p>
+<pre><code>  1  public class FActivity extends Activity implements OnClickListener{
+  2     Button btn_0;
+  3     Button btn_1;
+  4     Button btn_2;
+  5     Button btn_3;
+  6     Button btn_4;
+  7     Button btn_5;
+  8     Button btn_6;
+  9     Button btn_7;
+ 10     Button btn_8;
+ 11     Button btn_9;
+ 12     Button btn_point;
+ 13     Button btn_clear;
+ 14     Button btn_delete;
+ 15     Button btn_add;
+ 16     Button btn_minus;
+ 17     Button btn_multiple;
+ 18     Button btn_divide;
+ 19     Button btn_equal;
+ 20     private EditText et;
+ 21     String string;
+ 22     Boolean flag=false;
+ 23   @Override
+ 24 protected void onCreate(Bundle savedInstanceState) {
+ 25     // TODO Auto-generated method stub
+ 26     super.onCreate(savedInstanceState);
+ 27     setContentView(R.layout.factivity);
+ 28 
+ 29     btn_0=(Button) findViewById(R.id.button_0);
+ 30     btn_1=(Button) findViewById(R.id.button_1);
+ 31     btn_2=(Button) findViewById(R.id.button_2);
+ 32     btn_3=(Button) findViewById(R.id.button_3);
+ 33     btn_4=(Button) findViewById(R.id.button_4);
+ 34     btn_5=(Button) findViewById(R.id.button_5);
+ 35     btn_6=(Button) findViewById(R.id.button_6);
+ 36     btn_7=(Button) findViewById(R.id.button_7);
+ 37     btn_8=(Button) findViewById(R.id.button_8);
+ 38     btn_9=(Button) findViewById(R.id.button_9);
+ 39     btn_point=(Button) findViewById(R.id.button_point);
+ 40     btn_divide=(Button) findViewById(R.id.button_divide);
+ 41     btn_add=(Button) findViewById(R.id.button_add);
+ 42     btn_minus=(Button) findViewById(R.id.button_minus);
+ 43     btn_multiple=(Button) findViewById(R.id.button_multiple);
+ 44     btn_delete=(Button) findViewById(R.id.button_delete);
+ 45     btn_equal=(Button) findViewById(R.id.button_equal);
+ 46     btn_clear=(Button) findViewById(R.id.button_clear);
+ 47     et=(EditText) findViewById(R.id.editText1);
+ 48 
+ 49         btn_0.setOnClickListener(this);
+ 50         btn_1.setOnClickListener(this);
+ 51         btn_2.setOnClickListener(this);
+ 52         btn_3.setOnClickListener(this);
+ 53         btn_4.setOnClickListener(this);
+ 54         btn_5.setOnClickListener(this);
+ 55         btn_6.setOnClickListener(this);
+ 56         btn_7.setOnClickListener(this);
+ 57         btn_8.setOnClickListener(this);
+ 58         btn_9.setOnClickListener(this);
+ 59         btn_point.setOnClickListener(this);
+ 60         btn_delete.setOnClickListener(this);
+ 61         btn_add.setOnClickListener(this);
+ 62         btn_minus.setOnClickListener(this);
+ 63         btn_multiple.setOnClickListener(this);
+ 64         btn_divide.setOnClickListener(this);
+ 65         btn_equal.setOnClickListener(this);
+ 66         btn_clear.setOnClickListener(this);
+ 67 
+ 68 
+ 69 }
+ 70   @Override
+ 71   public void onClick(View v) {
+ 72       string=et.getText().toString();
+ 73 
+ 74     switch (v.getId()) {
+ 75     case R.id.button_0:
+ 76     case R.id.button_1:
+ 77     case R.id.button_2:
+ 78     case R.id.button_3:
+ 79     case R.id.button_4:
+ 80     case R.id.button_5:
+ 81     case R.id.button_6:
+ 82     case R.id.button_7:
+ 83     case R.id.button_8:
+ 84     case R.id.button_9:
+ 85     case R.id.button_point:
+ 86         {
+ 87             if (flag){
+ 88                 flag=false;
+ 89                 string=&quot;&quot;;
+ 90 
+ 91             }
+ 92             et.setText(string+((Button)v).getText());
+ 93 
+ 94         break;
+ 95         }
+ 96     case R.id.button_add:
+ 97     case R.id.button_minus:
+ 98     case R.id.button_multiple:
+ 99     case R.id.button_divide:
+100         {
+101             et.setText(string+&quot; &quot;+((Button)v).getText()+&quot; &quot;);
+102 
+103         break;
+104         }
+105   case R.id.button_clear:
+106     {
+107         et.setText(&quot;&quot;);
+108 
+109     break;
+110     }
+111   case R.id.button_delete:
+112   {
+113       if (!string.equals(&quot;&quot;)){
+114       string=string.substring(0,string.length()-1); 
+115         et.setText(string);
+116 
+117       }
+118     break;
+119   }
+120   case R.id.button_equal:
+121     { 
+122     getResult();
+123     break;      
+124     }
+125     }
+126     }
+127   private void getResult(){
+128       string=et.getText().toString();
+129       Double result=(double) 0;
+130       if (string==&quot;&quot;)
+131           return;
+132       if (!string.contains(&quot; &quot;))
+133           return;
+134       if (flag){
+135          // flag=false;
+136           return;
+137       }
+138       flag=true;
+139       String s1=string.substring(0,string.indexOf(&quot; &quot;));
+140       String op=string.substring(string.indexOf(&quot; &quot;)+1,string.indexOf(&quot; &quot;)+2);
+141       String s2=string.substring(string.indexOf(&quot; &quot;)+3);
+142 
+143       double num1=Double.parseDouble(s1);
+144       double num2=Double.parseDouble(s2);
+145 
+146 
+147     if (!s1.equals(&quot;&quot;)&amp;&amp;!s2.equals(&quot;&quot;)){
+148          if (op.equals(&quot;+&quot;)){
+149           result=num1+num2;
+150       }
+151        if (op.equals(&quot;-&quot;)){
+152           result=num1-num2;
+153 
+154       }
+155        if (op.equals(&quot;*&quot;)){
+156           result=num1*num2;
+157 
+158        }
+159        if (op.equals(&quot;÷&quot;)){
+160           if (num2!=0)
+161           result=num1/num2;
+162           else
+163               result=0.0;
+164 
+165        }    
+166     }else if (s1.equals(&quot;&quot;)&amp;&amp;!s2.equals(&quot;&quot;)){
+167         result=num2;
+168     }else if (!s1.equals(&quot;&quot;)&amp;&amp;s2.equals(&quot;&quot;)){
+169         result=num1;
+170     }
+171 
+172    et.setText(result+&quot;&quot;);
+173 }
+174 
+175 }
+</code></pre><p><img src="http://img.blog.csdn.net/20170224223528347?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><strong>intent传递</strong></p>
+<p><img src="http://img.blog.csdn.net/20170224223551221?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170224223602174?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170224223612800?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170224223624253?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/14/慕课网-安卓攻城狮视频学习及练习（六）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          慕课网-安卓攻城狮视频学习及练习（六）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/14/慕课网-安卓攻城狮视频学习及练习（四）/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">慕课网-安卓攻城狮视频学习及练习（四）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

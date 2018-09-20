@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>word2vec | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="word2vec的学习python的几个扩展工具：1. numpy2. scipy3. gensim   如何对新闻的关键词进行聚类？比如说，给你一个关键词”苍井空”，你怎么把”女优”，”写真集”等关联性极高的关键词找到？ 想法1： 用新闻ID向量表示某个关键词，如：苍井空 （新闻ID1,新闻ID2,…） 可行性： 新闻数较小时，可以用kmeans等方法进行聚类； 但新闻数高达10万时，每个关键词">
+<meta property="og:type" content="article">
+<meta property="og:title" content="word2vec">
+<meta property="og:url" content="http://yoursite.com/2018/08/21/word2vec/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="word2vec的学习python的几个扩展工具：1. numpy2. scipy3. gensim   如何对新闻的关键词进行聚类？比如说，给你一个关键词”苍井空”，你怎么把”女优”，”写真集”等关联性极高的关键词找到？ 想法1： 用新闻ID向量表示某个关键词，如：苍井空 （新闻ID1,新闻ID2,…） 可行性： 新闻数较小时，可以用kmeans等方法进行聚类； 但新闻数高达10万时，每个关键词">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:28.747Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="word2vec">
+<meta name="twitter:description" content="word2vec的学习python的几个扩展工具：1. numpy2. scipy3. gensim   如何对新闻的关键词进行聚类？比如说，给你一个关键词”苍井空”，你怎么把”女优”，”写真集”等关联性极高的关键词找到？ 想法1： 用新闻ID向量表示某个关键词，如：苍井空 （新闻ID1,新闻ID2,…） 可行性： 新闻数较小时，可以用kmeans等方法进行聚类； 但新闻数高达10万时，每个关键词">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-word2vec" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      word2vec
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/21/word2vec/" class="article-date">
+  <time datetime="2018-08-20T17:10:00.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://blog.csdn.net/zhaoxinfan/article/details/11069485" target="_blank" rel="noopener">word2vec的学习</a><br>python的几个扩展工具：<br>1. numpy<br>2. scipy<br>3. gensim</p>
+<hr>
+<h2 id=""><a href="#" class="headerlink" title=" "></a> </h2><p>如何对新闻的关键词进行聚类？比如说，给你一个关键词”苍井空”，你怎么把”女优”，”写真集”等关联性极高的关键词找到？</p>
+<p>想法1： 用新闻ID向量表示某个关键词，如：苍井空 （新闻ID1,新闻ID2,…）</p>
+<p>可行性： 新闻数较小时，可以用kmeans等方法进行聚类； 但新闻数高达10万时，每个关键词则需要10万维的向量表示，计算难度太大。</p>
+<p>解决方法：google的一个开源工具”word2vec”,可通过输入一个词的集合，计算出词与词之间的距离，通过距离进行聚类。</p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/21/react/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          react
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/21/流水作业/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">流水作业</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

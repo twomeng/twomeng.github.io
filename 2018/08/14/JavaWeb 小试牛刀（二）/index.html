@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>JavaWeb 小试牛刀（二） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1 &amp;lt;body&amp;gt;  2 &amp;lt;center&amp;gt;  3 &amp;lt;img alt=&amp;quot;myimg&amp;quot; src=&amp;quot;fruit3.jpg&amp;quot;&amp;gt;&amp;lt;/img&amp;gt;  4  &amp;lt;form method=&amp;quot;post&amp;quot; action=&amp;quot;servlet/first&amp;quot;&amp;gt;  5 &amp;lt;table&amp;gt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaWeb 小试牛刀（二）">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/JavaWeb 小试牛刀（二）/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1 &amp;lt;body&amp;gt;  2 &amp;lt;center&amp;gt;  3 &amp;lt;img alt=&amp;quot;myimg&amp;quot; src=&amp;quot;fruit3.jpg&amp;quot;&amp;gt;&amp;lt;/img&amp;gt;  4  &amp;lt;form method=&amp;quot;post&amp;quot; action=&amp;quot;servlet/first&amp;quot;&amp;gt;  5 &amp;lt;table&amp;gt">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20170318144923477?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2018-09-20T01:27:29.876Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaWeb 小试牛刀（二）">
+<meta name="twitter:description" content="1 &amp;lt;body&amp;gt;  2 &amp;lt;center&amp;gt;  3 &amp;lt;img alt=&amp;quot;myimg&amp;quot; src=&amp;quot;fruit3.jpg&amp;quot;&amp;gt;&amp;lt;/img&amp;gt;  4  &amp;lt;form method=&amp;quot;post&amp;quot; action=&amp;quot;servlet/first&amp;quot;&amp;gt;  5 &amp;lt;table&amp;gt">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170318144923477?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-JavaWeb 小试牛刀（二）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JavaWeb 小试牛刀（二）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/JavaWeb 小试牛刀（二）/" class="article-date">
+  <time datetime="2018-08-14T02:13:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="http://img.blog.csdn.net/20170318144923477?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzM4NDYwNTQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<pre><code> 1 &lt;body&gt;
+ 2 &lt;center&gt;
+ 3 &lt;img alt=&quot;myimg&quot; src=&quot;fruit3.jpg&quot;&gt;&lt;/img&gt;
+ 4  &lt;form method=&quot;post&quot; action=&quot;servlet/first&quot;&gt;
+ 5 &lt;table&gt;
+ 6 &lt;tr&gt;
+ 7 &lt;td&gt;用户名：&lt;/td&gt;
+ 8 &lt;td&gt;&lt;input type=&quot;text&quot; name=&quot;username&quot;&gt;&lt;/td&gt;
+ 9 &lt;/tr&gt;
+10 
+11 &lt;tr&gt;
+12 &lt;td&gt;密码：&lt;/td&gt;
+13 &lt;td&gt;&lt;input type=&quot;password&quot; name=&quot;password&quot;&gt;&lt;/td&gt;
+14 &lt;/tr&gt;
+15 
+16 
+17 &lt;tr&gt;
+18 &lt;td&gt;&lt;input type=&quot;submit&quot; value=&quot;提交&quot; name=&quot;submit&quot;&gt;&lt;/td&gt;
+19 &lt;/tr&gt;
+20 &lt;/table&gt;
+21 &lt;/form&gt; 
+22 &lt;/center&gt;
+23 &lt;/body&gt;
+24 &lt;body&gt;
+25 &lt;center&gt;
+26 &lt;h1&gt;恭喜你登录成功！&lt;/h1&gt;
+27 &lt;jsp:useBean id=&quot;userbean&quot; class=&quot;entity.users&quot; scope=&quot;session&quot;&gt;&lt;/jsp:useBean&gt;
+28 
+29 &lt;form method=&quot;post&quot; &gt;
+30 &lt;table&gt;
+31 &lt;tr&gt;
+32 &lt;td&gt;用户名：&lt;/td&gt;
+33 &lt;td&gt;&lt;jsp:getProperty name=&quot;userbean&quot; property=&quot;username&quot;&gt;&lt;/jsp:getProperty&gt;&lt;/td&gt;
+34 &lt;/tr&gt;
+35 
+36 &lt;tr&gt;
+37 &lt;td&gt;密码：&lt;/td&gt;
+38 &lt;td&gt;&lt;jsp:getProperty name=&quot;userbean&quot; property=&quot;password&quot;&gt;&lt;/jsp:getProperty&gt;&lt;/td&gt;
+39 &lt;/tr&gt;
+40 
+41 &lt;tr&gt;
+42 &lt;td&gt;&lt;/td&gt;
+43 &lt;/tr&gt;
+44 &lt;/table&gt;
+45 &lt;/form&gt;
+46 &lt;/center&gt;
+47 &lt;/body&gt;
+48 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+49         request.setCharacterEncoding(&quot;utf-8&quot;);
+50         response.setContentType(&quot;text/html;charset=GBK&quot;);
+51         PrintWriter out=response.getWriter();
+52         users u =new users();   
+53         String name=&quot;&quot;;
+54         String password=&quot;&quot;;
+55 
+56         name=request.getParameter(&quot;username&quot;);
+57         password=request.getParameter(&quot;password&quot;);
+58         u.setUsername(name);
+59         u.setPassword(password);
+60         request.getSession().setAttribute(&quot;userbean&quot;, u);//session也可以添加对象
+61         //request.getRequestDispatcher(&quot;../success.jsp&quot;).forward(request, response);
+62 
+63 
+64         try{
+65             RequestDispatcher rDispatcher=request.getRequestDispatcher(&quot;../success.jsp&quot;);
+66             rDispatcher.forward(request, response);
+67             out.println(&quot;终于他妈没有异常了&quot;);
+68 
+69         }
+70         catch(Exception ex){
+71 
+72             out.println(&quot;出现异常！&quot;);
+73             ex.printStackTrace();
+74 
+75         }
+76 
+77 
+78 
+79 
+80 
+81 
+82     }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/14/react 入门资料/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          react 入门资料
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/14/JavaWeb 小试牛刀（一）/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">JavaWeb 小试牛刀（一）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

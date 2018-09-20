@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Java基础之排序 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="如何对Arraylist进行排序输出？treeset和treemap通过让类继承comparable方法进行排序，那么我们的数组集合应该如何排序输出呢？（1）利用Collections.sort(list)方法 package haha;  import java.util.ArrayList; import java.util.Arrays; import java.util.Collectio">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础之排序">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/Java基础之排序/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="如何对Arraylist进行排序输出？treeset和treemap通过让类继承comparable方法进行排序，那么我们的数组集合应该如何排序输出呢？（1）利用Collections.sort(list)方法 package haha;  import java.util.ArrayList; import java.util.Arrays; import java.util.Collectio">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:29.528Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java基础之排序">
+<meta name="twitter:description" content="如何对Arraylist进行排序输出？treeset和treemap通过让类继承comparable方法进行排序，那么我们的数组集合应该如何排序输出呢？（1）利用Collections.sort(list)方法 package haha;  import java.util.ArrayList; import java.util.Arrays; import java.util.Collectio">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-Java基础之排序" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java基础之排序
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/Java基础之排序/" class="article-date">
+  <time datetime="2018-08-14T02:41:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>如何对Arraylist进行排序输出？</strong><br>treeset和treemap通过让类继承comparable方法进行排序，那么我们的数组集合应该如何排序输出呢？<br>（1）利用Collections.sort(list)方法</p>
+<pre><code>package haha;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Scanner;
+class Pair implements Comparable{
+    int left,right;
+   Pair(int l,int r){
+       left=l;right=r;
+       }
+   public String toString(){
+       return &quot;[&quot;+left+&quot;,&quot;+right+&quot;]&quot;;
+   }
+@Override
+public int compareTo(Object arg0) {
+    //实现comparable接口的类必须要实现compareto方法，返回正数代表&gt;,返回负数代表＜，0代表=
+    Pair that=(Pair)arg0;
+    if (this.left &gt; that.left)
+        return 1;
+    else {
+        if (this.left &lt; that.left){
+            return -1;
+        }else {
+            if (this.right&gt;that.right)
+                return 1;
+            else if (this.right &lt; that.right)
+                return -1;
+        }
+        return 0;
+
+    }
+}
+
+}
+public class Main {
+
+    public static void main(String[] args) {
+
+        //定义一个对象数组P，存放一对值
+        Pair p[]={new Pair(0,1),
+                new Pair(2,9),
+                new Pair(7,0),
+                new Pair(8,8),
+                new Pair(5,4)};
+//      Arrays类中的toString()方法
+//      输出排序前数组
+//      System.out.println(Arrays.toString(p));
+//      Arrays.sort(p);
+//      输出排序后数组 
+//      System.out.println(Arrays.toString(p));
+//  将对象数组P通过aslist方法转化成list集合中的元素   
+        ArrayList&lt;Pair&gt; arr=new ArrayList&lt;&gt;(Arrays.asList(p));
+//      排序前集合
+        System.out.println(arr);
+        Collections.sort(arr);
+//      排序后
+        System.out.println(arr);
+//      关于这里为什么能直接输出集合arr,因为该类已经重写了toString()方法
+
+    }
+
+}
+</code></pre><p>（2）接口回调时不能省略泛型类型</p>
+<pre><code>1 ArrayList&lt;student&gt; arr=new ArrayList&lt;&gt;();
+2     List&lt;student&gt; arr=new ArrayList&lt;student&gt;();
+</code></pre><p>（4）所谓的遍历迭代输出，真的有必要吗?</p>
+<pre><code>1 ArrayList&lt;String&gt; arr3=new ArrayList&lt;&gt;();
+2     arr3.add(&quot;niu&quot;);arr3.add(&quot;meng&quot;);
+3     Collections.sort(arr3);
+4     System.out.println(arr3);
+</code></pre><p>因为String重写了Object类的toString()方法，所以sysout的时候调用toString方法直接输出，所以如果想要遍历输入自定义类，只需要重写toString方法。<br>(5) another practice</p>
+<pre><code> 1 package haha;
+ 2 
+ 3 import java.util.ArrayList;
+ 4 import java.util.Arrays;
+ 5 import java.util.Collections;
+ 6 import java.util.Iterator;
+ 7 import java.util.List;
+ 8 import java.util.Scanner;
+ 9 class student implements Comparable&lt;student&gt;{
+10     String name;
+11     int score;
+12     student(String name,int score){
+13         this.name=name;
+14         this.score=score;
+15     }
+16     @Override
+17     public int compareTo(student o) {
+18         return (this.score-o.score);
+19     }
+20     public String toString(){
+21         return &quot;name:&quot;+name+&quot; score:&quot;+score;
+22     }
+23 
+24 }
+25 public class Main {
+26 
+27     public static void main(String[] args) {
+28     student stu1=new student(&quot;niu&quot;,100),
+29             stu2=new student(&quot;meng&quot;,98),
+30             stu3=new student(&quot;haha&quot;,90);
+31     ArrayList&lt;student&gt; arr=new ArrayList&lt;&gt;();
+32     arr.add(stu1);arr.add(stu2);arr.add(stu3);
+33     //向arr中添加对象元素的两种方法
+34      /*student stu[]={new student(&quot;niu&quot;,100),
+35              new student(&quot;meng&quot;,98),
+36              new student(&quot;haha&quot;,90)  
+37              };
+38      ArrayList&lt;student&gt; arr2=new ArrayList&lt;&gt;(Arrays.asList(stu));
+39      //如何向list中添加一个对象数组？
+40 */     
+41     Collections.sort(arr);
+42     System.out.println(arr);
+43 
+44 
+45 
+46 
+47     }
+48 
+49 }
+</code></pre><p>(6)comparable<br>1.什么是Comparable接口</p>
+<p>此接口强行对实现它的每个类的对象进行整体排序。此排序被称为该类的自然排序 ，类的 compareTo 方法被称为它的自然比较方法<br>。实现此接口的对象列表（和数组）可以通过 Collections.sort （和 Arrays.sort ）进行自动排序。<br>2.实现什么方法</p>
+<p>int compareTo(T o)<br>比较此对象与指定对象的顺序。如果该对象小于、等于或大于指定对象，则分别返回负整数、零或正整数。</p>
+<pre><code>1 /*Comparable接口原型为： 
+2 * public interface Comparable 
+3 * { 
+4 * int compareTo（T other);//接口的中方法自动属于public方法 
+5 * } 
+6 */ 
+</code></pre><p>ps：如果类在继承comparable接口时没有指定泛型则compareto的参数则默认为Object类型，所以我们最好还是指定吧。<br>（7）comparator实现排序<br>对任意类型集合对象进行整体排序，排序时将此接口的实现传递给Collections.sort方法或者Arrays.sort方法排。</p>
+<pre><code> 1 package haha;
+ 2 
+ 3 import java.util.ArrayList;
+ 4 import java.util.Arrays;
+ 5 import java.util.Collections;
+ 6 import java.util.Comparator;
+ 7 import java.util.Iterator;
+ 8 import java.util.List;
+ 9 import java.util.Scanner;
+10 class student  {
+11     String name;
+12     int score;
+13     student(String name,int score){
+14         this.name=name;
+15         this.score=score;
+16     }
+17 
+18 }
+19 class haha implements Comparator&lt;student&gt;{
+20     Boolean r;
+21     haha(Boolean r){
+22         this.r=r;
+23     }
+24     @Override
+25     public int compare(student o1, student o2) {
+26         if (r){
+27             //如果为正则递增排序
+28             return o1.score-o2.score;
+29         }
+30         else{
+31             return o2.score-o1.score;
+32         }
+33     }
+34 
+35 }
+36 
+37 public class Main {
+38 
+39     public static void main(String[] args) {
+40     student stu1=new student(&quot;niu&quot;,100),
+41             stu2=new student(&quot;meng&quot;,98),
+42             stu3=new student(&quot;haha&quot;,90);
+43     ArrayList&lt;student&gt; arr=new ArrayList&lt;&gt;();
+44     arr.add(stu1);arr.add(stu2);arr.add(stu3);
+45     Collections.sort(arr,new haha(false));
+46 //  sort(List&lt;student&gt; list, Comparator&lt;? super student&gt; c)
+47 //  arr类，haha类均为接口回调，? super student规定比较器的泛型为student的超类（被继承类，包括其本身）
+48     for(int i=0;i&lt;arr.size();i++){
+49         student stu=arr.get(i);
+50         System.out.println(stu.name+&quot;,&quot;+stu.score);
+51     }
+52     }
+53 
+54 }
+</code></pre><p>这个是通过新建comparator的实现类，增加一个可以判断顺序还是逆序的构造方法，我们还可以直接用comparator自己的构造方法来实现排序。</p>
+<pre><code>1 Comparator&lt;student&gt; com=new Comparator&lt;student&gt;() {
+2 
+3         @Override
+4         public int compare(student o1, student o2) {
+5 
+6             return o1.score-o2.score;
+7         }
+8     };
+9     Collections.sort(arr,com);
+</code></pre><p>对代码不满足，是任何真正有天才的程序员的根本特征。</p>
+<p>alt+/进行代码提示<br>ctrl+/快速加减注释<br>next()和nextline()的区别<br>首先，next（）一定要读取到有效字符后才可以结束输入，对输入有效字符之前遇到的空格键、Tab键或Enter键等结束符，next（）方法会自动将其去掉，只有在输入有效字符之后，next（）方法才将其后输入的空格键、Tab键或Enter键等视为分隔符或结束符。简单地说，next（）查找并返回来自此扫描器的下一个完整标记。完整标记的前后是与分隔模式匹配的输入信息，所以next方法不能得到带空格的字符串而nextLine（）方法的结束符只是Enter键，即<br>_nextLine（）方法返回的是Enter键之前的所有字符，它是可以得到带空格的字符串的_ 。</p>
+<pre><code>1 while(read.hasNext()){ 
+2 arr.add(read.next()); 
+3 } 
+</code></pre><p>hasNext系列方法只会判断你缓冲区中的数据是否符合某种类型，而不会取出，所以当你下次循环这个方法发现缓冲区中还有数据，会继续判断缓冲区中的数据，所以产生了死循环，只有用Next()方法吧缓冲区中的数据接收掉。</p>
+<p>泛型的本质是参数化类型，也就是说所操作的数据类型被指定为一个参数。这种参数类型可以用在类、接口和方法的创建中，分别称为泛型类、泛型接口、泛型方法。泛型的类型参数只能是类类型（包括自定义类），不能是简单类型。通常在集合中使用。</p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/14/数据结构实验报告（一）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          数据结构实验报告（一）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/14/用通俗易懂的大白话讲解MapReduce原理/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">用通俗易懂的大白话讲解MapReduce原理</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

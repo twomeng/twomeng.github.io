@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>计算机考研机试指南（六）——哈夫曼树 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="机试指南 cha3 哈夫曼自己写了一版代码+数据结构书上的标准代码  1 #include &amp;lt;iostream&amp;gt;   2 #include &amp;lt;string.h&amp;gt;   3 #include &amp;lt;stdio.h&amp;gt;   4 #include &amp;lt;stdlib.h&amp;gt;   5    6    7 using namespace std;   8 /*   9 1.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机考研机试指南（六）——哈夫曼树">
+<meta property="og:url" content="http://yoursite.com/2018/08/21/计算机考研机试指南（六）——哈夫曼树/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="机试指南 cha3 哈夫曼自己写了一版代码+数据结构书上的标准代码  1 #include &amp;lt;iostream&amp;gt;   2 #include &amp;lt;string.h&amp;gt;   3 #include &amp;lt;stdio.h&amp;gt;   4 #include &amp;lt;stdlib.h&amp;gt;   5    6    7 using namespace std;   8 /*   9 1.">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:27.776Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算机考研机试指南（六）——哈夫曼树">
+<meta name="twitter:description" content="机试指南 cha3 哈夫曼自己写了一版代码+数据结构书上的标准代码  1 #include &amp;lt;iostream&amp;gt;   2 #include &amp;lt;string.h&amp;gt;   3 #include &amp;lt;stdio.h&amp;gt;   4 #include &amp;lt;stdlib.h&amp;gt;   5    6    7 using namespace std;   8 /*   9 1.">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-计算机考研机试指南（六）——哈夫曼树" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      计算机考研机试指南（六）——哈夫曼树
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/21/计算机考研机试指南（六）——哈夫曼树/" class="article-date">
+  <time datetime="2018-08-20T17:42:00.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="机试指南-cha3-哈夫曼"><a href="#机试指南-cha3-哈夫曼" class="headerlink" title="机试指南 cha3 哈夫曼"></a>机试指南 cha3 哈夫曼</h3><h4 id="自己写了一版代码-数据结构书上的标准代码"><a href="#自己写了一版代码-数据结构书上的标准代码" class="headerlink" title="自己写了一版代码+数据结构书上的标准代码"></a>自己写了一版代码+数据结构书上的标准代码</h4><pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;string.h&gt;
+  3 #include &lt;stdio.h&gt;
+  4 #include &lt;stdlib.h&gt;
+  5 
+  6 
+  7 using namespace std;
+  8 /*
+  9 1. 哈夫曼编码-顺序存储方式
+ 10 2. 优先队列存储----堆存储
+ 11 */
+ 12 
+ 13 void huffmanTree(int huffman[][5],int n)
+ 14 {
+ 15 
+ 16     for (int i=0;i&lt;n;i++)
+ 17     {
+ 18         huffman[i][0] = i;
+ 19         cin &gt;&gt; huffman[i][1];
+ 20         huffman[i][2] = -1;
+ 21         huffman[i][3] = -1;
+ 22         huffman[i][4] = -1;
+ 23     }
+ 24     int num1 = 0,num2 = 0;
+ 25     float min1 = 9999,min2 = 9999;
+ 26 
+ 27     for (int i=0;i&lt;n-1;i++)
+ 28     {
+ 29         num1 = 0;
+ 30         num2 = 0;
+ 31         min1 = 9999;
+ 32         min2 = 9999;
+ 33         for (int j=0;j&lt;n+i;j++)
+ 34         {
+ 35             // 找到一组数中未被排序（没有父节点）的的最小值和次小值，最小值优先判断，判断完最小值后判断次小值
+ 36             if (huffman[j][2] == -1 &amp;&amp; huffman[j][1] &lt; min1 )
+ 37             {
+ 38                     if (min1 &lt; min2)
+ 39                 {
+ 40                     min2 = min1;
+ 41                     num2 = num1;
+ 42                 }
+ 43                 min1 = huffman[j][1];
+ 44                 num1 = j;
+ 45             }
+ 46             else if (huffman[j][2] == -1 &amp;&amp; huffman[j][1] &lt; min2)
+ 47             {
+ 48                 min2 = huffman[j][1];
+ 49                 num2 = j;
+ 50             }
+ 51         }
+ 52         huffman[n+i][0] = n+i;
+ 53         huffman[n+i][1] = huffman[num1][1]+huffman[num2][1];
+ 54         huffman[n+i][2] = -1;
+ 55         huffman[n+i][3] = num1;
+ 56         huffman[n+i][4] = num2;
+ 57         huffman[num1][2] = n+i;
+ 58         huffman[num2][2] = n+i;
+ 59 
+ 60     }
+ 61 }
+ 62 void printTree(int huffman[][5],int n)
+ 63 {
+ 64     for (int i=0;i&lt;2*n-1;i++)
+ 65     {
+ 66         for (int j=0;j&lt;5;j++)
+ 67             cout &lt;&lt; huffman[i][j] &lt;&lt; &#39; &#39;;
+ 68         cout &lt;&lt; endl;
+ 69     }
+ 70 }
+ 71 void huffmanCode(int huffman[][5],int n)
+ 72 {
+ 73     // 自顶向下法：找到根到所有孩子的路径，每条路径均对应一个孩子
+ 74     // 自底向上法：遍历每个叶子结点，往上寻找直到找到根为止
+ 75     char code[20];
+ 76     int q,parent;
+ 77     int j = 0;
+ 78     for (int i=0;i&lt;n;i++)
+ 79     {
+ 80         q = i;
+ 81         parent = huffman[q][2];
+ 82         j = 0;
+ 83         while (parent!=-1)
+ 84         {
+ 85             if (huffman[parent][3] == q)
+ 86             {
+ 87                 // q是parent的左孩子
+ 88                 code[j] = &#39;0&#39;;
+ 89             }
+ 90             if (huffman[parent][4] == q)
+ 91             {
+ 92                 code[j] = &#39;1&#39;;
+ 93             }
+ 94             j++;
+ 95             q = parent;
+ 96             parent = huffman[q][2];
+ 97         }
+ 98         code[j]  = &#39;\0&#39;;
+ 99         cout &lt;&lt; huffman[i][1] &lt;&lt; &quot; : &quot; &lt;&lt; code &lt;&lt; endl;
+100     }
+101 }
+102 char code[10];
+103 void printPath(int huffman[][5],int n,int root,int level)
+104 {
+105     // 打印从根节点到所有叶子结点的路径
+106     level ++;
+107     if (huffman[root][3] != -1 &amp;&amp; huffman[root][4]!=-1)
+108     {
+109         // 如果root不为根节点时
+110         code[level] = &#39;0&#39;;
+111         printPath(huffman,n,huffman[root][3],level);
+112         code[level] = &#39;1&#39;;
+113         printPath(huffman,n,huffman[root][4],level);
+114     }
+115     else {
+116         code[level] = &#39;\0&#39;;
+117         for (int i=1;i&lt;=level;i++)
+118             cout &lt;&lt; code[i];
+119         cout &lt;&lt; &#39; &#39; &lt;&lt; huffman[root][1] &lt;&lt;endl;
+120     }
+121 
+122 }
+123 
+124 // 课本上的代码方法，结构体数组封装一个结点而不是二维数组
+125 typedef struct HuffmanNode
+126 {
+127     int weight;
+128     int parent,lchild,rchild;
+129 }HuffmanNode,**HuffmanTree;
+130 
+131 typedef char ** HuffmanCode ; // 动态分配数组存储哈夫曼编码表
+132 
+133 
+134 void select_2(HuffmanTree t,int n,int &amp;s1,int &amp;s2)
+135 {
+136     int min1 = 9999,min2 = 9999;
+137     int num1=1,num2 = 1;
+138     for (int i=1;i&lt;=n;i++)
+139     {
+140         if (t[i]-&gt;weight &lt; min1)
+141         {
+142             if ( min2 &gt; min1 )
+143             { // 在替换min1之前判断min1舍弃的值是不是比min2小，如果是的话min2就占着大便宜!
+144                 min2 = min1;
+145                 num2 = num1;
+146             }
+147             num1 = i;
+148             min1 = t[i]-&gt;weight;
+149         }else if (t[i]-&gt;weight)
+150         {
+151             min2 = t[i]-&gt;weight;
+152             num2 = i;
+153         }
+154     }
+155     s1 = num1;
+156     s2 = num2;
+157 }
+158 void HuffmanCoding(HuffmanTree &amp;t,HuffmanCode &amp;c,int *w,int n)
+159 {
+160    if (n&lt;=1)
+161     return;
+162 
+163    int m = 2*n-1;
+164    t = (HuffmanTree)malloc(sizeof(HuffmanNode)*(m+1)); // m+1是因为0号单元未用
+165    for (int i=1;i&lt;=n;i++)
+166    {
+167        t[i]-&gt;weight = w[i];
+168        t[i]-&gt;parent = 0;
+169        t[i]-&gt;lchild = 0;
+170        t[i]-&gt;rchild = 0;
+171    }
+172    // 下面的循环可省略，因为遍历过程中一定会重新写一遍
+173    for (int i=n+1;i&lt;=m;i++)
+174    {
+175        t[i]-&gt;weight = 0 ;
+176        t[i]-&gt;parent = 0 ;
+177        t[i]-&gt;lchild = 0 ;
+178        t[i]-&gt;rchild = 0 ;
+179    }
+180     int s1,s2;
+181    // 建立哈夫曼树的循环
+182    for (int i = n+1;i&lt;=m;i++)
+183    {
+184        //找到1-i-1中的最小值和次小值
+185        select_2(t,i-1,s1,s2);
+186        t[s1]-&gt;parent = i;
+187        t[s2]-&gt;parent = i;
+188        t[i]-&gt;weight = t[s1]-&gt;weight+t[s2]-&gt;weight;
+189        t[i]-&gt;lchild = s1;
+190        t[i]-&gt;rchild = s2;
+191    }
+192 
+193    // 计算哈弗曼编码值，从叶子到根逆向求
+194    c = (char **)malloc(sizeof(char*)*(n+1));//n个字符的头指针向量，从1开始
+195    char *cd = (char *)malloc(n*sizeof(char));// 哈弗曼树的高度不会超过n
+196    cd[n-1] = &#39;\0&#39;;
+197    for (int i=1;i&lt;=n;i++)
+198    {
+199        int start = n-1;//倒着存储编码
+200        for (int c = i,f = t[i]-&gt;parent;f!=0;c=f,f = t[f]-&gt;parent)
+201         if (t[f]-&gt;lchild == c)
+202         cd[--start] = &#39;0&#39;;
+203        else
+204         cd[--start] = &#39;1&#39;;
+205 
+206        c[i] = (char *)malloc(sizeof(char)*(n-start));
+207        strcpy(c[i],&amp;cd[start]); // 复制编码
+208        /*
+209         char *p = (char *)malloc(sizeof(char)*10);
+210     p = &quot;helloworld&quot;;
+211     cout &lt;&lt; p &lt;&lt; endl;
+212     char *q = (char *)malloc(sizeof(char)*5);
+213     strcpy(q,&amp;p[5]);//两个参数都是地址，从起始地址到\0终止符之间的内容复制过去
+214     cout &lt;&lt; q;
+215     */
+216    }
+217 
+218    // // 无栈非递归遍历哈夫曼树，求哈夫曼编码
+219 
+220     c = (HuffmanCode)malloc((n+1)*sizeof(char *));
+221     int p = m;
+222     int cdlen = 0;
+223     for (int i=1;i&lt;=m;i++)
+224         t[i]-&gt;weight = 0; // 遍历哈夫曼树时用作结点状态标志
+225     while (p){
+226         if (t[p]-&gt;weight == 0 )
+227         {
+228             t[p]-&gt;weight = 1;
+229             if (t[p]-&gt;lchild!=0)
+230             { // 左右孩子均不为0的状况
+231                 p = t[p]-&gt;lchild;
+232                 cd[cdlen++] = &quot;0&quot;;
+233             }
+234             else if (t[p]-&gt;rchild == 0 )
+235             {
+236                 // 左右孩子均为0,P结点为叶节点，登记字符编码
+237                 c[p] = (char *)malloc((cdlen+1)*sizeof(char));
+238                 cd[cdlen] = &#39;\0&#39;;
+239                 strcpy(hc[p],cd);
+240             }
+241         }
+242         else if (t[p]-&gt;weight == 1){
+243             t[p]-&gt;weight = 2;
+244             if (t[p]-&gt;rchild != 0)
+245             {
+246                 p = t[p]-&gt;rchild;
+247                 cd[cdlen++] = &#39;1&#39;;
+248             }else 
+249             {
+250                 t[p]-&gt;weight = 0;
+251                 p = t[p]-&gt;parent;
+252                 --cdlen; //退回父节点，编码长度减一
+253             }
+254         }
+255     }
+256 }
+257 
+258 
+259 int main()
+260 {
+261     int n;
+262     cout &lt;&lt; &quot;n:&quot; &lt;&lt;endl;
+263     cin &gt;&gt; n;
+264 //    int huffman[2*n-1][5];
+265 //    huffmanTree(huffman,n);
+266 //    printTree(huffman,n);
+267 //    huffmanCode(huffman,n);
+268 //    int level = 0;
+269 //    printPath(huffman,n,2*n-2,level);
+270     HuffmanTree t;
+271     HuffmanCode c;
+272     int *w;
+273     for (int i=0;i&lt;n;i++)
+274         cin &gt;&gt; w[i];
+275     HuffmanCoding(t,c,w,n);
+276     return 0;
+277 }
+</code></pre><h4 id="机试指南的题，优先队列哈夫曼树"><a href="#机试指南的题，优先队列哈夫曼树" class="headerlink" title="机试指南的题，优先队列哈夫曼树"></a>机试指南的题，优先队列哈夫曼树</h4><p>优先队列的用法：<br>（1）priority_queue 默认设置大顶堆<br>（2）priority_queue</p>
+<pre><code>struct node  
+{  
+    friend bool operator&lt; (node n1, node n2)  
+    {  
+        return n1.priority &lt; n2.priority;  
+    }  
+    int priority;  
+    int value;  
+};
+</code></pre><ol>
+<li>比较运算符外置</li>
+</ol>
+<p>运算符重载：<br>用于对对象的运算符操作</p>
+<pre><code>box operator+(const box a,const box b) 
+{ 
+box c; 
+c.weight = a.weight+b.weight; 
+return c; 
+}
+</code></pre><p>友元函数：<br>1)C++中引入友元函数，是为在该类中提供一个对外（除了他自己意外）访问的窗口;<br>2)这个友元函数他不属于该类的成员函数，他是定义在类外的普通函数，只是在类中声明该函数可以直接访问类中的private或者protected成员。<br>3）友元函数可以访问类中的私有成员和其他数据，但是访问不可直接使用数据成员，需要通过对对象进行引用。</p>
+<p>// 输出哈夫曼树树顶元素</p>
+<pre><code> 1 int main()
+ 2 {
+ 3     int n;
+ 4     priority_queue&lt;int,vector&lt;int&gt;,greater&lt;int&gt; &gt; q;
+ 5     while (cin &gt;&gt; n)
+ 6     {
+ 7         while (!q.empty())
+ 8             q.pop(); // 清空小顶堆元素
+ 9 
+10         for (int i=1;i&lt;=n;i++)
+11         {
+12             int d;
+13             cin &gt;&gt; d;
+14             q.push(d);
+15         }
+16         int ans = 0;
+17         while (q.size() &gt; 1 )
+18         {
+19             int a = q.top();
+20             q.pop();
+21             int b = q.top();
+22             q.pop();
+23             q.push(a+b);
+24 
+25         }
+26         ans = q.top();
+27         cout &lt;&lt; ans &lt;&lt; endl;
+28     }
+29 
+30     return 0;
+31 }
+</code></pre><h4 id="搬水果-改版上面的代码，只需要把ans加起来"><a href="#搬水果-改版上面的代码，只需要把ans加起来" class="headerlink" title="搬水果 改版上面的代码，只需要把ans加起来"></a>搬水果 改版上面的代码，只需要把ans加起来</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;string.h&gt;
+ 3 #include &lt;stdio.h&gt;
+ 4 #include &lt;stdlib.h&gt;
+ 5 #include &lt;queue&gt;
+ 6 #include &lt;vector&gt;
+ 7 
+ 8 using namespace std;
+ 9 /*
+10 搬水果
+11 */
+12 
+13 
+14 int main()
+15 {
+16     int n;
+17     priority_queue&lt;int,vector&lt;int&gt;,greater&lt;int&gt; &gt; q;
+18     while (cin &gt;&gt; n)
+19     {
+20         while (!q.empty())
+21             q.pop(); // 清空小顶堆元素
+22 
+23         for (int i=1;i&lt;=n;i++)
+24         {
+25             int d;
+26             cin &gt;&gt; d;
+27             q.push(d);
+28         }
+29         int ans = 0;
+30         int sum = 0;
+31         while (q.size() &gt; 1 )
+32         {
+33             int a = q.top();
+34             q.pop();
+35             int b = q.top();
+36             q.pop();
+37             ans = a+b;
+38             q.push(ans);
+39             sum += ans;
+40 
+41         }
+42         cout &lt;&lt; sum &lt;&lt; endl;
+43     }
+44 
+45 
+46     return 0;
+47 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/21/计算机考研机试指南（七）——二叉树和二叉排序树/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          计算机考研机试指南（七）——二叉树和二叉排序树
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/21/计算机考研机试指南（六） ——栈/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">计算机考研机试指南（六） ——栈</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

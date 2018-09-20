@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>计算机考研机试指南（九）——搜索（百鸡问题、ABC、胜利大逃亡、迷宫问题、C翻转、旋转矩阵、字符串匹配、） | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="机试指南 cha6 搜索枚举百鸡问题 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;stdio.h&amp;gt;  3 #include &amp;lt;stdlib.h&amp;gt;  4 #include &amp;lt;vector&amp;gt;  5 #include &amp;lt;queue&amp;gt;  6 #include &amp;lt;map&amp;gt;  7 #include &amp;lt;str">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机考研机试指南（九）——搜索（百鸡问题、ABC、胜利大逃亡、迷宫问题、C翻转、旋转矩阵、字符串匹配、）">
+<meta property="og:url" content="http://yoursite.com/2018/08/21/计算机考研机试指南（九）——搜索（百鸡问题、ABC、胜利大逃亡、迷宫问题、C翻转、旋转矩阵、字符串匹配、）/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="机试指南 cha6 搜索枚举百鸡问题 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;stdio.h&amp;gt;  3 #include &amp;lt;stdlib.h&amp;gt;  4 #include &amp;lt;vector&amp;gt;  5 #include &amp;lt;queue&amp;gt;  6 #include &amp;lt;map&amp;gt;  7 #include &amp;lt;str">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:27.533Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算机考研机试指南（九）——搜索（百鸡问题、ABC、胜利大逃亡、迷宫问题、C翻转、旋转矩阵、字符串匹配、）">
+<meta name="twitter:description" content="机试指南 cha6 搜索枚举百鸡问题 1 #include &amp;lt;iostream&amp;gt;  2 #include &amp;lt;stdio.h&amp;gt;  3 #include &amp;lt;stdlib.h&amp;gt;  4 #include &amp;lt;vector&amp;gt;  5 #include &amp;lt;queue&amp;gt;  6 #include &amp;lt;map&amp;gt;  7 #include &amp;lt;str">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-计算机考研机试指南（九）——搜索（百鸡问题、ABC、胜利大逃亡、迷宫问题、C翻转、旋转矩阵、字符串匹配、）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      计算机考研机试指南（九）——搜索（百鸡问题、ABC、胜利大逃亡、迷宫问题、C翻转、旋转矩阵、字符串匹配、）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/21/计算机考研机试指南（九）——搜索（百鸡问题、ABC、胜利大逃亡、迷宫问题、C翻转、旋转矩阵、字符串匹配、）/" class="article-date">
+  <time datetime="2018-08-20T17:56:00.000Z" itemprop="datePublished">2018-08-21</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="机试指南-cha6-搜索"><a href="#机试指南-cha6-搜索" class="headerlink" title="机试指南 cha6 搜索"></a>机试指南 cha6 搜索</h3><h4 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h4><h4 id="百鸡问题"><a href="#百鸡问题" class="headerlink" title="百鸡问题"></a>百鸡问题</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;queue&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;string&gt;
+ 8 #define INFINITY 65535
+ 9 using namespace std;
+10 
+11 const int big = 5;
+12 const int mid = 3;
+13 const float small = 1/3;
+14 int main()
+15 {
+16     int n,x,y,z;
+17     while (cin&gt;&gt;n)
+18     {
+19         for (x = 0;x&lt;=n/big;x++ )
+20             for (y=0;y&lt;=n/mid;y++)
+21                 for (z=0;z&lt;=100;z++)
+22             {
+23                 float tmp = big*x+mid*y+(float)z/3;
+24                 if (x+y+z == 100 &amp;&amp;  tmp &lt;= n)
+25                 {
+26                     cout &lt;&lt; &quot;x=&quot;&lt;&lt;x&lt;&lt;&quot;,y=&quot;&lt;&lt;y&lt;&lt;&quot;,z=&quot;&lt;&lt;z&lt;&lt;endl;
+27                 }
+28             }
+29     }
+30 
+31     return 0 ;
+32 
+</code></pre><p>}</p>
+<h4 id="abc"><a href="#abc" class="headerlink" title="abc"></a>abc</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;queue&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;string&gt;
+ 8 #define INFINITY 65535
+ 9 using namespace std;
+10 
+11 const int num = 532;
+12 int cal(int a,int b,int c)
+13 {
+14     return 100*a+10*b+c;
+15 }
+16 int main()
+17 {
+18         int a,b,c;
+19         for (a = 0;a&lt;=9;a++ )
+20             for (b=0;b&lt;=9;b++)
+21                 for (c=0;c&lt;=9;c++)
+22             {
+23                 int tmp = cal(a,b,c)+cal(b,c,c);
+24                 if (tmp == num)
+25                 {
+26                     cout &lt;&lt;a&lt;&lt;&quot; &quot;&lt;&lt;b&lt;&lt;&quot; &quot;&lt;&lt;c&lt;&lt;endl;
+27                 }
+28             }
+29 
+30 
+31     return 0 ;
+32 }
+</code></pre><h4 id="广搜"><a href="#广搜" class="headerlink" title="广搜"></a>广搜</h4><h4 id="胜利大逃亡"><a href="#胜利大逃亡" class="headerlink" title="胜利大逃亡"></a>胜利大逃亡</h4><p>&gt;<br>提示内存不够：定义时不能多开辟数组空间，形成六面的”墙”，而是要判断是否超出边界的方式；提示运行时间过长，在把孩子结点加入队列后就立即判断是否是终止结点，而不是等到从队列中拿出的时候判断。这道题目的遗憾是1：自己通过思考做的方法就差一点巧妙的构思即可在本地通过编译；2.<br>牛客网的编译还是过不去，运行时间过长，不知道哪里的错误。</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;queue&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;string&gt;
+ 8 #define INFINITY 65535
+ 9 using namespace std;
+10 struct node
+11 {
+12     int x,y,z;
+13     int t;
+14 };
+15 int room[50][50][50];
+16 bool mark[50][50][50];
+17 queue&lt;node&gt; q;
+18 
+19 int dir[6][3] =
+20 {
+21     {0,0,1},{0,1,0},{0,0,-1},{0,-1,0},{1,0,0},{-1,0,0}
+22 };
+23 int mazePath(node s,node &amp;e,int a,int b,int c)
+24 {
+25     node t,child;
+26     q.push(s); // 放入初始结点
+27     while (!q.empty())
+28     {
+29         t = q.front(); q.pop();//队头出队
+30         room[t.x][t.y][t.z] = 1; // 已经访问过则不再访问
+31 
+32         // 当前节点不为最终节点时，把当前节点的孩子结点入队
+33         for (int i=0;i&lt;6;i++)
+34         {
+35             child = t;
+36             child.x += dir[i][0];
+37             child.y += dir[i][1];
+38             child.z += dir[i][2];
+39             // 下一个结点为墙
+40             if (room[child.x][child.y][child.z] == 1)
+41                 continue;
+42             // 超出迷宫边界
+43             if (child.x &lt; 0|| child.x &gt;=a || child.y &lt; 0|| child.y &gt;=b || child.z &lt; 0|| child.z &gt;=c)
+44                 continue;
+45             // 包含该坐标的状态已经被得到过，则丢弃
+46             if (mark[child.x][child.y][child.z] == true)
+47                 continue;
+48             child.t ++;
+49             q.push(child);
+50             mark[child.x][child.y][child.z] = true; // 标记
+51             if (child.x == e.x &amp;&amp; child.y == e.y &amp;&amp; child.z == e.z)
+52             {
+53                 return child.t;
+54             }
+55 
+56         }
+57     }
+58     return 0;
+59 }
+60 
+61 int main()
+62 {
+63     int k,a,b,c,t,i,j,m,n;
+64     node start,end,ex;
+65     while (scanf(&quot;%d&quot;,&amp;k)!=EOF)
+66     {
+67         for (i=0;i&lt;k;i++)
+68         {
+69             scanf(&quot;%d%d%d%d&quot;,&amp;a,&amp;b,&amp;c,&amp;t);
+70             for (j=0;j&lt;a;j++)
+71                 for (m=0;m&lt;b;m++)
+72                     for (n=0;n&lt;c;n++)
+73                     {
+74                         scanf(&quot;%d&quot;,&amp;room[j][m][n]);
+75                         mark[j][m][n] = false; // 初始化为false
+76                      }
+77            // (1,1,1) - &gt; (a,b,c)
+78            start.x = 0;start.y=0;start.z=0;
+79            start.t = 0;
+80            mark[0][0][0] = true;
+81            end.x = a-1;end.y=b-1;end.z=c-1;
+82           while (!q.empty())
+83                 q.pop();
+84           int ans = mazePath(start,end,a,b,c);
+85           if (ans &lt;= t &amp;&amp; ans &gt; 0)
+86             cout &lt;&lt; ans &lt;&lt; endl;
+87           else
+88             cout &lt;&lt; -1 &lt;&lt; endl;
+89 
+90 
+91 
+92         }
+93     }
+94     return 0 ;
+95 }
+</code></pre><h4 id="迷宫问题"><a href="#迷宫问题" class="headerlink" title="迷宫问题"></a>迷宫问题</h4><blockquote>
+<p>严版数据结构课本的伪代码</p>
+</blockquote>
+<pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;stdio.h&gt;
+  3 #include &lt;stdlib.h&gt;
+  4 #include &lt;vector&gt;
+  5 #include &lt;queue&gt;
+  6 #include &lt;stack&gt;
+  7 #include &lt;string&gt;
+  8 using namespace std;
+  9 
+ 10 // 迷宫求解
+ 11 
+ 12 
+ 13 // 结构体
+ 14 typedef struct
+ 15 {
+ 16     int x;
+ 17     int y;
+ 18     bool foot; // 是否走到过该通道
+ 19 }posType;
+ 20 
+ 21 typedef struct
+ 22 {
+ 23     int ord;//通道块在路径上的序号
+ 24     posType seat; // 通道块在迷宫中的坐标
+ 25     int di;// 从此通道块走向下一通道块的方向
+ 26 }elemType; // 栈的元素类型
+ 27 
+ 28 // 全局变量声明
+ 29 stack&lt;elemType&gt; s;
+ 30 int a[6][6];
+ 31 
+ 32 // 函数
+ 33 void footPrint(posType p)
+ 34 {
+ 35     p.foot = true;
+ 36 }
+ 37 
+ 38 bool pass(posType p)
+ 39 {
+ 40     // 不可通的含义：不是通道；不在当前路径上；不是纳入路径上的通道块
+ 41     if (a[p.x][p.y] == 1)
+ 42         return false;
+ 43     else return true;
+ 44 
+ 45 }
+ 46 
+ 47 posType nextPos(posType p,int d)
+ 48 {
+ 49     posType tmp;
+ 50     tmp.x = p.x+1;tmp.y = p.y+1;tmp.foot = p.foot;
+ 51     return tmp;
+ 52 }
+ 53 
+ 54 bool mazePath(int a[6][6],posType start,posType end)
+ 55 {
+ 56     // 将从start到end的通道路径存放在栈中,找到路径返回true，否则返回false
+ 57     while (!s.empty())
+ 58         s.pop(); // initStack()
+ 59     posType curpos = start; // 把坐标封装起来
+ 60     elemType e;
+ 61     int curstep = 1; // 探索第一步
+ 62     do {
+ 63         if (pass(curpos)) // 是未曾走到过的通道块
+ 64         {
+ 65             footPrint(curpos); // 留下足迹
+ 66             e = {curstep,curpos,1}; // 1,2,3,4代表东南西北
+ 67             s.push(e);
+ 68             if (curpos == end)
+ 69                 return true;
+ 70             curpos = nextPos(curpos,1);
+ 71             curstep++;
+ 72         }else {
+ 73         if (!s.empty())// 当前位置不能通过
+ 74         {
+ 75            e = s.top();s.pop();
+ 76            while (e.di == 4 &amp;&amp; !s.empty())
+ 77            {
+ 78                markPrint(e.seat);//留下不能通过的标记
+ 79                s.pop();
+ 80 
+ 81            }
+ 82            if (e.di &lt; 4)
+ 83            {
+ 84                e.di++;
+ 85                s.push(e);
+ 86                curpos = nextPos(e.seat,e.di);
+ 87            }
+ 88         }
+ 89         }
+ 90     }while (!s.empty());
+ 91     return false;
+ 92 
+ 93 }
+ 94 int main()
+ 95 {
+ 96     int n,m,i,j;
+ 97     posType start,end;
+ 98     while (cin&gt;&gt;n&gt;&gt;m)
+ 99     {
+100         for (i=0;i&lt;=5;i++)
+101             for (j=0;j&lt;=5;j++)
+102             {
+103                 if (i==0||j==0)
+104                     a[i][j] = 1;
+105                 else
+106                     cin &gt;&gt; a[i][j];
+107             }
+108         // (1,1) -&gt; (5,5) 最短路径 输出坐标
+109         end.x = 5;end.y=5;end.foot = false;
+110         start.x = 1;start.y=1;start.foot = false;
+111         mazePath(a,start,end);
+112 
+113 
+114     }
+115     return 0 ;
+116 }
+</code></pre><blockquote>
+<p>深搜</p>
+</blockquote>
+<pre><code> 1 #include&lt;iostream&gt;
+ 2 #include&lt;string&gt;
+ 3 #include&lt;list&gt;
+ 4 #define M 8
+ 5 #define N 8
+ 6 using namespace std;
+ 7 
+ 8 /*
+ 9 每次按照dir的方向进行深度优先搜索，可以走则走并标记，否则，
+10 回溯并清除标记，直到找到右下角的出口。
+11 */
+12 
+13 // 迷宫，Maze[i][j] = 0 代表ij可以走, arr[i][j]=1表示不能走
+14 int Maze[M+2][N+2] = {
+15         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+16         {1, 0, 0, 0, 1, 1, 0, 1, 1, 1},
+17         {1, 1, 1, 0, 1, 1, 0, 1, 1, 1},
+18         {1, 1, 0, 0, 0, 0, 0, 1, 1, 1},
+19         {1, 1, 0, 0, 1, 1, 1, 0, 0, 1},
+20         {1, 1, 0, 0, 0, 0, 0, 0, 0, 1},
+21         {1, 1, 0, 1, 0, 1, 0, 0, 1, 1},
+22         {1, 0, 0, 1, 1, 1, 0, 0, 0, 1},
+23         {1, 1, 1, 1, 1, 1, 1, 1, 0, 1},
+24         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+25 };
+26 
+27 // 四个方向，分别代表上，下，左，右，这里注意x和y的方向和笛卡尔坐标系的方向相反
+28 int dir[4][2] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+29 
+30 // 节点信息，x代表横坐标，y代表纵坐标
+31 struct Node
+32 {
+33     int x;
+34     int y;
+35     // 初始化位置结点的构造函数
+36     Node (int x1, int y1){
+37     x = x1;y=y1;
+38     }
+39 };
+40 
+41 
+42 // 打印路径，使用链表，易于输出
+43 void print_path(list&lt;Node&gt; path)
+44 {
+45     while(!path.empty())
+46     {
+47         cout &lt;&lt; &quot;(&quot; &lt;&lt; path.front().x &lt;&lt; &quot;,&quot; &lt;&lt; path.front().y &lt;&lt; &quot;)&quot; &lt;&lt; endl;
+48         path.pop_front(); // front()求链表头，pop_front()弹头，我感觉用vector也可以
+49     }
+50 }
+51 
+52 int DFS(Node cur, Node end, list&lt;Node&gt; &amp;path) // 当前节点，出口
+53 {
+54     Maze[cur.x][cur.y] = 1;     // 标记此节点已走过，设置为墙1
+55     path.push_back(cur);        // 将当前节点加入路径栈
+56 
+57     // 当前坐标等于结束坐标时结束遍历，并打印路径
+58     if(cur.x == end.x &amp;&amp; cur.y == end.y)
+59     {
+60         print_path(path);       //打印路径
+61         return 1;
+62     }
+63 
+64     // 从4个方向分别探索
+65     for(int i = 0; i &lt; 4; ++i)
+66     {
+67         // 构造下一个要进行探索的点
+68         Node next(cur.x + dir[i][0], cur.y + dir[i][1]);
+69         //  判断下个点是否可行
+70         if(Maze[next.x][next.y] == 0)
+71         {
+72             // 递归进行下一位置的查找
+73             // 如果一直可以先向下查找，直到找到终点，最底层函数就会返回1，接着返回到倒数第二层，执行if语句，接着返回1。
+74             // 直到跳出整个递归函数。
+75             if(DFS(next, end, path) == 1)
+76                 return 1;
+77         }
+78     }
+79 
+80     // 如果该节点几个方向均已遍历，而且都不可行，该节点出栈，回溯
+81     path.pop_back();
+82 
+83     return 0;
+84 }
+85 
+86 int main( )
+87 {
+88     list&lt;Node&gt; path;          // 存取路径，使用双向链表存储，Node为位置结点
+89     Node sta(1, 1), end(8, 8);  // 记录开始和结束坐标
+90 
+91     if(DFS(sta, end, path) == 0)
+92         cout &lt;&lt; &quot;no path&quot; &lt;&lt; endl;
+93 }
+</code></pre><blockquote>
+<p>广搜</p>
+</blockquote>
+<pre><code>  1 #include &lt;iostream&gt;
+  2 #include &lt;fstream&gt;
+  3 #include &lt;stack&gt;
+  4 #include &lt;vector&gt;
+  5 #include &lt;queue&gt;
+  6 using namespace std;
+  7 
+  8 const int MAX = 10;
+  9 
+ 10 struct node {
+ 11     int x,y,fx,fy;
+ 12     int content;
+ 13     bool visited;
+ 14 };
+ 15 
+ 16 node laby[MAX][MAX];
+ 17 
+ 18 void BFS(int sx, int sy,int ex, int ey) {
+ 19 
+ 20     queue&lt;node&gt; myQueue;
+ 21 
+ 22     node temp = laby[sx][sy];
+ 23     myQueue.push(temp);
+ 24 
+ 25     int delx[4] = {0,0,-1,1};
+ 26     int dely[4] = {1,-1,0,0};
+ 27 
+ 28     while (!myQueue.empty()) {
+ 29         node currentNode = myQueue.front();
+ 30 
+ 31         myQueue.pop();
+ 32 
+ 33         int m = currentNode.x;
+ 34         int n = currentNode.y;
+ 35 
+ 36         currentNode.visited = true;
+ 37 
+ 38         if (currentNode.x == ex &amp;&amp; currentNode.y == ey) {
+ 39             break;
+ 40         }
+ 41 
+ 42         for(int i = 0; i &lt; 4;i++) {
+ 43             int next_m = m + delx[i];
+ 44             int next_n = n + dely[i];
+ 45             if (next_m &lt; 0 || next_m &gt;= MAX || next_n &lt; 0 || next_n &gt;= MAX) continue;
+ 46 
+ 47             if (laby[next_m][next_n].content != 1 &amp;&amp; laby[next_m][next_n].visited == false) {
+ 48                 laby[next_m][next_n].fx = m;
+ 49                 laby[next_m][next_n].fy = n;
+ 50                 myQueue.push(laby[next_m][next_n]);
+ 51                 laby[next_m][next_n].visited = true;
+ 52             }
+ 53         }
+ 54     }
+ 55 
+ 56     int backx = ex, backy = ey;
+ 57     int step = 0;
+ 58     stack&lt;node&gt; showStack;
+ 59 
+ 60     while (backx != sx || backy != sy) {
+ 61 
+ 62         showStack.push(laby[backx][backy]);
+ 63 
+ 64         int tempBackx = laby[backx][backy].fx;
+ 65         int tempBacky = laby[backx][backy].fy;
+ 66 
+ 67         backx = tempBackx;
+ 68         backy = tempBacky;
+ 69 
+ 70         step++;
+ 71     }
+ 72 
+ 73     cout&lt;&lt;&quot;Path:&quot;&lt;&lt;endl;
+ 74     while (!showStack.empty()) {
+ 75         node current = showStack.top();
+ 76         showStack.pop();
+ 77         cout&lt;&lt;&#39;(&#39;&lt;&lt;current.x&lt;&lt;&#39;,&#39;&lt;&lt;current.y&lt;&lt;&quot;) &quot;;
+ 78     }
+ 79     cout&lt;&lt;endl;
+ 80 
+ 81     cout&lt;&lt;&quot;total steps:&quot;&lt;&lt;step&lt;&lt;endl;
+ 82 }
+ 83 
+ 84 
+ 85 int main(int argc, const char * argv[]) {
+ 86 
+ 87     ifstream in;
+ 88     in.open(&quot;laby.txt&quot;,ios::in);
+ 89 
+ 90     if (!in) {
+ 91         cerr&lt;&lt;&quot;file not existed!&quot;&lt;&lt;endl;
+ 92         exit(1);
+ 93     }
+ 94 
+ 95     int sx,sy,ex,ey;
+ 96 
+ 97     int curNum;
+ 98     int m = 0, n = 0;
+ 99 
+100     while (!in.eof()) {
+101         in&gt;&gt;curNum;
+102         laby[m][n].content = curNum;
+103         laby[m][n].x = m;
+104         laby[m][n].y = n;
+105         laby[m][n].visited = false;
+106         if (curNum == 5) {
+107             sx = m;
+108             sy = n;
+109         }
+110         if (curNum == 8) {
+111             ex = m;
+112             ey = n;
+113         }
+114         n ++;
+115         if (n == MAX) {
+116             n = 0;
+117             m++;
+118         }
+119     }
+120 
+121     for(int i = 0; i &lt; MAX; i++) {
+122         for(int j = 0; j &lt; MAX; j++) {
+123             cout&lt;&lt;laby[i][j].content&lt;&lt;&quot; &quot;;
+124         }
+125         cout&lt;&lt;endl;
+126     }
+127     cout&lt;&lt;endl;
+128 
+129     BFS(sx, sy, ex, ey);
+130     return 0;
+131 }
+</code></pre><blockquote>
+<p>虚拟队列 求最短的路径</p>
+</blockquote>
+<pre><code> 1 #include &lt;iostream&gt;  
+ 2 #include &lt;vector&gt;  
+ 3 #include &lt;stack&gt;  
+ 4 #define M 8  
+ 5 #define N 8  
+ 6 
+ 7 using namespace std;  
+ 8 
+ 9 // 迷宫，Maze[i][j] = 0 代表ij可以走, arr[i][j]=1表示不能走  
+10 int Maze[M+2][N+2] = {  
+11         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},  
+12         {1, 0, 0, 0, 1, 1, 0, 1, 1, 1},  
+13         {1, 1, 1, 0, 1, 1, 0, 1, 1, 1},  
+14         {1, 1, 0, 0, 0, 0, 0, 1, 1, 1},  
+15         {1, 1, 0, 0, 1, 1, 1, 0, 0, 1},  
+16         {1, 1, 0, 0, 0, 0, 0, 0, 0, 1},  
+17         {1, 1, 0, 1, 0, 1, 0, 0, 1, 1},  
+18         {1, 0, 0, 1, 1, 1, 0, 0, 0, 1},  
+19         {1, 1, 1, 1, 1, 1, 1, 1, 0, 1},  
+20         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}  
+21 };  
+22 
+23 
+24 // 节点信息，x代表横坐标，y代表纵坐标  
+25 struct Node  
+26 {  
+27     int x;  
+28     int y;  
+29     Node (int x1, int y1):x(x1), y(y1) {}  
+30 };  
+31 
+32 // 虚拟队列中的节点及其前驱信息  
+33 struct QueueElem  
+34 {  
+35     int pre;        // 该节点入队时的前驱节点在虚拟队列中的位置  
+36     Node node;  
+37     QueueElem(Node node1, int pre1):node(node1), pre(pre1) {}  
+38 };  
+39 
+40 void print_path(vector&lt;QueueElem&gt; &amp;que)  
+41 {  
+42     stack&lt;QueueElem&gt; s;  
+43 
+44     QueueElem qe = que.back();  
+45     while(qe.pre != -1)  
+46     {  
+47         s.push(qe);  
+48         qe = que[qe.pre];  
+49     }  
+50 
+51     while(!s.empty())  
+52     {  
+53         qe = s.top();  
+54         s.pop();  
+55         cout &lt;&lt; &quot;(&quot; &lt;&lt; qe.node.x &lt;&lt; &quot;,&quot; &lt;&lt; qe.node.y &lt;&lt; &quot;)&quot; &lt;&lt; endl;  
+56     }  
+57 }  
+58 
+59 
+60 void maze_shortest(Node start, Node des)  
+61 {  
+62     int dir[4][2] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};  
+63     vector&lt;QueueElem&gt; que;                  // 用于记录节点入队顺序  
+64     int head = 0;                           // 用于指向队列头部  
+65 
+66     que.push_back(QueueElem(start, -1));    // 初始点入队，其前驱为-1  
+67     while(head &lt; que.size())                // 当虚拟队列非空时  
+68     {  
+69         Node cur = que[head].node;  
+70 
+71         for(int i = 0; i &lt; 4; ++i)  
+72         {  
+73             Node next(cur.x + dir[i][0], cur.y + dir[i][1]);  
+74 
+75             if(Maze[next.x][next.y] == 0)   // 下一节点可走  
+76             {  
+77                 // 下一节点入队  
+78                 que.push_back(QueueElem(next, head));  
+79                 if(next.x == des.x &amp;&amp; next.y == des.y)  
+80                 {  
+81                     print_path(que);  
+82                     return;  
+83                 }  
+84             }  
+85         }  
+86         head++;         // 虚拟出队  
+87     }  
+88 }  
+89 
+90 
+91 int main()  
+92 {  
+93     Node start(1, 1), des(8, 8);    // 记录开始和结束坐标  
+94 
+95     maze_shortest(start, des);  
+96 }  
+</code></pre><h4 id="2018-5-16-搜索"><a href="#2018-5-16-搜索" class="headerlink" title="2018/5/16 搜索"></a>2018/5/16 搜索</h4><h3 id="迷宫问题-1"><a href="#迷宫问题-1" class="headerlink" title="迷宫问题"></a>迷宫问题</h3><p>&gt;<br>这道题做的时候是自己独立思考出来的，但最后却花了更多的时间在调试错误上面，这个OJ用了两个月了，为什么这么基础的问题还要不断的犯错误呢？但调试功底见长是真的，耗时长也是真的，所有的耗时长都是因为练习不够。</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;stack&gt;
+ 5 #include &lt;queue&gt;
+ 6 using namespace std;
+ 7 
+ 8 struct node
+ 9 {
+10     int x,y;
+11 };
+12 int a[12][12];
+13 int dir[4][2] =
+14 {// 东南西北
+15     {0,1},{1,0},{0,-1},{-1,0}
+16 };
+17 queue&lt;node&gt; st;
+18 void printPath();
+19 int mazePath(node s,node e)
+20 {
+21     node next = s;
+22     int ans ;
+23     a[s.x][s.y] = 1;//表示该结点已经走过，记为墙
+24     // 先判断当前节点是否为最终节点
+25     if (s.x == e.x &amp;&amp; s.y == e.y)
+26     {
+27         printPath();
+28        return 1;
+29     }
+30 
+31     // 当前节点不等于最终节点,最理想的状态是一直往东走
+32     for (int i=0;i&lt;4;i++)
+33     {
+34         // 向四个方向走一步，递归
+35         next = s;
+36         next.x += dir[i][0];
+37         next.y += dir[i][1];
+38         if (a[next.x][next.y] == 0){ // 能走通则压栈，继续走
+39             st.push(next);
+40             ans  = mazePath(next,e);
+41             if (ans == 1)
+42                 return 1;
+43         }
+44 
+45     }
+46     // 如果这一层的四个方向均走不通，出栈
+47         st.pop();
+48         return 0;
+49 }
+50 
+51 void printPath()
+52 {
+53     node t;
+54     while (!st.empty())
+55     {
+56         t = st.front();
+57         cout &lt;&lt; &quot;(&quot; &lt;&lt; t.x-1&lt;&lt;&quot;,&quot;&lt;&lt;t.y-1&lt;&lt;&quot;)&quot;&lt;&lt;endl;
+58         st.pop();
+59     }
+60 }
+61 void printA(int n,int m)
+62 {
+63     for (int i=0;i&lt;=n;i++)
+64     {
+65         for (int j=0;j&lt;=m;j++)
+66             cout &lt;&lt; a[i][j] &lt;&lt;&quot; &quot;;
+67         cout &lt;&lt; endl;
+68     }
+69 
+70 }
+71 int main()
+72 {
+73     int n,m,i,j;
+74     node start,end;
+75     while (cin&gt;&gt;n&gt;&gt;m{
+76 
+77         for (i=0;i&lt;=n+1;i++)
+78             for (j=0;j&lt;=m+1;j++)
+79             {// 四周筑墙
+80                 if (i==0||j==0 || i==(n+1) || j==(m+1))
+81                     a[i][j] = 1;
+82                 else
+83                     cin &gt;&gt; a[i][j];
+84             }
+85         // (1,1) -&gt; (5,5) 最短路径 输出坐标
+86         start.x = 1;start.y=1;
+87         end.x = n;end.y=m;
+88         while (!st.empty())
+89             st.pop();
+90         st.push(start);
+91         mazePath(start,end);
+92 }
+93 
+94 
+95 
+96     return 0 ;
+97 }
+</code></pre><h3 id="北航机试题"><a href="#北航机试题" class="headerlink" title="北航机试题"></a>北航机试题</h3><h4 id="C翻转"><a href="#C翻转" class="headerlink" title="C翻转"></a>C翻转</h4><blockquote>
+<p>这是一道找规律的题目。temp数组的设置比较巧妙。<br> 原矩阵：<br> 1 2 3<br> 4 5 6<br> 7 8 9<br> 顺时针旋转：<br> 7 4 1<br> 8 5 2<br> 9 6 3<br> 数组i=0的变化：<br> 11 - 13<br> 12 - 23<br> 13 - 33<br> 数组i=1的变化：<br> 21 - 12<br> 22 - 22<br> 23 - 32<br> 数组i=3的变化<br> 31 - 11<br> 32 - 21<br> 33 - 31</p>
+</blockquote>
+<p>原矩阵：<br>1 2 3<br>4 5 6<br>7 8 9<br>逆时针旋转：<br>3 6 9<br>2 5 8<br>1 4 7<br>数组i=0的变化：<br>11 - 31<br>12 - 21<br>13 - 11<br>数组i=1的变化：<br>21 - 32<br>22 - 22<br>23 - 12<br>数组i=3的变化<br>31 - 33<br>32 - 23<br>33 - 13</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;queue&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;string&gt;
+ 8 #define INFINITY 65535
+ 9 using namespace std;
+10 
+11 int a[6][6];
+12 
+13 void reverse(int op1,int op2,int x,int y)
+14 {
+15     // op1 : 1 顺时针 op2 :2为4个数，3为9个数， 以（x,y）为左上角翻转op2^2个数
+16     int i,j,temp[op2+1][op2+1];
+17     for (i=1;i&lt;=op2;i++)
+18         for (j=1;j&lt;=op2;j++)
+19     {
+20         if (op1 == 1)
+21         {
+22             // 顺时针。按照一行一行从左到右的顺序，依次放入temp中转置后应该在的位置
+23             temp[j][op2+1-i] = a[x+i-1][y+j-1];
+24         }
+25         else
+26         {
+27             temp[op2+1-j][i] = a[x+i-1][y+j-1];
+28         }
+29     }
+30     // 现在temp数组中即为转置后的数组顺序，只要赋值到a中相应的位置并输出即可
+31     for (i=x;i&lt;x+op2;i++)
+32         for (j=y;j&lt;y+op2;j++)
+33             a[i][j] = temp[i-x+1][j-y+1];
+34 }
+35 
+36 int main()
+37 {
+38     int i,j,op1,op2,x,y;
+39     for (i=1;i&lt;=5;i++)
+40         for (j=1;j&lt;=5;j++)
+41             cin &gt;&gt; a[i][j];
+42     cin &gt;&gt; op1 &gt;&gt; op2 &gt;&gt; x &gt;&gt; y;
+43     reverse(op1,op2,x,y);
+44     for (i=1;i&lt;6;i++)
+45     {
+46         for (j=1;j&lt;6;j++)
+47         {
+48             cout &lt;&lt; a[i][j]&lt;&lt; &quot; &quot;;
+49         }
+50         cout &lt;&lt; endl;
+51     }
+52 
+53 
+54     return 0 ;
+55 }
+</code></pre><h4 id="旋转矩阵"><a href="#旋转矩阵" class="headerlink" title="旋转矩阵"></a>旋转矩阵</h4><p>&gt;<br>这道题我的第一个想法是：把第一个矩阵旋转四个角度，看得到的矩阵是否和第二个矩阵相等，但是这样太麻烦了！判断标准有两个，正确旋转结果相同或者存在一个错误旋转结果，则直接否定该种旋转方案。</p>
+<pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;queue&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;string&gt;
+ 8 #define INFINITY 65535
+ 9 using namespace std;
+10 
+11 int a[10][10],b[10][10];
+12 int main()
+13 {
+14     int n,i,j;
+15     bool flag[4] = {true,true,true,true};  // 0 90 180 270
+16     cin &gt;&gt; n;
+17     for (i=0;i&lt;n;i++)
+18         for (j=0;j&lt;n;j++)
+19             cin &gt;&gt; a[i][j];
+20     for (i=0;i&lt;n;i++)
+21         for (j=0;j&lt;n;j++)
+22             cin &gt;&gt; b[i][j];
+23 
+24     for (i=0;i&lt;n;i++)
+25         for (j=0;j&lt;n;j++)
+26     {
+27         // 对所有的a[i][j]进行判别
+28         if (a[i][j] != b[i][j])
+29             flag[0] = false;
+30         if (a[i][j] != b[j][n-1-i])
+31             flag[1] = false;
+32         if (a[i][j] != b[n-1-i][n-1-j])
+33             flag[2] = false;
+34         if (a[i][j] != b[n-1-j][i])
+35             flag[3] = false;
+36     }
+37 
+38     for (i=0;i&lt;4;i++)
+39         if (flag[i] == true)
+40     {
+41         cout &lt;&lt; i*90 &lt;&lt; endl;
+42         return 0 ;
+43     }
+44     cout &lt;&lt; -1 &lt;&lt; endl;
+45     return 0 ;
+46 }
+</code></pre><h4 id="字符串匹配"><a href="#字符串匹配" class="headerlink" title="字符串匹配"></a>字符串匹配</h4><pre><code> 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;stdlib.h&gt;
+ 4 #include &lt;vector&gt;
+ 5 #include &lt;queue&gt;
+ 6 #include &lt;map&gt;
+ 7 #include &lt;string&gt;
+ 8 #include &lt;string.h&gt;
+ 9 #define INFINITY 65535
+10 using namespace std;
+11 
+12 string a[1000];
+13 string lower(string a)
+14 {
+15     for (int i=0;i&lt;a.length();i++)
+16     {
+17         if (a[i]&gt;= &#39;A&#39; &amp;&amp; a[i] &lt;= &#39;Z&#39;)
+18             a[i] = a[i] - &#39;A&#39;+&#39;a&#39;;
+19     }
+20     return a;
+21 }
+22 void match(int n,string b)
+23 {
+24     for (int i=0;i&lt;n;i++)
+25     {
+26         if (lower(b) == lower(a[i]))
+27         {
+28           cout &lt;&lt; i+1 &lt;&lt; &quot; &quot; &lt;&lt; a[i]&lt;&lt;endl;
+29         }
+30     }
+31 }
+32 int main()
+33 {
+34     int n,i;
+35     string b, m, tmp1, tmp2, new1;
+36     while (cin&gt;&gt;n)
+37     {
+38         for (i=0;i&lt;n;i++)
+39             cin &gt;&gt; a[i];
+40         cin &gt;&gt; b;
+41         // b中可以有一个模式匹配，中括号内的字符中的任意一个即可
+42         int pos1 = b.find(&quot;[&quot;); // 找到返回索引，否则返回-1
+43         int pos2 = b.find(&quot;]&quot;); // 找到返回索引，否则返回-1
+44 
+45         if (pos1 == -1 )
+46         {
+47             match(n,b);
+48         }
+49         else
+50         {
+51             m = b.substr(pos1+1,pos2-pos1-1);
+52             tmp1 = b.substr(0,pos1);
+53             tmp2 = b.substr(pos2+1,b.length()-pos2);
+54             for (i=0;i&lt;m.length();i++)
+55             {
+56                 new1 = tmp1+m[i]+tmp2;
+57                 match(n,new1);
+58             }
+59         }
+60 
+61 
+62     }
+63     return 0 ;
+64 }
+</code></pre><blockquote>
+<p>通过率大概百分之18，题目描述地不太清楚。</p>
+</blockquote>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/21/搜索+DP专题（背包问题、N个数选K个使平方和最大且和为X、divide by three, multiple by two、全排列、组合、N皇后、jugs、掉石头迷宫、斐波那契、最大连续子序列和、最长上升子序列、非常可乐、导弹拦截系统：最长不降子序列）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          搜索+DP专题（背包问题、N个数选K个使平方和最大且和为X、divide by three, multiple by two、全排列、组合、N皇后、jugs、掉石头迷宫、斐波那契、最大连续子序列和、最长上升子序列、非常可乐、导弹拦截系统：最长不降子序列）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/21/计算机考研机试指南（八）——图论（畅通工程、还是畅通工程、最短路、more is better、Freckles、legal or not、确定比赛名次、产生冠军、最短路径问题）/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">计算机考研机试指南（八）——图论（畅通工程、还是畅通工程、最短路、more is better、Freckles、legal or not、确定比赛名次、产生冠军、最短路径问题）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

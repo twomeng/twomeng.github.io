@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>老鼠的旅行 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="题目源地址 Description一只老鼠有M磅猫食，然后在N个房间里面用猫食换JavaBean，房间i中能用F[i]磅的猫食来换J[i]磅的JavaBean，而且老鼠可以在一个房间里根据一定比例a%来换取JavaBean. 现在他是这任务分配给你：告诉他，他的JavaBeans的获取能最多。 InputThe input consists of multiple test cases. Each">
+<meta property="og:type" content="article">
+<meta property="og:title" content="老鼠的旅行">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/老鼠的旅行/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题目源地址 Description一只老鼠有M磅猫食，然后在N个房间里面用猫食换JavaBean，房间i中能用F[i]磅的猫食来换J[i]磅的JavaBean，而且老鼠可以在一个房间里根据一定比例a%来换取JavaBean. 现在他是这任务分配给你：告诉他，他的JavaBeans的获取能最多。 InputThe input consists of multiple test cases. Each">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:30.511Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="老鼠的旅行">
+<meta name="twitter:description" content="题目源地址 Description一只老鼠有M磅猫食，然后在N个房间里面用猫食换JavaBean，房间i中能用F[i]磅的猫食来换J[i]磅的JavaBean，而且老鼠可以在一个房间里根据一定比例a%来换取JavaBean. 现在他是这任务分配给你：告诉他，他的JavaBeans的获取能最多。 InputThe input consists of multiple test cases. Each">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-老鼠的旅行" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      老鼠的旅行
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/老鼠的旅行/" class="article-date">
+  <time datetime="2018-08-14T01:33:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://acm.nefu.edu.cn/JudgeOnline/problemShow.php?problem_id=75" target="_blank" rel="noopener">题目源地址</a></p>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><pre><code>一只老鼠有M磅猫食，然后在N个房间里面用猫食换JavaBean，房间i中能用F[i]磅的猫食来换J[i]磅的JavaBean，而且老鼠可以在一个房间里根据一定比例a%来换取JavaBean.
+现在他是这任务分配给你：告诉他，他的JavaBeans的获取能最多。
+</code></pre><h3 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h3><pre><code>The input consists of multiple test cases. Each test case begins with a line containing two non-negative integers M and N. Then N lines follow, each contains two non-negative integers J[i] and F[i] respectively. The last test case is followed by two -1′s. All integers are not greater than 1000.
+M是开始时老鼠有的猫食！
+</code></pre><h3 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h3><pre><code>For each test case, print in a single line a real number accurate up to 3 decimal places, which is the maximum amount of JavaBeans that FatMouse can obtain.
+</code></pre><h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input"></a>Sample Input</h3><pre><code>5 3
+7 2
+4 3
+5 2
+20 3
+25 18
+24 15
+15 10
+-1 -1
+</code></pre><h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output"></a>Sample Output</h3><pre><code>13.333
+31.500
+
+
+ 1 #include &lt;iostream&gt;
+ 2 #include &lt;stdio.h&gt;
+ 3 #include &lt;algorithm&gt;
+ 4 using namespace std;
+ 5 struct sa{
+ 6 int j;
+ 7 int f;
+ 8 double awk;
+ 9 }data[1001];
+10 int cmp(const sa &amp;a,const sa &amp;b)
+11 {
+12     return (a.awk)&gt;(b.awk);//为什么要用const 
+13 }
+14 
+15 int main()
+16 {
+17     int m,n;
+18     double sum;
+19     int i;
+20     while (cin&gt;&gt;m&gt;&gt;n)
+21     {
+22         sum=0;
+23         if (m==-1&amp;&amp;n==-1)
+24         break;
+25         for (i=0;i&lt;n;i++)
+26         {
+27             cin&gt;&gt;data[i].j&gt;&gt;data[i].f;
+28             data[i].awk=(double)data[i].j/data[i].f;
+29         }
+30         sort (data,data+n,cmp);
+31         for (i=0;i&lt;n;i++)
+32         {
+33             if (m&gt;=data[i].f)
+34             {
+35                 sum=sum+data[i].j;
+36                 m=m-data[i].f;
+37 
+38             }
+39             else
+40             {
+41                sum=sum+m*data[i].awk;//m很小的时候一个个算
+42                break;//没走完所有的房间就没有猫粮了
+43             }
+44 
+45         }printf (&quot;%.3f\n&quot;,sum);
+46     }
+47 
+48     return 0;
+49 }
+</code></pre><p>贪心算法： 贪心法并不是从整体最优考虑，它所做出的选择只是在某种意义上的局部最优。 这种局部最优选择并不总能获得整体最优解（Optimal<br>Solution），但通常能获得近似最优解（Near-Optimal Solution）。 例：用贪心法求解付款问题。<br>假设有面值为5元、2元、1元、5角、2角、1角的货币，需要找给顾客4元6角现金，为使付出的货币的数量最少，首先选出1张面值不超过4元6角的最大面值的货币，即2元，再选出1张面值不超过2元6角的最大面值的货币，即2元，再选出1张面值不超过6角的最大面值的货币，即5角，再选出1张面值不超过1角的最大面值的货币，即1角，总共付出4张货币。</p>
+
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/14/最大公约数和最小公倍数/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          最大公约数和最小公倍数
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/14/数据交换/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">数据交换</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

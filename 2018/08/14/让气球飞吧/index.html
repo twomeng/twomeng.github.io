@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>让气球飞吧 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="题目源地址 Description国际大学生程序设计竞赛已经发展成为最具影响力的大学生计算机竞赛，ACM-ICPC以团队的形式代表各学校参赛，每队由3名队员组成，一个队每做出来一个题该队就会获得该题对应颜色的气球，气球越多就说明该队做的题目越多。当然如果一个颜色的气球越多就说明该气球对应的题也就越简单。现在给你很多很多的颜色的气球，问你那个颜色的气球最多，哈哈，聪明的acmer这题对你肯定很简单吧">
+<meta property="og:type" content="article">
+<meta property="og:title" content="让气球飞吧">
+<meta property="og:url" content="http://yoursite.com/2018/08/14/让气球飞吧/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题目源地址 Description国际大学生程序设计竞赛已经发展成为最具影响力的大学生计算机竞赛，ACM-ICPC以团队的形式代表各学校参赛，每队由3名队员组成，一个队每做出来一个题该队就会获得该题对应颜色的气球，气球越多就说明该队做的题目越多。当然如果一个颜色的气球越多就说明该气球对应的题也就越简单。现在给你很多很多的颜色的气球，问你那个颜色的气球最多，哈哈，聪明的acmer这题对你肯定很简单吧">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-09-20T01:27:30.579Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="让气球飞吧">
+<meta name="twitter:description" content="题目源地址 Description国际大学生程序设计竞赛已经发展成为最具影响力的大学生计算机竞赛，ACM-ICPC以团队的形式代表各学校参赛，每队由3名队员组成，一个队每做出来一个题该队就会获得该题对应颜色的气球，气球越多就说明该队做的题目越多。当然如果一个颜色的气球越多就说明该气球对应的题也就越简单。现在给你很多很多的颜色的气球，问你那个颜色的气球最多，哈哈，聪明的acmer这题对你肯定很简单吧">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <section id="main"><article id="post-让气球飞吧" class="article article-type-post" itemscope itemprop="blogPost">
+  
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      让气球飞吧
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/08/14/让气球飞吧/" class="article-date">
+  <time datetime="2018-08-14T01:17:00.000Z" itemprop="datePublished">2018-08-14</time>
+</a>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://acm.nefu.edu.cn/JudgeOnline/problemShow.php?problem_id=196" target="_blank" rel="noopener">题目源地址</a></p>
+<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><pre><code>国际大学生程序设计竞赛已经发展成为最具影响力的大学生计算机竞赛，ACM-ICPC以团队的形式代表各学校参赛，每队由3名队员组成，一个队每做出来一个题该队就会获得该题对应颜色的气球，气球越多就说明该队做的题目越多。当然如果一个颜色的气球越多就说明该气球对应的题也就越简单。现在给你很多很多的颜色的气球，问你那个颜色的气球最多，哈哈，聪明的acmer这题对你肯定很简单吧， just ac it！
+</code></pre><h3 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h3><pre><code>假设只有6种颜色，green，red，blue，pink，orange，black。输入数据有多组，每组数据开始给出一个整数n代表接下来有n个气球，接下来有n行，每行输入一种颜色，n &lt;= 100,输入以EOF结束。
+</code></pre><h3 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h3><pre><code>输出个数最多的气球的颜色（题目保证个数最多的气球有且仅有一种颜色）
+</code></pre><h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input"></a>Sample Input</h3><pre><code>3
+green
+red
+green
+5
+green
+red
+blue
+red
+red
+</code></pre><h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output"></a>Sample Output</h3><pre><code>green
+red
+
+
+ 1 #include &lt;iostream&gt;
+ 2 #include &lt;algorithm&gt;
+ 3 #include &lt;stdio.h&gt;
+ 4 #include &lt;string.h&gt;
+ 5 using namespace std;
+ 6 
+ 7 int main()
+ 8 {
+ 9   char a[6][10]={&quot;green&quot;,&quot;red&quot;,&quot;blue&quot;,&quot;pink&quot;,&quot;orange&quot;,&quot;black&quot;};
+10   char b[100][10];
+11   int num[6];
+12   int i,n,max,k,j;
+13   while (cin&gt;&gt;n)
+14   {
+15       for (i=0;i&lt;6;i++)
+16       {
+17           num[i]=0;//可以写成memset(num,0,sizeof(num))
+18       }
+19       for (i=0;i&lt;n;i++)
+20       {
+21           scanf (&quot;%s&quot;,b[i]);//可以从设定为一维数组在循环中反复使用
+22 
+23           for (j=0;j&lt;6;j++)
+24           {
+25               if (strcmp(b[i],a[j])==0)
+26                   num[j]++;
+27           }
+28       }
+29       max=-1;
+30       for (i=0;i&lt;6;i++)
+31         if (num[i]&gt;max)
+32         {
+33             max=num[i];
+34             k=i;
+35         }
+36         printf (&quot;%s\n&quot;,a[k]);
+37 
+38 
+39   }
+40     return 0;
+41 }
+</code></pre>
+      
+
+      
+        
+    </div>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/08/14/统计good/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          统计good
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/08/14/The hardest problem ever/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">The hardest problem ever</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        <aside id="sidebar">
+  <nav class="menus">
+  	<ul>
+  		<li><a href="/"><i class="icon icon-home"></i></a></li>
+  		
+			<li><a href="/archives"><i class="icon icon-fenlei"></i></a></li>
+  		
+  		
+			<li><a href="/tags"><i class="icon icon-tag"></i></a></li>
+  		
+  		
+  			<li><a href="https://github.com/hejianxian" target="_blank"><i class="icon icon-github"></i></a></li>
+  		
+  	</ul>
+  </nav>
+  <a id="go-top" href="#"><i class="icon icon-up"></i></a>
+</aside>
+
+      </div>
+      <footer id="footer">
+  
+	<div id="footer-info" class="inner">
+	  &copy; 2018 John Doe 
+	  - Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+	  - Theme <a href="https://github.com/hejianxian/hexo-theme-jane/" target="_blank">Jane</a>
+	</div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tag</a>
+  
+    <a href="https://github.com/hejianxian" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+
+<script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>
